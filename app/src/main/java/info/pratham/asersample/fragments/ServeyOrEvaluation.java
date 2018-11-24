@@ -10,11 +10,8 @@ import android.view.ViewGroup;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 
-/**
- * Created by PEF on 24/11/2018.
- */
+public class ServeyOrEvaluation extends BaseFragment {
 
-public class LoginFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -22,8 +19,8 @@ public class LoginFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.login_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_serveyorevaluation, container, false);
     }
 
     @Override

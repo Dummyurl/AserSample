@@ -1,9 +1,7 @@
 package info.pratham.asersample;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,7 +23,6 @@ public class BaseActivity extends AppCompatActivity {
 
     private PermissionResult permissionResult;
     private final int KEY_PERMISSION = 200;
-    private String permissionsAsk[];
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,8 +30,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public boolean isPermissionGranted(Context context, String permission) {
-        boolean granted = ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED));
-        return granted;
+        return (((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED)));
     }
 
     /**
@@ -126,9 +122,8 @@ public class BaseActivity extends AppCompatActivity {
      * @param permissionResult callback PermissionResult
      */
     public void askCompactPermissions(String permissions[], PermissionResult permissionResult) {
-        permissionsAsk = permissions;
         this.permissionResult = permissionResult;
-        internalRequestPermission(permissionsAsk);
+        internalRequestPermission(permissions);
     }
 
 }
