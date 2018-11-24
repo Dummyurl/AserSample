@@ -1,7 +1,9 @@
 package info.pratham.asersample;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -117,18 +119,6 @@ public class BaseActivity extends AppCompatActivity {
 
             }
         }
-
-    }
-
-    /**
-     * @param permission       String permission ask
-     * @param permissionResult callback PermissionResult
-     */
-    public void askCompactPermission(String permission, PermissionResult permissionResult) {
-        permissionsAsk = new String[]{permission};
-        this.permissionResult = permissionResult;
-        internalRequestPermission(permissionsAsk);
-
     }
 
     /**
@@ -140,4 +130,5 @@ public class BaseActivity extends AppCompatActivity {
         this.permissionResult = permissionResult;
         internalRequestPermission(permissionsAsk);
     }
+
 }
