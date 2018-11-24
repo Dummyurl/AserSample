@@ -1,10 +1,13 @@
 package info.pratham.asersample.activities;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
 
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
+import info.pratham.asersample.fragments.LoginFragment;
 import info.pratham.asersample.utility.PermissionResult;
 import info.pratham.asersample.utility.PermissionUtils;
 
@@ -31,6 +34,10 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
 
     private void proceedFurther() {
         // Application is ready to go with permission acceptance
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.framelayout,new LoginFragment());
+        fragmentTransaction.commit();
     }
 
     @Override
