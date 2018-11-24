@@ -26,6 +26,7 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
                 askCompactPermissions(permissionArray, this);
             } else proceedFurther();
         } else proceedFurther();
+        
     }
 
     private void proceedFurther() {
@@ -34,7 +35,7 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
 
     @Override
     public void permissionGranted() {
-
+        proceedFurther();
     }
 
     @Override
