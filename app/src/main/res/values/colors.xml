@@ -11,7 +11,10 @@
     <color name="white">#ffffff</color>
     <color name="shadow">#d0d8dc</color>
     <color name="loginSubmitColor">#0478B8</color>
+    <color name="loginSubmitColorLight">#0495e6</color>
 
+    <color name="cardview_light_background">#ffffffff</color>
+    <color name="background">#dedede</color>
 
     <color name="red_dark">#F06423</color>
     <color name="red_dark2">#D85A1B</color>
