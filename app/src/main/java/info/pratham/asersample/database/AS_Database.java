@@ -17,7 +17,7 @@ public abstract class AS_Database extends RoomDatabase {
 
     public static AS_Database getDatabaseInstance(Context context) {
         if (DATABASEINSTANCE == null)
-            DATABASEINSTANCE = Room.databaseBuilder(context.getApplicationContext(), AS_Database.class, "prathamDb").fallbackToDestructiveMigration().allowMainThreadQueries().build();
+            DATABASEINSTANCE = Room.databaseBuilder(context.getApplicationContext(), AS_Database.class, "AS_database").fallbackToDestructiveMigration().allowMainThreadQueries().build();
         return DATABASEINSTANCE;
     }
 

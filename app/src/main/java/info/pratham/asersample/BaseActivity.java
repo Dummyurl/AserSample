@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import info.pratham.asersample.database.AS_Database;
 import info.pratham.asersample.utility.PermissionResult;
 
 /**
@@ -23,10 +24,12 @@ public class BaseActivity extends AppCompatActivity {
 
     private PermissionResult permissionResult;
     private final int KEY_PERMISSION = 200;
+    AS_Database databaseInstance;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        databaseInstance=AS_Database.getDatabaseInstance(this);
     }
 
     public boolean isPermissionGranted(Context context, String permission) {

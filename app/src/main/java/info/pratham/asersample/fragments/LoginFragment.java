@@ -23,6 +23,7 @@ public class LoginFragment extends BaseFragment {
 
     @BindView(R.id.loginSubmitButton)
     Button loginSubmitButton;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -37,11 +38,11 @@ public class LoginFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
     }
 
     @OnClick(R.id.loginSubmitButton)
-    public void onSubmit(){
-        AserSampleUtility.showFragment(getActivity(),new SelectLanguageFragment());
+    public void onSubmit() {
+        AserSampleUtility.showFragment(getActivity(), new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
     }
 }
