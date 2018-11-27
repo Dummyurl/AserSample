@@ -11,6 +11,7 @@ import android.widget.Spinner;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.DownloadProgressListener;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 
 import java.util.List;
@@ -65,6 +66,12 @@ public class PullCRl extends BaseFragment {
     private void pullCRL(String URL) {
         AndroidNetworking.get("http://www.swap.prathamcms.org/api/UserList?programId=1&statecode=MH")
                 .build()
+                .setDownloadProgressListener(new DownloadProgressListener() {
+                    @Override
+                    public void onProgress(long bytesDownloaded, long totalBytes) {
+                        // do anything with progress
+                    }
+                })
                 .getAsObjectList(CRL.class, new ParsedRequestListener<List<CRL>>() {
                     @Override
                     public void onResponse(List<CRL> crlsList) {
