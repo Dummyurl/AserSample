@@ -3,6 +3,9 @@ package info.pratham.asersample;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
+
+import com.androidnetworking.AndroidNetworking;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,6 +26,7 @@ public class ASERApplication extends Application {
     public void onCreate() {
         super.onCreate();
         aserApplication = this;
+        AndroidNetworking.initialize(getApplicationContext());
     }
 
 

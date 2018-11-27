@@ -1,7 +1,5 @@
 package info.pratham.asersample.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -36,7 +34,7 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
     private void proceedFurther() {
         // Application is ready to go with permission acceptance
 
-        AserSampleUtility.showFragment(LoginActivity.this,new LoginFragment());
+        AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginActivity.class.getSimpleName());
        /* FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,new LoginFragment());

@@ -41,7 +41,8 @@ public class LoginFragment extends BaseFragment {
     }
 
     @OnClick(R.id.loginSubmitButton)
-    public void onSubmin(){
-        AserSampleUtility.showFragment(getActivity(),new SelectLanguageFragment());
+    public void onSubmit(){
+      //  AserSampleUtility.showFragment(getActivity(),new SelectLanguageFragment(),SelectLanguageFragment.class.getSimpleName());
+        AserSampleUtility.showFragment(getActivity(),new PullCRl(),PullCRl.class.getSimpleName());
     }
 }

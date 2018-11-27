@@ -37,11 +37,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
-        android:layout_marginTop="30dp"
-        android:layout_weight="6"
+        android:layout_marginTop="20dp"
+        android:layout_weight="10"
         app:cardCornerRadius="7dp"
         app:cardElevation="22dp">
 
@@ -57,10 +57,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight=".5"
                 android:gravity="center"
                 android:text="Welcome!"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:typeface="monospace" />
 
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Volunteer Id"
-                    android:inputType="textWebPassword"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
@@ -103,11 +103,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="0.7"
+                android:background="@drawable/roundedcorner"
                 android:paddingLeft="70dp"
                 android:paddingRight="70dp"
-                android:layout_weight="1"
-                android:background="@drawable/roundedcorner"
                 android:text="SUBMIT"
                 android:textColor="@color/colorWhite"
                 android:textSize="20dp" />
