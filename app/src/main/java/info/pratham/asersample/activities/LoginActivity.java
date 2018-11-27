@@ -1,5 +1,6 @@
 package info.pratham.asersample.activities;
 
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -7,6 +8,7 @@ import android.view.WindowManager;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.StudentDetails;
+import info.pratham.asersample.networkManager.NetworkManager;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.PermissionResult;
 import info.pratham.asersample.utility.PermissionUtils;
@@ -42,6 +44,7 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
 //        AserSampleUtility.showFragment(LoginActivity.this,new ServeyOrEvaluation());
 //        AserSampleUtility.showFragment(LoginActivity.this,new LoginFragment());
         AserSampleUtility.showFragment(LoginActivity.this, new StudentDetails(), StudentDetails.class.getSimpleName());
+        NetworkManager.getInstance(LoginActivity.this).getQuestionData();
        /* FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,new LoginFragment());

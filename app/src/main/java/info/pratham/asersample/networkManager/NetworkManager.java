@@ -42,7 +42,7 @@ public class NetworkManager {
         return instance;
     }
 
-    public void getQuestionData(final String language, final ProgressDialog dialog) {
+    public void getQuestionData(/*final String language, final ProgressDialog dialog*/) {
         db.collection("Question")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -52,7 +52,7 @@ public class NetworkManager {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 map.put(document.getId().toString(), document.getData());
                             }
-                            if (map.isEmpty()) {
+                            /*if (map.isEmpty()) {
                                 Log.d("Alert", map.keySet().toString());
                                 Log.d("Alert", map.toString());
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
@@ -113,7 +113,7 @@ public class NetworkManager {
                                     ((Activity) mContext).finish();
                                 }
 
-                            }
+                            }*/
 
 
                         } else {
