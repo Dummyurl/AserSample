@@ -31,10 +31,9 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //firebase services
     implementation 'com.google.firebase:firebase-core:16.0.1'
-
     //fast networking
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
-//room
+    //room
     implementation "android.arch.persistence.room:runtime:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
