@@ -25,7 +25,52 @@
         android:elevation="5dp"
         android:layout_height="0dp"
         android:background="@drawable/level_choose_bg"
-        android:layout_weight="8">
+        android:layout_weight="8"
+        android:weightSum="6"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/childName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_transparent"
+                android:inputType="text"
+                android:singleLine="true"
+                android:hint="Enter name of the child here" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/fatherName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_transparent"
+                android:inputType="text"
+                android:singleLine="true"
+                android:hint="Enter name of the child's father here" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/villageName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_transparent"
+                android:inputType="text"
+                android:singleLine="true"
+                android:hint="Enter name of the child's village here" />
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
