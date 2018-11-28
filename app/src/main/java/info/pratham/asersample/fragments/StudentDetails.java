@@ -51,7 +51,7 @@ public class StudentDetails extends BaseFragment {
         mDatabase = FirebaseDatabase.getInstance().getReference("students");
     }
 
-    @OnClick(R.id.btn_next)
+    @OnClick(R.id.nextButton)
     public void next() {
         String childFirstName = childName.getText().toString().trim();
         String childFatherName = fatherName.getText().toString().trim();
