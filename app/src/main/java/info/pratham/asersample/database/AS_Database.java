@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import info.pratham.asersample.database.dao.CRLdao;
+import info.pratham.asersample.database.dao.CRLDao;
 import info.pratham.asersample.database.modalClasses.CRL;
 
 
@@ -13,7 +13,7 @@ import info.pratham.asersample.database.modalClasses.CRL;
 public abstract class AS_Database extends RoomDatabase {
     private static AS_Database DATABASEINSTANCE;
 
-    public abstract CRLdao getCRLdao();
+    public abstract CRLDao getCRLdao();
 
     public static AS_Database getDatabaseInstance(Context context) {
         if (DATABASEINSTANCE == null)
