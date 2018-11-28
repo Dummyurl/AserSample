@@ -1,7 +1,9 @@
 package info.pratham.asersample.networkManager;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,78 +47,42 @@ public class NetworkManager {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                map.put(document.getId().toString(), document.getData());
+                                map.put(document.getId(), document.getData());
                             }
 
-                            /*if (map.isEmpty()) {
-                                Log.d("Alert", map.keySet().toString());
-                                Log.d("Alert", map.toString());
-                                AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
-                                builder1.setTitle("No Internet Connection!!!");
-                                builder1.setMessage("Please connect to Internet and try again");
-                                builder1.setCancelable(true);
-
-                                builder1.setPositiveButton(
-                                        "Ok",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        });
-
-                                AlertDialog alert11 = builder1.create();
-                                alert11.show();
+                            if (map.isEmpty()) {
+                                // Data unavailable on server
+                                showProblemAlert();
                             } else {
-                                if (AppPreference.getInstance(mContext).getProficiencyLanguage() != null) {
-                                    if (AppPreference.getInstance(mContext).getProficiencyEnglish() != null) {
-                                        if (AppPreference.getInstance(mContext).getProficiencyMaths() != null) {
-                                            updateProficiencydata();
-                                            AppPreference.getInstance(mContext).setProficiencyLanguage(null);
-                                            AppPreference.getInstance(mContext).setProficiencyMaths(null);
-                                            AppPreference.getInstance(mContext).setProficiencyEnglish(null);
-                                            AppPreference.getInstance(mContext).setSelectedLanguage(null);
-
-                                            mContext.startActivity(new Intent(mContext, LanguageSelectionActivity.class));
-                                            dialog.dismiss();
-                                            ((Activity) mContext).finish();
-                                        } else {
-                                            Intent intent = new Intent(mContext, MathSubDivSelectionActivity.class);
-                                            intent.putExtra("Test", "Subtraction");
-                                            intent.putExtra("map", map);
-                                            intent.putExtra("Language", language);
-                                            mContext.startActivity(intent);
-                                            dialog.dismiss();
-                                            ((Activity) mContext).finish();
-                                        }
-
-                                    } else {
-                                        Intent intent = new Intent(mContext, StoryParagraphActivity.class);
-                                        intent.putExtra("map", map);
-                                        intent.putExtra("Language", language);
-                                        intent.putExtra("TestLanguage", "English");
-                                        mContext.startActivity(intent);
-                                        dialog.dismiss();
-                                        ((Activity) mContext).finish();
-                                    }
-
-                                } else {
-                                    Intent intent = new Intent(mContext, StoryParagraphActivity.class);
-                                    intent.putExtra("map", map);
-                                    intent.putExtra("Language", language);
-                                    intent.putExtra("TestLanguage", language);
-                                    mContext.startActivity(intent);
-                                    dialog.dismiss();
-                                    ((Activity) mContext).finish();
-                                }
-
-                            }*/
-
-
+                                // update question data in DB
+                                updateOrReplaceQuestionData(map);
+                            }
                         } else {
                             Log.w("Alert", "Error getting documents.", task.getException());
+                            showProblemAlert();
                         }
                     }
                 });
+    }
+
+    private void showProblemAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Problem with the server!!");
+        builder.setMessage("Please contact the administrator");
+        builder.setCancelable(true);
+        builder.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder.create();
+        alert11.show();
+    }
+
+    private void updateOrReplaceQuestionData(HashMap map) {
+        Log.d("Size", "updateOrReplaceQuestionData: "+map.size());
     }
 
     /*public void updateProficiencydata() {

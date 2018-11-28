@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <ImageButton
+        android:id="@+id/backButton"
         android:layout_gravity="left"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -75,6 +76,7 @@
     </LinearLayout>
 
     <ImageButton
+        android:id="@+id/nextButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="right"
