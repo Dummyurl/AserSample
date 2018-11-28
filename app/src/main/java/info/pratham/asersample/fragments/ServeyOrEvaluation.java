@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
+import info.pratham.asersample.utility.AserSampleUtility;
 
 
 public class ServeyOrEvaluation extends BaseFragment {
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -27,5 +29,11 @@ public class ServeyOrEvaluation extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+    }
+
+    @OnClick(R.id.startEvaluationButton)
+    public void startEvalution() {
+        AserSampleUtility.showFragment(getActivity(), new StudentDetails(), StudentDetails.class.getSimpleName());
     }
 }

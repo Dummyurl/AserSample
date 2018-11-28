@@ -32,7 +32,8 @@ dependencies {
     //firebase services
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-firestore:17.1.0'
-
+    //real time DB
+    implementation 'com.google.firebase:firebase-database:16.0.1'
     //fast networking
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     //room

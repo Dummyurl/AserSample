@@ -80,7 +80,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true"
-                    tools:text="admin" />
+                    android:text="amolmoghe" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -98,7 +98,7 @@
                     android:inputType="textWebPassword"
                     android:maxLines="1"
                     android:singleLine="true"
-                    tools:text="admin" />
+                    android:text="pratham@123" />
             </android.support.design.widget.TextInputLayout>
 
             <Button

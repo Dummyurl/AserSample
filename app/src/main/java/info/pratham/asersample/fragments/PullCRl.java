@@ -1,5 +1,6 @@
 package info.pratham.asersample.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -11,7 +12,6 @@ import android.widget.Spinner;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.DownloadProgressListener;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 
 import java.util.List;
@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.CRL;
+import info.pratham.asersample.utility.AserSampleUtility;
 
 /**
  * Created by PEF on 27/11/2018.
@@ -32,6 +33,8 @@ public class PullCRl extends BaseFragment {
     Spinner stateSpinner;
     private static final String TAG = "pullCRL";
     String[] statesCodes;
+
+    ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -45,6 +48,7 @@ public class PullCRl extends BaseFragment {
         ButterKnife.bind(this, view);
         statesCodes = getResources().getStringArray(R.array.india_states_shortcode);
         loadSpinner();
+        progressDialog = new ProgressDialog(getActivity());
     }
 
     private void loadSpinner() {
@@ -64,6 +68,7 @@ public class PullCRl extends BaseFragment {
     }
 
     private void pullCRL(String URL) {
+        AserSampleUtility.showProgressDialog(progressDialog);
         AndroidNetworking.get("http://www.swap.prathamcms.org/api/UserList?programId=1&statecode=MH")
                 .build()
                 .getAsObjectList(CRL.class, new ParsedRequestListener<List<CRL>>() {
@@ -71,13 +76,15 @@ public class PullCRl extends BaseFragment {
                     public void onResponse(List<CRL> crlsList) {
                         // do anything with response
                         Log.d(TAG, "userList size : " + crlsList.size());
-                      //  databaseInstance.getCRLdao().
-                        //databaseInstance
+                        databaseInstance.getCRLdao().insertCrl(crlsList);
+                        AserSampleUtility.dismissProgressDialog(progressDialog);
                     }
 
                     @Override
                     public void onError(ANError anError) {
                         // handle error
+                        AserSampleUtility.dismissProgressDialog(progressDialog);
+                        AserSampleUtility.showToast(getActivity(), "NO Intenet connection");
                     }
                 });
     }

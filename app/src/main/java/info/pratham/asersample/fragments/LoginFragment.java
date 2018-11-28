@@ -1,6 +1,8 @@
 package info.pratham.asersample.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
+import info.pratham.asersample.database.modalClasses.CRL;
 import info.pratham.asersample.utility.AserSampleUtility;
 
 /**
@@ -47,10 +50,32 @@ public class LoginFragment extends BaseFragment {
 
     @OnClick(R.id.loginSubmitButton)
     public void onSubmit() {
-        if (userName.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+        String user = userName.getText().toString().trim();
+        String pass = password.getText().toString().trim();
+        if (user.equals("admin") && pass.equals("admin")) {
             AserSampleUtility.showFragment(getActivity(), new PullCRl(), PullCRl.class.getSimpleName());
         } else {
-            AserSampleUtility.showFragment(getActivity(), new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
+            // assign push logic
+            CRL loggedCrl = databaseInstance.getCRLdao().checkUserValidation(user, pass);
+            if (loggedCrl != null) {
+                AserSampleUtility.showFragment(getActivity(), new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
+            } else {
+                //userNAme and password may be wrong
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                alertDialog.setTitle("Invalid Credentials");
+                alertDialog.setIcon(R.drawable.ic_error_outline_black_24dp);
+                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(android.content.DialogInterface dialog, int which) {
+                        userName.setText("");
+                        password.setText("");
+                        userName.requestFocus();
+                    }
+                });
+                alertDialog.show();
+            }
         }
+
+
     }
 }

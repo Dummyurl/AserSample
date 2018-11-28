@@ -7,6 +7,7 @@ import android.view.WindowManager;
 
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
+import info.pratham.asersample.fragments.LoginFragment;
 import info.pratham.asersample.fragments.StudentDetails;
 import info.pratham.asersample.networkManager.NetworkManager;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -43,7 +44,7 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
         //Fragment display
 //        AserSampleUtility.showFragment(LoginActivity.this,new ServeyOrEvaluation());
 //        AserSampleUtility.showFragment(LoginActivity.this,new LoginFragment());
-        AserSampleUtility.showFragment(LoginActivity.this, new StudentDetails(), StudentDetails.class.getSimpleName());
+        AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
         NetworkManager.getInstance(LoginActivity.this).getQuestionData();
        /* FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
