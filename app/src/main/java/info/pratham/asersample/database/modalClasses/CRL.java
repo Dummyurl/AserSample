@@ -10,33 +10,19 @@ import com.google.gson.annotations.SerializedName;
 public class CRL {
     @NonNull
     @PrimaryKey
-    @SerializedName("CRLId")
     String CRLId;
-    @SerializedName("RoleId")
     String RoleId;
-    @SerializedName("RoleName")
     String RoleName;
-    @SerializedName("ProgramId")
     String ProgramId;
-    @SerializedName("ProgramName")
     String ProgramName;
-    @SerializedName("State")
     String State;
-    @SerializedName("FirstName")
     String FirstName;
-    @SerializedName("LastName")
     String LastName;
-    @SerializedName("Mobile")
     String Mobile;
-    @SerializedName("Email")
     String Email;
-    @SerializedName("Block")
     String Block;
-    @SerializedName("District")
     String District;
-    @SerializedName("UserName")
     String UserName;
-    @SerializedName("Password")
     String Password;
 
     @NonNull
