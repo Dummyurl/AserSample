@@ -42,7 +42,7 @@ public class NetworkManager {
         return instance;
     }
 
-    public void getQuestionData(final String language, final ProgressDialog dialog) {
+    public void getQuestionData(/*final String language, final ProgressDialog dialog*/) {
         db.collection("Question")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -52,7 +52,7 @@ public class NetworkManager {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 map.put(document.getId().toString(), document.getData());
                             }
-                            if (map.isEmpty()) {
+                            /*if (map.isEmpty()) {
                                 Log.d("Alert", map.keySet().toString());
                                 Log.d("Alert", map.toString());
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
@@ -71,7 +71,7 @@ public class NetworkManager {
                                 AlertDialog alert11 = builder1.create();
                                 alert11.show();
                             } else {
-                        /*        if (AppPreference.getInstance(mContext).getProficiencyLanguage() != null) {
+                                if (AppPreference.getInstance(mContext).getProficiencyLanguage() != null) {
                                     if (AppPreference.getInstance(mContext).getProficiencyEnglish() != null) {
                                         if (AppPreference.getInstance(mContext).getProficiencyMaths() != null) {
                                             updateProficiencydata();
@@ -111,8 +111,11 @@ public class NetworkManager {
                                     mContext.startActivity(intent);
                                     dialog.dismiss();
                                     ((Activity) mContext).finish();
-                                }*/
-                            }
+                                }
+
+                            }*/
+
+
                         } else {
                             Log.w("Alert", "Error getting documents.", task.getException());
                         }
