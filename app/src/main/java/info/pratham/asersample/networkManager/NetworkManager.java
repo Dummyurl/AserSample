@@ -1,12 +1,7 @@
 package info.pratham.asersample.networkManager;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,6 +47,7 @@ public class NetworkManager {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 map.put(document.getId().toString(), document.getData());
                             }
+
                             /*if (map.isEmpty()) {
                                 Log.d("Alert", map.keySet().toString());
                                 Log.d("Alert", map.toString());
