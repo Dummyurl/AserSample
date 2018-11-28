@@ -71,7 +71,7 @@ public class NetworkManager {
                                 AlertDialog alert11 = builder1.create();
                                 alert11.show();
                             } else {
-                                if (AppPreference.getInstance(mContext).getProficiencyLanguage() != null) {
+                        /*        if (AppPreference.getInstance(mContext).getProficiencyLanguage() != null) {
                                     if (AppPreference.getInstance(mContext).getProficiencyEnglish() != null) {
                                         if (AppPreference.getInstance(mContext).getProficiencyMaths() != null) {
                                             updateProficiencydata();
@@ -111,11 +111,8 @@ public class NetworkManager {
                                     mContext.startActivity(intent);
                                     dialog.dismiss();
                                     ((Activity) mContext).finish();
-                                }
-
+                                }*/
                             }
-
-
                         } else {
                             Log.w("Alert", "Error getting documents.", task.getException());
                         }

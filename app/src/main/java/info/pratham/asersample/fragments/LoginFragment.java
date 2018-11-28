@@ -21,6 +21,10 @@ import info.pratham.asersample.utility.AserSampleUtility;
 
 public class LoginFragment extends BaseFragment {
 
+    @BindView(R.id.username)
+    android.support.design.widget.TextInputEditText userName;
+    @BindView(R.id.password)
+    android.support.design.widget.TextInputEditText password;
     @BindView(R.id.loginSubmitButton)
     Button loginSubmitButton;
 
@@ -43,6 +47,10 @@ public class LoginFragment extends BaseFragment {
 
     @OnClick(R.id.loginSubmitButton)
     public void onSubmit() {
-        AserSampleUtility.showFragment(getActivity(), new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
+        if (userName.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+            AserSampleUtility.showFragment(getActivity(), new PullCRl(), PullCRl.class.getSimpleName());
+        } else {
+            AserSampleUtility.showFragment(getActivity(), new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
+        }
     }
 }

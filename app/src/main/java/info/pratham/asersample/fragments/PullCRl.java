@@ -66,22 +66,13 @@ public class PullCRl extends BaseFragment {
     private void pullCRL(String URL) {
         AndroidNetworking.get("http://www.swap.prathamcms.org/api/UserList?programId=1&statecode=MH")
                 .build()
-                .setDownloadProgressListener(new DownloadProgressListener() {
-                    @Override
-                    public void onProgress(long bytesDownloaded, long totalBytes) {
-                        // do anything with progress
-                    }
-                })
                 .getAsObjectList(CRL.class, new ParsedRequestListener<List<CRL>>() {
                     @Override
                     public void onResponse(List<CRL> crlsList) {
                         // do anything with response
                         Log.d(TAG, "userList size : " + crlsList.size());
-                        for (CRL user : crlsList) {
-                            Log.d(TAG, "id : " + user.getCRLId());
-                            Log.d(TAG, "firstname : " + user.getFirstName());
-                            Log.d(TAG, "lastname : " + user.getLastName());
-                        }
+                      //  databaseInstance.getCRLdao().
+                        //databaseInstance
                     }
 
                     @Override
