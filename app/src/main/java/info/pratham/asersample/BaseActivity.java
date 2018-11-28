@@ -24,7 +24,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private PermissionResult permissionResult;
     private final int KEY_PERMISSION = 200;
-    AS_Database databaseInstance;
+    public AS_Database databaseInstance;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
