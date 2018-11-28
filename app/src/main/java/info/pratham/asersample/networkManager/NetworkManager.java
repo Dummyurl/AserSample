@@ -17,6 +17,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import info.pratham.asersample.BaseActivity;
+import info.pratham.asersample.database.modalClasses.Question;
 
 /**
  * Created by pravin on 27/11/18.
@@ -82,7 +89,24 @@ public class NetworkManager {
     }
 
     private void updateOrReplaceQuestionData(HashMap map) {
-        Log.d("Size", "updateOrReplaceQuestionData: "+map.size());
+        Log.d("Size", "updateOrReplaceQuestionData: " + map.size());
+        List<Question> questionList = new ArrayList<>();
+        Question question;
+
+        Set set = map.entrySet();
+        Iterator iterator = set.iterator();
+
+        while(iterator.hasNext()) {
+            question = new Question();
+            Map.Entry mentry = (Map.Entry)iterator.next();
+            question.setLanguage(mentry.getKey().toString());
+            question.setDataJson((new JSONObject((HashMap)mentry.getValue())).toString());
+            questionList.add(question);
+        }
+        new BaseActivity().getDatabaseInstance().getQuestiondao().insertAllQuestions(questionList);
+//        for (int i = 0; i < map.size(); i++) {
+////            question.setLanguage(map.get(i));
+//        }
     }
 
     /*public void updateProficiencydata() {
