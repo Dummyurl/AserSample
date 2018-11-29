@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import info.pratham.asersample.BaseActivity;
+import info.pratham.asersample.database.AS_Database;
 import info.pratham.asersample.database.modalClasses.Question;
 
 /**
@@ -103,10 +104,7 @@ public class NetworkManager {
             question.setDataJson((new JSONObject((HashMap)mentry.getValue())).toString());
             questionList.add(question);
         }
-        new BaseActivity().getDatabaseInstance().getQuestiondao().insertAllQuestions(questionList);
-//        for (int i = 0; i < map.size(); i++) {
-////            question.setLanguage(map.get(i));
-//        }
+        AS_Database.getDatabaseInstance(mContext).getQuestiondao().insertAllQuestions(questionList);
     }
 
     /*public void updateProficiencydata() {

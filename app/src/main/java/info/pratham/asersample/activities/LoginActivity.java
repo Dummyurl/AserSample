@@ -45,7 +45,6 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
 //        AserSampleUtility.showFragment(LoginActivity.this,new ServeyOrEvaluation());
 //        AserSampleUtility.showFragment(LoginActivity.this,new LoginFragment());
         AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
-        NetworkManager.getInstance(LoginActivity.this).getQuestionData();
        /* FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,new LoginFragment());
