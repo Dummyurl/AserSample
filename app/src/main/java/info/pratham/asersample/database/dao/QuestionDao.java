@@ -1,6 +1,7 @@
 package info.pratham.asersample.database.dao;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -16,4 +17,7 @@ public interface QuestionDao {
 
     @Query("SELECT * FROM Question")
     List<Question> getAllQuestions();
+
+    @Delete
+    void deleteAllQuestions();
 }

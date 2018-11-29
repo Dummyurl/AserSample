@@ -104,6 +104,7 @@ public class NetworkManager {
             question.setDataJson((new JSONObject((HashMap)mentry.getValue())).toString());
             questionList.add(question);
         }
+
         AS_Database.getDatabaseInstance(mContext).getQuestiondao().insertAllQuestions(questionList);
     }
 
