@@ -97,6 +97,7 @@
                 android:id="@+id/classChild"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></Spinner>
+
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -105,7 +106,7 @@
                     android:id="@+id/LTFiveYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="<5 year" />
+                    android:text="less than 5 year" />
 
                 <RadioButton
                     android:id="@+id/fiveToSevenYear"
