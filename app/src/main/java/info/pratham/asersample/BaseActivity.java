@@ -32,6 +32,10 @@ public class BaseActivity extends AppCompatActivity {
         databaseInstance=AS_Database.getDatabaseInstance(this);
     }
 
+    public AS_Database getDatabaseInstance() {
+        return databaseInstance;
+    }
+
     public boolean isPermissionGranted(Context context, String permission) {
         return (((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED)));
     }
