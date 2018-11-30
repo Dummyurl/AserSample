@@ -26,13 +26,6 @@ import info.pratham.asersample.utility.AserSampleUtility;
 
 public class SmallLettersFragment extends BaseFragment {
 
-    @BindView(R.id.username)
-    android.support.design.widget.TextInputEditText userName;
-    @BindView(R.id.password)
-    android.support.design.widget.TextInputEditText password;
-    @BindView(R.id.loginSubmitButton)
-    Button loginSubmitButton;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
