@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.CRL;
+import info.pratham.asersample.networkManager.NetworkManager;
 import info.pratham.asersample.utility.AserSampleUtility;
 
 /**
@@ -61,6 +62,8 @@ public class PullCRl extends BaseFragment {
     @OnClick(R.id.btn_pull)
     public void pullData() {
         if (stateSpinner.getSelectedItemPosition() > 0) {
+            NetworkManager networkManager = new NetworkManager(getActivity());
+            networkManager.getQuestionData();
             pullCRL("http://www.swap.prathamcms.org/api/UserList?programId=1&statecode=" + statesCodes[stateSpinner.getSelectedItemPosition()]);
         } else {
             showToast(" Select A state");

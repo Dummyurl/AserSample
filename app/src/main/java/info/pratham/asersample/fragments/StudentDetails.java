@@ -7,7 +7,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,7 +33,11 @@ public class StudentDetails extends BaseFragment {
     EditText fatherName;
     @BindView(R.id.villageName)
     EditText villageName;
+    @BindView(R.id.radiogroup)
+    RadioGroup radioGroup;
 
+    @BindView(R.id.classChild)
+    Spinner classChild;
     private DatabaseReference mDatabase;
 
     @Override
@@ -49,6 +57,14 @@ public class StudentDetails extends BaseFragment {
         ButterKnife.bind(this, view);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mDatabase = FirebaseDatabase.getInstance().getReference("students");
+        loadSpinner();
+    }
+
+    private void loadSpinner() {
+        String[] classArray = getResources().getStringArray(R.array.class_of_child);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, classArray);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        classChild.setAdapter(arrayAdapter);
     }
 
     @OnClick(R.id.nextButton)
@@ -56,11 +72,17 @@ public class StudentDetails extends BaseFragment {
         String childFirstName = childName.getText().toString().trim();
         String childFatherName = fatherName.getText().toString().trim();
         String childVillageName = villageName.getText().toString().trim();
-        if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty()) {
+        int selectedclass = classChild.getSelectedItemPosition();
+        int agegroup = radioGroup.getCheckedRadioButtonId();
+        if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty() && selectedclass > 0 && agegroup != -1) {
 
-            Student student = new Student(childFirstName, childFatherName, childVillageName);
+            Student student = new Student(childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString());
+            //call native language Activity
 
-            mDatabase.child(student.name).setValue(student)
+            // AserSampleUtility.showFragment();
+
+
+           /* mDatabase.child(student.name).setValue(student)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -74,10 +96,12 @@ public class StudentDetails extends BaseFragment {
                             // Write failed
                             AserSampleUtility.showToast(getActivity(), "FAIL..");
                         }
-                    });
+                    });*/
         } else {
             //  mDatabase.setValue(childFirstName);
             AserSampleUtility.showToast(getActivity(), "All Fields Are mandatory");
         }
     }
+
+
 }
