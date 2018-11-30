@@ -9,40 +9,33 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_gravity="center"
         android:layout_weight="1"
         android:text="English Test"
         android:textColor="@color/black"
+        android:layout_gravity="center"
         android:textSize="30sp"
-        android:textStyle="bold" />
-
+        android:textStyle="bold"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_gravity="center"
         android:layout_weight="1"
-        android:alpha=".4"
         android:text="Basic Reading - Paragraph"
         android:textColor="@color/black"
-        android:textSize="18sp" />
-
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:alpha=".4"/>
     <View
         android:id="@+id/greyLineView"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="5dp"
         android:alpha=".3"
-        android:background="#000000" />
-
+        android:layout_marginRight="40dp"
+        android:layout_height="2dp"
+        android:background="#000000"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="2dp"
-
         android:layout_weight="6">
 
     </LinearLayout>
@@ -51,23 +44,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2.5"
-        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/recordButtonSP"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/mic_blue_round" />
-
-        <Button
-            android:id="@+id/markProficiency"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/right_arrow" />
+            android:layout_gravity="center"
+            android:background="@drawable/mic_blue_round"
+            android:layout_marginTop="5dp"/>
     </RelativeLayout>
 
     <!--<LinearLayout
