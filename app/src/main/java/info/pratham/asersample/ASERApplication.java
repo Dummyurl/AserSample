@@ -27,6 +27,7 @@ public class ASERApplication extends Application {
     public void onCreate() {
         super.onCreate();
         aserApplication = this;
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         AndroidNetworking.initialize(getApplicationContext());
     }
 

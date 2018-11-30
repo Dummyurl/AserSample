@@ -1,8 +1,8 @@
 package info.pratham.asersample.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +13,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
+import info.pratham.asersample.activities.LanguageActivity;
 import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.utility.AserSampleUtility;
 
@@ -55,7 +54,6 @@ public class StudentDetails extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mDatabase = FirebaseDatabase.getInstance().getReference("students");
         loadSpinner();
     }
@@ -74,9 +72,14 @@ public class StudentDetails extends BaseFragment {
         String childVillageName = villageName.getText().toString().trim();
         int selectedclass = classChild.getSelectedItemPosition();
         int agegroup = radioGroup.getCheckedRadioButtonId();
-        if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty() && selectedclass > 0 && agegroup != -1) {
+      //  if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty() && selectedclass > 0 && agegroup != -1) {
 
-            Student student = new Student(childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString());
+          //  Student student = new Student(childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString());
+            Intent intent = new Intent(getActivity(), LanguageActivity.class);
+           // intent.putExtra("student", student);
+            getActivity().startActivity(intent);
+
+
             //call native language Activity
 
             // AserSampleUtility.showFragment();
@@ -97,10 +100,10 @@ public class StudentDetails extends BaseFragment {
                             AserSampleUtility.showToast(getActivity(), "FAIL..");
                         }
                     });*/
-        } else {
+      /*  } else {
             //  mDatabase.setValue(childFirstName);
             AserSampleUtility.showToast(getActivity(), "All Fields Are mandatory");
-        }
+        }*/
     }
 
 

@@ -1,12 +1,12 @@
 package info.pratham.asersample.database.dao;
 
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
+
 import info.pratham.asersample.database.modalClasses.Question;
 
 @Dao
@@ -20,4 +20,7 @@ public interface QuestionDao {
 
     @Query("DELETE FROM Question")
     void deleteAllQuestions();
+
+    @Query("SELECT dataJson FROM Question where language=:lang")
+    String getLanguageQuestions(String lang);
 }

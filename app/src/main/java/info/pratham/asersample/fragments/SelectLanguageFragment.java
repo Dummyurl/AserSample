@@ -11,6 +11,7 @@ import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.utility.AserSampleUtility;
+import info.pratham.asersample.utility.AserSample_Constant;
 
 /**
  * Created by PEF on 24/11/2018.
@@ -31,11 +32,13 @@ public class SelectLanguageFragment extends BaseFragment {
 
     @OnClick(R.id.hindiLL)
     public void onHindiLLClick() {
+        AserSample_Constant.selectedLanguage = getString(R.string.Hindi);
         AserSampleUtility.showFragment(getActivity(), new ServeyOrEvaluation(), ServeyOrEvaluation.class.getSimpleName());
     }
 
-    @OnClick(R.id.englishLL)
-    public void englishLLClick() {
+    @OnClick(R.id.marathiClick)
+    public void marathiClick() {
+        AserSample_Constant.selectedLanguage = getString(R.string.Marathi);
         AserSampleUtility.showFragment(getActivity(), new ServeyOrEvaluation(), ServeyOrEvaluation.class.getSimpleName());
     }
 

@@ -2,11 +2,13 @@ package info.pratham.asersample.database.modalClasses;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created by PEF on 28/11/2018.
  */
 @IgnoreExtraProperties
-public class Student {
+public class Student  implements Serializable{
     public String name;
     public String father;
     public String village;
