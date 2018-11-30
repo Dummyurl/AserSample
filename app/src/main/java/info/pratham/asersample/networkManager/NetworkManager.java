@@ -1,5 +1,6 @@
 package info.pratham.asersample.networkManager;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
@@ -22,9 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.database.AS_Database;
 import info.pratham.asersample.database.modalClasses.Question;
+import info.pratham.asersample.utility.AserSampleUtility;
 
 /**
  * Created by pravin on 27/11/18.
@@ -35,9 +36,12 @@ public class NetworkManager {
     HashMap map = new HashMap<>();
     Context mContext;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ProgressDialog progressDialog;
 
-    private NetworkManager(Context _mContext) {
+    public NetworkManager(Context _mContext) {
         this.mContext = _mContext;
+        progressDialog = new ProgressDialog(mContext);
+
     }
 
     public static synchronized NetworkManager getInstance(Context mContext) {
@@ -48,12 +52,14 @@ public class NetworkManager {
     }
 
     public void getQuestionData(/*final String language, final ProgressDialog dialog*/) {
+        AserSampleUtility.showProgressDialog(progressDialog);
         db.collection("Question")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            AserSampleUtility.dismissProgressDialog(progressDialog);
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 map.put(document.getId(), document.getData());
                             }
@@ -97,14 +103,13 @@ public class NetworkManager {
         Set set = map.entrySet();
         Iterator iterator = set.iterator();
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             question = new Question();
-            Map.Entry mentry = (Map.Entry)iterator.next();
+            Map.Entry mentry = (Map.Entry) iterator.next();
             question.setLanguage(mentry.getKey().toString());
-            question.setDataJson((new JSONObject((HashMap)mentry.getValue())).toString());
+            question.setDataJson((new JSONObject((HashMap) mentry.getValue())).toString());
             questionList.add(question);
         }
-
         AS_Database.getDatabaseInstance(mContext).getQuestiondao().insertAllQuestions(questionList);
     }
 
