@@ -24,13 +24,13 @@ public class AserSampleUtility {
             fragmentTransaction.addToBackStack(TAG);
         fragmentTransaction.commit();
     }
-    /*public static void showFragmentWithPara(Activity activity, Fragment fragment, String TAG, Bundle bundle) {
-        FragmentManager fragmentManager = activity.getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, fragment);
-        fragmentTransaction.addToBackStack(TAG);
-        fragmentTransaction.commit();
-    }*/
+
+    public static void removeFragment(Activity activity, String TAG) {
+        Fragment fragment = activity.getFragmentManager().findFragmentByTag(TAG);
+        if (fragment != null)
+            activity.getFragmentManager().beginTransaction().remove(fragment).commit();
+    }
+
 
     public static void showProgressDialog(ProgressDialog progressDialog) {
         if (progressDialog != null) {
