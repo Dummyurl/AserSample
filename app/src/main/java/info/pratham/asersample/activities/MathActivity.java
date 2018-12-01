@@ -4,20 +4,29 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
+import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.math.CalculationFragment;
+import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
+import info.pratham.asersample.utility.AserSample_Constant;
 
-public class MathActivity extends BaseActivity {
-
+public class MathActivity extends BaseActivity implements WordsListListener {
+    @BindView(R.id.question)
+    TextView question;
     String currentLevel;
-    JSONObject sample;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +61,7 @@ public class MathActivity extends BaseActivity {
                 switch (currentLevel) {
                     case "Subtraction":
                         //todo open Number Recognition
-                        //show
+                        tenToNinetyNine();
                         break;
                     case "Division":
                         //todo proficiency level to Subtraction
@@ -61,6 +70,26 @@ public class MathActivity extends BaseActivity {
             }
         });
         dialog.show();
+    }
+
+    private void tenToNinetyNine() {
+        AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());
+        currentLevel = getString(R.string.tenToNinetyNine);
+        JSONArray msg = AserSample_Constant.getMathNumberRecognition(AserSample_Constant.sample, "currentLevel");
+        if (msg != null) {
+            List wordList = new ArrayList();
+            try {
+                for (int i = 0; i < msg.length(); i++) {
+                    wordList.add(msg.getString(i));
+                }
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList);
+                selectWordsDialog.show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            AserSampleUtility.showToast(this, "Something goes Wrong");
+        }
     }
 
     private void showSubtraction() {
@@ -81,5 +110,8 @@ public class MathActivity extends BaseActivity {
         AserSampleUtility.showFragment(this, calculationFragment, CalculationFragment.class.getSimpleName());
     }
 
-
+    @Override
+    public void getSelectedwords(List list) {
+        question.setText(list.toString());
+    }
 }

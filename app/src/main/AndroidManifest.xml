@@ -32,6 +32,9 @@
         <activity
             android:name=".activities.MathActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.EnglishActivity"
+            android:screenOrientation="landscape" />
 
     </application>
 
