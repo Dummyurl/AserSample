@@ -29,7 +29,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
     @BindView(R.id.question)
     TextView tv_question;
 
-    JSONObject sample;
     String currentLevel;
 
     @Override
@@ -43,7 +42,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
         try {
             JSONObject questionJson = new JSONObject(question);
             int randomNo = ASERApplication.getRandomNumber(0, questionJson.length());
-            sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
+            AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -104,7 +103,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
 
     private void showParagraph() {
         currentLevel = getString(R.string.Paragraph);
-        String msg = AserSample_Constant.getPara(sample, currentLevel);
+        String msg = AserSample_Constant.getPara(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             showQue(msg);
         } else {
@@ -114,7 +113,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
 
     private void showStory() {
         currentLevel = getString(R.string.Story);
-        String msg = AserSample_Constant.getStory(sample, currentLevel);
+        String msg = AserSample_Constant.getStory(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             showQue(msg);
         } else {
@@ -124,7 +123,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
 
     private void showLetters() {
         currentLevel = getString(R.string.Letter);
-        JSONArray msg = AserSample_Constant.getWords(sample, currentLevel);
+        JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             List wordList = new ArrayList();
             try {
@@ -143,7 +142,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
 
     private void showWords() {
         currentLevel = getString(R.string.Word);
-        JSONArray msg = AserSample_Constant.getWords(sample, currentLevel);
+        JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             List wordList = new ArrayList();
             try {
