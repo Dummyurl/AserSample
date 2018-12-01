@@ -33,6 +33,8 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     @BindView(R.id.questionSub2)
     TextView questionSub2;
 
+    String currentLevel;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -48,9 +50,14 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
-        showSubtraction();
+        currentLevel = getArguments().getString("currentLevel");
+        if ("Subtraction".equals(currentLevel)) {
+            showSubtraction();
+        } else if ("Division".equals(currentLevel)) {
+            showMultiplication();
+        }
     }
+
 
     private void showSubtraction() {
         JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Subtraction");
@@ -60,7 +67,25 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), wordList);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList);
+                selectWordsDialog.show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            AserSampleUtility.showToast(getActivity(), "Something goes Wrong");
+        }
+    }
+
+    private void showMultiplication() {
+        JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Subtraction");
+        if (msg != null) {
+            List wordList = new ArrayList();
+            try {
+                for (int i = 0; i < msg.length(); i++) {
+                    wordList.add(msg.getString(i));
+                }
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -72,7 +97,10 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
 
     @Override
     public void getSelectedwords(List list) {
-        questionSub1.setText(list.get(0).toString());
-        questionSub2.setText(list.get(1).toString());
+        if(currentLevel.equals("Subtraction")){
+            questionSub1.setText(list.get(0).toString());
+            questionSub2.setText(list.get(1).toString());
+        }
+
     }
 }

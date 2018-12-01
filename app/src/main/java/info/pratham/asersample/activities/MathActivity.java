@@ -59,10 +59,20 @@ public class MathActivity extends BaseActivity {
 
     private void showSubtraction() {
         currentLevel = getString(R.string.Subtraction);
-        AserSampleUtility.showFragment(this, new CalculationFragment(), CalculationFragment.class.getSimpleName());
+        Bundle bundle = new Bundle();
+        bundle.putString("currentLevel", currentLevel);
+        CalculationFragment calculationFragment = new CalculationFragment();
+        calculationFragment.setArguments(bundle);
+        AserSampleUtility.showFragment(this, calculationFragment, CalculationFragment.class.getSimpleName());
     }
 
     private void showDivision() {
+        currentLevel = getString(R.string.Division);
+        Bundle bundle = new Bundle();
+        bundle.putString("currentLevel", currentLevel);
+        CalculationFragment calculationFragment = new CalculationFragment();
+        calculationFragment.setArguments(bundle);
+        AserSampleUtility.showFragment(this, calculationFragment, CalculationFragment.class.getSimpleName());
     }
 
 

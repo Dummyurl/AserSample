@@ -1,6 +1,7 @@
 package info.pratham.asersample.dialog;
 
 import android.app.Dialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,6 +38,13 @@ public class SelectWordsDialog extends Dialog {
         this.wordList = tempList;
         this.context = context;
         this.wordsListListener = (WordsListListener) context;
+    }
+
+    public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList) {
+        super(context);
+        this.wordList = tempList;
+        this.context = context;
+        this.wordsListListener = (WordsListListener) fragment;
     }
 
     @Override

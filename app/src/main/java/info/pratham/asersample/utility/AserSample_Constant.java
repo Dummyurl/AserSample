@@ -55,12 +55,24 @@ public class AserSample_Constant {
     public static JSONArray getMathOperation(JSONObject sample, String subElement) {
         JSONArray dataArray;
         try {
-            JSONObject mathObject = sample.getJSONObject("Math").getJSONObject("Number Recognition");
+            JSONObject mathObject = sample.getJSONObject("Math");
             dataArray = mathObject.getJSONArray(subElement);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
         return dataArray;
+    }
+
+    public static JSONArray getEnglishDataByLevel(JSONObject sample,String subElement) {
+        JSONArray lettersArray;
+
+        try {
+            lettersArray = sample.getJSONObject("English").getJSONArray(subElement);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return lettersArray;
     }
 }

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import info.pratham.asersample.R;
@@ -22,6 +23,13 @@ public class AserSampleUtility {
         fragmentTransaction.addToBackStack(TAG);
         fragmentTransaction.commit();
     }
+    /*public static void showFragmentWithPara(Activity activity, Fragment fragment, String TAG, Bundle bundle) {
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout, fragment);
+        fragmentTransaction.addToBackStack(TAG);
+        fragmentTransaction.commit();
+    }*/
 
     public static void showProgressDialog(ProgressDialog progressDialog) {
         if (progressDialog != null) {
