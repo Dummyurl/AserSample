@@ -7,7 +7,6 @@ import android.view.WindowManager;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.LoginFragment;
-import info.pratham.asersample.fragments.language.ParagraphFragment;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.PermissionResult;
 import info.pratham.asersample.utility.PermissionUtils;

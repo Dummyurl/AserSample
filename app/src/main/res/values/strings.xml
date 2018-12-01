@@ -7,12 +7,18 @@
     <string name="English">English</string>
     <string name="Marathi">Marathi</string>
 
-
+<!--LANGUAGE-->
     <string name="Word">Word</string>
     <string name="Story">Story</string>
     <string name="Paragraph">Paragraph</string>
     <string name="Letter">Letter</string>
+<!--MATH-->
+    <string name="Subtraction">Subtraction</string>
+    <string name="Division">Division</string>
+    <string name="tenToNinetyNine">10-99</string>
 
+
+`
 
     <string-array name="india_states">
         <item>SELECT STATE</item>

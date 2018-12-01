@@ -29,6 +29,9 @@
         <activity
             android:name=".activities.LanguageActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.MathActivity"
+            android:screenOrientation="landscape" />
 
     </application>
 
