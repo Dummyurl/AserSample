@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,6 +33,14 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     TextView questionSub1;
     @BindView(R.id.questionSub2)
     TextView questionSub2;
+    @BindView(R.id.questionDiv)
+    TextView questionDiv;
+
+    @BindView(R.id.subtractionLayout)
+    LinearLayout subtractionLayout;
+
+    @BindView(R.id.divisionLayout)
+    LinearLayout divisionLayout;
 
     String currentLevel;
 
@@ -78,7 +87,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     private void showMultiplication() {
-        JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Subtraction");
+        JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Division");
         if (msg != null) {
             List wordList = new ArrayList();
             try {
@@ -97,9 +106,23 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
 
     @Override
     public void getSelectedwords(List list) {
-        if(currentLevel.equals("Subtraction")){
+        if (currentLevel.equals("Subtraction")) {
+            if (divisionLayout.isShown()) {
+                divisionLayout.setVisibility(View.GONE);
+            }
+            if (!subtractionLayout.isShown()) {
+                subtractionLayout.setVisibility(View.VISIBLE);
+            }
             questionSub1.setText(list.get(0).toString());
             questionSub2.setText(list.get(1).toString());
+        } else if (currentLevel.equals("Division")) {
+            if (!divisionLayout.isShown()) {
+                divisionLayout.setVisibility(View.VISIBLE);
+            }
+            if (subtractionLayout.isShown()) {
+                subtractionLayout.setVisibility(View.GONE);
+            }
+            questionDiv.setText(list.get(0).toString());
         }
 
     }

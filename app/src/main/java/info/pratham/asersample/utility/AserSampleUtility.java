@@ -5,10 +5,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import info.pratham.asersample.R;
+import info.pratham.asersample.fragments.math.CalculationFragment;
 
 /**
  * Created by PEF on 24/11/2018.
@@ -20,7 +20,8 @@ public class AserSampleUtility {
         FragmentManager fragmentManager = activity.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout, fragment);
-        fragmentTransaction.addToBackStack(TAG);
+        if (!TAG.equals(CalculationFragment.class.getSimpleName()))
+            fragmentTransaction.addToBackStack(TAG);
         fragmentTransaction.commit();
     }
     /*public static void showFragmentWithPara(Activity activity, Fragment fragment, String TAG, Bundle bundle) {
@@ -45,7 +46,7 @@ public class AserSampleUtility {
         }
     }
 
-    public static void showToast(Activity activity,String msg) {
+    public static void showToast(Activity activity, String msg) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
     }
 }

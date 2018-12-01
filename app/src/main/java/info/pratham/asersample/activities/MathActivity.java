@@ -39,7 +39,9 @@ public class MathActivity extends BaseActivity {
                 switch (currentLevel) {
                     case "Subtraction":
                         showDivision();
-                        //todo open Division
+                        break;
+                    case "Division":
+                        //todo proficiency level to division
                         break;
                 }
             }
@@ -50,6 +52,10 @@ public class MathActivity extends BaseActivity {
                 switch (currentLevel) {
                     case "Subtraction":
                         //todo open Number Recognition
+                        show
+                        break;
+                    case "Division":
+                        //todo proficiency level to Subtraction
                         break;
                 }
             }
