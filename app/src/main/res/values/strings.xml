@@ -7,23 +7,26 @@
     <string name="English">English</string>
     <string name="Marathi">Marathi</string>
 
-<!--LANGUAGE-->
+    <string name="Beginner">Beginner</string>
+    <string name="TestWasNotComplete">Test was not complete</string>
+
+    <!--LANGUAGE-->
     <string name="Word">Word</string>
     <string name="Story">Story</string>
     <string name="Paragraph">Paragraph</string>
     <string name="Letter">Letter</string>
-<!--MATH-->
+    <!--MATH-->
     <string name="Subtraction">Subtraction</string>
     <string name="Division">Division</string>
     <string name="tenToNinetyNine">10-99</string>
-<!--ENGLISH-->
+    <!--ENGLISH-->
     <string name="Capitalletter">Capital letter</string>
     <string name="Smallletter">Small letter</string>
     <string name="word">word</string>
     <string name="Sentence">Sentence</string>
 
 
-`
+    `
 
     <string-array name="india_states">
         <item>SELECT STATE</item>

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -21,10 +20,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
-import info.pratham.asersample.activities.EnglishActivity;
 import info.pratham.asersample.activities.LanguageActivity;
-import info.pratham.asersample.database.modalClasses.Student;
-import info.pratham.asersample.utility.AserSampleUtility;
+import info.pratham.asersample.activities.MathActivity;
 
 public class StudentDetails extends BaseFragment {
     @BindView(R.id.childName)
@@ -73,17 +70,16 @@ public class StudentDetails extends BaseFragment {
         String childVillageName = villageName.getText().toString().trim();
         int selectedclass = classChild.getSelectedItemPosition();
         int agegroup = radioGroup.getCheckedRadioButtonId();
-      //  if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty() && selectedclass > 0 && agegroup != -1) {
+        //  if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty() && selectedclass > 0 && agegroup != -1) {
+        //  Student student = new Student(childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString());
+        Intent intent = new Intent(getActivity(), LanguageActivity.class);
+        // intent.putExtra("student", student);
+        getActivity().startActivity(intent);
 
-          //  Student student = new Student(childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString());
-            Intent intent = new Intent(getActivity(), EnglishActivity.class);
-           // intent.putExtra("student", student);
-            getActivity().startActivity(intent);
 
+        //call native language Activity
 
-            //call native language Activity
-
-            // AserSampleUtility.showFragment();
+        // AserSampleUtility.showFragment();
 
 
            /* mDatabase.child(student.name).setValue(student)

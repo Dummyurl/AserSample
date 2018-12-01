@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
@@ -16,6 +18,8 @@ import info.pratham.asersample.R;
  */
 
 public class NumberRecognitionFragment extends BaseFragment {
+    @BindView(R.id.question)
+    TextView question;
 
     @Override
     public void onAttach(Context context) {

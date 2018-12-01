@@ -73,9 +73,9 @@ public class MathActivity extends BaseActivity implements WordsListListener {
     }
 
     private void tenToNinetyNine() {
-        AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());
+    //    AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());
         currentLevel = getString(R.string.tenToNinetyNine);
-        JSONArray msg = AserSample_Constant.getMathNumberRecognition(AserSample_Constant.sample, "currentLevel");
+        JSONArray msg = AserSample_Constant.getMathNumberRecognition(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             List wordList = new ArrayList();
             try {

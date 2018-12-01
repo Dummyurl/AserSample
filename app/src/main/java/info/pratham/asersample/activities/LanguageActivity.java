@@ -1,10 +1,10 @@
 package info.pratham.asersample.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -20,6 +20,7 @@ import butterknife.OnClick;
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
+import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -28,6 +29,10 @@ import info.pratham.asersample.utility.AserSample_Constant;
 public class LanguageActivity extends BaseActivity implements WordsListListener {
     @BindView(R.id.question)
     TextView tv_question;
+    @BindView(R.id.previous)
+    Button previous;
+    @BindView(R.id.next)
+    Button next;
 
     String currentLevel;
 
@@ -52,7 +57,18 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
 
     @OnClick(R.id.markProficiency)
     public void markProficiency() {
-        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        List optionList = new ArrayList();
+        optionList.add(getString(R.string.Letter));
+        optionList.add(getString(R.string.Word));
+        optionList.add(getString(R.string.Paragraph));
+        optionList.add(getString(R.string.Story));
+        optionList.add(getString(R.string.Beginner));
+        optionList.add(getString(R.string.TestWasNotComplete));
+
+        ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
+        proficiencyDialog.show();
+
+        /*AlertDialog dialog = new AlertDialog.Builder(this).create();
         dialog.setMessage("Is This Ok");
         dialog.setCancelable(false);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
@@ -98,10 +114,13 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
                 }
             }
         });
-        dialog.show();
+        dialog.show();*/
     }
 
     private void showParagraph() {
+        if (!next.isShown())
+            next.setVisibility(View.VISIBLE);
+        setNavigation(getString(R.string.Word), getString(R.string.Story));
         currentLevel = getString(R.string.Paragraph);
         String msg = AserSample_Constant.getPara(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -112,6 +131,9 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
     }
 
     private void showStory() {
+        if (next.isShown())
+            next.setVisibility(View.GONE);
+        setNavigation(getString(R.string.Paragraph), "");
         currentLevel = getString(R.string.Story);
         String msg = AserSample_Constant.getStory(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -122,6 +144,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
     }
 
     private void showLetters() {
+        if (previous.isShown()) {
+            previous.setVisibility(View.GONE);
+        }
+        setNavigation("", getString(R.string.Word));
         currentLevel = getString(R.string.Letter);
         JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -141,6 +167,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
     }
 
     private void showWords() {
+        if (!previous.isShown()) {
+            previous.setVisibility(View.VISIBLE);
+        }
+        setNavigation(getString(R.string.Letter), getString(R.string.Paragraph));
         currentLevel = getString(R.string.Word);
         JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -174,5 +204,55 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
         if (!list.isEmpty()) {
             showQue(list.toString());
         }
+    }
+
+    @OnClick(R.id.next)
+    public void next() {
+        switch (currentLevel) {
+            case "Story":
+                //todo setProficiency to Story
+                // openNextActivity("Story");
+                break;
+            case "Paragraph":
+                showStory();
+                break;
+            case "Word":
+                //todo setProficiency to word
+                showParagraph();
+                break;
+            case "Letter":
+                //todo setProficiency to Letter
+                showWords();
+                // openNextActivity("Letter");
+                break;
+        }
+    }
+
+    @OnClick(R.id.previous)
+    public void previous() {
+        switch (currentLevel) {
+            case "Story":
+                //todo setProficiency
+               /* openNextActivity("Paragraph");*/
+                showParagraph();
+                break;
+            case "Paragraph":
+                showWords();
+                break;
+            case "Word":
+                showLetters();
+                break;
+            case "Letter":
+                //todo setProficiency to beginer
+                //openNextActivity("Beginer");
+                break;
+        }
+    }
+
+    private void setNavigation(String prevText, String nextText) {
+        if (previous.isShown())
+            previous.setText("< " + prevText);
+        if (next.isShown())
+            next.setText(nextText + " >");
     }
 }
