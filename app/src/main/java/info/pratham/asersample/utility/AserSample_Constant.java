@@ -12,6 +12,7 @@ import info.pratham.asersample.ASERApplication;
 
 public class AserSample_Constant {
     public static String selectedLanguage;
+    public static JSONObject sample;
 
 
     public static JSONArray getWords(JSONObject sample, String subElement) {
@@ -49,5 +50,17 @@ public class AserSample_Constant {
             return null;
         }
         return para;
+    }
+
+    public static JSONArray getMathOperation(JSONObject sample, String subElement) {
+        JSONArray dataArray;
+        try {
+            JSONObject mathObject = sample.getJSONObject("Math").getJSONObject("Number Recognition");
+            dataArray = mathObject.getJSONArray(subElement);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return dataArray;
     }
 }
