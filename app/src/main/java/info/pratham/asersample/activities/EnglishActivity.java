@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.dialog.SelectWordsDialog;
@@ -34,6 +36,14 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
+        String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
+        try {
+            JSONObject questionJson = new JSONObject(question);
+            int randomNo = ASERApplication.getRandomNumber(0, questionJson.length());
+            AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         getData("Capital");
     }
 
