@@ -1,14 +1,13 @@
 package info.pratham.asersample.activities;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,19 +34,25 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
-        showCapitalLetters();
+        getData("Capital");
     }
 
-    private void showCapitalLetters() {
-        currentLevel = getString(R.string.Capitalletter);
-        JSONArray lettersArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
-        if (lettersArray != null) {
-            List letterList = new ArrayList();
+    private void getData(String type) {
+        if (type.equalsIgnoreCase("Capital"))
+            currentLevel = getString(R.string.Capitalletter);
+        else if (type.equalsIgnoreCase("Small"))
+            currentLevel = getString(R.string.Smallletter);
+        else
+            currentLevel = getString(R.string.word);
+
+        JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
+        if (dataArray != null) {
+            List dataList = new ArrayList();
             try {
-                for (int i = 0; i < lettersArray.length(); i++) {
-                    letterList.add(lettersArray.getString(i));
+                for (int i = 0; i < dataArray.length(); i++) {
+                    dataList.add(dataArray.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, letterList);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -57,11 +62,15 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
         }
     }
 
-    private void showSmallLetters() {
-        currentLevel = getString(R.string.Smallletter);
+    private void getSentences() {
+        currentLevel = getString(R.string.Sentence);
+        JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
+        showQue(dataArray.toString());
     }
 
-    /*@OnClick(R.id.markProficiency)
+
+
+    @OnClick(R.id.markProficiency)
     public void markProficiency() {
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         dialog.setMessage("Is This Ok");
@@ -70,20 +79,18 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (currentLevel) {
-                    case "Story":
-                        //todo setProficiency to Story
-                        openNextActivity("Story");
+                    case "Capital letter":
+                        getData("Small");
                         break;
-                    case "Paragraph":
-                        showStory();
+                    case "Small letter":
+                        getData("Words");
                         break;
-                    case "Word":
-                        //todo setProficiency to word
-                        openNextActivity("Word");
+                    case "word":
+                        getSentences();
                         break;
-                    case "Letter":
-                        //todo setProficiency to Letter
-                        openNextActivity("Letter");
+                    case "Sentence":
+                        //todo setProficiency to Sentences
+                        terminationWorks();
                         break;
                 }
             }
@@ -92,25 +99,28 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (currentLevel) {
-                    case "Story":
-                        //todo setProficiency
-                        openNextActivity("Paragraph");
+                    case "Capital letter":
+                        // todo set proficiency to beginner
                         break;
-                    case "Paragraph":
-                        showWords();
+                    case "Small letter":
+                        // todo set proficiency to Capital letter
                         break;
-                    case "Word":
-                        showLetters();
+                    case "word":
+                        // todo set proficiency to Small letter
                         break;
-                    case "Letter":
-                        //todo setProficiency to beginer
-                        openNextActivity("Beginer");
+                    case "Sentence":
+                        //todo setProficiency to Letter
                         break;
                 }
+                terminationWorks();
             }
         });
         dialog.show();
-    }*/
+    }
+
+    private void terminationWorks() {
+        // ASER test is completed now do the app termination things like sync and all
+    }
 
     private void showQue(String msg) {
         tv_question.setText(msg);
