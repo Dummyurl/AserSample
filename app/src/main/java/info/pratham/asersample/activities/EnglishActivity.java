@@ -34,6 +34,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
     Button next;
     @BindView(R.id.question)
     TextView tv_question;
+    @BindView(R.id.testType)
+    TextView testType;
 
     String currentLevel;
 
@@ -43,6 +45,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
         setContentView(R.layout.activity_language);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
+        testType.setText("English" + " Test");
+
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
             JSONObject questionJson = new JSONObject(question);

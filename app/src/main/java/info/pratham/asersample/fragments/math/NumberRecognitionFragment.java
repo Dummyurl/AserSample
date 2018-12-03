@@ -36,5 +36,7 @@ public class NumberRecognitionFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        String data = getArguments().getString("data");
+        question.setText(data);
     }
 }

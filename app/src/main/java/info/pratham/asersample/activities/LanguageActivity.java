@@ -23,13 +23,16 @@ import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
+import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 
-public class LanguageActivity extends BaseActivity implements WordsListListener {
+public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
     @BindView(R.id.question)
     TextView tv_question;
+    @BindView(R.id.testType)
+    TextView testType;
     @BindView(R.id.previous)
     Button previous;
     @BindView(R.id.next)
@@ -45,7 +48,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //   Student student = new Intent().getParcelableExtra("student");
-
+        testType.setText(AserSample_Constant.selectedLanguage+" Test");
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
             JSONObject questionJson = new JSONObject(question);
@@ -245,5 +248,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
             previous.setText("< " + prevText);
         if (next.isShown())
             next.setText(nextText + " >");
+    }
+
+    @Override
+    public void getProficiency(String profiency) {
+        openNextActivity(profiency);
     }
 }

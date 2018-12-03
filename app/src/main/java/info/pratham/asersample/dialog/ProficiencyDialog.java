@@ -1,11 +1,13 @@
 package info.pratham.asersample.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -13,7 +15,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import info.pratham.asersample.R;
+import info.pratham.asersample.interfaces.ProficiencyListener;
+import info.pratham.asersample.utility.AserSampleUtility;
 
 /**
  * Created by PEF on 01/12/2018.
@@ -24,11 +29,16 @@ public class ProficiencyDialog extends Dialog {
     Context context;
     @BindView(R.id.radiogroup)
     RadioGroup radiogroup;
+    @BindView(R.id.submit)
+    Button submit;
+
+    ProficiencyListener proficiencyListener;
 
     public ProficiencyDialog(@NonNull Context context, List optionList) {
         super(context);
         this.optionList = optionList;
         this.context = context;
+        proficiencyListener = (ProficiencyListener) context;
     }
 
     @Override
@@ -55,5 +65,18 @@ public class ProficiencyDialog extends Dialog {
             radiogroup.addView(radioButton);
             radiogroup.addView(view);
         }
+    }
+
+    @OnClick(R.id.submit)
+    public void submit() {
+
+        int id = radiogroup.getCheckedRadioButtonId();
+        if (id == -1) {
+            AserSampleUtility.showToast((Activity) context, "select proficiency");
+        } else {
+            RadioButton radioButton = radiogroup.findViewById(id);
+            proficiencyListener.getProficiency(radioButton.getText().toString());
+        }
+
     }
 }
