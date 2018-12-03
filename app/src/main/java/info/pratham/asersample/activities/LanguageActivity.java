@@ -209,19 +209,13 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
     @OnClick(R.id.next)
     public void next() {
         switch (currentLevel) {
-            case "Story":
-                //todo setProficiency to Story
-                // openNextActivity("Story");
-                break;
             case "Paragraph":
                 showStory();
                 break;
             case "Word":
-                //todo setProficiency to word
                 showParagraph();
                 break;
             case "Letter":
-                //todo setProficiency to Letter
                 showWords();
                 // openNextActivity("Letter");
                 break;
@@ -232,8 +226,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
     public void previous() {
         switch (currentLevel) {
             case "Story":
-                //todo setProficiency
-               /* openNextActivity("Paragraph");*/
                 showParagraph();
                 break;
             case "Paragraph":
@@ -241,10 +233,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
                 break;
             case "Word":
                 showLetters();
-                break;
-            case "Letter":
-                //todo setProficiency to beginer
-                //openNextActivity("Beginer");
                 break;
         }
     }
