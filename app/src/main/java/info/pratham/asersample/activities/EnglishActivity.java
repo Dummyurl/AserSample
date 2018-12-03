@@ -1,9 +1,9 @@
 package info.pratham.asersample.activities;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
+import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -26,6 +27,10 @@ import info.pratham.asersample.utility.AserSample_Constant;
 
 public class EnglishActivity extends BaseActivity implements WordsListListener {
 
+    @BindView(R.id.previous)
+    Button previous;
+    @BindView(R.id.next)
+    Button next;
     @BindView(R.id.question)
     TextView tv_question;
 
@@ -48,12 +53,21 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
     }
 
     private void getData(String type) {
-        if (type.equalsIgnoreCase("Capital"))
+        if (type.equalsIgnoreCase("Capital")) {
+            previous.setVisibility(View.GONE);
+            setNavigation("", getString(R.string.Smallletter));
             currentLevel = getString(R.string.Capitalletter);
-        else if (type.equalsIgnoreCase("Small"))
+        } else if (type.equalsIgnoreCase("Small")) {
+            if (!previous.isShown())
+                previous.setVisibility(View.VISIBLE);
+            setNavigation(getString(R.string.Capitalletter), getString(R.string.word));
             currentLevel = getString(R.string.Smallletter);
-        else
+        } else {
+            if (!next.isShown())
+                next.setVisibility(View.VISIBLE);
+            setNavigation(getString(R.string.Smallletter), getString(R.string.Sentence));
             currentLevel = getString(R.string.word);
+        }
 
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
         if (dataArray != null) {
@@ -73,59 +87,58 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
     }
 
     private void getSentences() {
+        if (next.isShown())
+            next.setVisibility(View.GONE);
+        setNavigation(getString(R.string.word), "");
         currentLevel = getString(R.string.Sentence);
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
         showQue(dataArray.toString());
     }
 
 
-
     @OnClick(R.id.markProficiency)
     public void markProficiency() {
-        AlertDialog dialog = new AlertDialog.Builder(this).create();
-        dialog.setMessage("Is This Ok");
-        dialog.setCancelable(false);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (currentLevel) {
-                    case "Capital letter":
-                        getData("Small");
-                        break;
-                    case "Small letter":
-                        getData("Words");
-                        break;
-                    case "word":
-                        getSentences();
-                        break;
-                    case "Sentence":
-                        //todo setProficiency to Sentences
-                        terminationWorks();
-                        break;
-                }
-            }
-        });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (currentLevel) {
-                    case "Capital letter":
-                        // todo set proficiency to beginner
-                        break;
-                    case "Small letter":
-                        // todo set proficiency to Capital letter
-                        break;
-                    case "word":
-                        // todo set proficiency to Small letter
-                        break;
-                    case "Sentence":
-                        //todo setProficiency to Letter
-                        break;
-                }
-                terminationWorks();
-            }
-        });
-        dialog.show();
+        List optionList = new ArrayList();
+        optionList.add(getString(R.string.Capitalletter));
+        optionList.add(getString(R.string.Smallletter));
+        optionList.add(getString(R.string.word));
+        optionList.add(getString(R.string.Sentence));
+        optionList.add(getString(R.string.Beginner));
+        optionList.add(getString(R.string.TestWasNotComplete));
+
+        ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
+        proficiencyDialog.show();
+    }
+
+    @OnClick(R.id.next)
+    public void next() {
+        switch (currentLevel) {
+            case "Capital letter":
+                getData("Small");
+                break;
+            case "Small letter":
+                getData("Words");
+                break;
+            case "word":
+                getSentences();
+                break;
+        }
+    }
+
+    @OnClick(R.id.previous)
+    public void previous() {
+        switch (currentLevel) {
+            case "Small letter":
+                getData("Capital");
+                break;
+            case "word":
+                getData("Small");
+                break;
+            case "Sentence":
+                getData("word");
+                break;
+        }
+        terminationWorks();
     }
 
     private void terminationWorks() {
@@ -143,4 +156,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
         }
     }
 
+    private void setNavigation(String prevText, String nextText) {
+        if (previous.isShown())
+            previous.setText("< " + prevText);
+        if (next.isShown())
+            next.setText(nextText + " >");
+    }
 }

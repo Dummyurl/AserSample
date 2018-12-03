@@ -111,15 +111,14 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:padding="2dp"
-            android:text="@string/Word" />
+            android:padding="2dp"/>
 
         <Button
             android:id="@+id/next"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/Story" />
+            android:text="@string/Smallletter" />
 
     </RelativeLayout>
 
