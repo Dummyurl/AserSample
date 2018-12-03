@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -41,6 +42,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         //   Student student = new Intent().getParcelableExtra("student");
 
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);

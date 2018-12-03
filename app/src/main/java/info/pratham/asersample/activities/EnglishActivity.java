@@ -3,6 +3,7 @@ package info.pratham.asersample.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
