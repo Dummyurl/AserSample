@@ -123,7 +123,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
                 getData("Small");
                 break;
             case "Small letter":
-                getData("Words");
+                getData("words");
                 break;
             case "word":
                 getSentences();
