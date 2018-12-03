@@ -62,8 +62,8 @@
         android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
         android:layout_weight="6"
-        android:fillViewport="true"
-        android:background="@drawable/roundedcorner_blue_questions">
+        android:background="@drawable/roundedcorner_blue_questions"
+        android:fillViewport="true">
 
         <FrameLayout
             android:id="@+id/framelayout"
@@ -75,8 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="30dp"
                 android:padding="10dp"
+                android:textSize="30dp"
                 android:textStyle="bold" />
         </FrameLayout>
     </ScrollView>
