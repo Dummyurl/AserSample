@@ -30,6 +30,8 @@ import info.pratham.asersample.utility.AserSample_Constant;
 public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
     @BindView(R.id.question)
     TextView tv_question;
+    @BindView(R.id.testType)
+    TextView testType;
     @BindView(R.id.previous)
     Button previous;
     @BindView(R.id.next)
@@ -43,7 +45,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         //   Student student = new Intent().getParcelableExtra("student");
-
+        testType.setText(AserSample_Constant.selectedLanguage+"Test");
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
             JSONObject questionJson = new JSONObject(question);

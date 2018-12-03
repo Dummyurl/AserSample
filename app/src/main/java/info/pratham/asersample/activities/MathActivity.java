@@ -31,6 +31,8 @@ import info.pratham.asersample.utility.AserSample_Constant;
 public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
     @BindView(R.id.question)
     TextView question;
+    @BindView(R.id.testType)
+    TextView testType;
 
     @BindView(R.id.previous)
     Button previous;
@@ -45,6 +47,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         setContentView(R.layout.activity_language);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
+        testType.setText("Math" + "Test");
         showSubtraction();
     }
 
