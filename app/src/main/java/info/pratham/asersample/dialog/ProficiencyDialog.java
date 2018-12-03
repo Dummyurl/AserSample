@@ -71,10 +71,11 @@ public class ProficiencyDialog extends Dialog {
     public void submit() {
 
         int id = radiogroup.getCheckedRadioButtonId();
-        if (id >= 0) {
+        if (id == -1) {
             AserSampleUtility.showToast((Activity) context, "select proficiency");
         } else {
-            proficiencyListener.getProficiency(((RadioButton) radiogroup.findViewById(id)).getText().toString());
+            RadioButton radioButton = radiogroup.findViewById(id);
+            proficiencyListener.getProficiency(radioButton.getText().toString());
         }
 
     }
