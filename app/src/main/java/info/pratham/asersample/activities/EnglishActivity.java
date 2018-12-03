@@ -82,7 +82,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
                 for (int i = 0; i < dataArray.length(); i++) {
                     dataList.add(dataArray.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList,5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
