@@ -47,7 +47,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         setContentView(R.layout.activity_language);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
-        testType.setText("Math" + "Test");
+        testType.setText("Mathematics" + " Test");
         showSubtraction();
     }
 

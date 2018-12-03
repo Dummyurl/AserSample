@@ -45,7 +45,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         //   Student student = new Intent().getParcelableExtra("student");
-        testType.setText(AserSample_Constant.selectedLanguage+"Test");
+        testType.setText(AserSample_Constant.selectedLanguage+" Test");
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
             JSONObject questionJson = new JSONObject(question);

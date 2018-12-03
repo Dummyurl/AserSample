@@ -43,7 +43,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
-        testType.setText("English" + "Test");
+        testType.setText("English" + " Test");
 
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
