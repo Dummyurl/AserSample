@@ -145,7 +145,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     private void showSubtraction() {
         if (!next.isShown())
             next.setVisibility(View.VISIBLE);
-        setNavigation(getString(R.string.tenToNinetyNine), getString(R.string.Subtraction));
+        setNavigation(getString(R.string.tenToNinetyNine), getString(R.string.Division));
         currentLevel = getString(R.string.Subtraction);
         Bundle bundle = new Bundle();
         bundle.putString("currentLevel", currentLevel);
