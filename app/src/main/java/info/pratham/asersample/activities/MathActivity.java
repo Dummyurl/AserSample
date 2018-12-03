@@ -1,8 +1,10 @@
 package info.pratham.asersample.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,11 +23,12 @@ import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.math.CalculationFragment;
 import info.pratham.asersample.fragments.math.NumberRecognitionFragment;
+import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 
-public class MathActivity extends BaseActivity implements WordsListListener {
+public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
     @BindView(R.id.question)
     TextView question;
 
@@ -40,6 +43,7 @@ public class MathActivity extends BaseActivity implements WordsListListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         showSubtraction();
     }
@@ -206,5 +210,17 @@ public class MathActivity extends BaseActivity implements WordsListListener {
             previous.setText("< " + prevText);
         if (next.isShown())
             next.setText(nextText + " >");
+    }
+
+    @Override
+    public void getProficiency(String profiency) {
+        openNextActivity(profiency);
+    }
+
+
+    private void openNextActivity(String proficiency) {
+        AserSampleUtility.showToast(this, AserSample_Constant.selectedLanguage + "_" + proficiency);
+        Intent intent = new Intent(this, EnglishActivity.class);
+        startActivity(intent);
     }
 }

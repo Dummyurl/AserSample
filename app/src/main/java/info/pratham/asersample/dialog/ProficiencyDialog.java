@@ -1,8 +1,8 @@
 package info.pratham.asersample.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -17,7 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.R;
-import info.pratham.asersample.activities.MathActivity;
+import info.pratham.asersample.interfaces.ProficiencyListener;
+import info.pratham.asersample.utility.AserSampleUtility;
 
 /**
  * Created by PEF on 01/12/2018.
@@ -31,10 +32,13 @@ public class ProficiencyDialog extends Dialog {
     @BindView(R.id.submit)
     Button submit;
 
+    ProficiencyListener proficiencyListener;
+
     public ProficiencyDialog(@NonNull Context context, List optionList) {
         super(context);
         this.optionList = optionList;
         this.context = context;
+        proficiencyListener = (ProficiencyListener) context;
     }
 
     @Override
@@ -65,7 +69,13 @@ public class ProficiencyDialog extends Dialog {
 
     @OnClick(R.id.submit)
     public void submit() {
-        Intent intent = new Intent(context, MathActivity.class);
-        context.startActivity(intent);
+
+        int id = radiogroup.getCheckedRadioButtonId();
+        if (id >= 0) {
+            AserSampleUtility.showToast((Activity) context, "select proficiency");
+        } else {
+            proficiencyListener.getProficiency(((RadioButton) radiogroup.findViewById(id)).getText().toString());
+        }
+
     }
 }
