@@ -76,7 +76,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 2);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -94,7 +94,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 1);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();

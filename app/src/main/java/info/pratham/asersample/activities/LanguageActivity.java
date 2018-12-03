@@ -48,7 +48,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //   Student student = new Intent().getParcelableExtra("student");
-        testType.setText(AserSample_Constant.selectedLanguage+" Test");
+        testType.setText(AserSample_Constant.selectedLanguage + " Test");
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
             JSONObject questionJson = new JSONObject(question);
@@ -162,7 +162,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -185,7 +185,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();

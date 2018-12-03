@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,21 +32,25 @@ public class SelectWordsDialog extends Dialog {
 
     Context context;
     List wordList;
+    int selectCount;
+    int count = 0;
     List<CheckBox> checkBoxes = new ArrayList<>();
     WordsListListener wordsListListener;
 
-    public SelectWordsDialog(@NonNull Context context, List tempList) {
+    public SelectWordsDialog(@NonNull Context context, List tempList, int selectCount) {
         super(context);
         this.wordList = tempList;
         this.context = context;
         this.wordsListListener = (WordsListListener) context;
+        this.selectCount = selectCount;
     }
 
-    public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList) {
+    public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList,int selectCount) {
         super(context);
         this.wordList = tempList;
         this.context = context;
         this.wordsListListener = (WordsListListener) fragment;
+        this.selectCount = selectCount;
     }
 
     @Override
@@ -64,8 +70,23 @@ public class SelectWordsDialog extends Dialog {
             checkBox.setLayoutParams(param);
             flowLayout.addView(checkBox);
             checkBoxes.add(checkBox);
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (count == selectCount && b) {
+                        compoundButton.setChecked(false);
+                        Toast.makeText(context, "Limit reached!!!", Toast.LENGTH_SHORT).show();
+                    } else if (b) {
+                        count++;
+                    } else if (!b) {
+                        count--;
+                    }
+                }
+            });
         }
     }
+
+
 
 
    /* @OnClick(R.id.btn_close_village)

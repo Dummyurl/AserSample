@@ -81,6 +81,7 @@ public class PullCRl extends BaseFragment {
                         Log.d(TAG, "userList size : " + crlsList.size());
                         databaseInstance.getCRLdao().insertCrl(crlsList);
                         AserSampleUtility.dismissProgressDialog(progressDialog);
+                        AserSampleUtility.showFragment(getActivity(), new LoginFragment(), LoginFragment.class.getSimpleName());
                     }
 
                     @Override

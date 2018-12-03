@@ -109,7 +109,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList,5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -132,7 +132,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList,5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
