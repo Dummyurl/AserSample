@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:backgroundTint="@color/loginSubmitColor"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
