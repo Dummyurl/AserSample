@@ -37,8 +37,12 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     Button previous;
     @BindView(R.id.next)
     Button next;
-
+    @BindView(R.id.nextItem)
+    Button nextItem;
     String currentLevel;
+
+    int wordCOunt;
+    List selectedWordsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +50,9 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        if (nextItem.isShown()) {
+            nextItem.setVisibility(View.INVISIBLE);
+        }
         //   Student student = new Intent().getParcelableExtra("student");
         testType.setText(AserSample_Constant.selectedLanguage + " Test");
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
@@ -208,7 +214,23 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @Override
     public void getSelectedwords(List list) {
         if (!list.isEmpty()) {
-            showQue(list.toString());
+            wordCOunt = 0;
+            selectedWordsList = list;
+            if (!nextItem.isShown()) {
+                nextItem.setVisibility(View.VISIBLE);
+            }
+            showNextItem();
+        }
+    }
+
+    @OnClick(R.id.nextItem)
+    public void showNextItem() {
+        showQue(selectedWordsList.get(wordCOunt).toString());
+        wordCOunt++;
+        if ((wordCOunt) == selectedWordsList.size()) {
+            if (nextItem.isShown()) {
+                nextItem.setVisibility(View.GONE);
+            }
         }
     }
 
