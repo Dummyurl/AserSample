@@ -70,14 +70,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/question"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                android:textSize="30dp"
-                android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="10dp"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/nextItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/right_arrow"
+                    android:visibility="invisible" />
+            </RelativeLayout>
         </FrameLayout>
     </ScrollView>
 
@@ -111,8 +127,8 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="@string/Word"
-            android:padding="2dp" />
+            android:padding="2dp"
+            android:text="@string/Word" />
 
         <Button
             android:id="@+id/next"
