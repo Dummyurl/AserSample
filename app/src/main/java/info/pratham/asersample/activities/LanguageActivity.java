@@ -136,6 +136,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showParagraph() {
+        nextItem.setVisibility(View.INVISIBLE);
+        prevItem.setVisibility(View.INVISIBLE);
         if (!next.isShown())
             next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Word), getString(R.string.Story));
@@ -150,6 +152,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showStory() {
+        nextItem.setVisibility(View.INVISIBLE);
+        prevItem.setVisibility(View.INVISIBLE);
         if (next.isShown())
             next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Paragraph), "");
@@ -164,6 +168,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showLetters() {
+        nextItem.setVisibility(View.INVISIBLE);
+        prevItem.setVisibility(View.INVISIBLE);
         if (previous.isShown()) {
             previous.setVisibility(View.GONE);
         }
@@ -187,6 +193,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showWords() {
+        nextItem.setVisibility(View.INVISIBLE);
+        prevItem.setVisibility(View.INVISIBLE);
         if (!previous.isShown()) {
             previous.setVisibility(View.VISIBLE);
         }
@@ -252,12 +260,19 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     public void showPrevItem() {
         wordCOunt--;
         showQue(selectedWordsList.get(wordCOunt).toString());
-        if ((wordCOunt) == 0) {
+        if (wordCOunt == 0) {
             if (prevItem.isShown()) {
                 prevItem.setVisibility(View.INVISIBLE);
                 nextItem.setVisibility(View.VISIBLE);
             }
         }
+
+        if (wordCOunt > -1) {
+            if (prevItem.isShown()) {
+                nextItem.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
     @OnClick(R.id.next)
