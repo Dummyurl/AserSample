@@ -36,6 +36,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
     TextView tv_question;
     @BindView(R.id.testType)
     TextView testType;
+    @BindView(R.id.nextItem)
+    Button nextItem;
+    @BindView(R.id.prevItem)
+    Button prevItem;
 
     String currentLevel;
 
@@ -45,16 +49,22 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
         setContentView(R.layout.activity_language);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
+        if (nextItem.isShown()) {
+            nextItem.setVisibility(View.INVISIBLE);
+        }
+        if (prevItem.isShown()) {
+            prevItem.setVisibility(View.INVISIBLE);
+        }
         testType.setText("English" + " Test");
 
-        String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
+        /*String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
             JSONObject questionJson = new JSONObject(question);
             int randomNo = ASERApplication.getRandomNumber(0, questionJson.length());
             AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
         getData("Capital");
     }
 
