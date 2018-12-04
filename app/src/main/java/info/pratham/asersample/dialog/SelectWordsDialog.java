@@ -1,5 +1,6 @@
 package info.pratham.asersample.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
@@ -20,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.R;
 import info.pratham.asersample.interfaces.WordsListListener;
+import info.pratham.asersample.utility.AserSampleUtility;
 
 public class SelectWordsDialog extends Dialog {
 
@@ -45,7 +47,7 @@ public class SelectWordsDialog extends Dialog {
         this.selectCount = selectCount;
     }
 
-    public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList,int selectCount) {
+    public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList, int selectCount) {
         super(context);
         this.wordList = tempList;
         this.context = context;
@@ -63,6 +65,7 @@ public class SelectWordsDialog extends Dialog {
         for (int i = 0; i < wordList.size(); i++) {
             CheckBox checkBox = new CheckBox(context);
             checkBox.setText(wordList.get(i).toString());
+            checkBox.setTextSize(1, 25);
             GridLayout.LayoutParams param = new GridLayout.LayoutParams();
             param.height = GridLayout.LayoutParams.WRAP_CONTENT;
             param.width = GridLayout.LayoutParams.WRAP_CONTENT;
@@ -109,8 +112,12 @@ public class SelectWordsDialog extends Dialog {
                 wordList.add(checkBoxes.get(i).getText());
             }
         }
-        wordsListListener.getSelectedwords(wordList);
-        dismiss();
+        if (!wordList.isEmpty()) {
+            wordsListListener.getSelectedwords(wordList);
+            dismiss();
+        } else {
+            AserSampleUtility.showToast((Activity) context, "select At least one item");
+        }
     }
 
 }

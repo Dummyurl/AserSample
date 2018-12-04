@@ -39,6 +39,9 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     Button next;
     @BindView(R.id.nextItem)
     Button nextItem;
+    @BindView(R.id.prevItem)
+    Button prevItem;
+
     String currentLevel;
 
     int wordCOunt;
@@ -52,6 +55,9 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (nextItem.isShown()) {
             nextItem.setVisibility(View.INVISIBLE);
+        }
+        if (prevItem.isShown()) {
+            prevItem.setVisibility(View.INVISIBLE);
         }
         //   Student student = new Intent().getParcelableExtra("student");
         testType.setText(AserSample_Constant.selectedLanguage + " Test");
@@ -136,6 +142,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         currentLevel = getString(R.string.Paragraph);
         String msg = AserSample_Constant.getPara(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
+            tv_question.setTextSize(1, 30);
             showQue(msg);
         } else {
             AserSampleUtility.showToast(this, "Something goes Wrong");
@@ -149,6 +156,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         currentLevel = getString(R.string.Story);
         String msg = AserSample_Constant.getStory(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
+            tv_question.setTextSize(1, 25);
             showQue(msg);
         } else {
             AserSampleUtility.showToast(this, "Something goes Wrong");
@@ -214,7 +222,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @Override
     public void getSelectedwords(List list) {
         if (!list.isEmpty()) {
-            wordCOunt = 0;
+            tv_question.setTextSize(1, 60);
+            wordCOunt = -1;
             selectedWordsList = list;
             if (!nextItem.isShown()) {
                 nextItem.setVisibility(View.VISIBLE);
@@ -225,11 +234,28 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @OnClick(R.id.nextItem)
     public void showNextItem() {
-        showQue(selectedWordsList.get(wordCOunt).toString());
         wordCOunt++;
-        if ((wordCOunt) == selectedWordsList.size()) {
+        showQue(selectedWordsList.get(wordCOunt).toString());
+        if (wordCOunt == 1) {
+            if (!prevItem.isShown()) {
+                prevItem.setVisibility(View.VISIBLE);
+            }
+        }
+        if ((wordCOunt + 1) == selectedWordsList.size()) {
             if (nextItem.isShown()) {
-                nextItem.setVisibility(View.GONE);
+                nextItem.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
+    @OnClick(R.id.prevItem)
+    public void showPrevItem() {
+        wordCOunt--;
+        showQue(selectedWordsList.get(wordCOunt).toString());
+        if ((wordCOunt) == 0) {
+            if (prevItem.isShown()) {
+                prevItem.setVisibility(View.INVISIBLE);
+                nextItem.setVisibility(View.VISIBLE);
             }
         }
     }
