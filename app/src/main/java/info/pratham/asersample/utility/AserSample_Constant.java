@@ -12,9 +12,28 @@ import info.pratham.asersample.database.modalClasses.Student;
  */
 
 public class AserSample_Constant {
+    private static AserSample_Constant aserSample_constant = null;
     public static String selectedLanguage;
     public static JSONObject sample;
     Student student;
+
+    private AserSample_Constant() {
+    }
+
+    public static AserSample_Constant getAserSample_Constant() {
+        if (aserSample_constant == null) {
+            aserSample_constant = new AserSample_Constant();
+        }
+        return (aserSample_constant);
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
     public static JSONArray getWords(JSONObject sample, String subElement) {
         JSONArray wordsArray;

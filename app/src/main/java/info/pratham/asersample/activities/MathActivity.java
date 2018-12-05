@@ -40,6 +40,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     Button next;
 
     String currentLevel;
+    List selectedWordsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -173,7 +174,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
        /* if(currentLevel.equals(getString(R.string.tenToNinetyNine)))
         question.setText(list.toString());*/
         Bundle bundle = new Bundle();
-        bundle.putString("data", list.toString());
+        bundle.putSerializable("data", new ArrayList<>(list));
         NumberRecognitionFragment numberRecognitionFragment = new NumberRecognitionFragment();
         numberRecognitionFragment.setArguments(bundle);
         AserSampleUtility.showFragment(this, numberRecognitionFragment, NumberRecognitionFragment.class.getSimpleName());
@@ -228,4 +229,5 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         Intent intent = new Intent(this, EnglishActivity.class);
         startActivity(intent);
     }
+
 }
