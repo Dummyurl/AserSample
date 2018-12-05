@@ -40,6 +40,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     Button next;
 
     String currentLevel;
+    List selectedWordsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList,5);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -134,7 +135,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList,5);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -173,7 +174,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
        /* if(currentLevel.equals(getString(R.string.tenToNinetyNine)))
         question.setText(list.toString());*/
         Bundle bundle = new Bundle();
-        bundle.putString("data", list.toString());
+        bundle.putSerializable("data", new ArrayList<>(list));
         NumberRecognitionFragment numberRecognitionFragment = new NumberRecognitionFragment();
         numberRecognitionFragment.setArguments(bundle);
         AserSampleUtility.showFragment(this, numberRecognitionFragment, NumberRecognitionFragment.class.getSimpleName());
@@ -228,4 +229,5 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         Intent intent = new Intent(this, EnglishActivity.class);
         startActivity(intent);
     }
+
 }

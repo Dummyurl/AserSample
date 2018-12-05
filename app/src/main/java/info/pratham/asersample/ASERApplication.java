@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class ASERApplication extends Application {
 
-    public static ASERApplication aserApplication;
+    private static ASERApplication aserApplication;
     private static final DateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH);
 
 
