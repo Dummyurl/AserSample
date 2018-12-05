@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.UUID;
 
 import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.math.CalculationFragment;
@@ -69,5 +70,9 @@ public class AserSampleUtility {
         } catch (Exception ex) {
             return null;
         }
+    }
+
+    public static String getUUID() {
+        return UUID.randomUUID().toString();
     }
 }
