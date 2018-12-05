@@ -1,12 +1,18 @@
 package info.pratham.asersample.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,12 +51,16 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     int wordCOunt;
     List selectedWordsList;
 
+
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
+        mDatabase = FirebaseDatabase.getInstance().getReference("students");
         if (nextItem.isShown()) {
             nextItem.setVisibility(View.INVISIBLE);
         }
@@ -232,6 +242,21 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void getProficiency(String proficiency) {
-
+        AserSample_Constant.getAserSample_Constant().getStudent().setMathProficiency(proficiency);
+        mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().id).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Write was successful!
+                        AserSampleUtility.showToast(EnglishActivity.this, "Done..");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        AserSampleUtility.showToast(EnglishActivity.this, "FAIL..");
+                    }
+                });
     }
 }

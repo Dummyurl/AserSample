@@ -17,6 +17,7 @@ import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.CRL;
 import info.pratham.asersample.utility.AserSampleUtility;
+import info.pratham.asersample.utility.AserSample_Constant;
 
 /**
  * Created by PEF on 24/11/2018.
@@ -58,6 +59,7 @@ public class LoginFragment extends BaseFragment {
             // assign push logic
             CRL loggedCrl = databaseInstance.getCRLdao().checkUserValidation(user, pass);
             if (loggedCrl != null) {
+                AserSample_Constant.setCrlID(loggedCrl.getCRLId() + "_" + loggedCrl.getUserName());
                 AserSampleUtility.showFragment(getActivity(), new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
             } else {
                 //userNAme and password may be wrong

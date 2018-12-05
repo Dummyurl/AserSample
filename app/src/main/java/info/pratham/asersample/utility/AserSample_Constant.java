@@ -17,6 +17,16 @@ public class AserSample_Constant {
     public static JSONObject sample;
     Student student;
 
+    public static String crlID;
+
+    public static String getCrlID() {
+        return crlID;
+    }
+
+    public static void setCrlID(String crlID) {
+        AserSample_Constant.crlID = crlID;
+    }
+
     private AserSample_Constant() {
     }
 
