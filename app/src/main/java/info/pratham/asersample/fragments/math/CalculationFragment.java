@@ -63,7 +63,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         if ("Subtraction".equals(currentLevel)) {
             showSubtraction();
         } else if ("Division".equals(currentLevel)) {
-            showMultiplication();
+            showDivision();
         }
     }
 
@@ -86,7 +86,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         }
     }
 
-    private void showMultiplication() {
+    private void showDivision() {
         JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Division");
         if (msg != null) {
             List wordList = new ArrayList();

@@ -78,7 +78,7 @@ public class SelectWordsDialog extends Dialog {
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (count == selectCount && b) {
                         compoundButton.setChecked(false);
-                        Toast.makeText(context, "Limit reached!!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "You can select " + selectCount + " item(s) only", Toast.LENGTH_SHORT).show();
                     } else if (b) {
                         count++;
                     } else if (!b) {
@@ -113,11 +113,14 @@ public class SelectWordsDialog extends Dialog {
             }
         }
         if (!wordList.isEmpty()) {
-            wordsListListener.getSelectedwords(wordList);
-            dismiss();
-        } else {
-            AserSampleUtility.showToast((Activity) context, "select At least one item");
-        }
+            if (wordList.size() != selectCount)
+                AserSampleUtility.showToast((Activity) context, "Select at least " + selectCount + " item(s).");
+            else {
+                wordsListListener.getSelectedwords(wordList);
+                dismiss();
+            }
+        } else
+            AserSampleUtility.showToast((Activity) context, "Select at least " + selectCount + " item(s).");
     }
 
 }
