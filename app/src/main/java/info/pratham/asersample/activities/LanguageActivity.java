@@ -263,10 +263,9 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         if (playing && !recording) {
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
             playing = false;
-        }
-        if (recording && playing) {
+        } else if (recording && playing) {
             recording = false;
-            AudioUtil.playRecording(currentFilePath + currentFileName);
+            AudioUtil.playRecording(currentFilePath + currentFileName,this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording && !playing) {
             AudioUtil.stopRecording();

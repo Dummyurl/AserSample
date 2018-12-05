@@ -1,8 +1,12 @@
 package info.pratham.asersample.utility;
 
+import android.app.Activity;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import java.io.IOException;
+
+import info.pratham.asersample.activities.LanguageActivity;
 
 public class AudioUtil {
 
@@ -18,7 +22,7 @@ public class AudioUtil {
             mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mRecorder.prepare();
             mRecorder.start();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -33,7 +37,7 @@ public class AudioUtil {
         mRecorder = null;
     }
 
-    public static void playRecording(String filePath) {
+    public static void playRecording(String filePath, final Activity activity) {
         try {
             mPlayer = new MediaPlayer();
             mPlayer.setDataSource(filePath);
@@ -43,6 +47,8 @@ public class AudioUtil {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     stopPlayingAudio();
+                    if (activity instanceof LanguageActivity)
+                        ((LanguageActivity)activity).startOrStopRecording();
                 }
             });
         } catch (IOException e) {

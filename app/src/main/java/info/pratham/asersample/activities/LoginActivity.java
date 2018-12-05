@@ -26,7 +26,7 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
     private void dynamicPermissionCheck() {
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)) {
             //Dynamic permissions needed
-            String[] permissionArray = new String[]{PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_CAMERA};
+            String[] permissionArray = new String[]{PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_CAMERA, PermissionUtils.Manifest_RECORD_AUDIO};
             if (!isPermissionsGranted(LoginActivity.this, permissionArray)) {
                 // permissions not granted
                 askCompactPermissions(permissionArray, this);
@@ -58,7 +58,7 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
         File file = new File(root.getAbsolutePath() + "/StudentRecordings");
         if (!file.exists())
             return file.mkdirs();
-        return false;
+        return true;
     }
 
     @Override
