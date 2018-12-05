@@ -55,7 +55,7 @@ public class StudentDetails extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        mDatabase = FirebaseDatabase.getInstance().getReference("students");
+        //mDatabase = FirebaseDatabase.getInstance().getReference("students");
         loadSpinner();
     }
 

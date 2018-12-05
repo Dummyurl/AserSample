@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -45,12 +48,16 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     int wordCOunt;
     List selectedWordsList;
 
+
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
+        mDatabase = FirebaseDatabase.getInstance().getReference("students");
         if (nextItem.isShown()) {
             nextItem.setVisibility(View.INVISIBLE);
         }
@@ -232,6 +239,20 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void getProficiency(String proficiency) {
-
+        mDatabase.child(student.name).setValue(student)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Write was successful!
+                        AserSampleUtility.showToast(getActivity(), "Done..");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        AserSampleUtility.showToast(getActivity(), "FAIL..");
+                    }
+                });
     }
 }
