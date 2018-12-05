@@ -27,6 +27,7 @@ import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
+import info.pratham.asersample.utility.AudioUtil;
 
 public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
     @BindView(R.id.question)
@@ -41,8 +42,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     Button nextItem;
     @BindView(R.id.prevItem)
     Button prevItem;
+    @BindView(R.id.recordButtonSP)
+    Button recordButton;
 
-    String currentLevel;
+    String currentLevel,currentFilePath,currentFileName;
 
     int wordCOunt;
     List selectedWordsList;
@@ -59,7 +62,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         if (prevItem.isShown()) {
             prevItem.setVisibility(View.INVISIBLE);
         }
-        //   Student student = new Intent().getParcelableExtra("student");
         testType.setText(AserSample_Constant.selectedLanguage + " Test");
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
@@ -85,54 +87,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
         ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
         proficiencyDialog.show();
-
-        /*AlertDialog dialog = new AlertDialog.Builder(this).create();
-        dialog.setMessage("Is This Ok");
-        dialog.setCancelable(false);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (currentLevel) {
-                    case "Story":
-                        //todo setProficiency to Story
-                        openNextActivity("Story");
-                        break;
-                    case "Paragraph":
-                        showStory();
-                        break;
-                    case "Word":
-                        //todo setProficiency to word
-                        openNextActivity("Word");
-                        break;
-                    case "Letter":
-                        //todo setProficiency to Letter
-                        openNextActivity("Letter");
-                        break;
-                }
-            }
-        });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (currentLevel) {
-                    case "Story":
-                        //todo setProficiency
-                        openNextActivity("Paragraph");
-                        break;
-                    case "Paragraph":
-                        showWords();
-                        break;
-                    case "Word":
-                        showLetters();
-                        break;
-                    case "Letter":
-                        //todo setProficiency to beginer
-                        openNextActivity("Beginer");
-                        break;
-                }
-            }
-        });
-        dialog.show();*/
     }
 
     private void showParagraph() {
@@ -300,6 +254,12 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 showLetters();
                 break;
         }
+    }
+
+    @OnClick(R.id.recordButtonSP)
+    public void startRecording() {
+        recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
+        AudioUtil.startRecording(ASERApplication.getRootPath()+"abc.mp3");
     }
 
     private void setVisibilityForPrevNext() {

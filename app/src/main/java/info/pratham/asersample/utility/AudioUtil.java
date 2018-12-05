@@ -6,10 +6,10 @@ import java.io.IOException;
 
 public class AudioUtil {
 
-    private MediaRecorder mRecorder;
-    private MediaPlayer mPlayer;
+    private static MediaRecorder mRecorder;
+    private static MediaPlayer mPlayer;
 
-    public void startRecording(String filePath) {
+    public static void startRecording(String filePath) {
         try {
             mRecorder = new MediaRecorder();
             mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -23,7 +23,7 @@ public class AudioUtil {
         }
     }
 
-    public void stopRecording() {
+    public static void stopRecording() {
         try {
             mRecorder.stop();
             mRecorder.release();
@@ -33,7 +33,7 @@ public class AudioUtil {
         mRecorder = null;
     }
 
-    public void playRecording(String filePath) {
+    public static void playRecording(String filePath) {
         try {
             mPlayer = new MediaPlayer();
             mPlayer.setDataSource(filePath);
@@ -50,7 +50,7 @@ public class AudioUtil {
         }
     }
 
-    public void stopPlayingAudio() {
+    public static void stopPlayingAudio() {
         try {
             mPlayer.release();
         } catch (Exception e) {

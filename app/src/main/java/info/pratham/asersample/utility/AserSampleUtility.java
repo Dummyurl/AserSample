@@ -5,7 +5,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.widget.Toast;
+
+import java.io.InputStream;
+import java.util.Properties;
 
 import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.math.CalculationFragment;
@@ -52,5 +57,17 @@ public class AserSampleUtility {
 
     public static void showToast(Activity activity, String msg) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public static String getProperty(String key, Context context) {
+        try {
+            Properties properties = new Properties();
+            AssetManager assetManager = context.getAssets();
+            InputStream inputStream = assetManager.open("config.properties");
+            properties.load(inputStream);
+            return properties.getProperty(key);
+        } catch (Exception ex) {
+            return null;
+        }
     }
 }

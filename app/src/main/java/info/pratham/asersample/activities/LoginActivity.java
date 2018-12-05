@@ -3,6 +3,9 @@ package info.pratham.asersample.activities;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import java.io.File;
 
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
@@ -34,9 +37,11 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
 
     private void proceedFurther() {
         // Application is ready to go with permission acceptance
-
         //Hide notification bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (!createFolderStructureForStoringDataLocally())
+            Toast.makeText(this, "Cannot create folder locally", Toast.LENGTH_SHORT).show();
 
         //Fragment display
 //        AserSampleUtility.showFragment(LoginActivity.this,new ServeyOrEvaluation());
@@ -46,6 +51,14 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,new LoginFragment());
         fragmentTransaction.commit();*/
+    }
+
+    private boolean createFolderStructureForStoringDataLocally() {
+        File root = android.os.Environment.getExternalStorageDirectory();
+        File file = new File(root.getAbsolutePath() + "/StudentRecordings");
+        if (!file.exists())
+            return file.mkdirs();
+        return false;
     }
 
     @Override

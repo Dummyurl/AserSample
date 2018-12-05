@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import com.androidnetworking.AndroidNetworking;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,5 +55,10 @@ public class ASERApplication extends Application {
     public static String getCurrentDate() {
         Calendar cal = Calendar.getInstance();
         return dateTimeFormat.format(cal.getTime());
+    }
+
+    public static String getRootPath() {
+        File root = android.os.Environment.getExternalStorageDirectory();
+        return (root.getAbsolutePath() + "/StudentRecordings/");
     }
 }
