@@ -5,5 +5,5 @@ package info.pratham.asersample.interfaces;
  */
 
 public interface ProficiencyListener {
-    public void getProficiency(String profiency);
+    public void getProficiency(String proficiency);
 }

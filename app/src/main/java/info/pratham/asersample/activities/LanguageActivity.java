@@ -315,7 +315,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     @Override
-    public void getProficiency(String profiency) {
-        openNextActivity(profiency);
+    public void getProficiency(String proficiency) {
+        openNextActivity(proficiency);
     }
 }

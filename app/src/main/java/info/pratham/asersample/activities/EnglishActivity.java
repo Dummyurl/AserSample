@@ -21,11 +21,12 @@ import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
+import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 
-public class EnglishActivity extends BaseActivity implements WordsListListener {
+public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
 
     @BindView(R.id.previous)
     Button previous;
@@ -227,5 +228,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
             previous.setText("< " + prevText);
         if (next.isShown())
             next.setText(nextText + " >");
+    }
+
+    @Override
+    public void getProficiency(String proficiency) {
+
     }
 }

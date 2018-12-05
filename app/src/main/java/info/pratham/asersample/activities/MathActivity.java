@@ -216,8 +216,8 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     @Override
-    public void getProficiency(String profiency) {
-        openNextActivity(profiency);
+    public void getProficiency(String proficiency) {
+        openNextActivity(proficiency);
     }
 
 
