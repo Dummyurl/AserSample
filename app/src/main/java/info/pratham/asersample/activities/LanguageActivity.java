@@ -136,8 +136,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showParagraph() {
-        nextItem.setVisibility(View.INVISIBLE);
-        prevItem.setVisibility(View.INVISIBLE);
+        setVisibilityForPrevNext();
         if (!next.isShown())
             next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Word), getString(R.string.Story));
@@ -152,8 +151,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showStory() {
-        nextItem.setVisibility(View.INVISIBLE);
-        prevItem.setVisibility(View.INVISIBLE);
+        setVisibilityForPrevNext();
         if (next.isShown())
             next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Paragraph), "");
@@ -168,8 +166,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showLetters() {
-        nextItem.setVisibility(View.INVISIBLE);
-        prevItem.setVisibility(View.INVISIBLE);
+        setVisibilityForPrevNext();
         if (previous.isShown()) {
             previous.setVisibility(View.GONE);
         }
@@ -193,8 +190,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showWords() {
-        nextItem.setVisibility(View.INVISIBLE);
-        prevItem.setVisibility(View.INVISIBLE);
+        setVisibilityForPrevNext();
         if (!previous.isShown()) {
             previous.setVisibility(View.VISIBLE);
         }
@@ -304,6 +300,11 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 showLetters();
                 break;
         }
+    }
+
+    private void setVisibilityForPrevNext() {
+        nextItem.setVisibility(View.INVISIBLE);
+        prevItem.setVisibility(View.INVISIBLE);
     }
 
     private void setNavigation(String prevText, String nextText) {
