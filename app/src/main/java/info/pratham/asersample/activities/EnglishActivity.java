@@ -1,6 +1,7 @@
 package info.pratham.asersample.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
@@ -8,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -239,19 +242,20 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void getProficiency(String proficiency) {
-        mDatabase.child(student.name).setValue(student)
+        AserSample_Constant.getAserSample_Constant().getStudent().setMathProficiency(proficiency);
+        mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().id).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         // Write was successful!
-                        AserSampleUtility.showToast(getActivity(), "Done..");
+                        AserSampleUtility.showToast(EnglishActivity.this, "Done..");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Write failed
-                        AserSampleUtility.showToast(getActivity(), "FAIL..");
+                        AserSampleUtility.showToast(EnglishActivity.this, "FAIL..");
                     }
                 });
     }
