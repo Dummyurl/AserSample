@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.dialog.ProficiencyDialog;
@@ -42,6 +41,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
     Button prevItem;
 
     String currentLevel;
+    int wordCOunt;
+    List selectedWordsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
     }
 
     private void getData(String type) {
+        setVisibilityForPrevNext();
         if (type.equalsIgnoreCase("Capital")) {
             previous.setVisibility(View.GONE);
             setNavigation("", getString(R.string.Smallletter));
@@ -92,7 +94,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
                 for (int i = 0; i < dataArray.length(); i++) {
                     dataList.add(dataArray.getString(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList,5);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -103,6 +105,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
     }
 
     private void getSentences() {
+        setVisibilityForPrevNext();
         if (next.isShown())
             next.setVisibility(View.GONE);
         setNavigation(getString(R.string.word), "");
@@ -157,8 +160,44 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
         terminationWorks();
     }
 
+    @OnClick(R.id.nextItem)
+    public void showNextItem() {
+        wordCOunt++;
+        showQue(selectedWordsList.get(wordCOunt).toString());
+        if (wordCOunt == 1) {
+            if (!prevItem.isShown()) {
+                prevItem.setVisibility(View.VISIBLE);
+            }
+        }
+        if ((wordCOunt + 1) == selectedWordsList.size()) {
+            if (nextItem.isShown()) {
+                nextItem.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
+    @OnClick(R.id.prevItem)
+    public void showPrevItem() {
+        wordCOunt--;
+        showQue(selectedWordsList.get(wordCOunt).toString());
+        if (wordCOunt == 0) {
+            if (prevItem.isShown()) {
+                prevItem.setVisibility(View.INVISIBLE);
+                nextItem.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if (wordCOunt > -1) {
+            if (prevItem.isShown()) {
+                nextItem.setVisibility(View.VISIBLE);
+            }
+        }
+
+    }
+
     private void terminationWorks() {
         // ASER test is completed now do the app termination things like sync and all
+        Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
     }
 
     private void showQue(String msg) {
@@ -168,8 +207,19 @@ public class EnglishActivity extends BaseActivity implements WordsListListener {
     @Override
     public void getSelectedwords(List list) {
         if (!list.isEmpty()) {
-            showQue(list.toString());
+            tv_question.setTextSize(1, 60);
+            wordCOunt = -1;
+            selectedWordsList = list;
+            if (!nextItem.isShown()) {
+                nextItem.setVisibility(View.VISIBLE);
+            }
+            showNextItem();
         }
+    }
+
+    private void setVisibilityForPrevNext() {
+        nextItem.setVisibility(View.INVISIBLE);
+        prevItem.setVisibility(View.INVISIBLE);
     }
 
     private void setNavigation(String prevText, String nextText) {
