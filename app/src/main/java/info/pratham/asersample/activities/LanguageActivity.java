@@ -45,8 +45,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @BindView(R.id.recordButtonSP)
     Button recordButton;
 
-    String currentLevel,currentFilePath,currentFileName;
-
+    String currentLevel, currentFilePath, currentFileName;
+    boolean recording, playing;
     int wordCOunt;
     List selectedWordsList;
 
@@ -56,6 +56,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        currentFilePath = ASERApplication.getRootPath();
+        currentFileName = "abc.mp3";
         if (nextItem.isShown()) {
             nextItem.setVisibility(View.INVISIBLE);
         }
@@ -257,9 +259,24 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     @OnClick(R.id.recordButtonSP)
-    public void startRecording() {
-        recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
-        AudioUtil.startRecording(ASERApplication.getRootPath()+"abc.mp3");
+    public void startOrStopRecording() {
+        if (playing && !recording) {
+            recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
+            playing = false;
+        }
+        if (recording && playing) {
+            recording = false;
+            AudioUtil.playRecording(currentFilePath + currentFileName);
+            recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
+        } else if (recording && !playing) {
+            AudioUtil.stopRecording();
+            playing = true;
+            recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
+        } else {
+            AudioUtil.startRecording(currentFilePath + currentFileName);
+            recording = true;
+            recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
+        }
     }
 
     private void setVisibilityForPrevNext() {
