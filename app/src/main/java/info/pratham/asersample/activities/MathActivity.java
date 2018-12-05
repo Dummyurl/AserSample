@@ -47,7 +47,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         setContentView(R.layout.activity_language);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
-        testType.setText("Mathematics" + " Test");
+        testType.setText("Mathematics Test");
         showSubtraction();
     }
 
@@ -55,10 +55,12 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     @OnClick(R.id.markProficiency)
     public void markProficiency() {
         List optionList = new ArrayList();
-        optionList.add("Digits");
-        optionList.add("Number");
-        optionList.add("None");
-        optionList.add("Test was not complete");
+        optionList.add(getString(R.string.oneToNine));
+        optionList.add(getString(R.string.tenToNinetyNine));
+        optionList.add(getString(R.string.Subtraction));
+        optionList.add(getString(R.string.Division));
+        optionList.add(getString(R.string.Beginner));
+        optionList.add(getString(R.string.TestWasNotComplete));
 
         ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
         proficiencyDialog.show();
