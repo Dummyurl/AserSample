@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import info.pratham.asersample.ASERApplication;
+import info.pratham.asersample.database.modalClasses.Student;
 
 /**
  * Created by PEF on 30/11/2018.
@@ -13,7 +14,7 @@ import info.pratham.asersample.ASERApplication;
 public class AserSample_Constant {
     public static String selectedLanguage;
     public static JSONObject sample;
-
+    Student student;
 
     public static JSONArray getWords(JSONObject sample, String subElement) {
         JSONArray wordsArray;

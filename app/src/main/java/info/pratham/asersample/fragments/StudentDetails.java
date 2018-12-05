@@ -80,7 +80,6 @@ public class StudentDetails extends BaseFragment {
 
         // AserSampleUtility.showFragment();
 
-
            /* mDatabase.child(student.name).setValue(student)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
