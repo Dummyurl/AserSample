@@ -243,7 +243,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 break;
             case "Letter":
                 showWords();
-                // openNextActivity("Letter");
                 break;
         }
     }
