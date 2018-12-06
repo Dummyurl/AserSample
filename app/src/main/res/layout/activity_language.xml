@@ -14,6 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:orientation="vertical">
 
             <TextView
@@ -35,11 +36,28 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_toLeftOf="@+id/markProficiency"
+            android:layout_toStartOf="@+id/markProficiency"
+            android:background="@drawable/roundedcorner_blue_questions"
+            android:hint="Mistakes count"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/_2sdp"
+            android:singleLine="true" />
+
         <Button
             android:id="@+id/markProficiency"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/tick" />
     </RelativeLayout>
@@ -74,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/_10sdp">
-               
+
                 <Button
                     android:id="@+id/prevItem"
                     android:layout_width="wrap_content"
