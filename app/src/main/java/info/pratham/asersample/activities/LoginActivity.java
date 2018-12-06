@@ -32,7 +32,6 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
                 askCompactPermissions(permissionArray, this);
             } else proceedFurther();
         } else proceedFurther();
-
     }
 
     private void proceedFurther() {
@@ -42,11 +41,11 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
 
         if (!createFolderStructureForStoringDataLocally())
             Toast.makeText(this, "Cannot create folder locally", Toast.LENGTH_SHORT).show();
+        AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
 
         //Fragment display
 //        AserSampleUtility.showFragment(LoginActivity.this,new ServeyOrEvaluation());
 //        AserSampleUtility.showFragment(LoginActivity.this,new LoginFragment());
-        AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
        /* FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,new LoginFragment());
