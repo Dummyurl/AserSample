@@ -12,9 +12,8 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
             android:orientation="vertical">
 
             <TextView
@@ -27,6 +26,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -37,12 +37,12 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/username"
-            android:layout_width="150dp"
+            android:id="@+id/mistakes"
+            android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:layout_toLeftOf="@+id/markProficiency"
             android:layout_toStartOf="@+id/markProficiency"
             android:background="@drawable/roundedcorner_blue_questions"

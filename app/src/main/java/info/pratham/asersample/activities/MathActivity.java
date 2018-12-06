@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -33,14 +34,17 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     TextView question;
     @BindView(R.id.testType)
     TextView testType;
+    @BindView(R.id.level)
+    TextView tv_level;
 
     @BindView(R.id.previous)
     Button previous;
     @BindView(R.id.next)
     Button next;
+    @BindView(R.id.mistakes)
+    EditText mistakes;
 
     String currentLevel;
-    List selectedWordsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,37 +69,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
         ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
         proficiencyDialog.show();
-       /* AlertDialog dialog = new AlertDialog.Builder(this).create();
-        dialog.setMessage("Is This Ok");
-        dialog.setCancelable(false);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (currentLevel) {
-                    case "Subtraction":
-                        showDivision();
-                        break;
-                    case "Division":
-                        //todo proficiency level to division
-                        break;
-                }
-            }
-        });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (currentLevel) {
-                    case "Subtraction":
-                        //todo open Number Recognition
-                        showTenToNinetyNine();
-                        break;
-                    case "Division":
-                        //todo proficiency level to Subtraction
-                        break;
-                }
-            }
-        });
-        dialog.show();*/
+
     }
 
     private void showTenToNinetyNine() {
@@ -105,6 +79,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());
         currentLevel = getString(R.string.tenToNinetyNine);
         setNavigation(getString(R.string.oneToNine), getString(R.string.Subtraction));
+        tv_level.setText("Number Recognition - " + currentLevel);
         JSONArray msg = AserSample_Constant.getMathNumberRecognition(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             List wordList = new ArrayList();
@@ -128,6 +103,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         }
         currentLevel = getString(R.string.oneToNine);
         setNavigation("", getString(R.string.tenToNinetyNine));
+        tv_level.setText("Number Recognition - " + currentLevel);
         JSONArray msg = AserSample_Constant.getMathNumberRecognition(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             List wordList = new ArrayList();
@@ -151,6 +127,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         setNavigation(getString(R.string.tenToNinetyNine), getString(R.string.Division));
         currentLevel = getString(R.string.Subtraction);
         Bundle bundle = new Bundle();
+        tv_level.setText("Basic Operation - " + currentLevel);
         bundle.putString("currentLevel", currentLevel);
         CalculationFragment calculationFragment = new CalculationFragment();
         calculationFragment.setArguments(bundle);
@@ -163,6 +140,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         setNavigation(getString(R.string.Subtraction), "");
         currentLevel = getString(R.string.Division);
         Bundle bundle = new Bundle();
+        tv_level.setText("Basic Operation - " + currentLevel);
         bundle.putString("currentLevel", currentLevel);
         CalculationFragment calculationFragment = new CalculationFragment();
         calculationFragment.setArguments(bundle);
@@ -184,12 +162,15 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     public void next() {
         switch (currentLevel) {
             case "Subtraction":
+                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showDivision();
                 break;
             case "10-99":
+                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showSubtraction();
                 break;
             case "1-9":
+                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showTenToNinetyNine();
                 break;
         }
@@ -199,12 +180,15 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     public void previous() {
         switch (currentLevel) {
             case "Subtraction":
+                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showTenToNinetyNine();
                 break;
             case "Division":
+                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showSubtraction();
                 break;
             case "10-99":
+                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showOneToNine();
                 break;
 
@@ -231,4 +215,24 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         startActivity(intent);
     }
 
+    private void assignMistakeCount(String level, String cnt) {
+        switch (level) {
+            case "Division":
+                AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setDivision_mistake(cnt);
+                break;
+            case "Subtraction":
+                AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setSubtrtaction_mistake(cnt);
+                break;
+            case "10-99":
+                AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setTenToNinetyNine_mistake(cnt);
+                break;
+            case "1-9":
+                AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setOneToNine_mistake(cnt);
+                break;
+        }
+    }
+
+    /*private void getMistakeCount(int cnt) {
+
+    }*/
 }
