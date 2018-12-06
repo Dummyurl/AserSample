@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -45,6 +47,11 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     Button prevItem;
     @BindView(R.id.recordButtonSP)
     Button recordButton;
+    @BindView(R.id.refreshIV)
+    ImageView refreshIcon;
+    @BindView(R.id.displayLayout)
+    RelativeLayout displayLayout;
+
 
     String currentLevel, currentFilePath, currentFileName;
     boolean recording, playing;
@@ -57,9 +64,9 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        currentFilePath = ASERApplication.getRootPath()+AserSample_Constant.getCrlID()+"/"+
-                          AserSample_Constant.getAserSample_Constant().getStudent().getId()+"/"+
-                          AserSample_Constant.selectedLanguage+"/";
+        currentFilePath = ASERApplication.getRootPath() + AserSample_Constant.getCrlID() + "/" +
+                AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" +
+                AserSample_Constant.selectedLanguage + "/";
         if (nextItem.isShown()) {
             nextItem.setVisibility(View.INVISIBLE);
         }
@@ -263,13 +270,27 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         }
     }
 
-    public void initiateRecording() {
-            AudioUtil.stopRecording();
-            AudioUtil.stopPlayingAudio();
-            recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
-            playing = false;
-            recording = false;
+    public void audioStopped() {
+        recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
+        recording = true;
+        playing = true;
     }
+
+    public void initiateRecording() {
+        AudioUtil.stopRecording();
+        AudioUtil.stopPlayingAudio();
+        recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
+        refreshIcon.setVisibility(View.INVISIBLE);
+        displayLayout.setAlpha(1f);
+        playing = false;
+        recording = false;
+    }
+
+    @OnClick(R.id.refreshIV)
+    public void refreshRecording() {
+        initiateRecording();
+    }
+
 
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
@@ -285,11 +306,11 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 break;
             case "Word":
                 fileStorePath = currentFilePath + "Word/";
-                currentFileName = selectedWordsList.get(wordCOunt).toString() +".mp3";
+                currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
                 break;
             case "Letter":
                 fileStorePath = currentFilePath + "Letter/";
-                currentFileName = selectedWordsList.get(wordCOunt).toString() +".mp3";
+                currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
                 break;
         }
 
@@ -299,17 +320,19 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         }
 
         if (playing && !recording) {
-            initiateRecording();
+            //initiateRecording();
         } else if (recording && playing) {
-            recording = false;
-            AudioUtil.playRecording(fileStorePath+currentFileName, this);
+//            recording = false;
+            AudioUtil.playRecording(fileStorePath + currentFileName, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording && !playing) {
             AudioUtil.stopRecording();
+            refreshIcon.setVisibility(View.VISIBLE);
+            displayLayout.setAlpha(0.5f);
             playing = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
         } else {
-            AudioUtil.startRecording(fileStorePath+currentFileName);
+            AudioUtil.startRecording(fileStorePath + currentFileName);
             recording = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }

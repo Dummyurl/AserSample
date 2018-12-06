@@ -48,7 +48,7 @@ public class AudioUtil {
                 public void onCompletion(MediaPlayer mp) {
                     stopPlayingAudio();
                     if (activity instanceof LanguageActivity)
-                        ((LanguageActivity)activity).initiateRecording();
+                        ((LanguageActivity)activity).audioStopped();
                 }
             });
         } catch (IOException e) {
