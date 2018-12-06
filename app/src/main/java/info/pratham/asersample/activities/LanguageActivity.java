@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +57,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        currentFilePath = ASERApplication.getRootPath();
-        currentFileName = "abc.mp3";
+        currentFilePath = ASERApplication.getRootPath()+AserSample_Constant.getCrlID()+"/"+
+                          AserSample_Constant.getAserSample_Constant().getStudent().getId()+"/"+
+                          AserSample_Constant.selectedLanguage+"/";
+        currentFileName = "sample.mp3";
         if (nextItem.isShown()) {
             nextItem.setVisibility(View.INVISIBLE);
         }
@@ -194,6 +197,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @OnClick(R.id.nextItem)
     public void showNextItem() {
+        initiateRecording();
         wordCOunt++;
         showQue(selectedWordsList.get(wordCOunt).toString());
         if (wordCOunt == 1) {
@@ -210,6 +214,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @OnClick(R.id.prevItem)
     public void showPrevItem() {
+        initiateRecording();
         wordCOunt--;
         showQue(selectedWordsList.get(wordCOunt).toString());
         if (wordCOunt == 0) {
@@ -229,6 +234,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @OnClick(R.id.next)
     public void next() {
+        initiateRecording();
         switch (currentLevel) {
             case "Paragraph":
                 showStory();
@@ -245,6 +251,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @OnClick(R.id.previous)
     public void previous() {
+        initiateRecording();
         switch (currentLevel) {
             case "Story":
                 showParagraph();
@@ -258,21 +265,51 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         }
     }
 
-    @OnClick(R.id.recordButtonSP)
-    public void startOrStopRecording() {
-        if (playing && !recording) {
+    public void initiateRecording() {
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
             playing = false;
+            recording = false;
+    }
+
+    @OnClick(R.id.recordButtonSP)
+    public void startOrStopRecording() {
+        String fileStorePath = currentFilePath + "sample.mp3";
+        switch (currentLevel) {
+            case "Story":
+                fileStorePath = currentFilePath;
+                currentFileName = "story.mp3";
+                break;
+            case "Paragraph":
+                fileStorePath = currentFilePath;
+                currentFileName = "paragraph.mp3";
+                break;
+            case "Word":
+                fileStorePath = currentFilePath + "Word/";
+                currentFileName = selectedWordsList.get(wordCOunt).toString() +".mp3";
+                break;
+            case "Letter":
+                fileStorePath = currentFilePath + "Letter/";
+                currentFileName = selectedWordsList.get(wordCOunt).toString() +".mp3";
+                break;
+        }
+
+        File file = new File(fileStorePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        if (playing && !recording) {
+            initiateRecording();
         } else if (recording && playing) {
             recording = false;
-            AudioUtil.playRecording(currentFilePath + currentFileName, this);
+            AudioUtil.playRecording(fileStorePath+currentFileName, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording && !playing) {
             AudioUtil.stopRecording();
             playing = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
         } else {
-            AudioUtil.startRecording(currentFilePath + currentFileName);
+            AudioUtil.startRecording(fileStorePath+currentFileName);
             recording = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }
