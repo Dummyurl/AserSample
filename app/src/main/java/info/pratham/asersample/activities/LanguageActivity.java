@@ -60,7 +60,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         currentFilePath = ASERApplication.getRootPath()+AserSample_Constant.getCrlID()+"/"+
                           AserSample_Constant.getAserSample_Constant().getStudent().getId()+"/"+
                           AserSample_Constant.selectedLanguage+"/";
-        currentFileName = "sample.mp3";
         if (nextItem.isShown()) {
             nextItem.setVisibility(View.INVISIBLE);
         }
@@ -266,6 +265,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     public void initiateRecording() {
+            AudioUtil.stopRecording();
+            AudioUtil.stopPlayingAudio();
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
             playing = false;
             recording = false;
