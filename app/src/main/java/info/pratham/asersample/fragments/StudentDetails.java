@@ -15,6 +15,8 @@ import android.widget.Spinner;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -74,7 +76,7 @@ public class StudentDetails extends BaseFragment {
         int agegroup = radioGroup.getCheckedRadioButtonId();
         if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty() && selectedclass > 0 && agegroup != -1) {
             String id = childFirstName + "__" + AserSampleUtility.getUUID();
-            Student student = new Student(id, childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString());
+            Student student = new Student(id, childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString(), Calendar.getInstance().getTime().toString(), AserSample_Constant.getDeviceID());
             AserSample_Constant.getAserSample_Constant().setStudent(student);
             Intent intent = new Intent(getActivity(), LanguageActivity.class);
             getActivity().startActivity(intent);

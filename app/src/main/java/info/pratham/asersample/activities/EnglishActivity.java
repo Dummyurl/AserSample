@@ -242,8 +242,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void getProficiency(String proficiency) {
-        AserSample_Constant.getAserSample_Constant().getStudent().setEnglishProficiency(proficiency);
-        mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().id).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
+        AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setEnglishProficiency(proficiency);
+        mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

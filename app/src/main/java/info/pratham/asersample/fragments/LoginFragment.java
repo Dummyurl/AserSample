@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,8 @@ public class LoginFragment extends BaseFragment {
             if (loggedCrl != null) {
                 AserSample_Constant.setCrlID(loggedCrl.getCRLId() + "_" + loggedCrl.getUserName());
                 AserSampleUtility.showFragment(getActivity(), new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
+                String id = Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID);
+                AserSample_Constant.setDeviceID(id);
             } else {
                 //userNAme and password may be wrong
                 AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();

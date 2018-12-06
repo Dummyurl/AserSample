@@ -220,7 +220,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @Override
     public void getProficiency(String proficiency) {
-        AserSample_Constant.getAserSample_Constant().getStudent().setMathProficiency(proficiency);
+        AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setMathProficiency(proficiency);
         openNextActivity(proficiency);
     }
 

@@ -265,7 +265,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             playing = false;
         } else if (recording && playing) {
             recording = false;
-            AudioUtil.playRecording(currentFilePath + currentFileName,this);
+            AudioUtil.playRecording(currentFilePath + currentFileName, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording && !playing) {
             AudioUtil.stopRecording();
@@ -292,6 +292,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @Override
     public void getProficiency(String proficiency) {
+        AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setProficiency(proficiency);
         openNextActivity(proficiency);
     }
 }
