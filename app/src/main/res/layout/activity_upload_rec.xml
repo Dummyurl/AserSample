@@ -16,7 +16,7 @@
         android:layout_marginTop="@dimen/_50sdp" />
 
     <ImageButton
-        android:id="@+id/synk"
+        android:id="@+id/sync"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginBottom="@dimen/_10sdp"

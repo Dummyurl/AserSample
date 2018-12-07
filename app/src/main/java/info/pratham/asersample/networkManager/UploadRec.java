@@ -40,11 +40,13 @@ public class UploadRec extends AppCompatActivity {
 
     @BindView(R.id.listView)
     ListView listView;
-    @BindView(R.id.synk)
+    @BindView(R.id.sync)
     ImageButton synk;
 
     List<String> fileList;
     private StorageReference mStorageRef;
+    ArrayAdapter arrayAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,7 @@ public class UploadRec extends AppCompatActivity {
     }
 
     private void updateUI(List fileList) {
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, fileList);
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, fileList);
         listView.setAdapter(arrayAdapter);
     }
 
@@ -149,11 +151,11 @@ public class UploadRec extends AppCompatActivity {
         return lastPathComponent;
     }
 
-    @OnClick(R.id.synk)
-    public void synkAll() {
+    @OnClick(R.id.sync)
+    public void syncAll() {
         for (String path : fileList) {
-            if (zipFileAtPath(ASERApplication.getRootPath() + AserSample_Constant.crlID + path, ASERApplication.getRootPath() + AserSample_Constant.crlID + path + ".zip")) {
-                uploadImageToStorage(path);
+            if (zipFileAtPath(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
+                uploadImageToStorage(path + ".zip");
             }
         }
     }
@@ -162,19 +164,58 @@ public class UploadRec extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
 //        getPredictions("");
-        Uri file = Uri.fromFile(new File(fileUri + ".zip"));
+        Uri file = Uri.fromFile(new File(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + fileUri));
 
-        StorageReference riversRef = mStorageRef.child("AnswerRecordings/" + AserSample_Constant.crlID + "/" + fileUri + ".zip");
+        StorageReference riversRef = mStorageRef.child("StudentRecordings/" + AserSample_Constant.crlID + "/" + fileUri);
 
         riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        String path = taskSnapshot.getMetadata().getPath();
+                        path = path.replace(".zip", "");
+                        File fdelete = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path);
+                        if (fdelete.exists()) {
+                            deleteRecursive(fdelete);
+                          /*  if (fdelete.isDirectory()) {
+                                String[] children = fdelete.list();
+                                for (int i = 0; i < children.length; i++) {
+                                    new File(fdelete, children[i]).delete();
+                                }
+                            }*/
+                        }
+                    /*    File file = new File(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" +path);
+                        file.delete();
+                        if (file.exists()) {
+                            try {
+                                file.getCanonicalFile().delete();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (file.exists()) {
+                                getApplicationContext().deleteFile(file.getName());
+                            }
+                        }
+
+                        String path1 = path.replace(".zip", "");
+                        File file1 = new File(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" +path1);
+                        file1.delete();
+                        if (file1.exists()) {
+                            try {
+                                file1.getCanonicalFile().delete();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (file1.exists()) {
+                                getApplicationContext().deleteFile(file1.getName());
+                            }
+                        }*/
+                        getLocalData();
                         // Get a URL to the uploaded content
                         // Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         //  Log.v("success", downloadUrl.toString());
                         //  removeData(name, fatherName, isLast);
-                        Toast.makeText(UploadRec.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadRec.this, "Uploaded" + path, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -193,6 +234,16 @@ public class UploadRec extends AppCompatActivity {
                         Log.v("Failure", "failed");
                     }
                 });
+
+    }
+
+    void deleteRecursive(File fileOrDirectory) {
+
+        if (fileOrDirectory.isDirectory())
+            for (File child : fileOrDirectory.listFiles())
+                deleteRecursive(child);
+
+        fileOrDirectory.delete();
 
     }
 }
