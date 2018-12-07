@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import info.pratham.asersample.activities.EnglishActivity;
 import info.pratham.asersample.activities.LanguageActivity;
+import info.pratham.asersample.activities.MathActivity;
 
 public class AudioUtil {
 
@@ -52,6 +53,8 @@ public class AudioUtil {
                         ((LanguageActivity)activity).audioStopped();
                     if (activity instanceof EnglishActivity)
                         ((EnglishActivity)activity).audioStopped();
+                    /*if (activity instanceof MathActivity)
+                        ((MathActivity)activity).audioStopped()*/;
                 }
             });
         } catch (IOException e) {
