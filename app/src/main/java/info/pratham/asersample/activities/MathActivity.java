@@ -87,6 +87,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
+                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getTenToNinetyNine_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -111,6 +112,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
+                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getOneToNine_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -127,6 +129,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         setNavigation(getString(R.string.tenToNinetyNine), getString(R.string.Division));
         currentLevel = getString(R.string.Subtraction);
         Bundle bundle = new Bundle();
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getSubtrtaction_mistake());
         tv_level.setText("Basic Operation - " + currentLevel);
         bundle.putString("currentLevel", currentLevel);
         CalculationFragment calculationFragment = new CalculationFragment();
@@ -140,6 +143,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         setNavigation(getString(R.string.Subtraction), "");
         currentLevel = getString(R.string.Division);
         Bundle bundle = new Bundle();
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getDivision_mistake());
         tv_level.setText("Basic Operation - " + currentLevel);
         bundle.putString("currentLevel", currentLevel);
         CalculationFragment calculationFragment = new CalculationFragment();
@@ -160,38 +164,34 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @OnClick(R.id.next)
     public void next() {
+        assignMistakeCount(currentLevel, mistakes.getText().toString());
         switch (currentLevel) {
             case "Subtraction":
-                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showDivision();
                 break;
             case "10-99":
-                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showSubtraction();
                 break;
             case "1-9":
-                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showTenToNinetyNine();
                 break;
         }
+
     }
 
     @OnClick(R.id.previous)
     public void previous() {
+        assignMistakeCount(currentLevel, mistakes.getText().toString());
         switch (currentLevel) {
             case "Subtraction":
-                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showTenToNinetyNine();
                 break;
             case "Division":
-                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showSubtraction();
                 break;
             case "10-99":
-                assignMistakeCount(currentLevel, mistakes.getText().toString());
                 showOneToNine();
                 break;
-
         }
     }
 
@@ -207,7 +207,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setMathProficiency(proficiency);
         openNextActivity(proficiency);
     }
-
 
     private void openNextActivity(String proficiency) {
         AserSampleUtility.showToast(this, AserSample_Constant.selectedLanguage + "_" + proficiency);
@@ -232,7 +231,4 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         }
     }
 
-    /*private void getMistakeCount(int cnt) {
-
-    }*/
 }

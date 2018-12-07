@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,6 +52,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
+    @BindView(R.id.mistakes)
+    EditText mistakes;
 
 
     String currentLevel, currentFilePath, currentFileName;
@@ -106,6 +109,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Word), getString(R.string.Story));
         currentLevel = getString(R.string.Paragraph);
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().getParagragh_mistake());
         String msg = AserSample_Constant.getPara(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             tv_question.setTextSize(1, 30);
@@ -121,6 +125,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Paragraph), "");
         currentLevel = getString(R.string.Story);
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().getStory_mistake());
         String msg = AserSample_Constant.getStory(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             tv_question.setTextSize(1, 25);
@@ -137,6 +142,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         }
         setNavigation("", getString(R.string.Word));
         currentLevel = getString(R.string.Letter);
+
         JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             List wordList = new ArrayList();
@@ -144,6 +150,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
+                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().getLetter_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -168,6 +175,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getString(i));
                 }
+                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().getWord_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -240,6 +248,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @OnClick(R.id.next)
     public void next() {
+        assignMistakeCount(currentLevel, mistakes.getText().toString());
         initiateRecording();
         switch (currentLevel) {
             case "Paragraph":
@@ -252,10 +261,13 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 showWords();
                 break;
         }
+
+
     }
 
     @OnClick(R.id.previous)
     public void previous() {
+        assignMistakeCount(currentLevel, mistakes.getText().toString());
         initiateRecording();
         switch (currentLevel) {
             case "Story":
@@ -354,5 +366,22 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     public void getProficiency(String proficiency) {
         AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setProficiency(proficiency);
         openNextActivity(proficiency);
+    }
+
+    private void assignMistakeCount(String level, String cnt) {
+        switch (level) {
+            case "Story":
+                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setStory_mistake(cnt);
+                break;
+            case "Paragraph":
+                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setParagragh_mistake(cnt);
+                break;
+            case "Word":
+                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setWord_mistake(cnt);
+                break;
+            case "Letter":
+                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setLetter_mistake(cnt);
+                break;
+        }
     }
 }
