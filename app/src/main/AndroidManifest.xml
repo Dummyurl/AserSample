@@ -36,8 +36,7 @@
         <activity
             android:name=".activities.MathActivity"
             android:screenOrientation="landscape" />
-
-
+        <activity android:name=".networkManager.UploadRec"></activity>
     </application>
 
 </manifest>
