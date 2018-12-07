@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import java.io.IOException;
 
+import info.pratham.asersample.activities.EnglishActivity;
 import info.pratham.asersample.activities.LanguageActivity;
 
 public class AudioUtil {
@@ -49,6 +50,8 @@ public class AudioUtil {
                     stopPlayingAudio();
                     if (activity instanceof LanguageActivity)
                         ((LanguageActivity)activity).audioStopped();
+                    if (activity instanceof EnglishActivity)
+                        ((EnglishActivity)activity).audioStopped();
                 }
             });
         } catch (IOException e) {

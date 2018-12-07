@@ -56,8 +56,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @BindView(R.id.mistakes)
     EditText mistakes;
 
-
-    String currentLevel, currentFilePath, currentFileName;
+    static String currentFilePath;
+    String currentLevel, currentFileName;
     boolean recording, playing;
     int wordCOunt;
     List selectedWordsList;
@@ -294,7 +294,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         AudioUtil.stopPlayingAudio();
         recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
         refreshIcon.setVisibility(View.INVISIBLE);
-        displayLayout.setAlpha(1f);
+        tv_question.setAlpha(1f);
         playing = false;
         recording = false;
     }
@@ -341,7 +341,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         } else if (recording && !playing) {
             AudioUtil.stopRecording();
             refreshIcon.setVisibility(View.VISIBLE);
-            displayLayout.setAlpha(0.5f);
+            tv_question.setAlpha(0.5f);
             playing = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
         } else {
