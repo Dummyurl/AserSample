@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     Button nextItem;
     @BindView(R.id.prevItem)
     Button prevItem;
+    @BindView(R.id.mistakes)
+    EditText mistakes;
 
     String currentLevel;
     int wordCOunt;
@@ -83,15 +86,18 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     private void getData(String type) {
         setVisibilityForPrevNext();
         if (type.equalsIgnoreCase("Capital")) {
+            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().getCapitalLetter_mistake());
             previous.setVisibility(View.GONE);
             setNavigation("", getString(R.string.Smallletter));
             currentLevel = getString(R.string.Capitalletter);
         } else if (type.equalsIgnoreCase("Small")) {
+            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().getSmallLetter_mistake());
             if (!previous.isShown())
                 previous.setVisibility(View.VISIBLE);
             setNavigation(getString(R.string.Capitalletter), getString(R.string.word));
             currentLevel = getString(R.string.Smallletter);
         } else {
+            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().getWords_mistake());
             if (!next.isShown())
                 next.setVisibility(View.VISIBLE);
             setNavigation(getString(R.string.Smallletter), getString(R.string.Sentence));
@@ -121,6 +127,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             next.setVisibility(View.GONE);
         setNavigation(getString(R.string.word), "");
         currentLevel = getString(R.string.Sentence);
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().getSentence_mistake());
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
         showQue(dataArray.toString());
     }
@@ -142,6 +149,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @OnClick(R.id.next)
     public void next() {
+        assignMistakeCount(currentLevel, mistakes.getText().toString());
         switch (currentLevel) {
             case "Capital letter":
                 getData("Small");
@@ -157,6 +165,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @OnClick(R.id.previous)
     public void previous() {
+        assignMistakeCount(currentLevel, mistakes.getText().toString());
         switch (currentLevel) {
             case "Small letter":
                 getData("Capital");
@@ -258,5 +267,22 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                         AserSampleUtility.showToast(EnglishActivity.this, "FAIL..");
                     }
                 });
+    }
+
+    private void assignMistakeCount(String level, String cnt) {
+        switch (level) {
+            case "Capital letter":
+                AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setCapitalLetter_mistake(cnt);
+                break;
+            case "Small letter":
+                AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setSmallLetter_mistake(cnt);
+                break;
+            case "word":
+                AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setWords_mistake(cnt);
+                break;
+            case "Sentence":
+                AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setSentence_mistake(cnt);
+                break;
+        }
     }
 }
