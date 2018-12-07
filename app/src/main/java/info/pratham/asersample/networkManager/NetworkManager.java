@@ -99,7 +99,6 @@ public class NetworkManager {
         Log.d("Size", "updateOrReplaceQuestionData: " + map.size());
         List<Question> questionList = new ArrayList<>();
         Question question;
-
         Set set = map.entrySet();
         Iterator iterator = set.iterator();
 

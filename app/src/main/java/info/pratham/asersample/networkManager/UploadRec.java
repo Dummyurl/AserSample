@@ -1,9 +1,22 @@
 package info.pratham.asersample.networkManager;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -18,6 +31,7 @@ import java.util.zip.ZipOutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
 import info.pratham.asersample.utility.AserSample_Constant;
@@ -26,12 +40,18 @@ public class UploadRec extends AppCompatActivity {
 
     @BindView(R.id.listView)
     ListView listView;
+    @BindView(R.id.synk)
+    ImageButton synk;
+
+    List<String> fileList;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_rec);
         ButterKnife.bind(this);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         getLocalData();
     }
 
@@ -39,7 +59,7 @@ public class UploadRec extends AppCompatActivity {
         List<File> files = new ArrayList<>();
         String path = ASERApplication.getRootPath() + AserSample_Constant.crlID + "/";
         File directory = new File(path);
-        List fileList = new ArrayList();
+        fileList = new ArrayList();
         File[] subFolderList = directory.listFiles();
 
         if (subFolderList != null)
@@ -129,4 +149,50 @@ public class UploadRec extends AppCompatActivity {
         return lastPathComponent;
     }
 
+    @OnClick(R.id.synk)
+    public void synkAll() {
+        for (String path : fileList) {
+            if (zipFileAtPath(ASERApplication.getRootPath() + AserSample_Constant.crlID + path, ASERApplication.getRootPath() + AserSample_Constant.crlID + path + ".zip")) {
+                uploadImageToStorage(path);
+            }
+        }
+    }
+
+    public void uploadImageToStorage(String fileUri) {
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
+//        getPredictions("");
+        Uri file = Uri.fromFile(new File(fileUri + ".zip"));
+
+        StorageReference riversRef = mStorageRef.child("AnswerRecordings/" + AserSample_Constant.crlID + "/" + fileUri + ".zip");
+
+        riversRef.putFile(file)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        // Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        //  Log.v("success", downloadUrl.toString());
+                        //  removeData(name, fatherName, isLast);
+                        Toast.makeText(UploadRec.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        });
+
+//                        e.printStackTrace();
+                        Log.v("Failure", "failed");
+                    }
+                });
+
+    }
 }
