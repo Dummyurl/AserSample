@@ -34,6 +34,7 @@ import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 
 public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
+
     @BindView(R.id.question)
     TextView tv_question;
     @BindView(R.id.testType)

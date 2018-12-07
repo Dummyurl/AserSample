@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -30,21 +32,29 @@ import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 
 public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
+
     @BindView(R.id.question)
     TextView question;
     @BindView(R.id.testType)
     TextView testType;
     @BindView(R.id.level)
     TextView tv_level;
-
     @BindView(R.id.previous)
     Button previous;
     @BindView(R.id.next)
-    Button next;
+    Button next;@BindView(R.id.recordButtonSP)
+    Button recordButton;
+    @BindView(R.id.refreshIV)
+    ImageView refreshIcon;
+    @BindView(R.id.displayLayout)
+    RelativeLayout displayLayout;
     @BindView(R.id.mistakes)
     EditText mistakes;
 
-    String currentLevel;
+    String currentLevel, currentFilePath, currentFileName;
+    boolean recording, playing;
+    List selectedWordsList;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
