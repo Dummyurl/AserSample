@@ -66,13 +66,13 @@ public class PullCRl extends BaseFragment {
             networkManager.getQuestionData();
             pullCRL("http://www.swap.prathamcms.org/api/UserList?programId=1&statecode=" + statesCodes[stateSpinner.getSelectedItemPosition()]);
         } else {
-            showToast(" Select A state");
+            showToast(" Please select a state");
         }
     }
 
     private void pullCRL(String URL) {
         AserSampleUtility.showProgressDialog(progressDialog);
-        AndroidNetworking.get("http://www.swap.prathamcms.org/api/UserList?programId=1&statecode=MH")
+        AndroidNetworking.get(URL)
                 .build()
                 .getAsObjectList(CRL.class, new ParsedRequestListener<List<CRL>>() {
                     @Override
