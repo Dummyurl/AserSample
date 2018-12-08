@@ -42,7 +42,8 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     @BindView(R.id.previous)
     Button previous;
     @BindView(R.id.next)
-    Button next;@BindView(R.id.recordButtonSP)
+    Button next;
+    @BindView(R.id.recordButtonSP)
     Button recordButton;
     @BindView(R.id.refreshIV)
     ImageView refreshIcon;
