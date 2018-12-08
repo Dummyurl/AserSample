@@ -177,39 +177,7 @@ public class UploadRec extends AppCompatActivity {
                         File fdelete = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path);
                         if (fdelete.exists()) {
                             deleteRecursive(fdelete);
-                          /*  if (fdelete.isDirectory()) {
-                                String[] children = fdelete.list();
-                                for (int i = 0; i < children.length; i++) {
-                                    new File(fdelete, children[i]).delete();
-                                }
-                            }*/
                         }
-                    /*    File file = new File(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" +path);
-                        file.delete();
-                        if (file.exists()) {
-                            try {
-                                file.getCanonicalFile().delete();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            if (file.exists()) {
-                                getApplicationContext().deleteFile(file.getName());
-                            }
-                        }
-
-                        String path1 = path.replace(".zip", "");
-                        File file1 = new File(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" +path1);
-                        file1.delete();
-                        if (file1.exists()) {
-                            try {
-                                file1.getCanonicalFile().delete();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            if (file1.exists()) {
-                                getApplicationContext().deleteFile(file1.getName());
-                            }
-                        }*/
                         getLocalData();
                         // Get a URL to the uploaded content
                         // Uri downloadUrl = taskSnapshot.getDownloadUrl();

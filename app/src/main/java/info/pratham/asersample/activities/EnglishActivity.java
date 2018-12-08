@@ -372,7 +372,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("fragment", StudentDetails.class.getSimpleName());
         startActivity(intent);
-
+        finish();
     }
 
     private void assignMistakeCount(String level, String cnt) {
