@@ -60,12 +60,14 @@ public class SelectWordsDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_words_dialog);
         ButterKnife.bind(this);
+        setTitle("Selection dialog");
+        txt_message_village.setText("Select "+selectCount+" item(s) among the following");
         setCanceledOnTouchOutside(false);
         setCancelable(false);
         for (int i = 0; i < wordList.size(); i++) {
             CheckBox checkBox = new CheckBox(context);
             checkBox.setText(wordList.get(i).toString());
-            checkBox.setTextSize(1, 25);
+            checkBox.setTextSize(1, 35);
             GridLayout.LayoutParams param = new GridLayout.LayoutParams();
             param.height = GridLayout.LayoutParams.WRAP_CONTENT;
             param.width = GridLayout.LayoutParams.WRAP_CONTENT;
