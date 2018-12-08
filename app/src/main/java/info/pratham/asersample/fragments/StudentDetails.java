@@ -81,31 +81,8 @@ public class StudentDetails extends BaseFragment {
             AserSample_Constant.getAserSample_Constant().setStudent(student);
             Intent intent = new Intent(getActivity(), LanguageActivity.class);
             getActivity().startActivity(intent);
-            // intent.putExtra("student", student);
-
-
-            //call native language Activity
-
-            // AserSampleUtility.showFragment();
-
-           /* mDatabase.child(student.name).setValue(student)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // Write was successful!
-                            AserSampleUtility.showToast(getActivity(), "Done..");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // Write failed
-                            AserSampleUtility.showToast(getActivity(), "FAIL..");
-                        }
-                    });*/
         } else {
-            //  mDatabase.setValue(childFirstName);
-            AserSampleUtility.showToast(getActivity(), "All Fields Are mandatory");
+            AserSampleUtility.showToast(getActivity(), "All fields are mandatory");
         }
     }
 
