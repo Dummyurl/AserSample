@@ -41,6 +41,7 @@ public class StudentDetails extends BaseFragment {
     Spinner classChild;
     private DatabaseReference mDatabase;
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -80,7 +81,7 @@ public class StudentDetails extends BaseFragment {
             AserSample_Constant.getAserSample_Constant().setStudent(student);
             Intent intent = new Intent(getActivity(), LanguageActivity.class);
             getActivity().startActivity(intent);
-
+            getActivity().finish();
             // intent.putExtra("student", student);
 
 
@@ -108,6 +109,5 @@ public class StudentDetails extends BaseFragment {
             AserSampleUtility.showToast(getActivity(), "All Fields Are mandatory");
         }
     }
-
 
 }
