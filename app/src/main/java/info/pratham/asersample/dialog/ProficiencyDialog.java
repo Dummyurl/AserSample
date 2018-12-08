@@ -55,6 +55,9 @@ public class ProficiencyDialog extends Dialog {
             RadioButton radioButton = new RadioButton(context);
             radioButton.setText(optionList.get(i).toString());
             radioButton.setTextSize(20);
+            radioButton.setLayoutParams(new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
             radioButton.setPadding(10, 5, 10, 5);
             radioButton.setGravity(View.TEXT_ALIGNMENT_CENTER);
             View view = new View(context);

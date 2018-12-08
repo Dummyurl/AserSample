@@ -1,5 +1,6 @@
 package info.pratham.asersample.networkManager;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,6 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
+import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 
 public class UploadRec extends AppCompatActivity {
@@ -41,12 +43,14 @@ public class UploadRec extends AppCompatActivity {
     @BindView(R.id.listView)
     ListView listView;
     @BindView(R.id.sync)
-    ImageButton synk;
+    ImageButton syncBtn;
 
     List<String> fileList;
     private StorageReference mStorageRef;
     ArrayAdapter arrayAdapter;
 
+    ProgressDialog progressDialog;
+    int cnt = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +58,11 @@ public class UploadRec extends AppCompatActivity {
         setContentView(R.layout.activity_upload_rec);
         ButterKnife.bind(this);
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        progressDialog = new ProgressDialog(this);
         getLocalData();
     }
 
     private void getLocalData() {
-        List<File> files = new ArrayList<>();
         String path = ASERApplication.getRootPath() + AserSample_Constant.crlID + "/";
         File directory = new File(path);
         fileList = new ArrayList();
@@ -79,6 +83,7 @@ public class UploadRec extends AppCompatActivity {
     private void updateUI(List fileList) {
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, fileList);
         listView.setAdapter(arrayAdapter);
+
     }
 
 
@@ -153,9 +158,15 @@ public class UploadRec extends AppCompatActivity {
 
     @OnClick(R.id.sync)
     public void syncAll() {
-        for (String path : fileList) {
-            if (zipFileAtPath(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
-                uploadImageToStorage(path + ".zip");
+        if (fileList.isEmpty()) {
+            AserSampleUtility.showToast(this, "Nothing to push");
+        } else {
+            cnt = 0;
+            AserSampleUtility.showProgressDialog(progressDialog);
+            for (String path : fileList) {
+                if (zipFileAtPath(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
+                    uploadImageToStorage(path + ".zip");
+                }
             }
         }
     }
@@ -172,6 +183,7 @@ public class UploadRec extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        cnt++;
                         String path = taskSnapshot.getMetadata().getPath();
                         path = path.replace(".zip", "");
                         File fdelete = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path);
@@ -179,6 +191,9 @@ public class UploadRec extends AppCompatActivity {
                             deleteRecursive(fdelete);
                         }
                         getLocalData();
+                        if (cnt >= fileList.size()) {
+                            AserSampleUtility.dismissProgressDialog(progressDialog);
+                        }
                         // Get a URL to the uploaded content
                         // Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         //  Log.v("success", downloadUrl.toString());
@@ -191,6 +206,10 @@ public class UploadRec extends AppCompatActivity {
                     public void onFailure(@NonNull Exception exception) {
                         // Handle unsuccessful uploads
                         // ...
+                        cnt++;
+                        if (cnt >= fileList.size()) {
+                            AserSampleUtility.dismissProgressDialog(progressDialog);
+                        }
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
