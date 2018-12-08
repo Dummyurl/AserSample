@@ -9,6 +9,7 @@ import com.google.firebase.FirebaseApp;
 
 import java.io.File;
 
+import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.LoginFragment;
@@ -27,6 +28,7 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
         FirebaseApp.initializeApp(this);
         fragment = getIntent().getStringExtra("fragment");
         dynamicPermissionCheck();
+       // ASERApplication.getInstance().getSDCardRootPath();
     }
 
     private void dynamicPermissionCheck() {
@@ -63,8 +65,12 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
     }
 
     private boolean createFolderStructureForStoringDataLocally() {
+        /*File root = android.os.Environment.getExternalStorageDirectory();
+        File file = new File(root.getAbsolutePath() + "/StudentRecordings");*/
+
         File root = android.os.Environment.getExternalStorageDirectory();
-        File file = new File(root.getAbsolutePath() + "/StudentRecordings");
+        File file = new File(ASERApplication.getInstance().getRootPath());
+
         if (!file.exists())
             return file.mkdirs();
         return true;

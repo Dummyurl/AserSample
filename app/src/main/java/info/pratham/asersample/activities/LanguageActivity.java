@@ -71,7 +71,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        currentFilePath = ASERApplication.getRootPath() + AserSample_Constant.getCrlID() + "/" +
+        currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
                 AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" +
                 AserSample_Constant.selectedLanguage + "/";
         if (nextItem.isShown()) {

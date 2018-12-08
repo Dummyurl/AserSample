@@ -63,7 +63,7 @@ public class UploadRec extends AppCompatActivity {
     }
 
     private void getLocalData() {
-        String path = ASERApplication.getRootPath() + AserSample_Constant.crlID + "/";
+        String path = ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/";
         File directory = new File(path);
         fileList = new ArrayList();
         File[] subFolderList = directory.listFiles();
@@ -164,7 +164,7 @@ public class UploadRec extends AppCompatActivity {
             cnt = 0;
             AserSampleUtility.showProgressDialog(progressDialog);
             for (String path : fileList) {
-                if (zipFileAtPath(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
+                if (zipFileAtPath(ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
                     uploadImageToStorage(path + ".zip");
                 }
             }
@@ -175,7 +175,7 @@ public class UploadRec extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
 //        getPredictions("");
-        Uri file = Uri.fromFile(new File(ASERApplication.getRootPath() + AserSample_Constant.crlID + "/" + fileUri));
+        Uri file = Uri.fromFile(new File(ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + fileUri));
 
         StorageReference riversRef = mStorageRef.child("StudentRecordings/" + AserSample_Constant.crlID + "/" + fileUri);
 
@@ -186,7 +186,7 @@ public class UploadRec extends AppCompatActivity {
                         cnt++;
                         String path = taskSnapshot.getMetadata().getPath();
                         path = path.replace(".zip", "");
-                        File fdelete = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path);
+                        File fdelete = new File(ASERApplication.getInstance().getRootPathForDeletion() + "/" + path);
                         if (fdelete.exists()) {
                             deleteRecursive(fdelete);
                         }
