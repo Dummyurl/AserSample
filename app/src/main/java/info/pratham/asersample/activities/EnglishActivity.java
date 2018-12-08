@@ -378,9 +378,9 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     public void onBackPressed() {
         /* super.onBackPressed();*/
         AlertDialog builder = new AlertDialog.Builder(this).create();
-        builder.setMessage("You Want navigate to Math test");
+        builder.setMessage("Do you want to navigate to the Math test");
         builder.setCancelable(false);
-        builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+        builder.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
