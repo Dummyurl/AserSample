@@ -88,14 +88,8 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
     @Override
     public void onBackPressed() {
         int fragments = getSupportFragmentManager().getBackStackEntryCount();
-        if (fragments == 0) {
-            finish();
-        } else {
-            if (getFragmentManager().getBackStackEntryCount() > 1) {
-                getFragmentManager().popBackStack();
-            } else {
-                super.onBackPressed();
-            }
-        }
+        if (fragments == 0) finish();
+        else if (getFragmentManager().getBackStackEntryCount() > 1)
+            getFragmentManager().popBackStack();
     }
 }
