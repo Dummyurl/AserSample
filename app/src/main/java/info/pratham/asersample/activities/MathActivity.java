@@ -91,9 +91,8 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     private void showTenToNinetyNine() {
         recordButton.setVisibility(View.VISIBLE);
-        if (!previous.isShown()) {
-            previous.setVisibility(View.VISIBLE);
-        }
+        previous.setVisibility(View.VISIBLE);
+
         AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());
         currentLevel = getString(R.string.tenToNinetyNine);
         setNavigation(getString(R.string.oneToNine), getString(R.string.Subtraction));
@@ -118,9 +117,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     private void showOneToNine() {
         recordButton.setVisibility(View.VISIBLE);
-        if (previous.isShown()) {
-            previous.setVisibility(View.GONE);
-        }
+        previous.setVisibility(View.GONE);
         currentLevel = getString(R.string.oneToNine);
         setNavigation("", getString(R.string.tenToNinetyNine));
         tv_level.setText("Number Recognition - " + currentLevel);
@@ -144,8 +141,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     private void showSubtraction() {
         recordButton.setVisibility(View.INVISIBLE);
-        if (!next.isShown())
-            next.setVisibility(View.VISIBLE);
+        next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.tenToNinetyNine), getString(R.string.Division));
         currentLevel = getString(R.string.Subtraction);
         Bundle bundle = new Bundle();
@@ -159,8 +155,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     private void showDivision() {
         recordButton.setVisibility(View.INVISIBLE);
-        if (next.isShown())
-            next.setVisibility(View.GONE);
+        next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Subtraction), "");
         currentLevel = getString(R.string.Division);
         Bundle bundle = new Bundle();
@@ -174,8 +169,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @Override
     public void getSelectedwords(List list) {
-       /* if(currentLevel.equals(getString(R.string.tenToNinetyNine)))
-        question.setText(list.toString());*/
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", new ArrayList<>(list));
         NumberRecognitionFragment numberRecognitionFragment = new NumberRecognitionFragment();
@@ -219,10 +212,8 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void setNavigation(String prevText, String nextText) {
-        if (previous.isShown())
-            previous.setText("< " + prevText);
-        if (next.isShown())
-            next.setText(nextText + " >");
+        previous.setText("< " + prevText);
+        next.setText(nextText + " >");
     }
 
     @Override
@@ -282,7 +273,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         switch (currentLevel) {
             case "10-99":
                 fileStorePath = currentFilePath + "doubleDigit/";
-                 currentFileName = childFragment.getWordsList().get(childFragment.getWordsCount()).toString() + ".mp3";
+                currentFileName = childFragment.getWordsList().get(childFragment.getWordsCount()).toString() + ".mp3";
                 break;
             case "1-9":
                 fileStorePath = currentFilePath + "singleDigit/";
@@ -316,7 +307,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @Override
     public void onBackPressed() {
-       /* super.onBackPressed();*/
+        /* super.onBackPressed();*/
         AlertDialog builder = new AlertDialog.Builder(this).create();
         builder.setMessage("You Want navigate to Native Language test");
         builder.setCancelable(false);
