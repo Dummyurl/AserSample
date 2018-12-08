@@ -1,5 +1,7 @@
 package info.pratham.asersample.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -368,11 +370,22 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                         AserSampleUtility.showToast(EnglishActivity.this, "FAIL..");
                     }
                 });
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("fragment", StudentDetails.class.getSimpleName());
-        startActivity(intent);
-        finish();
+        AlertDialog builder = new AlertDialog.Builder(this).create();
+        builder.setMessage("Test successfully submitted");
+        builder.setCancelable(false);
+        builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("fragment", StudentDetails.class.getSimpleName());
+                startActivity(intent);
+                finishAffinity();
+            }
+        });
+        builder.show();
+
+
     }
 
     private void assignMistakeCount(String level, String cnt) {
