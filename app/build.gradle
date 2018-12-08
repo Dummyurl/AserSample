@@ -33,6 +33,7 @@ dependencies {
     //firebase services
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-firestore:17.1.0'
+    implementation 'com.google.firebase:firebase-storage:16.0.1'
     //real time DB
     implementation 'com.google.firebase:firebase-database:16.0.1'
     //fast networking
@@ -42,7 +43,6 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     // responsive
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
-    implementation 'com.google.firebase:firebase-storage:16.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
