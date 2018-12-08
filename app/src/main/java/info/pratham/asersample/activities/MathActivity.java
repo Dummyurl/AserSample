@@ -111,7 +111,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 e.printStackTrace();
             }
         } else {
-            AserSampleUtility.showToast(this, "Something goes Wrong");
+            AserSampleUtility.showToast(this, "Problem in getting data!");
         }
     }
 

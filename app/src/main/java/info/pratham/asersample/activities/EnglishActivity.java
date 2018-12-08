@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -81,22 +80,9 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         ButterKnife.bind(this);
         mDatabase = FirebaseDatabase.getInstance().getReference("students");
         currentFilePath = LanguageActivity.currentFilePath;
-        if (nextItem.isShown()) {
-            nextItem.setVisibility(View.INVISIBLE);
-        }
-        if (prevItem.isShown()) {
-            prevItem.setVisibility(View.INVISIBLE);
-        }
+        nextItem.setVisibility(View.INVISIBLE);
+        prevItem.setVisibility(View.INVISIBLE);
         testType.setText("English" + " Test");
-
-        /*String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
-        try {
-            JSONObject questionJson = new JSONObject(question);
-            int randomNo = ASERApplication.getRandomNumber(0, questionJson.length());
-            AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
         getData("Capital");
     }
 
@@ -134,14 +120,13 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 e.printStackTrace();
             }
         } else {
-            AserSampleUtility.showToast(this, "Something goes Wrong");
+            AserSampleUtility.showToast(this, "Problem in getting data!");
         }
     }
 
     private void getSentences() {
         setVisibilityForPrevNext();
-        if (next.isShown())
-            next.setVisibility(View.GONE);
+        next.setVisibility(View.GONE);
         setNavigation(getString(R.string.word), "");
         currentLevel = getString(R.string.Sentence);
         mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().getSentence_mistake());
@@ -160,7 +145,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        showQue(dataArray.toString());
     }
 
 
@@ -210,7 +194,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 getData("word");
                 break;
         }
-        terminationWorks();
     }
 
     @OnClick(R.id.nextItem)
@@ -236,23 +219,14 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         wordCOunt--;
         showQue(selectedWordsList.get(wordCOunt).toString());
         if (wordCOunt == 0) {
-            if (prevItem.isShown()) {
-                prevItem.setVisibility(View.INVISIBLE);
-                nextItem.setVisibility(View.VISIBLE);
-            }
+            prevItem.setVisibility(View.INVISIBLE);
+            nextItem.setVisibility(View.VISIBLE);
         }
 
         if (wordCOunt > -1) {
-            if (prevItem.isShown()) {
-                nextItem.setVisibility(View.VISIBLE);
-            }
+            nextItem.setVisibility(View.VISIBLE);
         }
 
-    }
-
-    private void terminationWorks() {
-        // ASER test is completed now do the app termination things like sync and all
-        Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
     }
 
     private void showQue(String msg) {
@@ -265,9 +239,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             tv_question.setTextSize(1, 60);
             wordCOunt = -1;
             selectedWordsList = list;
-            if (!nextItem.isShown()) {
-                nextItem.setVisibility(View.VISIBLE);
-            }
+            nextItem.setVisibility(View.VISIBLE);
             showNextItem();
         }
     }
@@ -345,10 +317,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     }
 
     private void setNavigation(String prevText, String nextText) {
-        if (previous.isShown())
-            previous.setText("< " + prevText);
-        if (next.isShown())
-            next.setText(nextText + " >");
+        previous.setText("< " + prevText);
+        next.setText(nextText + " >");
     }
 
     @Override
@@ -359,7 +329,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                     @Override
                     public void onSuccess(Void aVoid) {
                         // Write was successful!
-                        Log.d("aVoid:::", "");
                         AserSampleUtility.showToast(EnglishActivity.this, "Done..");
                     }
                 })
@@ -407,7 +376,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void onBackPressed() {
-       /* super.onBackPressed();*/
+        /* super.onBackPressed();*/
         AlertDialog builder = new AlertDialog.Builder(this).create();
         builder.setMessage("You Want navigate to Math test");
         builder.setCancelable(false);
