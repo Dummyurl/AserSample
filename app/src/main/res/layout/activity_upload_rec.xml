@@ -6,6 +6,42 @@
     android:layout_height="match_parent"
     tools:context="info.pratham.asersample.networkManager.UploadRec">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/_25sdp"
+                android:textStyle="bold"
+                android:text="Sync now"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:alpha=".3"
+            android:layout_weight=".5"
+            android:layout_marginRight="40dp"
+            android:layout_height="1dp"
+            android:background="#000000"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8">
+
+        </LinearLayout>
+    </LinearLayout>
+
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"

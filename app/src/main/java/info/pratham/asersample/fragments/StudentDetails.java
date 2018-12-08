@@ -39,7 +39,6 @@ public class StudentDetails extends BaseFragment {
 
     @BindView(R.id.classChild)
     Spinner classChild;
-    private DatabaseReference mDatabase;
 
 
     @Override

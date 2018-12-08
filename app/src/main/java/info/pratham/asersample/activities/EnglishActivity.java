@@ -34,7 +34,7 @@ import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
-import info.pratham.asersample.fragments.StudentDetails;
+import info.pratham.asersample.fragments.SelectLanguageFragment;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -347,7 +347,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("fragment", StudentDetails.class.getSimpleName());
+                intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
                 startActivity(intent);
                 finishAffinity();
             }

@@ -1,5 +1,6 @@
 package info.pratham.asersample.activities;
 
+import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -12,7 +13,7 @@ import java.io.File;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.LoginFragment;
-import info.pratham.asersample.fragments.StudentDetails;
+import info.pratham.asersample.fragments.SelectLanguageFragment;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.PermissionResult;
 import info.pratham.asersample.utility.PermissionUtils;
@@ -49,17 +50,9 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
             Toast.makeText(this, "Cannot create folder locally", Toast.LENGTH_SHORT).show();
         if (fragment == null) {
             AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
-        } else if (fragment.equals(StudentDetails.class.getSimpleName())) {
-            AserSampleUtility.showFragment(LoginActivity.this, new StudentDetails(), StudentDetails.class.getSimpleName());
+        } else if (fragment.equals(SelectLanguageFragment.class.getSimpleName())) {
+            AserSampleUtility.showFragment(LoginActivity.this, new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
         }
-
-        //Fragment display
-//        AserSampleUtility.showFragment(LoginActivity.this,new ServeyOrEvaluation());
-//        AserSampleUtility.showFragment(LoginActivity.this,new LoginFragment());
-       /* FragmentManager fragmentManager=getFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout,new LoginFragment());
-        fragmentTransaction.commit();*/
     }
 
     private boolean createFolderStructureForStoringDataLocally() {
@@ -88,8 +81,13 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
     @Override
     public void onBackPressed() {
         int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 1) finish();
-        else if (count > 1)
+        Fragment f = getFragmentManager().findFragmentById(R.id.framelayout);
+        if (f instanceof LoginFragment)
+            finish();
+        else if (count == 1) {
+            if (f instanceof SelectLanguageFragment)
+                AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
+        } else
             getFragmentManager().popBackStack();
     }
 }

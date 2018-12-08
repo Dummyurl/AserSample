@@ -6,25 +6,12 @@
     android:orientation="vertical"
     android:weightSum="10">
 
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:elevation="5dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_arrow_back_black_24dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="50dp"
         android:layout_marginVertical="10dp"
-        android:layout_weight="8"
+        android:layout_weight="8.5"
         android:background="@drawable/level_choose_bg"
         android:elevation="5dp"
         android:orientation="horizontal"
@@ -163,7 +150,7 @@
         android:layout_gravity="right"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:background="@drawable/ripple"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_forward_black_24dp" />
