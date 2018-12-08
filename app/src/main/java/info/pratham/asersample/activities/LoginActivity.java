@@ -20,6 +20,7 @@ import info.pratham.asersample.utility.PermissionResult;
 import info.pratham.asersample.utility.PermissionUtils;
 
 public class LoginActivity extends BaseActivity implements PermissionResult {
+
     String fragment;
 
     @Override
@@ -29,7 +30,6 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
         FirebaseApp.initializeApp(this);
         fragment = getIntent().getStringExtra("fragment");
         dynamicPermissionCheck();
-       // ASERApplication.getInstance().getSDCardRootPath();
     }
 
     private void dynamicPermissionCheck() {
@@ -47,7 +47,6 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
         // Application is ready to go with permission acceptance
         //Hide notification bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         if (!createFolderStructureForStoringDataLocally())
             Toast.makeText(this, "Cannot create folder locally", Toast.LENGTH_SHORT).show();
         if (fragment == null) {
@@ -58,8 +57,6 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
     }
 
     private boolean createFolderStructureForStoringDataLocally() {
-        /*File root = android.os.Environment.getExternalStorageDirectory();
-        File file = new File(root.getAbsolutePath() + "/StudentRecordings");*/
         File file = new File(ASERApplication.getInstance().getRootPath());
         if (!file.exists())
             return file.mkdirs();
