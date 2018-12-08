@@ -307,7 +307,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @Override
     public void onBackPressed() {
-        /* super.onBackPressed();*/
         AlertDialog builder = new AlertDialog.Builder(this).create();
         builder.setMessage("You Want navigate to Native Language test");
         builder.setCancelable(false);
