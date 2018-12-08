@@ -81,7 +81,6 @@ public class StudentDetails extends BaseFragment {
             AserSample_Constant.getAserSample_Constant().setStudent(student);
             Intent intent = new Intent(getActivity(), LanguageActivity.class);
             getActivity().startActivity(intent);
-            getActivity().finish();
             // intent.putExtra("student", student);
 
 

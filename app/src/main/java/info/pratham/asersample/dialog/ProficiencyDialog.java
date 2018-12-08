@@ -80,6 +80,7 @@ public class ProficiencyDialog extends Dialog {
         } else {
             RadioButton radioButton = radiogroup.findViewById(id);
             proficiencyListener.getProficiency(radioButton.getText().toString());
+            dismiss();
         }
     }
 }
