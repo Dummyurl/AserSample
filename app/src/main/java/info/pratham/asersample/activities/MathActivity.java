@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
+import info.pratham.asersample.utility.AudioUtil;
 
 public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
 
@@ -47,10 +49,15 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     EditText mistakes;
     @BindView(R.id.recordButtonSP)
     Button recordButton;
+    @BindView(R.id.refreshIV)
+    ImageView refreshIcon;
+    @BindView(R.id.displayLayout)
+    RelativeLayout displayLayout;
 
-    public static String currentFilePath;
-    public static String currentLevel;
 
+    public String currentLevel;
+    String currentFilePath, currentFileName;
+    boolean recording, playing;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -242,4 +249,64 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         }
     }
 
+    public void audioStopped() {
+        recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
+        recording = true;
+        playing = true;
+    }
+
+    public void initiateRecording() {
+        AudioUtil.stopRecording();
+        AudioUtil.stopPlayingAudio();
+        recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
+        refreshIcon.setVisibility(View.INVISIBLE);
+        question.setAlpha(1f);
+        playing = false;
+        recording = false;
+    }
+
+    @OnClick(R.id.refreshIV)
+    public void refreshRecording() {
+        initiateRecording();
+    }
+
+    @OnClick(R.id.recordButtonSP)
+    public void startOrStopRecording() {
+        NumberRecognitionFragment fragment = (NumberRecognitionFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+        fragment.showMsg();
+        String fileStorePath = currentFilePath + "sample.mp3";
+        switch (currentLevel) {
+            case "10-99":
+                fileStorePath = currentFilePath + "doubleDigit/";
+                // currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
+                break;
+            case "1-9":
+                fileStorePath = currentFilePath + "singleDigit/";
+                //  currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
+                break;
+        }
+
+        File file = new File(fileStorePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        if (playing && !recording) {
+            //initiateRecording();
+        } else if (recording && playing) {
+//            recording = false;
+            AudioUtil.playRecording(fileStorePath + currentFileName, this);
+            recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
+        } else if (recording && !playing) {
+            AudioUtil.stopRecording();
+            refreshIcon.setVisibility(View.VISIBLE);
+            question.setAlpha(0.5f);
+            playing = true;
+            recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
+        } else {
+            AudioUtil.startRecording(fileStorePath + currentFileName);
+            recording = true;
+            recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
+        }
+    }
 }
