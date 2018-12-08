@@ -304,7 +304,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         initiateRecording();
     }
 
-
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
         String fileStorePath = currentFilePath + "sample.mp3";

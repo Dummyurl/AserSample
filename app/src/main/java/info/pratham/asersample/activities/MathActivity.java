@@ -43,18 +43,13 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     Button previous;
     @BindView(R.id.next)
     Button next;
-    @BindView(R.id.recordButtonSP)
-    Button recordButton;
-    @BindView(R.id.refreshIV)
-    ImageView refreshIcon;
-    @BindView(R.id.displayLayout)
-    RelativeLayout displayLayout;
     @BindView(R.id.mistakes)
     EditText mistakes;
+    @BindView(R.id.recordButtonSP)
+    Button recordButton;
 
-    String currentLevel, currentFilePath, currentFileName;
-    boolean recording, playing;
-    List selectedWordsList;
+    public static String currentFilePath;
+    public static String currentLevel;
 
 
     @Override
@@ -63,6 +58,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         setContentView(R.layout.activity_language);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
+        currentFilePath = LanguageActivity.currentFilePath;
         testType.setText("Mathematics Test");
         showSubtraction();
     }
@@ -84,6 +80,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showTenToNinetyNine() {
+        recordButton.setVisibility(View.VISIBLE);
         if (!previous.isShown()) {
             previous.setVisibility(View.VISIBLE);
         }
@@ -110,6 +107,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showOneToNine() {
+        recordButton.setVisibility(View.VISIBLE);
         if (previous.isShown()) {
             previous.setVisibility(View.GONE);
         }
@@ -135,6 +133,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showSubtraction() {
+        recordButton.setVisibility(View.INVISIBLE);
         if (!next.isShown())
             next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.tenToNinetyNine), getString(R.string.Division));
@@ -149,6 +148,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showDivision() {
+        recordButton.setVisibility(View.INVISIBLE);
         if (next.isShown())
             next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Subtraction), "");
