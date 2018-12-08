@@ -1,5 +1,7 @@
 package info.pratham.asersample.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +29,7 @@ import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
+import info.pratham.asersample.fragments.StudentDetails;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -383,5 +386,27 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setLetter_mistake(cnt);
                 break;
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+       /* super.onBackPressed();*/
+        AlertDialog builder = new AlertDialog.Builder(this).create();
+        builder.setMessage("Student progress can lost");
+        builder.setCancelable(false);
+        builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               finish();
+            }
+        });
+        builder.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
     }
 }
