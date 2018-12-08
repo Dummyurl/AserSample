@@ -58,6 +58,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     public String currentLevel;
     String currentFilePath, currentFileName;
     boolean recording, playing;
+    NumberRecognitionFragment childFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -182,6 +183,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @OnClick(R.id.next)
     public void next() {
+        initiateRecording();
         assignMistakeCount(currentLevel, mistakes.getText().toString());
         switch (currentLevel) {
             case "Subtraction":
@@ -199,6 +201,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @OnClick(R.id.previous)
     public void previous() {
+        initiateRecording();
         assignMistakeCount(currentLevel, mistakes.getText().toString());
         switch (currentLevel) {
             case "Subtraction":
@@ -272,17 +275,16 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
-        NumberRecognitionFragment fragment = (NumberRecognitionFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-        fragment.showMsg();
+        childFragment = (NumberRecognitionFragment) getFragmentManager().findFragmentById(R.id.framelayout);
         String fileStorePath = currentFilePath + "sample.mp3";
         switch (currentLevel) {
             case "10-99":
                 fileStorePath = currentFilePath + "doubleDigit/";
-                // currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
+                 currentFileName = childFragment.getWordsList().get(childFragment.getWordsCount()).toString() + ".mp3";
                 break;
             case "1-9":
                 fileStorePath = currentFilePath + "singleDigit/";
-                //  currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
+                currentFileName = childFragment.getWordsList().get(childFragment.getWordsCount()).toString() + ".mp3";
                 break;
         }
 

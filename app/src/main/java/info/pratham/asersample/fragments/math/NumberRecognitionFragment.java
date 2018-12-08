@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
-import info.pratham.asersample.utility.AserSampleUtility;
+import info.pratham.asersample.activities.MathActivity;
 
 /**
  * Created by PEF on 24/11/2018.
@@ -65,6 +65,7 @@ public class NumberRecognitionFragment extends BaseFragment {
 
     @OnClick(R.id.nextItem)
     public void showNextItem() {
+        ((MathActivity)getActivity()).initiateRecording();
         wordCOunt++;
         showQue(selectedWordsList.get(wordCOunt).toString());
         if (wordCOunt == 1) {
@@ -81,6 +82,7 @@ public class NumberRecognitionFragment extends BaseFragment {
 
     @OnClick(R.id.prevItem)
     public void showPrevItem() {
+        ((MathActivity)getActivity()).initiateRecording();
         wordCOunt--;
         showQue(selectedWordsList.get(wordCOunt).toString());
         if (wordCOunt == 0) {
@@ -98,8 +100,12 @@ public class NumberRecognitionFragment extends BaseFragment {
 
     }
 
-    public void showMsg() {
-        AserSampleUtility.showToast(getActivity(), "activity call");
+    public List getWordsList() {
+        return selectedWordsList;
+    }
+
+    public int getWordsCount() {
+        return wordCOunt;
     }
 
     private void showQue(String msg) {

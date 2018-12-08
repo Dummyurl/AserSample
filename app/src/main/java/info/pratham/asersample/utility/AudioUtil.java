@@ -53,8 +53,8 @@ public class AudioUtil {
                         ((LanguageActivity)activity).audioStopped();
                     if (activity instanceof EnglishActivity)
                         ((EnglishActivity)activity).audioStopped();
-                    /*if (activity instanceof MathActivity)
-                        ((MathActivity)activity).audioStop();*/
+                    if (activity instanceof MathActivity)
+                        ((MathActivity)activity).audioStopped();
                 }
             });
         } catch (IOException e) {
