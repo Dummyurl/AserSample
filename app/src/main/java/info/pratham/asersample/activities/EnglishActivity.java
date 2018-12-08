@@ -404,4 +404,25 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+       /* super.onBackPressed();*/
+        AlertDialog builder = new AlertDialog.Builder(this).create();
+        builder.setMessage("You Want navigate to Math test");
+        builder.setCancelable(false);
+        builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
+    }
 }
