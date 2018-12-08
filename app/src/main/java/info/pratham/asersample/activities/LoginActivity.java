@@ -60,10 +60,7 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
     private boolean createFolderStructureForStoringDataLocally() {
         /*File root = android.os.Environment.getExternalStorageDirectory();
         File file = new File(root.getAbsolutePath() + "/StudentRecordings");*/
-
-        File root = android.os.Environment.getExternalStorageDirectory();
         File file = new File(ASERApplication.getInstance().getRootPath());
-
         if (!file.exists())
             return file.mkdirs();
         return true;
