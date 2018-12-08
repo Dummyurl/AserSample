@@ -1,9 +1,9 @@
 package info.pratham.asersample.utility;
 
 import android.app.Activity;
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+
 import java.io.IOException;
 
 import info.pratham.asersample.activities.EnglishActivity;
@@ -31,8 +31,10 @@ public class AudioUtil {
 
     public static void stopRecording() {
         try {
-            mRecorder.stop();
-            mRecorder.release();
+            if (mRecorder != null) {
+                mRecorder.stop();
+                mRecorder.release();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,11 +52,11 @@ public class AudioUtil {
                 public void onCompletion(MediaPlayer mp) {
                     stopPlayingAudio();
                     if (activity instanceof LanguageActivity)
-                        ((LanguageActivity)activity).audioStopped();
+                        ((LanguageActivity) activity).audioStopped();
                     if (activity instanceof EnglishActivity)
-                        ((EnglishActivity)activity).audioStopped();
+                        ((EnglishActivity) activity).audioStopped();
                     if (activity instanceof MathActivity)
-                        ((MathActivity)activity).audioStopped();
+                        ((MathActivity) activity).audioStopped();
                 }
             });
         } catch (IOException e) {
@@ -64,7 +66,8 @@ public class AudioUtil {
 
     public static void stopPlayingAudio() {
         try {
-            mPlayer.release();
+            if (mPlayer != null)
+                mPlayer.release();
         } catch (Exception e) {
             e.printStackTrace();
         }
