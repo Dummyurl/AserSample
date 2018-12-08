@@ -65,7 +65,7 @@ public class NumberRecognitionFragment extends BaseFragment {
 
     @OnClick(R.id.nextItem)
     public void showNextItem() {
-        ((MathActivity)getActivity()).initiateRecording();
+        ((MathActivity) getActivity()).initiateRecording();
         wordCOunt++;
         showQue(selectedWordsList.get(wordCOunt).toString());
         if (wordCOunt == 1) {
@@ -82,7 +82,7 @@ public class NumberRecognitionFragment extends BaseFragment {
 
     @OnClick(R.id.prevItem)
     public void showPrevItem() {
-        ((MathActivity)getActivity()).initiateRecording();
+        ((MathActivity) getActivity()).initiateRecording();
         wordCOunt--;
         showQue(selectedWordsList.get(wordCOunt).toString());
         if (wordCOunt == 0) {
