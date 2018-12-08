@@ -29,7 +29,6 @@ import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
-import info.pratham.asersample.fragments.StudentDetails;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -74,12 +73,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         currentFilePath = ASERApplication.getRootPath() + AserSample_Constant.getCrlID() + "/" +
                 AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" +
                 AserSample_Constant.selectedLanguage + "/";
-        if (nextItem.isShown()) {
-            nextItem.setVisibility(View.INVISIBLE);
-        }
-        if (prevItem.isShown()) {
-            prevItem.setVisibility(View.INVISIBLE);
-        }
+        nextItem.setVisibility(View.INVISIBLE);
+        prevItem.setVisibility(View.INVISIBLE);
         testType.setText(AserSample_Constant.selectedLanguage + " Test");
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
@@ -109,7 +104,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     private void showParagraph() {
         setVisibilityForPrevNext();
-        if (!next.isShown())
             next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Word), getString(R.string.Story));
         currentLevel = getString(R.string.Paragraph);
@@ -125,7 +119,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     private void showStory() {
         setVisibilityForPrevNext();
-        if (next.isShown())
             next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Paragraph), "");
         currentLevel = getString(R.string.Story);
@@ -141,9 +134,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     private void showLetters() {
         setVisibilityForPrevNext();
-        if (previous.isShown()) {
             previous.setVisibility(View.GONE);
-        }
         setNavigation("", getString(R.string.Word));
         currentLevel = getString(R.string.Letter);
 
@@ -167,9 +158,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     private void showWords() {
         setVisibilityForPrevNext();
-        if (!previous.isShown()) {
             previous.setVisibility(View.VISIBLE);
-        }
         setNavigation(getString(R.string.Letter), getString(R.string.Paragraph));
         currentLevel = getString(R.string.Word);
         JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
@@ -206,9 +195,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             tv_question.setTextSize(1, 60);
             wordCOunt = -1;
             selectedWordsList = list;
-            if (!nextItem.isShown()) {
                 nextItem.setVisibility(View.VISIBLE);
-            }
             showNextItem();
         }
     }
@@ -219,14 +206,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         wordCOunt++;
         showQue(selectedWordsList.get(wordCOunt).toString());
         if (wordCOunt == 1) {
-            if (!prevItem.isShown()) {
                 prevItem.setVisibility(View.VISIBLE);
-            }
         }
         if ((wordCOunt + 1) == selectedWordsList.size()) {
-            if (nextItem.isShown()) {
                 nextItem.setVisibility(View.INVISIBLE);
-            }
         }
     }
 
@@ -236,16 +219,12 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         wordCOunt--;
         showQue(selectedWordsList.get(wordCOunt).toString());
         if (wordCOunt == 0) {
-            if (prevItem.isShown()) {
                 prevItem.setVisibility(View.INVISIBLE);
                 nextItem.setVisibility(View.VISIBLE);
-            }
         }
 
         if (wordCOunt > -1) {
-            if (prevItem.isShown()) {
                 nextItem.setVisibility(View.VISIBLE);
-            }
         }
 
     }
@@ -391,14 +370,13 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @Override
     public void onBackPressed() {
-       /* super.onBackPressed();*/
         AlertDialog builder = new AlertDialog.Builder(this).create();
-        builder.setMessage("Student progress can lost");
+        builder.setMessage("Student's progress will be lost! Do you still want to continue?");
         builder.setCancelable(false);
-        builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+        builder.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               finish();
+                finish();
             }
         });
         builder.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
