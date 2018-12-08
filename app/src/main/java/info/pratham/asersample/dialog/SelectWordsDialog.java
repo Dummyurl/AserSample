@@ -60,6 +60,8 @@ public class SelectWordsDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_words_dialog);
         ButterKnife.bind(this);
+        setTitle("Choose among the following");
+        txt_message_village.setText("Select "+selectCount+" items among the following");
         setCanceledOnTouchOutside(false);
         setCancelable(false);
         for (int i = 0; i < wordList.size(); i++) {
