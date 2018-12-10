@@ -3,23 +3,11 @@ package info.pratham.asersample;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.Environment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.os.EnvironmentCompat;
-import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
-import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 /**
