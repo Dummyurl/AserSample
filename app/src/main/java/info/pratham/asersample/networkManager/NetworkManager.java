@@ -52,7 +52,7 @@ public class NetworkManager {
     }
 
     public void getQuestionData(/*final String language, final ProgressDialog dialog*/) {
-        AserSampleUtility.showProgressDialog(progressDialog);
+      //  AserSampleUtility.showProgressDialog(progressDialog);
         db.collection("Question")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -72,6 +72,7 @@ public class NetworkManager {
                                 updateOrReplaceQuestionData(map);
                             }
                         } else {
+                            AserSampleUtility.dismissProgressDialog(progressDialog);
                             Log.w("Alert", "Error getting documents.", task.getException());
                             showProblemAlert();
                         }

@@ -9,19 +9,18 @@ import com.google.gson.annotations.SerializedName;
 @Entity
 public class Question {
     @NonNull
-    @PrimaryKey(autoGenerate = true)
-    private int questionId;
+    @PrimaryKey
     private String language;
     private String dataJson;
 
     @NonNull
-    public int getQuestionId() {
+   /* public int getQuestionId() {
         return questionId;
     }
 
     public void setQuestionId(@NonNull int questionId) {
         this.questionId = questionId;
-    }
+    }*/
 
     public String getLanguage() {
         return language;

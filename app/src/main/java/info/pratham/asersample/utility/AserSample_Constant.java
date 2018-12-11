@@ -65,24 +65,26 @@ public class AserSample_Constant {
         return wordsArray;
     }
 
-    public static String getStory(JSONObject sample, String subElement) {
-        String story = "";
+    public static JSONObject getStory(JSONObject sample, String subElement) {
+        JSONArray story;
+        JSONObject obj;
         try {
-            story = sample.getString(subElement);
+            story = sample.getJSONArray(subElement);
+            obj=story.getJSONObject(0);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
-        return story;
+        return obj;
     }
 
-    public static String getPara(JSONObject sample, String subElement) {
-        String para = "";
+    public static JSONObject getPara(JSONObject sample, String subElement) {
+        JSONObject para;
         int randomNo;
         try {
             JSONArray paraArray = sample.getJSONArray(subElement);
             randomNo = ASERApplication.getRandomNumber(0, paraArray.length());
-            para = paraArray.get(randomNo).toString();
+            para = paraArray.getJSONObject(randomNo);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

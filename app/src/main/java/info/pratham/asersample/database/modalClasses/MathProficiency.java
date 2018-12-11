@@ -6,10 +6,16 @@ package info.pratham.asersample.database.modalClasses;
 
 public class MathProficiency {
     private String mathProficiency;
+
     private String subtrtaction_mistake;
     private String division_mistake;
     private String oneToNine_mistake;
     private String tenToNinetyNine_mistake;
+
+    private String[] subtrtaction_que;
+    private String[] division_que;
+    private String[] oneToNine_que;
+    private String[] tenToNinetyNine_que;
 
     public String getMathProficiency() {
         return mathProficiency;

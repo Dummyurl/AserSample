@@ -11,6 +11,12 @@ public class NativeLanguageProficiency {
     private String word_mistake;
     private String letter_mistake;
 
+
+    private String[] story_que;
+    private String[] paragragh_que;
+    private String[] word_que;
+    private String[] letter_que;
+
     public String getProficiency() {
         return proficiency;
     }

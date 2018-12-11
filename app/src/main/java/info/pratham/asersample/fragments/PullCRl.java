@@ -12,7 +12,10 @@ import android.widget.Spinner;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.ParsedRequestListener;
+
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -87,10 +90,23 @@ public class PullCRl extends BaseFragment {
                     @Override
                     public void onError(ANError anError) {
                         // handle error
+
                         AserSampleUtility.dismissProgressDialog(progressDialog);
                         AserSampleUtility.showToast(getActivity(), "NO Intenet connection");
                     }
                 });
+
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        AserSampleUtility.dismissProgressDialog(progressDialog);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        AserSampleUtility.dismissProgressDialog(progressDialog);
+    }
 }

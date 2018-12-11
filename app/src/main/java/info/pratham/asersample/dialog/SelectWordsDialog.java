@@ -13,6 +13,9 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class SelectWordsDialog extends Dialog {
     GridLayout flowLayout;
 
     Context context;
-    List wordList;
+    List<JSONObject> wordList;
     int selectCount;
     int count = 0;
     List<CheckBox> checkBoxes = new ArrayList<>();
@@ -61,33 +64,38 @@ public class SelectWordsDialog extends Dialog {
         setContentView(R.layout.select_words_dialog);
         ButterKnife.bind(this);
         setTitle("Selection dialog");
-        txt_message_village.setText("Select "+selectCount+" item(s) among the following");
+        txt_message_village.setText("Select " + selectCount + " item(s) among the following");
         setCanceledOnTouchOutside(false);
-        setCancelable(false);
-        for (int i = 0; i < wordList.size(); i++) {
-            CheckBox checkBox = new CheckBox(context);
-            checkBox.setText(wordList.get(i).toString());
-            checkBox.setTextSize(1, 35);
-            GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-            param.height = GridLayout.LayoutParams.WRAP_CONTENT;
-            param.width = GridLayout.LayoutParams.WRAP_CONTENT;
-            param.setGravity(Gravity.FILL_HORIZONTAL);
-            checkBox.setLayoutParams(param);
-            flowLayout.addView(checkBox);
-            checkBoxes.add(checkBox);
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (count == selectCount && b) {
-                        compoundButton.setChecked(false);
-                        Toast.makeText(context, "You can select " + selectCount + " item(s) only", Toast.LENGTH_SHORT).show();
-                    } else if (b) {
-                        count++;
-                    } else if (!b) {
-                        count--;
+        try {
+            setCancelable(false);
+            for (int i = 0; i < wordList.size(); i++) {
+                CheckBox checkBox = new CheckBox(context);
+                checkBox.setText(wordList.get(i).getString("data"));
+                checkBox.setTag(wordList.get(i).getString("id"));
+                checkBox.setTextSize(1, 35);
+                GridLayout.LayoutParams param = new GridLayout.LayoutParams();
+                param.height = GridLayout.LayoutParams.WRAP_CONTENT;
+                param.width = GridLayout.LayoutParams.WRAP_CONTENT;
+                param.setGravity(Gravity.FILL_HORIZONTAL);
+                checkBox.setLayoutParams(param);
+                flowLayout.addView(checkBox);
+                checkBoxes.add(checkBox);
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (count == selectCount && b) {
+                            compoundButton.setChecked(false);
+                            Toast.makeText(context, "You can select " + selectCount + " item(s) only", Toast.LENGTH_SHORT).show();
+                        } else if (b) {
+                            count++;
+                        } else if (!b) {
+                            count--;
+                        }
                     }
-                }
-            });
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -108,11 +116,19 @@ public class SelectWordsDialog extends Dialog {
 
     @OnClick(R.id.txt_ok_village)
     public void ok() {
-        List wordList = new ArrayList();
-        for (int i = 0; i < checkBoxes.size(); i++) {
-            if (checkBoxes.get(i).isChecked()) {
-                wordList.add(checkBoxes.get(i).getText());
+        List<JSONObject> wordList = new ArrayList();
+        JSONObject jsObj;
+        try {
+            for (int i = 0; i < checkBoxes.size(); i++) {
+                if (checkBoxes.get(i).isChecked()) {
+                    jsObj = new JSONObject();
+                    jsObj.put("id", checkBoxes.get(i).getTag().toString());
+                    jsObj.put("data", checkBoxes.get(i).getText().toString());
+                    wordList.add(jsObj);
+                }
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         if (!wordList.isEmpty()) {
             if (wordList.size() != selectCount)
