@@ -24,6 +24,7 @@ import java.util.Set;
 
 import info.pratham.asersample.database.AS_Database;
 import info.pratham.asersample.database.modalClasses.Question;
+import info.pratham.asersample.fragments.PullCRl;
 import info.pratham.asersample.interfaces.QuestionDataCompleteListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 
@@ -41,18 +42,23 @@ public class NetworkManager {
     ProgressDialog progressDialog;
     QuestionDataCompleteListener questionDataCompleteListener;
 
-    public NetworkManager(Context _mContext) {
+    public NetworkManager(Context _mContext, PullCRl pullCRl) {
+        this.mContext = _mContext;
+        progressDialog = new ProgressDialog(_mContext);
+        questionDataCompleteListener = pullCRl;
+    }
+    /*public NetworkManager(Context _mContext) {
         this.mContext = _mContext;
         progressDialog = new ProgressDialog(mContext);
         questionDataCompleteListener = (QuestionDataCompleteListener)mContext;
-    }
+    }*/
 
-    public static synchronized NetworkManager getInstance(Context mContext) {
+    /*public static synchronized NetworkManager getInstance(Context mContext) {
         if (instance == null) {
-            instance = new NetworkManager(mContext);
+            instance = new NetworkManager(mContext, this);
         }
         return instance;
-    }
+    }*/
 
     public void getQuestionData() {
         db.collection("Question")

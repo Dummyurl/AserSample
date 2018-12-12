@@ -67,7 +67,8 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
     @OnClick(R.id.btn_pull)
     public void pullData() {
         if (stateSpinner.getSelectedItemPosition() > 0) {
-            final NetworkManager networkManager = new NetworkManager(getActivity());
+            final NetworkManager networkManager = new NetworkManager(getActivity(),this);
+            AserSampleUtility.showProgressDialog(progressDialog);
             networkManager.getQuestionData();
         } else {
             showToast("Please select a state");
@@ -93,7 +94,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
                         // handle error
                         AserSampleUtility.dismissProgressDialog(progressDialog);
                         showProblemAlert("Problem in getting CRL data!",getActivity());
-                        AserSampleUtility.showToast(getActivity(), "NO Intenet connection");
+//                        AserSampleUtility.showToast(getActivity(), "NO Intenet connection");
                     }
                 });
 
