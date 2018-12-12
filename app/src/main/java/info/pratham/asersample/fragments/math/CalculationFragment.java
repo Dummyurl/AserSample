@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,10 +73,10 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     private void showSubtraction() {
         JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Subtraction");
         if (msg != null) {
-            List wordList = new ArrayList();
+            List<JSONObject> wordList = new ArrayList();
             try {
                 for (int i = 0; i < msg.length(); i++) {
-                    wordList.add(msg.getString(i));
+                    wordList.add(msg.getJSONObject(i));
                 }
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 2);
                 selectWordsDialog.show();
@@ -89,10 +91,10 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     private void showDivision() {
         JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Division");
         if (msg != null) {
-            List wordList = new ArrayList();
+            List<JSONObject> wordList = new ArrayList();
             try {
                 for (int i = 0; i < msg.length(); i++) {
-                    wordList.add(msg.getString(i));
+                    wordList.add(msg.getJSONObject(i));
                 }
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 1);
                 selectWordsDialog.show();
@@ -106,24 +108,52 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
 
     @Override
     public void getSelectedwords(List list) {
-        if (currentLevel.equals("Subtraction")) {
-            if (divisionLayout.isShown()) {
-                divisionLayout.setVisibility(View.GONE);
+        try {
+            if (currentLevel.equals("Subtraction")) {
+                if (divisionLayout.isShown()) {
+                    divisionLayout.setVisibility(View.GONE);
+                }
+                if (!subtractionLayout.isShown()) {
+                    subtractionLayout.setVisibility(View.VISIBLE);
+                }
+                questionSub1.setText(list.get(0).toString());
+                questionSub2.setText(list.get(1).toString());
+
+                JSONObject js = (JSONObject) list.get(0);
+                showQue(questionSub1, js);
+                JSONObject js1 = (JSONObject) list.get(1);
+                showQue(questionSub2, js1);
+            } else if (currentLevel.equals("Division")) {
+                if (!divisionLayout.isShown()) {
+                    divisionLayout.setVisibility(View.VISIBLE);
+                }
+                if (subtractionLayout.isShown()) {
+                    subtractionLayout.setVisibility(View.GONE);
+                }
+                //questionDiv.setText(list.get(0).toString());
+                JSONObject js = (JSONObject) list.get(0);
+                showQue(questionDiv, js);
             }
-            if (!subtractionLayout.isShown()) {
-                subtractionLayout.setVisibility(View.VISIBLE);
-            }
-            questionSub1.setText(list.get(0).toString());
-            questionSub2.setText(list.get(1).toString());
-        } else if (currentLevel.equals("Division")) {
-            if (!divisionLayout.isShown()) {
-                divisionLayout.setVisibility(View.VISIBLE);
-            }
-            if (subtractionLayout.isShown()) {
-                subtractionLayout.setVisibility(View.GONE);
-            }
-            questionDiv.setText(list.get(0).toString());
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Data not get", Toast.LENGTH_SHORT);
+            e.printStackTrace();
         }
 
+    }
+
+    public void showQue(final TextView view, JSONObject jsonObject) {
+        try {
+            view.setText(jsonObject.getString("data"));
+            view.setTag(jsonObject.getString("id"));
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "" + view.getTag(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

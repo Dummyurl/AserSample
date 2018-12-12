@@ -8,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -32,7 +36,7 @@ public class NumberRecognitionFragment extends BaseFragment {
     Button prevItem;
 
 
-    List selectedWordsList;
+    List<JSONObject> selectedWordsList;
     int wordCOunt;
 
 
@@ -67,7 +71,7 @@ public class NumberRecognitionFragment extends BaseFragment {
     public void showNextItem() {
         ((MathActivity) getActivity()).initiateRecording();
         wordCOunt++;
-        showQue(selectedWordsList.get(wordCOunt).toString());
+        showQue(selectedWordsList.get(wordCOunt));
         if (wordCOunt == 1) {
             if (!prevItem.isShown()) {
                 prevItem.setVisibility(View.VISIBLE);
@@ -84,7 +88,7 @@ public class NumberRecognitionFragment extends BaseFragment {
     public void showPrevItem() {
         ((MathActivity) getActivity()).initiateRecording();
         wordCOunt--;
-        showQue(selectedWordsList.get(wordCOunt).toString());
+        showQue(selectedWordsList.get(wordCOunt));
         if (wordCOunt == 0) {
             if (prevItem.isShown()) {
                 prevItem.setVisibility(View.INVISIBLE);
@@ -108,7 +112,17 @@ public class NumberRecognitionFragment extends BaseFragment {
         return wordCOunt;
     }
 
-    private void showQue(String msg) {
-        question.setText(msg);
+    private void showQue(JSONObject msg) {
+        try {
+            question.setText(msg.getString("data"));
+            question.setTag(msg.getString("id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.question)
+    public void showId() {
+        Toast.makeText(getActivity(), "" + question.getTag(), Toast.LENGTH_SHORT).show();
     }
 }

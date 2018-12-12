@@ -18,8 +18,8 @@
     <!--MATH-->
     <string name="Subtraction">Subtraction</string>
     <string name="Division">Division</string>
-    <string name="tenToNinetyNine">10-99</string>
-    <string name="oneToNine">1-9</string>
+    <string name="tenToNinetyNine">Double digit</string>
+    <string name="oneToNine">Single digit</string>
     <!--ENGLISH-->
     <string name="Capitalletter">Capital letter</string>
     <string name="Smallletter">Small letter</string>

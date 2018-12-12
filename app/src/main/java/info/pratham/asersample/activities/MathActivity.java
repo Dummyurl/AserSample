@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -99,10 +100,10 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         tv_level.setText("Number Recognition - " + currentLevel);
         JSONArray msg = AserSample_Constant.getMathNumberRecognition(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
-            List wordList = new ArrayList();
+            List<JSONObject> wordList = new ArrayList();
             try {
                 for (int i = 0; i < msg.length(); i++) {
-                    wordList.add(msg.getString(i));
+                    wordList.add(msg.getJSONObject(i));
                 }
                 mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getTenToNinetyNine_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
@@ -123,10 +124,10 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         tv_level.setText("Number Recognition - " + currentLevel);
         JSONArray msg = AserSample_Constant.getMathNumberRecognition(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
-            List wordList = new ArrayList();
+            List<JSONObject> wordList = new ArrayList();
             try {
                 for (int i = 0; i < msg.length(); i++) {
-                    wordList.add(msg.getString(i));
+                    wordList.add(msg.getJSONObject(i));
                 }
                 mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getOneToNine_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
@@ -184,10 +185,10 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             case "Subtraction":
                 showDivision();
                 break;
-            case "10-99":
+            case "Double digit":
                 showSubtraction();
                 break;
-            case "1-9":
+            case "Single digit":
                 showTenToNinetyNine();
                 break;
         }
@@ -205,7 +206,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             case "Division":
                 showSubtraction();
                 break;
-            case "10-99":
+            case "Double digit":
                 showOneToNine();
                 break;
         }
@@ -236,10 +237,10 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             case "Subtraction":
                 AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setSubtrtaction_mistake(cnt);
                 break;
-            case "10-99":
+            case "Double digit":
                 AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setTenToNinetyNine_mistake(cnt);
                 break;
-            case "1-9":
+            case "Single digit":
                 AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setOneToNine_mistake(cnt);
                 break;
         }

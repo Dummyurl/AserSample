@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     String currentLevel, currentFilePath, currentFileName;
     boolean recording, playing;
     int wordCOunt;
-    List selectedWordsList;
+    List<JSONObject> selectedWordsList;
 
 
     private DatabaseReference mDatabase;
@@ -109,10 +110,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
         if (dataArray != null) {
-            List dataList = new ArrayList();
+            List<JSONObject> dataList = new ArrayList();
             try {
                 for (int i = 0; i < dataArray.length(); i++) {
-                    dataList.add(dataArray.getString(i));
+                    dataList.add(dataArray.getJSONObject(i));
                 }
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList, 5);
                 selectWordsDialog.show();
@@ -133,10 +134,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
 
         try {
-            List listdata = new ArrayList<String>();
+            List<JSONObject> listdata = new ArrayList();
             if (dataArray != null) {
                 for (int i = 0; i < dataArray.length(); i++) {
-                    listdata.add(dataArray.getString(i));
+                    listdata.add(dataArray.getJSONObject(i));
                 }
                 getSelectedwords(listdata);
             } else
@@ -200,7 +201,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     public void showNextItem() {
         initiateRecording();
         wordCOunt++;
-        showQue(selectedWordsList.get(wordCOunt).toString());
+        showQue(selectedWordsList.get(wordCOunt));
         if (wordCOunt == 1) {
             if (!prevItem.isShown()) {
                 prevItem.setVisibility(View.VISIBLE);
@@ -217,7 +218,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     public void showPrevItem() {
         initiateRecording();
         wordCOunt--;
-        showQue(selectedWordsList.get(wordCOunt).toString());
+        showQue(selectedWordsList.get(wordCOunt));
         if (wordCOunt == 0) {
             prevItem.setVisibility(View.INVISIBLE);
             nextItem.setVisibility(View.VISIBLE);
@@ -229,8 +230,13 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     }
 
-    private void showQue(String msg) {
-        tv_question.setText(msg);
+    private void showQue(JSONObject msg) {
+        try {
+            tv_question.setText(msg.getString("data"));
+            tv_question.setTag(msg.getString("id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -392,5 +398,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             }
         });
         builder.show();
+    }
+
+    @OnClick(R.id.question)
+    public void showID() {
+        Toast.makeText(this, "" + tv_question.getTag(), Toast.LENGTH_SHORT).show();
     }
 }
