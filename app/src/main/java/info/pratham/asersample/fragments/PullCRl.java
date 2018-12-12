@@ -1,6 +1,7 @@
 package info.pratham.asersample.fragments;
 
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,10 +13,7 @@ import android.widget.Spinner;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.ParsedRequestListener;
-
-import org.json.JSONArray;
 
 import java.util.List;
 
@@ -25,14 +23,18 @@ import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.CRL;
+import info.pratham.asersample.interfaces.ProficiencyListener;
+import info.pratham.asersample.interfaces.QuestionDataCompleteListener;
 import info.pratham.asersample.networkManager.NetworkManager;
 import info.pratham.asersample.utility.AserSampleUtility;
+
+import static info.pratham.asersample.utility.AserSampleUtility.showProblemAlert;
 
 /**
  * Created by PEF on 27/11/2018.
  */
 
-public class PullCRl extends BaseFragment {
+public class PullCRl extends BaseFragment implements QuestionDataCompleteListener {
     @BindView(R.id.stateSpinner)
     Spinner stateSpinner;
     private static final String TAG = "pullCRL";
@@ -65,22 +67,21 @@ public class PullCRl extends BaseFragment {
     @OnClick(R.id.btn_pull)
     public void pullData() {
         if (stateSpinner.getSelectedItemPosition() > 0) {
-            NetworkManager networkManager = new NetworkManager(getActivity());
+            final NetworkManager networkManager = new NetworkManager(getActivity());
             networkManager.getQuestionData();
-            pullCRL("http://www.swap.prathamcms.org/api/UserList?programId=1&statecode=" + statesCodes[stateSpinner.getSelectedItemPosition()]);
         } else {
-            showToast(" Please select a state");
+            showToast("Please select a state");
         }
     }
 
-    private void pullCRL(String URL) {
+    public void pullCRL() {
         AserSampleUtility.showProgressDialog(progressDialog);
+        String URL = "http://www.swap.prathamcms.org/api/UserList?programId=1&statecode=" + statesCodes[stateSpinner.getSelectedItemPosition()];
         AndroidNetworking.get(URL)
                 .build()
                 .getAsObjectList(CRL.class, new ParsedRequestListener<List<CRL>>() {
                     @Override
                     public void onResponse(List<CRL> crlsList) {
-                        // do anything with response
                         Log.d(TAG, "userList size : " + crlsList.size());
                         databaseInstance.getCRLdao().insertCrl(crlsList);
                         AserSampleUtility.dismissProgressDialog(progressDialog);
@@ -90,8 +91,8 @@ public class PullCRl extends BaseFragment {
                     @Override
                     public void onError(ANError anError) {
                         // handle error
-
                         AserSampleUtility.dismissProgressDialog(progressDialog);
+                        showProblemAlert("Problem in getting CRL data!",getActivity());
                         AserSampleUtility.showToast(getActivity(), "NO Intenet connection");
                     }
                 });
@@ -108,5 +109,10 @@ public class PullCRl extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         AserSampleUtility.dismissProgressDialog(progressDialog);
+    }
+
+    @Override
+    public void startPushingCrl() {
+        pullCRL();
     }
 }

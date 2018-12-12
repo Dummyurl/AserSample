@@ -59,8 +59,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     EditText mistakes;
 
     static String currentFilePath;
-    String currentLevel, currentFileName;
-    boolean recording, playing;
+    String currentLevel;
+    boolean recording, playing, isNewQuestion;
     int wordCOunt;
     List<JSONObject> selectedWordsList;
 
@@ -70,23 +70,28 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        ASERApplication.sequenceCnt = 0;
         currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
-                AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" +
-                AserSample_Constant.selectedLanguage + "/";
+                AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/";
+
         nextItem.setVisibility(View.INVISIBLE);
         prevItem.setVisibility(View.INVISIBLE);
         testType.setText(AserSample_Constant.selectedLanguage + " Test");
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
-            JSONObject questionJson = new JSONObject(question);
-            int randomNo = ASERApplication.getRandomNumber(0, questionJson.length());
-            // AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
-            //todo remove hardcoded sample
-            AserSample_Constant.sample = (JSONObject) questionJson.get("Sample1");
+            if (question != null) {
+                JSONObject questionJson = new JSONObject(question);
+                int randomNo = ASERApplication.getRandomNumber(0, questionJson.length());
+                // AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
+                //todo remove hardcoded sample
+                AserSample_Constant.sample = (JSONObject) questionJson.get("Sample1");
+                showParagraph();
+            } else {
+                AserSampleUtility.showToast(this, "No data available. Contact administrator!");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        showParagraph();
     }
 
 
@@ -183,6 +188,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     private void showQue(JSONObject msg) {
         try {
+            isNewQuestion = true;
             tv_question.setText(msg.getString("data"));
             tv_question.setTag(msg.getString("id"));
         } catch (JSONException e) {
@@ -294,8 +300,13 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
-        String fileStorePath = currentFilePath + "sample.mp3";
-        switch (currentLevel) {
+        if (isNewQuestion) {
+            ASERApplication.sequenceCnt += 1;
+            isNewQuestion = false;
+        }
+
+        String fileStorePath = currentFilePath + ASERApplication.sequenceCnt + tv_question.getTag().toString() + ".mp3";
+        /*switch (currentLevel) {
             case "Story":
                 fileStorePath = currentFilePath;
                 currentFileName = "story.mp3";
@@ -312,18 +323,17 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 fileStorePath = currentFilePath + "Letter/";
                 currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
                 break;
-        }
+        }*/
 
         File file = new File(fileStorePath);
         if (!file.exists()) {
             file.mkdirs();
         }
 
-        if (playing && !recording) {
+        if (!recording && playing) {
             //initiateRecording();
         } else if (recording && playing) {
-//            recording = false;
-            AudioUtil.playRecording(fileStorePath + currentFileName, this);
+            AudioUtil.playRecording(fileStorePath, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording && !playing) {
             AudioUtil.stopRecording();
@@ -332,7 +342,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             playing = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
         } else {
-            AudioUtil.startRecording(fileStorePath + currentFileName);
+            AudioUtil.startRecording(fileStorePath);
             recording = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }

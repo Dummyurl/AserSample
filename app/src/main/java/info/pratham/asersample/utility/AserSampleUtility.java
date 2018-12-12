@@ -7,12 +7,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import java.io.File;
@@ -52,6 +54,21 @@ public class AserSampleUtility {
         }
     }
 
+    public static void showProblemAlert(String msg, Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Problem with the server !!");
+        builder.setMessage(msg);
+        builder.setCancelable(true);
+        builder.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder.create();
+        alert11.show();
+    }
 
     public static void showProgressDialog(ProgressDialog progressDialog) {
         if (progressDialog != null) {

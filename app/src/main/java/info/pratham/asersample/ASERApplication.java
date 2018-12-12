@@ -17,6 +17,7 @@ import java.util.Random;
 public class ASERApplication extends Application {
 
     private static ASERApplication aserApplication;
+    public static int sequenceCnt;
 
     public ASERApplication() {
         aserApplication = this;
