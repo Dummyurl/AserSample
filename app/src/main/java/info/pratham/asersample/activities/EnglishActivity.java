@@ -31,6 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.dialog.ProficiencyDialog;
@@ -66,7 +67,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     RelativeLayout displayLayout;
 
     String currentLevel, currentFilePath, currentFileName;
-    boolean recording, playing;
+    boolean recording, playing, isNewQuestion;
     int wordCOunt;
     List<JSONObject> selectedWordsList;
 
@@ -232,6 +233,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     private void showQue(JSONObject msg) {
         try {
+            isNewQuestion = true;
             tv_question.setText(msg.getString("data"));
             tv_question.setTag(msg.getString("id"));
         } catch (JSONException e) {
@@ -273,8 +275,14 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
-        String fileStorePath = currentFilePath + "sample.mp3";
-        switch (currentLevel) {
+        if (isNewQuestion) {
+            ASERApplication.sequenceCnt += 1;
+            isNewQuestion = false;
+        }
+
+        String fileStorePath = currentFilePath + ASERApplication.sequenceCnt + "_" + tv_question.getTag().toString() + ".mp3";
+
+        /*switch (currentLevel) {
             case "Capital letter":
                 fileStorePath = currentFilePath + "Capital letter/";
                 currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
@@ -291,9 +299,9 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 fileStorePath = currentFilePath + "Sentence/";
                 currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
                 break;
-        }
+        }*/
 
-        File file = new File(fileStorePath);
+        File file = new File(currentFilePath);
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -301,8 +309,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         if (playing && !recording) {
             //initiateRecording();
         } else if (recording && playing) {
-//            recording = false;
-            AudioUtil.playRecording(fileStorePath + currentFileName, this);
+            AudioUtil.playRecording(fileStorePath, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording && !playing) {
             AudioUtil.stopRecording();
