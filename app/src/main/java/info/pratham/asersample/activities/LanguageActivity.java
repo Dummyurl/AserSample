@@ -305,7 +305,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             isNewQuestion = false;
         }
 
-        String fileStorePath = currentFilePath + ASERApplication.sequenceCnt + tv_question.getTag().toString() + ".mp3";
+        String fileStorePath = currentFilePath + ASERApplication.sequenceCnt + "_" + tv_question.getTag().toString() + ".mp3";
         /*switch (currentLevel) {
             case "Story":
                 fileStorePath = currentFilePath;
