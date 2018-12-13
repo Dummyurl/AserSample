@@ -325,7 +325,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 break;
         }*/
 
-        File file = new File(fileStorePath);
+        File file = new File(currentFilePath);
         if (!file.exists()) {
             file.mkdirs();
         }
