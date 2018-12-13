@@ -3,6 +3,8 @@ package info.pratham.asersample.fragments.math;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +69,53 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         } else if ("Division".equals(currentLevel)) {
             showDivision();
         }
+
+        addTextWatcher();
+    }
+
+    private void addTextWatcher() {
+        questionSub1.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        // TODO Auto-generated method stub
+                    }
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        // TODO Auto-generated method stub
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                        // TODO Auto-generated method stub
+                    }
+                }
+        );
+        questionSub2.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        // TODO Auto-generated method stub
+                    }
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        // TODO Auto-generated method stub
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                        // TODO Auto-generated method stub
+                    }
+                }
+        );
     }
 
 
@@ -116,8 +165,8 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 if (!subtractionLayout.isShown()) {
                     subtractionLayout.setVisibility(View.VISIBLE);
                 }
-                questionSub1.setText(list.get(0).toString());
-                questionSub2.setText(list.get(1).toString());
+              /*  questionSub1.setText(list.get(0).toString());
+                questionSub2.setText(list.get(1).toString());*/
 
                 JSONObject js = (JSONObject) list.get(0);
                 showQue(questionSub1, js);

@@ -345,6 +345,9 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                         AserSampleUtility.showToast(EnglishActivity.this, "FAIL..");
                     }
                 });
+
+        AserSampleUtility.writeStudentInJson();
+
         AlertDialog builder = new AlertDialog.Builder(this).create();
         builder.setMessage("Test successfully submitted");
         builder.setCancelable(false);
@@ -362,6 +365,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
 
     }
+
 
     private void assignMistakeCount(String level, String cnt) {
         switch (level) {

@@ -33,6 +33,7 @@ public class Student implements Serializable {
         this.father = father;
         this.village = village;
         this.studClass = studClass;
+        this.ageGroup = ageGroup;
         this.date = date;
         this.deviceID = deviceID;
     }

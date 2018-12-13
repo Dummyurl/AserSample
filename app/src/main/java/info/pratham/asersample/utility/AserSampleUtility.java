@@ -1,6 +1,5 @@
 package info.pratham.asersample.utility;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -8,22 +7,18 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.AssetManager;
-import android.net.Uri;
-import android.os.Build;
-import android.os.storage.StorageManager;
-import android.provider.DocumentsContract;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.File;
-import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
-import java.util.Properties;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.UUID;
 
+import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.math.CalculationFragment;
 
@@ -202,5 +197,29 @@ public class AserSampleUtility {
 
     public static String getUUID() {
         return UUID.randomUUID().toString();
+    }
+
+    public static void writeStudentInJson() {
+        String path = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/";
+        String fileName = path + AserSample_Constant.getAserSample_Constant().getStudent().getId() + "INFO.json";
+        Gson gson = new Gson();
+        String studentJson = gson.toJson(AserSample_Constant.getAserSample_Constant().getStudent());
+
+
+        File file = new File(fileName);
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            file.createNewFile();
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.write(studentJson);
+            outputStreamWriter.flush();
+            fileOutputStream.getFD().sync();
+            outputStreamWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

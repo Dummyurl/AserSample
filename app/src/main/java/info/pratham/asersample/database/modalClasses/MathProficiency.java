@@ -1,5 +1,8 @@
 package info.pratham.asersample.database.modalClasses;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by PEF on 06/12/2018.
  */
@@ -12,10 +15,10 @@ public class MathProficiency {
     private String oneToNine_mistake;
     private String tenToNinetyNine_mistake;
 
-    private String[] subtrtaction_que;
-    private String[] division_que;
-    private String[] oneToNine_que;
-    private String[] tenToNinetyNine_que;
+    private List<MathQueAns> subrtaction1 = new ArrayList();
+    private List subrtaction2 = new ArrayList();
+    private List division = new ArrayList();
+
 
     public String getMathProficiency() {
         return mathProficiency;
