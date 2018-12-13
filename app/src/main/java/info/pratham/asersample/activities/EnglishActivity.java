@@ -91,18 +91,18 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     private void getData(String type) {
         setVisibilityForPrevNext();
         if (type.equalsIgnoreCase("Capital")) {
-            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().getCapitalLetter_mistake());
+            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getCapitalLetter_mistake());
             previous.setVisibility(View.GONE);
             setNavigation("", getString(R.string.Smallletter));
             currentLevel = getString(R.string.Capitalletter);
         } else if (type.equalsIgnoreCase("Small")) {
-            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().getSmallLetter_mistake());
+            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getSmallLetter_mistake());
             if (!previous.isShown())
                 previous.setVisibility(View.VISIBLE);
             setNavigation(getString(R.string.Capitalletter), getString(R.string.word));
             currentLevel = getString(R.string.Smallletter);
         } else {
-            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().getWords_mistake());
+            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getWords_mistake());
             if (!next.isShown())
                 next.setVisibility(View.VISIBLE);
             setNavigation(getString(R.string.Smallletter), getString(R.string.Sentence));
@@ -131,7 +131,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         next.setVisibility(View.GONE);
         setNavigation(getString(R.string.word), "");
         currentLevel = getString(R.string.Sentence);
-        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().getSentence_mistake());
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getSentence_mistake());
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
 
         try {
@@ -336,7 +336,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void getProficiency(String proficiency) {
-        AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setEnglishProficiency(proficiency);
+        AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setEnglishProficiency(proficiency);
         mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -377,16 +377,16 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     private void assignMistakeCount(String level, String cnt) {
         switch (level) {
             case "Capital letter":
-                AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setCapitalLetter_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setCapitalLetter_mistake(cnt);
                 break;
             case "Small letter":
-                AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setSmallLetter_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setSmallLetter_mistake(cnt);
                 break;
             case "word":
-                AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setWords_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setWords_mistake(cnt);
                 break;
             case "Sentence":
-                AserSample_Constant.getAserSample_Constant().getStudent().getEnglishProficiency().setSentence_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setSentence_mistake(cnt);
                 break;
         }
     }

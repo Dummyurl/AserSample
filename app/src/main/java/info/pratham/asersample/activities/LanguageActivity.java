@@ -114,7 +114,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Word), getString(R.string.Story));
         currentLevel = getString(R.string.Paragraph);
-        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().getParagragh_mistake());
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getParagragh_mistake());
         JSONObject msg = AserSample_Constant.getPara(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             tv_question.setTextSize(1, 30);
@@ -129,7 +129,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Paragraph), "");
         currentLevel = getString(R.string.Story);
-        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().getStory_mistake());
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getStory_mistake());
         JSONObject msg = AserSample_Constant.getStory(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             tv_question.setTextSize(1, 25);
@@ -152,7 +152,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().getLetter_mistake());
+                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getLetter_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -175,7 +175,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.get(i));
                 }
-                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().getWord_mistake());
+                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getWord_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -362,23 +362,23 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @Override
     public void getProficiency(String proficiency) {
-        AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setProficiency(proficiency);
+        AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setProficiency(proficiency);
         openNextActivity(proficiency);
     }
 
     private void assignMistakeCount(String level, String cnt) {
         switch (level) {
             case "Story":
-                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setStory_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setStory_mistake(cnt);
                 break;
             case "Paragraph":
-                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setParagragh_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setParagragh_mistake(cnt);
                 break;
             case "Word":
-                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setWord_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setWord_mistake(cnt);
                 break;
             case "Letter":
-                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguageProficiency().setLetter_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setLetter_mistake(cnt);
                 break;
         }
     }

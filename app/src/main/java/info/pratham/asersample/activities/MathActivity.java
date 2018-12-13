@@ -62,6 +62,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     String currentFilePath, currentFileName;
     boolean recording, playing;
     NumberRecognitionFragment childFragment;
+    CalculationFragment calculationFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,7 +106,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getTenToNinetyNine_mistake());
+                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getTenToNinetyNine_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -129,7 +130,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getOneToNine_mistake());
+                mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getOneToNine_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -146,7 +147,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         setNavigation(getString(R.string.tenToNinetyNine), getString(R.string.Division));
         currentLevel = getString(R.string.Subtraction);
         Bundle bundle = new Bundle();
-        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getSubtrtaction_mistake());
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubtrtaction_mistake());
         tv_level.setText("Basic Operation - " + currentLevel);
         bundle.putString("currentLevel", currentLevel);
         CalculationFragment calculationFragment = new CalculationFragment();
@@ -155,12 +156,15 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showDivision() {
+        calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+
+        calculationFragment.writeSubtraction();
         recordButton.setVisibility(View.INVISIBLE);
         next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Subtraction), "");
         currentLevel = getString(R.string.Division);
         Bundle bundle = new Bundle();
-        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().getDivision_mistake());
+        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getDivision_mistake());
         tv_level.setText("Basic Operation - " + currentLevel);
         bundle.putString("currentLevel", currentLevel);
         CalculationFragment calculationFragment = new CalculationFragment();
@@ -219,7 +223,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @Override
     public void getProficiency(String proficiency) {
-        AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setMathProficiency(proficiency);
+        AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setMathProficiency(proficiency);
         openNextActivity(proficiency);
     }
 
@@ -232,16 +236,16 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     private void assignMistakeCount(String level, String cnt) {
         switch (level) {
             case "Division":
-                AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setDivision_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setDivision_mistake(cnt);
                 break;
             case "Subtraction":
-                AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setSubtrtaction_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setSubtrtaction_mistake(cnt);
                 break;
             case "Double digit":
-                AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setTenToNinetyNine_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setTenToNinetyNine_mistake(cnt);
                 break;
             case "Single digit":
-                AserSample_Constant.getAserSample_Constant().getStudent().getMathProficiency().setOneToNine_mistake(cnt);
+                AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setOneToNine_mistake(cnt);
                 break;
         }
     }

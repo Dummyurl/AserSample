@@ -16,9 +16,9 @@ public class Student implements Serializable {
     private String studClass;
     private String ageGroup;
 
-    private NativeLanguageProficiency nativeLanguageProficiency = new NativeLanguageProficiency();
-    private MathProficiency mathProficiency = new MathProficiency();
-    private EnglishProficiency englishProficiency = new EnglishProficiency();
+    private NativeLanguageProficiency nativeLanguage = new NativeLanguageProficiency();
+    private MathProficiency mathematics = new MathProficiency();
+    private EnglishProficiency english = new EnglishProficiency();
 
     private String date;
     private String deviceID;
@@ -86,28 +86,28 @@ public class Student implements Serializable {
         this.ageGroup = ageGroup;
     }
 
-    public NativeLanguageProficiency getNativeLanguageProficiency() {
-        return nativeLanguageProficiency;
+    public NativeLanguageProficiency getNativeLanguage() {
+        return nativeLanguage;
     }
 
-    public void setNativeLanguageProficiency(NativeLanguageProficiency nativeLanguageProficiency) {
-        this.nativeLanguageProficiency = nativeLanguageProficiency;
+    public void setNativeLanguage(NativeLanguageProficiency nativeLanguage) {
+        this.nativeLanguage = nativeLanguage;
     }
 
-    public MathProficiency getMathProficiency() {
-        return mathProficiency;
+    public MathProficiency getMathematics() {
+        return mathematics;
     }
 
-    public void setMathProficiency(MathProficiency mathProficiency) {
-        this.mathProficiency = mathProficiency;
+    public void setMathematics(MathProficiency mathematics) {
+        this.mathematics = mathematics;
     }
 
-    public EnglishProficiency getEnglishProficiency() {
-        return englishProficiency;
+    public EnglishProficiency getEnglish() {
+        return english;
     }
 
-    public void setEnglishProficiency(EnglishProficiency englishProficiency) {
-        this.englishProficiency = englishProficiency;
+    public void setEnglish(EnglishProficiency english) {
+        this.english = english;
     }
 
     public String getDate() {

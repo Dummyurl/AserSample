@@ -16,9 +16,42 @@ public class MathProficiency {
     private String tenToNinetyNine_mistake;
 
     private List<MathQueAns> subrtaction1 = new ArrayList();
-    private List subrtaction2 = new ArrayList();
-    private List division = new ArrayList();
+    private List<MathQueAns> subrtaction2 = new ArrayList();
+    private List<MathQueAns> division = new ArrayList();
 
+    public List<MathQueAns> getSubrtaction1() {
+        return subrtaction1;
+    }
+
+  /*  public void setSubrtaction1(List<MathQueAns> subrtaction1) {
+        this.subrtaction1 = subrtaction1;
+    }*/
+
+    public void addSubrtaction1(MathQueAns mathQueAns) {
+        this.subrtaction1.add(mathQueAns);
+    }
+
+    public List<MathQueAns> getSubrtaction2() {
+        return subrtaction2;
+    }
+
+    /* public void setSubrtaction2(List<MathQueAns> subrtaction2) {
+         this.subrtaction2 = subrtaction2;
+     }*/
+    public void addSubrtaction2(MathQueAns mathQueAns) {
+        this.subrtaction2.add(mathQueAns);
+    }
+
+    public List<MathQueAns> getDivision() {
+        return division;
+    }
+
+    public void addDivision(MathQueAns mathQueAns) {
+        this.division.add(mathQueAns);
+    }
+    /*public void setDivision(List<MathQueAns> division) {
+        this.division = division;
+    }*/
 
     public String getMathProficiency() {
         return mathProficiency;

@@ -5,10 +5,17 @@ package info.pratham.asersample.database.modalClasses;
  */
 
 public class MathQueAns {
-    String attemp;
+    int attemp;
     String id;
     String que;
     String ans;
+
+    public MathQueAns(int attemp, String id, String que, String ans) {
+        this.attemp = attemp;
+        this.id = id;
+        this.que = que;
+        this.ans = ans;
+    }
 
     public String getId() {
         return id;
@@ -34,11 +41,11 @@ public class MathQueAns {
         this.ans = ans;
     }
 
-    public String getAttemp() {
+    public int getAttemp() {
         return attemp;
     }
 
-    public void setAttemp(String attemp) {
+    public void setAttemp(int attemp) {
         this.attemp = attemp;
     }
 }

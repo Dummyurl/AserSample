@@ -3,11 +3,10 @@ package info.pratham.asersample.fragments.math;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
+import info.pratham.asersample.database.modalClasses.MathQueAns;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -39,6 +39,17 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     TextView questionSub2;
     @BindView(R.id.questionDiv)
     TextView questionDiv;
+
+
+    @BindView(R.id.answerSub1)
+    EditText answerSub1;
+
+    @BindView(R.id.answerSub2)
+    EditText answerSub2;
+
+    @BindView(R.id.answerDiv)
+    EditText answerDiv;
+
 
     @BindView(R.id.subtractionLayout)
     LinearLayout subtractionLayout;
@@ -70,11 +81,20 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             showDivision();
         }
 
-        addTextWatcher();
+
     }
 
-    private void addTextWatcher() {
-        questionSub1.addTextChangedListener(
+    public void writeSubtraction() {
+
+        if (!answerSub1.getText().toString().isEmpty()) {
+            int attemp = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubrtaction1().size();
+            AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addSubrtaction1(new MathQueAns(attemp, questionSub1.getTag().toString(), questionSub1.getText().toString(), answerSub1.getText().toString()));
+        }
+        if (!answerSub2.getText().toString().isEmpty()) {
+            int attemp1 = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubrtaction2().size();
+            AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addSubrtaction2(new MathQueAns(attemp1, questionSub2.getTag().toString(), questionSub2.getText().toString(), answerSub2.getText().toString()));
+        }
+      /*  answerDiv.addTextChangedListener(
                 new TextWatcher() {
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -91,31 +111,11 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                     @Override
                     public void afterTextChanged(Editable s) {
 
-                        // TODO Auto-generated method stub
+                        int attemp = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getDivision().size();
+                        AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addDivision(new MathQueAns(attemp, questionDiv.getTag().toString(), questionDiv.getText().toString(), answerDiv.getText().toString()));
                     }
                 }
-        );
-        questionSub2.addTextChangedListener(
-                new TextWatcher() {
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                        // TODO Auto-generated method stub
-                    }
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        // TODO Auto-generated method stub
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-                        // TODO Auto-generated method stub
-                    }
-                }
-        );
+        );*/
     }
 
 
