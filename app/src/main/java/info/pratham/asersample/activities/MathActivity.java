@@ -88,7 +88,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
         ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
         proficiencyDialog.show();
-
     }
 
     private void showTenToNinetyNine() {
@@ -137,7 +136,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 e.printStackTrace();
             }
         } else {
-            AserSampleUtility.showToast(this, "Something goes Wrong");
+            AserSampleUtility.showToast(this, "Problem in getting data!");
         }
     }
 
@@ -196,7 +195,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 showTenToNinetyNine();
                 break;
         }
-
     }
 
     @OnClick(R.id.previous)
