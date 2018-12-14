@@ -5,7 +5,7 @@
 
     <Spinner
         android:id="@+id/stateSpinner"
-        android:layout_width="wrap_content"
+        android:layout_width="400dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"
         android:background="@drawable/gradient_spinner_selectprogram"
@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/roundedcorner"
             android:text="pull" />
 
         <Button
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/roundedcorner"
             android:text="clear data" />
     </LinearLayout>
 </RelativeLayout>

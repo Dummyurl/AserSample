@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -47,7 +46,7 @@ public class UploadRec extends AppCompatActivity {
 
     List<String> fileList;
     private StorageReference mStorageRef;
-    ArrayAdapter arrayAdapter;
+    ListViewAdapter arrayAdapter;
 
     ProgressDialog progressDialog;
     int cnt = 0;
@@ -81,9 +80,8 @@ public class UploadRec extends AppCompatActivity {
     }
 
     private void updateUI(List fileList) {
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, fileList);
+        arrayAdapter = new ListViewAdapter(this, fileList);
         listView.setAdapter(arrayAdapter);
-
     }
 
 

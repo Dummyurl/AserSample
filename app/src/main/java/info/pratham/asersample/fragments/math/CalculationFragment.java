@@ -94,7 +94,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             int attemp1 = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubrtaction2().size();
             AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addSubrtaction2(new MathQueAns(attemp1, questionSub2.getTag().toString(), questionSub2.getText().toString(), answerSub2.getText().toString()));
         }
-      /*  answerDiv.addTextChangedListener(
+      /* answerDiv.addTextChangedListener(
                 new TextWatcher() {
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
