@@ -66,7 +66,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
 
-    String currentLevel, currentFilePath, currentFileName;
+    String currentLevel, currentFilePath;
     boolean recording, playing, isNewQuestion;
     int wordCOunt;
     List<JSONObject> selectedWordsList;
@@ -318,7 +318,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             playing = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
         } else {
-            AudioUtil.startRecording(fileStorePath + currentFileName);
+            AudioUtil.startRecording(fileStorePath);
             recording = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }

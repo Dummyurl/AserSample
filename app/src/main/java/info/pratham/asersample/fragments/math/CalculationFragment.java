@@ -133,7 +133,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 e.printStackTrace();
             }
         } else {
-            AserSampleUtility.showToast(getActivity(), "Something goes Wrong");
+            AserSampleUtility.showToast(getActivity(), "Problem in getting data");
         }
     }
 
@@ -151,7 +151,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 e.printStackTrace();
             }
         } else {
-            AserSampleUtility.showToast(getActivity(), "Something goes Wrong");
+            AserSampleUtility.showToast(getActivity(), "Problem in getting data");
         }
     }
 
