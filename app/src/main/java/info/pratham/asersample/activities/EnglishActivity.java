@@ -318,7 +318,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             playing = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
         } else {
-            AudioUtil.startRecording(fileStorePath + currentFileName);
+            AudioUtil.startRecording(fileStorePath);
             recording = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }
