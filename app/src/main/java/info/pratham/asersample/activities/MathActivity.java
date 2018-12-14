@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.dialog.ProficiencyDialog;
@@ -61,6 +62,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     public String currentLevel;
     String currentFilePath, currentFileName;
     boolean recording, playing;
+    public static boolean isNewQuestion;
     NumberRecognitionFragment childFragment;
     CalculationFragment calculationFragment;
 
@@ -272,17 +274,23 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
         childFragment = (NumberRecognitionFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-        String fileStorePath = currentFilePath + "sample.mp3";
-        switch (currentLevel) {
+
+        if (isNewQuestion) {
+            ASERApplication.sequenceCnt += 1;
+            isNewQuestion = false;
+        }
+        String fileStorePath = currentFilePath + ASERApplication.sequenceCnt + "_" + childFragment.getQuestionIdByView() + ".mp3";
+
+        /*switch (currentLevel) {
             case "10-99":
                 fileStorePath = currentFilePath + "doubleDigit/";
-                currentFileName = childFragment.getWordsList().get(childFragment.getWordsCount()).toString() + ".mp3";
+                currentFileName = childFragment.getQuestionIdByView().get(childFragment.getWordsCount()).toString() + ".mp3";
                 break;
             case "1-9":
                 fileStorePath = currentFilePath + "singleDigit/";
-                currentFileName = childFragment.getWordsList().get(childFragment.getWordsCount()).toString() + ".mp3";
+                currentFileName = childFragment.getQuestionIdByView().get(childFragment.getWordsCount()).toString() + ".mp3";
                 break;
-        }
+        }*/
 
         File file = new File(fileStorePath);
         if (!file.exists()) {
@@ -293,7 +301,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             //initiateRecording();
         } else if (recording && playing) {
 //            recording = false;
-            AudioUtil.playRecording(fileStorePath + currentFileName, this);
+            AudioUtil.playRecording(fileStorePath, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording && !playing) {
             AudioUtil.stopRecording();
@@ -302,7 +310,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             playing = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
         } else {
-            AudioUtil.startRecording(fileStorePath + currentFileName);
+            AudioUtil.startRecording(fileStorePath);
             recording = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }

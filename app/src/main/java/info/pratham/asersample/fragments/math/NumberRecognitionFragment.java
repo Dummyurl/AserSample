@@ -104,16 +104,17 @@ public class NumberRecognitionFragment extends BaseFragment {
 
     }
 
-    public List getWordsList() {
-        return selectedWordsList;
+    public String getQuestionIdByView() {
+        return question.getTag().toString();
     }
 
-    public int getWordsCount() {
-        return wordCOunt;
-    }
+//    public int getWordsCount() {
+//        return wordCOunt;
+//    }
 
     private void showQue(JSONObject msg) {
         try {
+            MathActivity.isNewQuestion = true;
             question.setText(msg.getString("data"));
             question.setTag(msg.getString("id"));
         } catch (JSONException e) {
