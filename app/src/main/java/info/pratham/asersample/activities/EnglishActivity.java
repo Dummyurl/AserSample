@@ -66,7 +66,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
 
-    String currentLevel, currentFilePath, currentFileName;
+    String currentLevel, currentFilePath;
     boolean recording, playing, isNewQuestion;
     int wordCOunt;
     List<JSONObject> selectedWordsList;

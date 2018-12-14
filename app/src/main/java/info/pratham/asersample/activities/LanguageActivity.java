@@ -58,7 +58,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @BindView(R.id.mistakes)
     EditText mistakes;
 
-    static String currentFilePath;
+    public static String currentFilePath;
     String currentLevel;
     boolean recording, playing, isNewQuestion;
     int wordCOunt;

@@ -60,7 +60,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
 
     public String currentLevel;
-    String currentFilePath, currentFileName;
+    String currentFilePath;
     boolean recording, playing;
     public static boolean isNewQuestion;
     NumberRecognitionFragment childFragment;
@@ -76,7 +76,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         testType.setText("Mathematics Test");
         showSubtraction();
     }
-
 
     @OnClick(R.id.markProficiency)
     public void markProficiency() {
@@ -292,7 +291,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 break;
         }*/
 
-        File file = new File(fileStorePath);
+        File file = new File(currentFilePath);
         if (!file.exists()) {
             file.mkdirs();
         }
