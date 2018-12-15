@@ -8,6 +8,7 @@ public class SingleQustion {
     private int que_seq_cnt;
     private String que_id;
     private String recordingName;
+    private String answer;
 
     public int getQue_seq_cnt() {
         return que_seq_cnt;
@@ -31,5 +32,13 @@ public class SingleQustion {
 
     public void setRecordingName(String recordingName) {
         this.recordingName = recordingName;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }

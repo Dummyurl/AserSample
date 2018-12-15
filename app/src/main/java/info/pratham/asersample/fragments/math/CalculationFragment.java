@@ -22,6 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
+import info.pratham.asersample.database.modalClasses.QueLevel;
+import info.pratham.asersample.database.modalClasses.SingleQustion;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -58,6 +60,11 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
 
     String currentLevel;
 
+
+    List parentDataList;
+    QueLevel queLevel;
+    List tempSingleQue;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -74,6 +81,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         currentLevel = getArguments().getString("currentLevel");
+        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList();
         if ("Subtraction".equals(currentLevel)) {
             showSubtraction();
         } else if ("Division".equals(currentLevel)) {
@@ -84,41 +92,48 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     public void writeSubtraction() {
-
-        if (!answerSub1.getText().toString().isEmpty()) {
-            //  int attemp = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubrtaction1().size();
-            //  AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addSubrtaction1(new MathQueAns(attemp, questionSub1.getTag().toString(), questionSub1.getText().toString(), answerSub1.getText().toString()));
-
-
+        boolean flag = true;
+        if (!answerSub1.getText().toString().isEmpty() || !answerSub2.getText().toString().isEmpty()) {
+            flag = false;
         }
-        if (!answerSub2.getText().toString().isEmpty()) {
-            //     int attemp1 = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubrtaction2().size();
-            //     AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addSubrtaction2(new MathQueAns(attemp1, questionSub2.getTag().toString(), questionSub2.getText().toString(), answerSub2.getText().toString()));
-
-
+        if (!flag) {
+            queLevel = new QueLevel();
+            queLevel.setLevel(currentLevel);
+            queLevel.setLevel_seq_cnt(parentDataList.size());
+            tempSingleQue = queLevel.getQuestions();
+            if (!answerSub1.getText().toString().isEmpty()) {
+                SingleQustion singleQustion = new SingleQustion();
+                singleQustion.setQue_seq_cnt(tempSingleQue.size());
+                singleQustion.setQue_id(questionSub1.getTag().toString());
+                singleQustion.setAnswer(answerSub1.getText().toString());
+                tempSingleQue.add(singleQustion);
+            }
+            if (!answerSub2.getText().toString().isEmpty()) {
+                SingleQustion singleQustion = new SingleQustion();
+                singleQustion.setQue_seq_cnt(tempSingleQue.size());
+                singleQustion.setQue_id(questionSub2.getTag().toString());
+                singleQustion.setAnswer(answerSub2.getText().toString());
+                tempSingleQue.add(singleQustion);
+            }
+            parentDataList.add(queLevel);
         }
-      /* answerDiv.addTextChangedListener(
-                new TextWatcher() {
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        // TODO Auto-generated method stub
-                    }
+    }
 
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    public void writeDivision() {
+        if (!answerDiv.getText().toString().isEmpty()) {
+            queLevel = new QueLevel();
+            queLevel.setLevel(currentLevel);
+            queLevel.setLevel_seq_cnt(parentDataList.size());
+            tempSingleQue = queLevel.getQuestions();
 
-                        // TODO Auto-generated method stub
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-                        int attemp = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getDivision().size();
-                        AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addDivision(new MathQueAns(attemp, questionDiv.getTag().toString(), questionDiv.getText().toString(), answerDiv.getText().toString()));
-                    }
-                }
-        );*/
+            SingleQustion singleQustion = new SingleQustion();
+            singleQustion.setQue_seq_cnt(tempSingleQue.size());
+            singleQustion.setQue_id(questionSub1.getTag().toString());
+            singleQustion.setAnswer(answerSub1.getText().toString());
+            tempSingleQue.add(singleQustion);
+            parentDataList.add(queLevel);
+        }
     }
 
 

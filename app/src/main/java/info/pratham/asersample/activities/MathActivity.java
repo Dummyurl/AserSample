@@ -27,6 +27,7 @@ import butterknife.OnClick;
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
+import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.math.CalculationFragment;
@@ -66,6 +67,8 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     NumberRecognitionFragment childFragment;
     CalculationFragment calculationFragment;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +97,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     private void showTenToNinetyNine() {
         recordButton.setVisibility(View.VISIBLE);
         previous.setVisibility(View.VISIBLE);
-
         AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());
         currentLevel = getString(R.string.tenToNinetyNine);
         setNavigation(getString(R.string.oneToNine), getString(R.string.Subtraction));
@@ -157,7 +159,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     private void showDivision() {
         calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-
         calculationFragment.writeSubtraction();
         recordButton.setVisibility(View.INVISIBLE);
         next.setVisibility(View.GONE);
