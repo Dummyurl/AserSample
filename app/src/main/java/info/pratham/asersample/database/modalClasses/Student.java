@@ -3,6 +3,8 @@ package info.pratham.asersample.database.modalClasses;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by PEF on 28/11/2018.
@@ -15,13 +17,52 @@ public class Student implements Serializable {
     private String village;
     private String studClass;
     private String ageGroup;
+    private String date;
+    private String deviceID;
+    private String nativeProficiency;
+    private String mathematicsProficiency;
+    private String englishProficiency;
 
+
+    private List<QueLevel> testQuestionList = new ArrayList();
+
+
+    public String getNativeProficiency() {
+        return nativeProficiency;
+    }
+
+    public void setNativeProficiency(String nativeProficiency) {
+        this.nativeProficiency = nativeProficiency;
+    }
+
+    public String getMathematicsProficiency() {
+        return mathematicsProficiency;
+    }
+
+    public void setMathematicsProficiency(String mathematicsProficiency) {
+        this.mathematicsProficiency = mathematicsProficiency;
+    }
+
+    public String getEnglishProficiency() {
+        return englishProficiency;
+    }
+
+    public void setEnglishProficiency(String englishProficiency) {
+        this.englishProficiency = englishProficiency;
+    }
+
+    public List getTestQuestionList() {
+        return testQuestionList;
+    }
+
+    public void setTestQuestionList(List testQuestionList) {
+        this.testQuestionList = testQuestionList;
+    }
+
+    // todo remove
     private NativeLanguageProficiency nativeLanguage = new NativeLanguageProficiency();
     private MathProficiency mathematics = new MathProficiency();
     private EnglishProficiency english = new EnglishProficiency();
-
-    private String date;
-    private String deviceID;
 
 
     public Student() {

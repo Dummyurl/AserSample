@@ -27,6 +27,8 @@ import butterknife.OnClick;
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
+import info.pratham.asersample.database.modalClasses.QueLevel;
+import info.pratham.asersample.database.modalClasses.SingleQustion;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.interfaces.ProficiencyListener;
@@ -64,6 +66,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     int wordCOunt;
     List<JSONObject> selectedWordsList;
 
+    List parentDataList;
+    QueLevel queLevel;
+    List tempSingleQue;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +83,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         nextItem.setVisibility(View.INVISIBLE);
         prevItem.setVisibility(View.INVISIBLE);
         testType.setText(AserSample_Constant.selectedLanguage + " Test");
+        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList();
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
             if (question != null) {
@@ -110,10 +117,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showParagraph() {
-        setVisibilityForPrevNext();
         next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Word), getString(R.string.Story));
         currentLevel = getString(R.string.Paragraph);
+        setVisibilityForPrevNext();
         mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getParagragh_mistake());
         JSONObject msg = AserSample_Constant.getPara(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -125,10 +132,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showStory() {
-        setVisibilityForPrevNext();
         next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Paragraph), "");
         currentLevel = getString(R.string.Story);
+        setVisibilityForPrevNext();
         mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getStory_mistake());
         JSONObject msg = AserSample_Constant.getStory(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -140,10 +147,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showLetters() {
-        setVisibilityForPrevNext();
         previous.setVisibility(View.GONE);
         setNavigation("", getString(R.string.Word));
         currentLevel = getString(R.string.Letter);
+        setVisibilityForPrevNext();
 
         JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -164,10 +171,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void showWords() {
-        setVisibilityForPrevNext();
         previous.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Letter), getString(R.string.Paragraph));
         currentLevel = getString(R.string.Word);
+        setVisibilityForPrevNext();
         JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
             List wordList = new ArrayList();
@@ -303,27 +310,25 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         if (isNewQuestion) {
             ASERApplication.sequenceCnt += 1;
             isNewQuestion = false;
+            updateJsonDetails();
+            /*switch (currentLevel) {
+                case "Story":
+
+                    break;
+                case "Paragraph":
+                    break;
+                case "Word":
+
+                    break;
+                case "Letter":
+
+                    break;
+            }*/
         }
 
+
         String fileStorePath = currentFilePath + ASERApplication.sequenceCnt + "_" + tv_question.getTag().toString() + ".mp3";
-        /*switch (currentLevel) {
-            case "Story":
-                fileStorePath = currentFilePath;
-                currentFileName = "story.mp3";
-                break;
-            case "Paragraph":
-                fileStorePath = currentFilePath;
-                currentFileName = "paragraph.mp3";
-                break;
-            case "Word":
-                fileStorePath = currentFilePath + "Word/";
-                currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
-                break;
-            case "Letter":
-                fileStorePath = currentFilePath + "Letter/";
-                currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
-                break;
-        }*/
+
 
         File file = new File(currentFilePath);
         if (!file.exists()) {
@@ -348,9 +353,26 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         }
     }
 
+    private void updateJsonDetails() {
+        SingleQustion singleQustion = new SingleQustion();
+        singleQustion.setQue_seq_cnt(tempSingleQue.size());
+        singleQustion.setQue_id(tv_question.getTag().toString());
+        singleQustion.setRecordingName("" + queLevel.getLevel_seq_cnt() + "_" + singleQustion.getQue_seq_cnt() + "_" + tv_question.getTag().toString());
+        tempSingleQue.add(singleQustion);
+    }
+
     private void setVisibilityForPrevNext() {
         nextItem.setVisibility(View.INVISIBLE);
         prevItem.setVisibility(View.INVISIBLE);
+        // Initiate question level
+        if (queLevel != null && queLevel.getQuestions().size() > 0) {
+            parentDataList.add(queLevel);
+        }
+
+        queLevel = new QueLevel();
+        queLevel.setLevel(currentLevel);
+        queLevel.setLevel_seq_cnt(parentDataList.size());
+        tempSingleQue = queLevel.getQuestions();
     }
 
     private void setNavigation(String prevText, String nextText) {
@@ -362,6 +384,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @Override
     public void getProficiency(String proficiency) {
+        setVisibilityForPrevNext();
         AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setProficiency(proficiency);
         openNextActivity(proficiency);
     }

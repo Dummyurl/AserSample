@@ -22,7 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
-import info.pratham.asersample.database.modalClasses.MathQueAns;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -87,12 +86,16 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     public void writeSubtraction() {
 
         if (!answerSub1.getText().toString().isEmpty()) {
-            int attemp = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubrtaction1().size();
-            AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addSubrtaction1(new MathQueAns(attemp, questionSub1.getTag().toString(), questionSub1.getText().toString(), answerSub1.getText().toString()));
+            //  int attemp = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubrtaction1().size();
+            //  AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addSubrtaction1(new MathQueAns(attemp, questionSub1.getTag().toString(), questionSub1.getText().toString(), answerSub1.getText().toString()));
+
+
         }
         if (!answerSub2.getText().toString().isEmpty()) {
-            int attemp1 = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubrtaction2().size();
-            AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addSubrtaction2(new MathQueAns(attemp1, questionSub2.getTag().toString(), questionSub2.getText().toString(), answerSub2.getText().toString()));
+            //     int attemp1 = AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubrtaction2().size();
+            //     AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().addSubrtaction2(new MathQueAns(attemp1, questionSub2.getTag().toString(), questionSub2.getText().toString(), answerSub2.getText().toString()));
+
+
         }
       /* answerDiv.addTextChangedListener(
                 new TextWatcher() {
