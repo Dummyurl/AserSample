@@ -34,6 +34,8 @@ import butterknife.OnClick;
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
+import info.pratham.asersample.database.modalClasses.QueLevel;
+import info.pratham.asersample.database.modalClasses.SingleQustion;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.SelectLanguageFragment;
@@ -66,13 +68,15 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
 
-    String currentLevel, currentFilePath;
+    String currentLevel, currentFilePath, currentFileName;
     boolean recording, playing, isNewQuestion;
     int wordCOunt;
     List<JSONObject> selectedWordsList;
 
-
     private DatabaseReference mDatabase;
+    List parentDataList;
+    QueLevel queLevel;
+    List tempSingleQue;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +85,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         mDatabase = FirebaseDatabase.getInstance().getReference("students");
+        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList();
         currentFilePath = LanguageActivity.currentFilePath;
         nextItem.setVisibility(View.INVISIBLE);
         prevItem.setVisibility(View.INVISIBLE);
@@ -276,30 +281,11 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
         if (isNewQuestion) {
-            ASERApplication.sequenceCnt += 1;
             isNewQuestion = false;
+            currentFileName = updateJsonDetails();
         }
 
-        String fileStorePath = currentFilePath + ASERApplication.sequenceCnt + "_" + tv_question.getTag().toString() + ".mp3";
-
-        /*switch (currentLevel) {
-            case "Capital letter":
-                fileStorePath = currentFilePath + "Capital letter/";
-                currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
-                break;
-            case "Small letter":
-                fileStorePath = currentFilePath + "Small letter/";
-                currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
-                break;
-            case "word":
-                fileStorePath = currentFilePath + "word/";
-                currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
-                break;
-            case "Sentence":
-                fileStorePath = currentFilePath + "Sentence/";
-                currentFileName = selectedWordsList.get(wordCOunt).toString() + ".mp3";
-                break;
-        }*/
+        String fileStorePath = currentFilePath + currentFileName;
 
         File file = new File(currentFilePath);
         if (!file.exists()) {
@@ -324,9 +310,29 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         }
     }
 
+    private String updateJsonDetails() {
+        String recordingFileName;
+        SingleQustion singleQustion = new SingleQustion();
+        singleQustion.setQue_seq_cnt(tempSingleQue.size());
+        singleQustion.setQue_id(tv_question.getTag().toString());
+        recordingFileName = queLevel.getLevel_seq_cnt() + "_" + singleQustion.getQue_seq_cnt() + "_" + tv_question.getTag().toString()+".mp3";
+        singleQustion.setRecordingName(recordingFileName);
+        tempSingleQue.add(singleQustion);
+        return recordingFileName;
+    }
+
     private void setVisibilityForPrevNext() {
         nextItem.setVisibility(View.INVISIBLE);
         prevItem.setVisibility(View.INVISIBLE);
+        // Initiate question level
+        if (queLevel != null && queLevel.getQuestions().size() > 0) {
+            parentDataList.add(queLevel);
+        }
+
+        queLevel = new QueLevel();
+        queLevel.setLevel(currentLevel);
+        queLevel.setLevel_seq_cnt(parentDataList.size());
+        tempSingleQue = queLevel.getQuestions();
     }
 
     private void setNavigation(String prevText, String nextText) {
@@ -369,10 +375,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             }
         });
         builder.show();
-
-
     }
-
 
     private void assignMistakeCount(String level, String cnt) {
         switch (level) {
