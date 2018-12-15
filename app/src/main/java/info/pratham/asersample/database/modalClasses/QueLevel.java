@@ -1,5 +1,6 @@
 package info.pratham.asersample.database.modalClasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by PEF on 15/12/2018.
  */
 
-public class QueLevel {
+public class QueLevel implements Serializable{
     private String level;
     private String subject;
     private int level_seq_cnt;

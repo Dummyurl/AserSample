@@ -1,10 +1,12 @@
 package info.pratham.asersample.database.modalClasses;
 
+import java.io.Serializable;
+
 /**
  * Created by PEF on 15/12/2018.
  */
 
-public class SingleQustion {
+public class SingleQustion  implements Serializable {
     private int que_seq_cnt;
     private String que_id;
     private String recordingName;

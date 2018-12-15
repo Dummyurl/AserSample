@@ -92,11 +92,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     public void writeSubtraction() {
-        boolean flag = true;
         if (!answerSub1.getText().toString().isEmpty() || !answerSub2.getText().toString().isEmpty()) {
-            flag = false;
-        }
-        if (!flag) {
             queLevel = new QueLevel();
             queLevel.setLevel(currentLevel);
             queLevel.setLevel_seq_cnt(parentDataList.size());
@@ -117,7 +113,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             }
             parentDataList.add(queLevel);
         }
-
     }
 
     public void writeDivision() {
@@ -129,8 +124,8 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
 
             SingleQustion singleQustion = new SingleQustion();
             singleQustion.setQue_seq_cnt(tempSingleQue.size());
-            singleQustion.setQue_id(questionSub1.getTag().toString());
-            singleQustion.setAnswer(answerSub1.getText().toString());
+            singleQustion.setQue_id(questionDiv.getTag().toString());
+            singleQustion.setAnswer(answerDiv.getText().toString());
             tempSingleQue.add(singleQustion);
             parentDataList.add(queLevel);
         }

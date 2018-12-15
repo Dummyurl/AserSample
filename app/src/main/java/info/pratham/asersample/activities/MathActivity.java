@@ -24,9 +24,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
+import info.pratham.asersample.database.modalClasses.QueLevel;
+import info.pratham.asersample.database.modalClasses.SingleQustion;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.math.CalculationFragment;
@@ -60,12 +61,16 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
 
     public String currentLevel;
-    String currentFilePath;
+    String currentFilePath, currentFileName;
     boolean recording, playing;
     public static boolean isNewQuestion;
     NumberRecognitionFragment childFragment;
     CalculationFragment calculationFragment;
 
+    List parentDataList;
+    QueLevel queLevel;
+    List tempSingleQue;
+    SelectWordsDialog selectWordsDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +79,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         currentFilePath = LanguageActivity.currentFilePath;
+        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList();
         testType.setText("Mathematics Test");
         showSubtraction();
     }
@@ -93,6 +99,11 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showTenToNinetyNine() {
+        if (currentLevel.equals("Subtraction")) {
+            calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+            if (calculationFragment != null)
+                calculationFragment.writeSubtraction();
+        }
         recordButton.setVisibility(View.VISIBLE);
         previous.setVisibility(View.VISIBLE);
         AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());
@@ -131,7 +142,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     wordList.add(msg.getJSONObject(i));
                 }
                 mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getOneToNine_mistake());
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
+                selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -142,9 +153,11 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showSubtraction() {
-        calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-        calculationFragment.writeDivision();
-
+        if (currentLevel != null && currentLevel.equals("Division")) {
+            calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+            if (calculationFragment != null)
+                calculationFragment.writeDivision();
+        }
         recordButton.setVisibility(View.INVISIBLE);
         next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.tenToNinetyNine), getString(R.string.Division));
@@ -160,7 +173,9 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     private void showDivision() {
         calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-        calculationFragment.writeSubtraction();
+        if (calculationFragment != null)
+            calculationFragment.writeSubtraction();
+
         recordButton.setVisibility(View.INVISIBLE);
         next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Subtraction), "");
@@ -176,6 +191,9 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @Override
     public void getSelectedwords(List list) {
+        if(selectWordsDialog!=null){
+            selectWordsDialog.dismiss();
+        }
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", new ArrayList<>(list));
         NumberRecognitionFragment numberRecognitionFragment = new NumberRecognitionFragment();
@@ -225,6 +243,24 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     @Override
     public void getProficiency(String proficiency) {
         AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setMathProficiency(proficiency);
+        switch (currentLevel) {
+            case "Division":
+                calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+                //calculationFragment.writeDivision();
+                break;
+            case "Subtraction":
+                calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+                //calculationFragment.writeSubtraction();
+                break;
+            case "Double digit":
+            //    AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setTenToNinetyNine_mistake(cnt);
+                break;
+            case "Single digit":
+             //   AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setOneToNine_mistake(cnt);
+                break;
+        }
+
+
         openNextActivity(proficiency);
     }
 
@@ -277,11 +313,11 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         childFragment = (NumberRecognitionFragment) getFragmentManager().findFragmentById(R.id.framelayout);
 
         if (isNewQuestion) {
-            ASERApplication.sequenceCnt += 1;
             isNewQuestion = false;
+            currentFileName = updateJsonDetails();
         }
-        String fileStorePath = currentFilePath + ASERApplication.sequenceCnt + "_" + childFragment.getQuestionIdByView() + ".mp3";
 
+        String fileStorePath = currentFilePath + currentFileName;
         /*switch (currentLevel) {
             case "10-99":
                 fileStorePath = currentFilePath + "doubleDigit/";
@@ -315,6 +351,17 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             recording = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }
+    }
+
+    private String updateJsonDetails() {
+        String recordingFileName;
+        SingleQustion singleQustion = new SingleQustion();
+        singleQustion.setQue_seq_cnt(tempSingleQue.size());
+        singleQustion.setQue_id(childFragment.getQuestionIdByView());
+        recordingFileName = queLevel.getLevel_seq_cnt() + "_" + singleQustion.getQue_seq_cnt() + "_" + childFragment.getQuestionIdByView() + ".mp3";
+        singleQustion.setRecordingName(recordingFileName);
+        tempSingleQue.add(singleQustion);
+        return recordingFileName;
     }
 
     @Override
