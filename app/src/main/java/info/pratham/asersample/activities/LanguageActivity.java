@@ -100,7 +100,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         }
     }
 
-
     @OnClick(R.id.markProficiency)
     public void markProficiency() {
         List optionList = new ArrayList();
@@ -353,7 +352,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         if (queLevel != null && queLevel.getQuestions().size() > 0) {
             parentDataList.add(queLevel);
         }
-
         queLevel = new QueLevel();
         queLevel.setLevel(currentLevel);
         queLevel.setLevel_seq_cnt(parentDataList.size());
@@ -390,7 +388,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 break;
         }
     }
-
 
     @Override
     public void onBackPressed() {
