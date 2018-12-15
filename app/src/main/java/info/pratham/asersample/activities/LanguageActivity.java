@@ -60,7 +60,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @BindView(R.id.mistakes)
     EditText mistakes;
 
-    public static String currentFilePath;
+    public static String currentFilePath,currentFileName;
     String currentLevel;
     boolean recording, playing, isNewQuestion;
     int wordCOunt;
@@ -76,7 +76,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        ASERApplication.sequenceCnt = 0;
         currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
                 AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/";
 
@@ -263,8 +262,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 showWords();
                 break;
         }
-
-
     }
 
     @OnClick(R.id.previous)
@@ -308,26 +305,11 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
         if (isNewQuestion) {
-            ASERApplication.sequenceCnt += 1;
             isNewQuestion = false;
-            updateJsonDetails();
-            /*switch (currentLevel) {
-                case "Story":
-
-                    break;
-                case "Paragraph":
-                    break;
-                case "Word":
-
-                    break;
-                case "Letter":
-
-                    break;
-            }*/
+            currentFileName = updateJsonDetails();
         }
 
-
-        String fileStorePath = currentFilePath + ASERApplication.sequenceCnt + "_" + tv_question.getTag().toString() + ".mp3";
+        String fileStorePath = currentFilePath + currentFileName;
 
 
         File file = new File(currentFilePath);
@@ -353,12 +335,15 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         }
     }
 
-    private void updateJsonDetails() {
+    private String updateJsonDetails() {
+        String recordingFileName;
         SingleQustion singleQustion = new SingleQustion();
         singleQustion.setQue_seq_cnt(tempSingleQue.size());
         singleQustion.setQue_id(tv_question.getTag().toString());
-        singleQustion.setRecordingName("" + queLevel.getLevel_seq_cnt() + "_" + singleQustion.getQue_seq_cnt() + "_" + tv_question.getTag().toString());
+        recordingFileName = queLevel.getLevel_seq_cnt() + "_" + singleQustion.getQue_seq_cnt() + "_" + tv_question.getTag().toString()+".mp3";
+        singleQustion.setRecordingName(recordingFileName);
         tempSingleQue.add(singleQustion);
+        return recordingFileName;
     }
 
     private void setVisibilityForPrevNext() {
