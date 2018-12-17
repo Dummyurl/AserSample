@@ -396,6 +396,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         builder.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(EnglishActivity.this, MathActivity.class);
+                startActivity(intent);
                 finish();
             }
         });

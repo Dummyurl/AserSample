@@ -264,10 +264,10 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void openNextActivity(String proficiency) {
-        AserSampleUtility.showToast(this, AserSample_Constant.selectedLanguage + "_" + proficiency);
+        //AserSampleUtility.showToast(this, AserSample_Constant.selectedLanguage + "_" + proficiency);
         Intent intent = new Intent(this, EnglishActivity.class);
         startActivity(intent);
-        //finish();
+        finish();
     }
 
     private void assignMistakeCount(String level, String cnt) {

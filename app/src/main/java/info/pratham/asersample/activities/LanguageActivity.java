@@ -202,7 +202,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void openNextActivity(String proficiency) {
-        AserSampleUtility.showToast(this, AserSample_Constant.selectedLanguage + "_" + proficiency);
+        //AserSampleUtility.showToast(this, AserSample_Constant.selectedLanguage + "_" + proficiency);
         Intent intent = new Intent(this, MathActivity.class);
         startActivity(intent);
     }
