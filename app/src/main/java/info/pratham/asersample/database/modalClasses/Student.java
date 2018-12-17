@@ -10,7 +10,7 @@ import java.util.List;
  * Created by PEF on 28/11/2018.
  */
 @IgnoreExtraProperties
-public class Student implements Serializable {
+public class Student {
     private String id;
     private String name;
     private String father;

@@ -70,7 +70,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     List parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
-    SelectWordsDialog selectWordsDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,11 +103,13 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             if (calculationFragment != null)
                 calculationFragment.writeSubtraction();
         }
+
         recordButton.setVisibility(View.VISIBLE);
         previous.setVisibility(View.VISIBLE);
         AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());
         currentLevel = getString(R.string.tenToNinetyNine);
         setNavigation(getString(R.string.oneToNine), getString(R.string.Subtraction));
+        initiateJsonProperties();
         tv_level.setText("Number Recognition - " + currentLevel);
         JSONArray msg = AserSample_Constant.getMathNumberRecognition(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -133,6 +134,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         previous.setVisibility(View.GONE);
         currentLevel = getString(R.string.oneToNine);
         setNavigation("", getString(R.string.tenToNinetyNine));
+        initiateJsonProperties();
         tv_level.setText("Number Recognition - " + currentLevel);
         JSONArray msg = AserSample_Constant.getMathNumberRecognition(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -142,7 +144,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     wordList.add(msg.getJSONObject(i));
                 }
                 mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getOneToNine_mistake());
-                selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -191,9 +193,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @Override
     public void getSelectedwords(List list) {
-        if(selectWordsDialog!=null){
-            selectWordsDialog.dismiss();
-        }
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", new ArrayList<>(list));
         NumberRecognitionFragment numberRecognitionFragment = new NumberRecognitionFragment();
@@ -246,21 +245,21 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         switch (currentLevel) {
             case "Division":
                 calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-                //calculationFragment.writeDivision();
+                calculationFragment.writeDivision();
                 break;
             case "Subtraction":
                 calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-                //calculationFragment.writeSubtraction();
+                calculationFragment.writeSubtraction();
                 break;
             case "Double digit":
-            //    AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setTenToNinetyNine_mistake(cnt);
-                break;
+                initiateJsonProperties();
+//                //    AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setTenToNinetyNine_mistake(cnt);
+//                break;
             case "Single digit":
-             //   AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setOneToNine_mistake(cnt);
+                initiateJsonProperties();
+                //   AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setOneToNine_mistake(cnt);
                 break;
         }
-
-
         openNextActivity(proficiency);
     }
 
@@ -268,22 +267,27 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         AserSampleUtility.showToast(this, AserSample_Constant.selectedLanguage + "_" + proficiency);
         Intent intent = new Intent(this, EnglishActivity.class);
         startActivity(intent);
+        //finish();
     }
 
     private void assignMistakeCount(String level, String cnt) {
-        switch (level) {
-            case "Division":
-                AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setDivision_mistake(cnt);
-                break;
-            case "Subtraction":
-                AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setSubtrtaction_mistake(cnt);
-                break;
-            case "Double digit":
-                AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setTenToNinetyNine_mistake(cnt);
-                break;
-            case "Single digit":
-                AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setOneToNine_mistake(cnt);
-                break;
+        try {
+            switch (level) {
+                case "Division":
+                    AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setDivision_mistake(cnt);
+                    break;
+                case "Subtraction":
+                    AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setSubtrtaction_mistake(cnt);
+                    break;
+                case "Double digit":
+                    AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setTenToNinetyNine_mistake(cnt);
+                    break;
+                case "Single digit":
+                    AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().setOneToNine_mistake(cnt);
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -382,5 +386,21 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             }
         });
         builder.show();
+    }
+
+    public void initiateJsonProperties() {
+
+        try {
+            if (queLevel != null && queLevel.getQuestions().size() > 0) {
+                parentDataList.add(queLevel);
+            }
+
+            queLevel = new QueLevel();
+            queLevel.setLevel(currentLevel);
+            queLevel.setLevel_seq_cnt(parentDataList.size());
+            tempSingleQue = queLevel.getQuestions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

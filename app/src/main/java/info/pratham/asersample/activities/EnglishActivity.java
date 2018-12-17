@@ -114,6 +114,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             currentLevel = getString(R.string.word);
         }
 
+        initiateJsonProperties();
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
         if (dataArray != null) {
             List<JSONObject> dataList = new ArrayList();
@@ -121,7 +122,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 for (int i = 0; i < dataArray.length(); i++) {
                     dataList.add(dataArray.getJSONObject(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList, 5);
+                final SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -137,6 +138,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         setNavigation(getString(R.string.word), "");
         currentLevel = getString(R.string.Sentence);
         mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getSentence_mistake());
+        initiateJsonProperties();
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
 
         try {
@@ -189,6 +191,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @OnClick(R.id.previous)
     public void previous() {
+        initiateRecording();
         assignMistakeCount(currentLevel, mistakes.getText().toString());
         switch (currentLevel) {
             case "Small letter":
@@ -324,15 +327,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     private void setVisibilityForPrevNext() {
         nextItem.setVisibility(View.INVISIBLE);
         prevItem.setVisibility(View.INVISIBLE);
-        // Initiate question level
-        if (queLevel != null && queLevel.getQuestions().size() > 0) {
-            parentDataList.add(queLevel);
-        }
-
-        queLevel = new QueLevel();
-        queLevel.setLevel(currentLevel);
-        queLevel.setLevel_seq_cnt(parentDataList.size());
-        tempSingleQue = queLevel.getQuestions();
     }
 
     private void setNavigation(String prevText, String nextText) {
@@ -417,5 +411,20 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     @OnClick(R.id.question)
     public void showID() {
         Toast.makeText(this, "" + tv_question.getTag(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void initiateJsonProperties() {
+        try {
+            if (queLevel != null && queLevel.getQuestions().size() > 0) {
+                parentDataList.add(queLevel);
+            }
+
+            queLevel = new QueLevel();
+            queLevel.setLevel(currentLevel);
+            queLevel.setLevel_seq_cnt(parentDataList.size());
+            tempSingleQue = queLevel.getQuestions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
