@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="10">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,9 +14,72 @@
         android:fontFamily="serif"
         android:gravity="center"
         android:text="Please Select Language!"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_weight="6"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/hindi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:padding="@dimen/_25sdp"
+            android:src="@drawable/language" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:alpha=".3"
+            android:background="@color/black"></View>
+
+        <ImageView
+            android:id="@+id/marathi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:padding="@dimen/_25sdp"
+            android:src="@drawable/language" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/hindiButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/Hindi"
+            android:textColor="@color/loginSubmitColor"
+            android:textSize="20sp" />
+        
+        <TextView
+            android:id="@+id/marathiButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/Marathi"
+            android:textColor="@color/loginSubmitColor"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -38,14 +102,12 @@
                 android:layout_weight="5"
                 android:background="#E5E5E5">
 
-                <TextView
-                    android:id="@+id/hindiFontTV"
+                <ImageView
+                    android:id="@+id/hindiFontIV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="आ"
-                    android:textColor="@color/black"
-                    android:textSize="100sp" />
+                    android:src="@drawable/language"/>
 
             </RelativeLayout>
 
@@ -84,14 +146,12 @@
                 android:layout_weight="5"
                 android:background="#E5E5E5">
 
-                <TextView
-                    android:id="@+id/englishFontTV"
+                <ImageView
+                    android:id="@+id/marathiFontIV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="आ"
-                    android:textColor="@color/black"
-                    android:textSize="100sp" />
+                    android:src="@drawable/language"/>
 
             </RelativeLayout>
 
@@ -113,10 +173,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-    </LinearLayout>
-    <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+    </LinearLayout>-->
 </LinearLayout>
 
