@@ -25,9 +25,10 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:textStyle="bold"
+            android:fontFamily="serif"
             android:textSize="25sp"
             android:layout_weight="6"
-            android:text="Please select type"/>
+            android:text="Please select type!"/>
 
         <ImageView
             android:id="@+id/selectionActivitySettings"
