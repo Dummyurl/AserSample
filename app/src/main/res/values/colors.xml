@@ -12,6 +12,8 @@
     <color name="white">#ffffff</color>
     <color name="shadow">#d0d8dc</color>
     <color name="loginSubmitColor">#0478B8</color>
+    <color name="rippleColorDark">#cc0478b8</color>
+    <color name="rippleColorLight">#cc049aed</color>
     <color name="loginSubmitColorLight">#0495e6</color>
 
     <color name="cardview_light_background">#ffffffff</color>
