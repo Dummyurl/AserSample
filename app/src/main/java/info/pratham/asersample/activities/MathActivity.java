@@ -1,6 +1,7 @@
 package info.pratham.asersample.activities;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,8 +54,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     EditText mistakes;
     @BindView(R.id.recordButtonSP)
     Button recordButton;
-    @BindView(R.id.refreshIV)
-    ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
 
@@ -301,15 +299,14 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         AudioUtil.stopRecording();
         AudioUtil.stopPlayingAudio();
         recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
-        refreshIcon.setVisibility(View.INVISIBLE);
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.framelayout);
+        if (fragment instanceof NumberRecognitionFragment) {
+            childFragment = (NumberRecognitionFragment) fragment;
+            childFragment.getRefreshIconView().setVisibility(View.INVISIBLE);
+        }
         question.setAlpha(1f);
         playing = false;
         recording = false;
-    }
-
-    @OnClick(R.id.refreshIV)
-    public void refreshRecording() {
-        initiateRecording();
     }
 
     @OnClick(R.id.recordButtonSP)
@@ -346,7 +343,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording && !playing) {
             AudioUtil.stopRecording();
-            refreshIcon.setVisibility(View.VISIBLE);
+            childFragment.getRefreshIconView().setVisibility(View.VISIBLE);
             question.setAlpha(0.5f);
             playing = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));

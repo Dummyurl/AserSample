@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ public class NumberRecognitionFragment extends BaseFragment {
     Button nextItem;
     @BindView(R.id.prevItem)
     Button prevItem;
+    @BindView(R.id.fragmengtRefreshIV)
+    ImageView refreshIcon;
 
 
     List<JSONObject> selectedWordsList;
@@ -111,6 +114,15 @@ public class NumberRecognitionFragment extends BaseFragment {
 //    public int getWordsCount() {
 //        return wordCOunt;
 //    }
+
+    public View getRefreshIconView() {
+     return refreshIcon;
+    }
+
+    @OnClick(R.id.fragmengtRefreshIV)
+    public void refreshRecording() {
+        ((MathActivity)getActivity()).initiateRecording();
+    }
 
     private void showQue(JSONObject msg) {
         try {
