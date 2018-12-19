@@ -24,7 +24,9 @@ import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
+import info.pratham.asersample.dialog.MistakCountDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
+import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
@@ -33,7 +35,7 @@ import info.pratham.asersample.utility.AserSample_Constant;
  * Created by PEF on 24/11/2018.
  */
 
-public class CalculationFragment extends BaseFragment implements WordsListListener {
+public class CalculationFragment extends BaseFragment implements WordsListListener, MistakeCountListener {
     @BindView(R.id.questionSub1)
     TextView questionSub1;
     @BindView(R.id.questionSub2)
@@ -64,6 +66,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     List parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
+    MistakCountDialog mistakCountDialog;
 
     @Override
     public void onAttach(Context context) {
@@ -113,6 +116,11 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             }
             parentDataList.add(queLevel);
         }
+        showMistakeCountDialog();
+    }
+
+    public void setMistakes(int mistCnt) {
+        queLevel.setMistakes(mistCnt);
     }
 
     public void writeDivision() {
@@ -130,7 +138,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             parentDataList.add(queLevel);
         }
     }
-
 
     private void showSubtraction() {
         JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Subtraction");
@@ -217,5 +224,16 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void showMistakeCountDialog() {
+        mistakCountDialog = new MistakCountDialog(getActivity());
+        mistakCountDialog.show();
+    }
+
+    @Override
+    public void getMistakeCount(int mistakeCnt) {
+
+        queLevel.setMistakes(mistakeCnt);
     }
 }
