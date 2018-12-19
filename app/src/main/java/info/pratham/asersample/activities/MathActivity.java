@@ -32,13 +32,14 @@ import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.math.CalculationFragment;
 import info.pratham.asersample.fragments.math.NumberRecognitionFragment;
+import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 
-public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
+public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener {
 
     @BindView(R.id.question)
     TextView question;
@@ -398,6 +399,15 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             tempSingleQue = queLevel.getQuestions();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getMistakeCount(int mistakeCnt) {
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.framelayout);
+        if (fragment instanceof CalculationFragment) {
+            CalculationFragment childFragment = (CalculationFragment) fragment;
+            childFragment.setMistakes(mistakeCnt);
         }
     }
 }
