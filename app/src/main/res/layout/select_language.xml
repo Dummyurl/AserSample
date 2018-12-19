@@ -65,9 +65,10 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/Hindi"
+            android:fontFamily="serif"
             android:textColor="@color/loginSubmitColor"
-            android:textSize="20sp" />
-        
+            android:textSize="@dimen/_25sdp" />
+
         <TextView
             android:id="@+id/marathiButton"
             android:layout_width="0dp"
@@ -75,104 +76,9 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/Marathi"
+            android:fontFamily="serif"
             android:textColor="@color/loginSubmitColor"
-            android:textSize="20sp" />
+            android:textSize="@dimen/_25sdp" />
     </LinearLayout>
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="5"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/hindiLL"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/hindiSelectionRL"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="5"
-                android:background="#E5E5E5">
-
-                <ImageView
-                    android:id="@+id/hindiFontIV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/language"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/hindiSelectionTextRL"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:background="#CDCDCD">
-
-                <TextView
-                    android:id="@+id/hindiTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Hindi"
-                    android:textColor="@color/loginSubmitColor"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/marathiClick"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/englishSelectionRL"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="5"
-                android:background="#E5E5E5">
-
-                <ImageView
-                    android:id="@+id/marathiFontIV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/language"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/englishSelectionTextRL"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:background="#CDCDCD">
-
-                <TextView
-                    android:id="@+id/englishTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Marathi"
-                    android:textColor="@color/loginSubmitColor"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-
-        </LinearLayout>
-    </LinearLayout>-->
 </LinearLayout>
 
