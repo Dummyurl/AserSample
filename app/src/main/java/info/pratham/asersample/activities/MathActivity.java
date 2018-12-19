@@ -88,6 +88,46 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @OnClick(R.id.markProficiency)
     public void markProficiency() {
+        currentClick = "PROFICIENCY";
+        switch (currentLevel) {
+            case "Subtraction":
+                boolean flag = true;
+                calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+                if (calculationFragment != null) {
+                    flag = calculationFragment.writeSubtraction();
+                }
+                if (!flag) {
+                    showProficiencyDialog();
+                }
+                break;
+            case "Division":
+                boolean flag1 = true;
+                calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+                if (calculationFragment != null)
+                    flag1 = calculationFragment.writeDivision();
+                if (!flag1)
+                    showProficiencyDialog();
+                break;
+            case "Double digit":
+                if (isAttempt) {
+                    showMistakeCountDialog();
+                } else {
+                    showProficiencyDialog();
+                }
+                break;
+            case "Single digit":
+                if (isAttempt) {
+                    showMistakeCountDialog();
+                } else {
+                    showProficiencyDialog();
+                }
+                break;
+        }
+
+
+    }
+
+    public void showProficiencyDialog() {
         List optionList = new ArrayList();
         optionList.add(getString(R.string.oneToNine));
         optionList.add(getString(R.string.tenToNinetyNine));
@@ -471,6 +511,21 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     showOneToNine();
                     break;
             }
+        } else if (currentClick.equals("PROFICIENCY")) {
+            switch (currentLevel) {
+                case "Subtraction":
+                case "Division":
+                    showProficiencyDialog();
+                    break;
+                case "Double digit":
+                case "Single digit":
+                    queLevel.setMistakes(mistakeCnt);
+                    initiateJsonProperties();
+                    showProficiencyDialog();
+                    break;
+
+            }
+
         }
 
     }

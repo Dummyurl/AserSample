@@ -31,21 +31,22 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
+import info.pratham.asersample.dialog.MistakCountDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.SelectLanguageFragment;
+import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 
-public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener {
+public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener {
 
     @BindView(R.id.previous)
     Button previous;
@@ -77,6 +78,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     List parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
+
+
+    String currentClick;
+    boolean isQueAttemp = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -159,50 +164,67 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @OnClick(R.id.markProficiency)
     public void markProficiency() {
-        initiateRecording();
-        List optionList = new ArrayList();
-        optionList.add(getString(R.string.Capitalletter));
-        optionList.add(getString(R.string.Smallletter));
-        optionList.add(getString(R.string.word));
-        optionList.add(getString(R.string.Sentence));
-        optionList.add(getString(R.string.Beginner));
-        optionList.add(getString(R.string.TestWasNotComplete));
+        currentClick = "PROFICIENCY";
+        if (isQueAttemp)
+            showMistakeCountDialog();
+        else {
+            initiateRecording();
+            List optionList = new ArrayList();
+            optionList.add(getString(R.string.Capitalletter));
+            optionList.add(getString(R.string.Smallletter));
+            optionList.add(getString(R.string.word));
+            optionList.add(getString(R.string.Sentence));
+            optionList.add(getString(R.string.Beginner));
+            optionList.add(getString(R.string.TestWasNotComplete));
 
-        ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
-        proficiencyDialog.show();
+            ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
+            proficiencyDialog.show();
+        }
     }
 
     @OnClick(R.id.next)
     public void next() {
+        currentClick = "NEXT";
         initiateRecording();
         assignMistakeCount(currentLevel, mistakes.getText().toString());
-        switch (currentLevel) {
-            case "Capital letter":
-                getData("Small");
-                break;
-            case "Small letter":
-                getData("words");
-                break;
-            case "word":
-                getSentences();
-                break;
+        if (isQueAttemp) {
+            showMistakeCountDialog();
+        } else {
+            isQueAttemp = false;
+            switch (currentLevel) {
+                case "Capital letter":
+                    getData("Small");
+                    break;
+                case "Small letter":
+                    getData("words");
+                    break;
+                case "word":
+                    getSentences();
+                    break;
+            }
         }
     }
 
     @OnClick(R.id.previous)
     public void previous() {
+        currentClick = "PREVIOUS";
         initiateRecording();
         assignMistakeCount(currentLevel, mistakes.getText().toString());
-        switch (currentLevel) {
-            case "Small letter":
-                getData("Capital");
-                break;
-            case "word":
-                getData("Small");
-                break;
-            case "Sentence":
-                getData("word");
-                break;
+        if (isQueAttemp)
+            showMistakeCountDialog();
+        else {
+            isQueAttemp = false;
+            switch (currentLevel) {
+                case "Small letter":
+                    getData("Capital");
+                    break;
+                case "word":
+                    getData("Small");
+                    break;
+                case "Sentence":
+                    getData("word");
+                    break;
+            }
         }
     }
 
@@ -309,6 +331,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         } else {
             AudioUtil.startRecording(fileStorePath);
             recording = true;
+            isQueAttemp = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }
     }
@@ -318,7 +341,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         SingleQustion singleQustion = new SingleQustion();
         singleQustion.setQue_seq_cnt(tempSingleQue.size());
         singleQustion.setQue_id(tv_question.getTag().toString());
-        recordingFileName = queLevel.getLevel_seq_cnt() + "_" + singleQustion.getQue_seq_cnt() + "_" + tv_question.getTag().toString()+".mp3";
+        recordingFileName = queLevel.getLevel_seq_cnt() + "_" + singleQustion.getQue_seq_cnt() + "_" + tv_question.getTag().toString() + ".mp3";
         singleQustion.setRecordingName(recordingFileName);
         tempSingleQue.add(singleQustion);
         return recordingFileName;
@@ -427,6 +450,54 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             tempSingleQue = queLevel.getQuestions();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void showMistakeCountDialog() {
+        MistakCountDialog mistakCountDialog = new MistakCountDialog(this);
+        mistakCountDialog.show();
+    }
+
+    @Override
+    public void getMistakeCount(int mistakeCnt) {
+        queLevel.setMistakes(mistakeCnt);
+        isQueAttemp = false;
+        if (currentClick.equals("NEXT")) {
+            initiateRecording();
+            switch (currentLevel) {
+                case "Capital letter":
+                    getData("Small");
+                    break;
+                case "Small letter":
+                    getData("words");
+                    break;
+                case "word":
+                    getSentences();
+                    break;
+            }
+        } else if (currentClick.equals("PREVIOUS")) {
+            initiateRecording();
+            switch (currentLevel) {
+                case "Small letter":
+                    getData("Capital");
+                    break;
+                case "word":
+                    getData("Small");
+                    break;
+                case "Sentence":
+                    getData("word");
+                    break;
+            }
+        } else if (currentClick.equals("PROFICIENCY")) {
+            List optionList = new ArrayList();
+            optionList.add(getString(R.string.Capitalletter));
+            optionList.add(getString(R.string.Smallletter));
+            optionList.add(getString(R.string.word));
+            optionList.add(getString(R.string.Sentence));
+            optionList.add(getString(R.string.Beginner));
+            optionList.add(getString(R.string.TestWasNotComplete));
+            ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
+            proficiencyDialog.show();
         }
     }
 }
