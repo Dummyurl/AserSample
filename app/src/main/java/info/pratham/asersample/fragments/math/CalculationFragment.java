@@ -94,7 +94,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
 
     }
 
-    public void writeSubtraction() {
+    public boolean writeSubtraction() {
         if (!answerSub1.getText().toString().isEmpty() || !answerSub2.getText().toString().isEmpty()) {
             queLevel = new QueLevel();
             queLevel.setLevel(currentLevel);
@@ -115,15 +115,17 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 tempSingleQue.add(singleQustion);
             }
             parentDataList.add(queLevel);
+            showMistakeCountDialog();
+            return true;
         }
-        showMistakeCountDialog();
+        return false;
     }
 
     public void setMistakes(int mistCnt) {
         queLevel.setMistakes(mistCnt);
     }
 
-    public void writeDivision() {
+    public boolean writeDivision() {
         if (!answerDiv.getText().toString().isEmpty()) {
             queLevel = new QueLevel();
             queLevel.setLevel(currentLevel);
@@ -136,7 +138,10 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             singleQustion.setAnswer(answerDiv.getText().toString());
             tempSingleQue.add(singleQustion);
             parentDataList.add(queLevel);
+            showMistakeCountDialog();
+            return true;
         }
+        return false;
     }
 
     private void showSubtraction() {

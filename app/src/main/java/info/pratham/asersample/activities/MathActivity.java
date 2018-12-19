@@ -28,6 +28,7 @@ import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
+import info.pratham.asersample.dialog.MistakCountDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.math.CalculationFragment;
@@ -70,6 +71,9 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     QueLevel queLevel;
     List tempSingleQue;
 
+    String currentClick;
+    boolean isAttempt = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,15 +101,10 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showTenToNinetyNine() {
-        if (currentLevel.equals("Subtraction")) {
-            calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-            if (calculationFragment != null)
-                calculationFragment.writeSubtraction();
-        }
 
         recordButton.setVisibility(View.VISIBLE);
         previous.setVisibility(View.VISIBLE);
-        AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());
+        /*AserSampleUtility.removeFragment(this, CalculationFragment.class.getSimpleName());*/
         currentLevel = getString(R.string.tenToNinetyNine);
         setNavigation(getString(R.string.oneToNine), getString(R.string.Subtraction));
         initiateJsonProperties();
@@ -129,6 +128,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showOneToNine() {
+        isAttempt = false;
         recordButton.setVisibility(View.VISIBLE);
         previous.setVisibility(View.GONE);
         currentLevel = getString(R.string.oneToNine);
@@ -154,14 +154,11 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showSubtraction() {
-        if (currentLevel != null && currentLevel.equals("Division")) {
-            calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-            if (calculationFragment != null)
-                calculationFragment.writeDivision();
-        }
+
         recordButton.setVisibility(View.INVISIBLE);
         next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.tenToNinetyNine), getString(R.string.Division));
+        //initiateJsonProperties();
         currentLevel = getString(R.string.Subtraction);
         Bundle bundle = new Bundle();
         mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getSubtrtaction_mistake());
@@ -173,10 +170,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void showDivision() {
-        calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
-        if (calculationFragment != null)
-            calculationFragment.writeSubtraction();
-
         recordButton.setVisibility(View.INVISIBLE);
         next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Subtraction), "");
@@ -190,8 +183,11 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         AserSampleUtility.showFragment(this, calculationFragment, CalculationFragment.class.getSimpleName());
     }
 
+
     @Override
     public void getSelectedwords(List list) {
+
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", new ArrayList<>(list));
         NumberRecognitionFragment numberRecognitionFragment = new NumberRecognitionFragment();
@@ -201,34 +197,69 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @OnClick(R.id.next)
     public void next() {
+        currentClick = "NEXT";
         initiateRecording();
         assignMistakeCount(currentLevel, mistakes.getText().toString());
         switch (currentLevel) {
             case "Subtraction":
-                showDivision();
+                boolean flag = true;
+                calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+                if (calculationFragment != null) {
+                    flag = calculationFragment.writeSubtraction();
+                }
+                if (!flag) {
+                    showDivision();
+                }
                 break;
             case "Double digit":
-                showSubtraction();
+                if (isAttempt) {
+                    showMistakeCountDialog();
+                } else {
+                    isAttempt = false;
+                    showSubtraction();
+                }
                 break;
             case "Single digit":
-                showTenToNinetyNine();
+                if (isAttempt) {
+                    showMistakeCountDialog();
+                } else {
+                    isAttempt = false;
+                    showTenToNinetyNine();
+                }
                 break;
         }
     }
 
     @OnClick(R.id.previous)
     public void previous() {
+        currentClick = "PREVIOUS";
         initiateRecording();
         assignMistakeCount(currentLevel, mistakes.getText().toString());
         switch (currentLevel) {
             case "Subtraction":
-                showTenToNinetyNine();
+                boolean flag = true;
+                calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+                if (calculationFragment != null) {
+                    flag = calculationFragment.writeSubtraction();
+                }
+                if (!flag)
+                    showTenToNinetyNine();
                 break;
             case "Division":
-                showSubtraction();
+                boolean flag1 = true;
+                calculationFragment = (CalculationFragment) getFragmentManager().findFragmentById(R.id.framelayout);
+                if (calculationFragment != null)
+                    flag1 = calculationFragment.writeDivision();
+                if (!flag1)
+                    showSubtraction();
                 break;
             case "Double digit":
-                showOneToNine();
+                if (isAttempt) {
+                    showMistakeCountDialog();
+                } else {
+                    isAttempt = false;
+                    showOneToNine();
+                }
                 break;
         }
     }
@@ -351,6 +382,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         } else {
             AudioUtil.startRecording(fileStorePath);
             recording = true;
+            isAttempt = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }
     }
@@ -404,10 +436,47 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @Override
     public void getMistakeCount(int mistakeCnt) {
+        isAttempt = false;
         Fragment fragment = getFragmentManager().findFragmentById(R.id.framelayout);
         if (fragment instanceof CalculationFragment) {
             CalculationFragment childFragment = (CalculationFragment) fragment;
             childFragment.setMistakes(mistakeCnt);
         }
+        if (currentClick.equals("NEXT")) {
+            switch (currentLevel) {
+                case "Subtraction":
+                    showDivision();
+                    break;
+                case "Double digit":
+                    queLevel.setMistakes(mistakeCnt);
+                    initiateJsonProperties();
+                    showSubtraction();
+                    break;
+                case "Single digit":
+                    queLevel.setMistakes(mistakeCnt);
+                    initiateJsonProperties();
+                    showTenToNinetyNine();
+                    break;
+            }
+        } else if (currentClick.equals("PREVIOUS")) {
+            switch (currentLevel) {
+                case "Subtraction":
+                    showTenToNinetyNine();
+                    break;
+                case "Division":
+                    showSubtraction();
+                    break;
+                case "Double digit":
+                    queLevel.setMistakes(mistakeCnt);
+                    showOneToNine();
+                    break;
+            }
+        }
+
+    }
+
+    public void showMistakeCountDialog() {
+        MistakCountDialog mistakCountDialog = new MistakCountDialog(this);
+        mistakCountDialog.show();
     }
 }
