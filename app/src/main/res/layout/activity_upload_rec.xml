@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context="info.pratham.asersample.networkManager.UploadRec">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:padding="@dimen/_50sdp"
+        android:src="@drawable/cloud_computing"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,13 +22,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:padding="@dimen/_50sdp"
-            android:src="@drawable/cloud_computing"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
