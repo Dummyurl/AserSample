@@ -376,7 +376,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                     }
                 });
 
-        AserSampleUtility.writeStudentInJson();
+        AserSampleUtility.writeStudentInJson(this);
 
         AlertDialog builder = new AlertDialog.Builder(this).create();
         builder.setMessage("Test successfully submitted");

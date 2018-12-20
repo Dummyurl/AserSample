@@ -226,8 +226,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     @Override
     public void getSelectedwords(List list) {
-
-
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", new ArrayList<>(list));
         NumberRecognitionFragment numberRecognitionFragment = new NumberRecognitionFragment();

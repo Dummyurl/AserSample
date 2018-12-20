@@ -199,7 +199,7 @@ public class AserSampleUtility {
         return UUID.randomUUID().toString();
     }
 
-    public static void writeStudentInJson() {
+    public static void writeStudentInJson(Context context) {
         String path = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/";
         String fileName = path + AserSample_Constant.getAserSample_Constant().getStudent().getId() + "INFO.json";
         Gson gson = new Gson();
@@ -218,6 +218,19 @@ public class AserSampleUtility {
             outputStreamWriter.flush();
             fileOutputStream.getFD().sync();
             outputStreamWriter.close();
+
+
+            android.app.AlertDialog builder = new android.app.AlertDialog.Builder(context).create();
+            builder.setMessage(studentJson);
+            builder.setCancelable(false);
+            builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                }
+            });
+            builder.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
