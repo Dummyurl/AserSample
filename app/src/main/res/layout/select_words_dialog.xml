@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:grid="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#ffff"
     android:weightSum="3">
 
@@ -32,7 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomControls_village"
-        android:layout_below="@id/view">
+        android:layout_below="@id/view"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp">
 
         <GridLayout
             android:id="@+id/flowLayout"
@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/roundedcorner"
             android:gravity="center"
             android:padding="5dp"
             android:text="Clear changes"
@@ -67,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/roundedcorner"
             android:gravity="center"
             android:padding="5dp"
             android:text="Ok"
