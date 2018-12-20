@@ -232,7 +232,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     public void showMistakeCountDialog() {
-        mistakCountDialog = new MistakCountDialog(getActivity());
+        mistakCountDialog = new MistakCountDialog(getActivity(),currentLevel);
         mistakCountDialog.show();
     }
 

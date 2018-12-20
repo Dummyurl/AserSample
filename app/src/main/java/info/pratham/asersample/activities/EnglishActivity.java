@@ -454,7 +454,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     }
 
     public void showMistakeCountDialog() {
-        MistakCountDialog mistakCountDialog = new MistakCountDialog(this);
+        MistakCountDialog mistakCountDialog = new MistakCountDialog(this,currentLevel);
         mistakCountDialog.show();
     }
 
