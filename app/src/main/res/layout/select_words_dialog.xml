@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:padding="5dp"
         android:text="Select Words"
-        android:textColor="#8c0818"
+        android:textColor="@color/loginSubmitColor"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -23,16 +23,14 @@
         android:layout_height="2dp"
         android:layout_below="@+id/txt_message_village"
         android:layout_marginTop="5dp"
-        android:background="#FFB4111F" />
+        android:background="@color/loginSubmitColor" />
 
     <ScrollView
         android:id="@+id/frameLayout_village"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomControls_village"
-        android:layout_below="@id/view"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp">
+        android:layout_below="@id/view">
 
         <GridLayout
             android:id="@+id/flowLayout"
@@ -55,7 +53,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@drawable/roundedcorner"
             android:gravity="center"
             android:padding="5dp"
             android:text="Clear changes"
@@ -68,7 +65,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@drawable/roundedcorner"
             android:gravity="center"
             android:padding="5dp"
             android:text="Ok"
