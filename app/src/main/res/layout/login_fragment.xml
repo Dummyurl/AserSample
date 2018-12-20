@@ -126,7 +126,7 @@
             android:id="@+id/powered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_10sdp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/ia_logo"
             android:layout_marginRight="@dimen/_10sdp"

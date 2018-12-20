@@ -3,7 +3,9 @@ package info.pratham.asersample.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
@@ -38,6 +40,9 @@ import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener {
 
@@ -59,8 +64,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-   /* @BindView(R.id.mistakes)
-    EditText mistakes;*/
+    @BindView(R.id.celebrationView)
+    KonfettiView celebrationView;
 
     public static String currentFilePath, currentFileName;
     String currentLevel;
@@ -212,10 +217,16 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         }
     }
 
-    private void openNextActivity(String proficiency) {
-        //AserSampleUtility.showToast(this, AserSample_Constant.selectedLanguage + "_" + proficiency);
-        Intent intent = new Intent(this, MathActivity.class);
-        startActivity(intent);
+    private void openNextActivity() {
+        AserSampleUtility.startCelebration(celebrationView);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(LanguageActivity.this, MathActivity.class);
+                startActivity(intent);
+            }
+        }, 2500);
     }
 
     @Override
@@ -392,9 +403,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @Override
     public void getProficiency(String proficiency) {
         setVisibilityForPrevNext();
-        //  AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setProficiency(proficiency);
         AserSample_Constant.getAserSample_Constant().getStudent().setNativeProficiency(proficiency);
-        openNextActivity(proficiency);
+        openNextActivity();
     }
 
    /* private void assignMistakeCount(String level, String cnt) {

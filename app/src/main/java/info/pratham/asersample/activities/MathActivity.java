@@ -5,11 +5,11 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,6 +39,7 @@ import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
+import nl.dionsegijn.konfetti.KonfettiView;
 
 public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener {
 
@@ -52,13 +53,12 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     Button previous;
     @BindView(R.id.next)
     Button next;
-   /* @BindView(R.id.mistakes)
-    EditText mistakes;*/
     @BindView(R.id.recordButtonSP)
     Button recordButton;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-
+    @BindView(R.id.celebrationView)
+    KonfettiView celebrationView;
 
     public String currentLevel;
     String currentFilePath, currentFileName;
@@ -156,7 +156,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-             /*   mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getTenToNinetyNine_mistake());*/
+                /*   mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getTenToNinetyNine_mistake());*/
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -182,7 +182,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-               /* mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getOneToNine_mistake());*/
+                /* mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getOneToNine_mistake());*/
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -276,7 +276,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     public void previous() {
         currentClick = "PREVIOUS";
         initiateRecording();
-   /*     assignMistakeCount(currentLevel, mistakes.getText().toString());*/
+        /*     assignMistakeCount(currentLevel, mistakes.getText().toString());*/
         switch (currentLevel) {
             case "Subtraction":
                 boolean flag = true;
@@ -331,14 +331,20 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 initiateJsonProperties();
                 break;
         }
-        openNextActivity(proficiency);
+        openNextActivity();
     }
 
-    private void openNextActivity(String proficiency) {
-        //AserSampleUtility.showToast(this, AserSample_Constant.selectedLanguage + "_" + proficiency);
-        Intent intent = new Intent(this, EnglishActivity.class);
-        startActivity(intent);
-        finish();
+    private void openNextActivity() {
+        AserSampleUtility.startCelebration(celebrationView);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
+                startActivity(intent);
+            }
+        }, 2500);
+
     }
 
     /*private void assignMistakeCount(String level, String cnt) {

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -45,6 +46,7 @@ import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
+import nl.dionsegijn.konfetti.KonfettiView;
 
 public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener {
 
@@ -62,12 +64,12 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     Button nextItem;
     @BindView(R.id.prevItem)
     Button prevItem;
-   /* @BindView(R.id.mistakes)
-    EditText mistakes;*/
     @BindView(R.id.refreshIV)
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
+    @BindView(R.id.celebrationView)
+    KonfettiView celebrationView;
 
     String currentLevel, currentFilePath, currentFileName;
     boolean recording, playing, isNewQuestion;
@@ -360,7 +362,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void getProficiency(String proficiency) {
-        //  AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setEnglishProficiency(proficiency);
         AserSample_Constant.getAserSample_Constant().getStudent().setEnglishProficiency(proficiency);
         mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -379,21 +380,29 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 });
 
         AserSampleUtility.writeStudentInJson(this);
+        AserSampleUtility.startCelebration(celebrationView);
 
-        AlertDialog builder = new AlertDialog.Builder(this).create();
-        builder.setMessage("Test successfully submitted");
-        builder.setCancelable(false);
-        builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
-                startActivity(intent);
-                finishAffinity();
+            public void run() {
+                AlertDialog builder = new AlertDialog.Builder(EnglishActivity.this).create();
+                builder.setMessage("Test successfully submitted");
+                builder.setCancelable(false);
+                builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
+                        startActivity(intent);
+                        finishAffinity();
+                    }
+                });
+                builder.show();
+
             }
-        });
-        builder.show();
+        }, 2500);
     }
 
 /*    private void assignMistakeCount(String level, String cnt) {

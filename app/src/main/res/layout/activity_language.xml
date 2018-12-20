@@ -38,21 +38,21 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <!--   <EditText
-               android:id="@+id/mistakes"
-               android:layout_width="150dp"
-               android:layout_height="70dp"
-               android:layout_centerVertical="true"
-               android:layout_marginEnd="20dp"
-               android:layout_marginRight="20dp"
-               android:layout_toLeftOf="@+id/markProficiency"
-               android:layout_toStartOf="@+id/markProficiency"
-               android:background="@drawable/roundedcorner_blue_questions"
-               android:hint="Mistakes count"
-               android:inputType="number"
-               android:maxLines="1"
-               android:paddingLeft="@dimen/_2sdp"
-               android:singleLine="true" />-->
+     <!--   <EditText
+            android:id="@+id/mistakes"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/markProficiency"
+            android:layout_toStartOf="@+id/markProficiency"
+            android:background="@drawable/roundedcorner_blue_questions"
+            android:hint="Mistakes count"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/_2sdp"
+            android:singleLine="true" />-->
 
         <Button
             android:id="@+id/markProficiency"
@@ -168,7 +168,6 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/roundedcorner"
             android:padding="2dp"
             android:text="@string/Word" />
 
@@ -177,7 +176,6 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/roundedcorner"
             android:text="@string/Story" />
 
     </RelativeLayout>
