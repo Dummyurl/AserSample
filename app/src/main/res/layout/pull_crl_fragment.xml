@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
         android:padding="@dimen/_50sdp"
-        android:src="@drawable/cloud_computing"/>
+        android:src="@drawable/cloud_computing"/>-->
 
     <TextView
         android:layout_width="match_parent"
