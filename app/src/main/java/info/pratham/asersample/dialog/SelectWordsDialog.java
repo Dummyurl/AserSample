@@ -80,7 +80,7 @@ public class SelectWordsDialog extends Dialog {
                 CheckBox checkBox = new CheckBox(context);
                 checkBox.setText(wordList.get(i).getString("data"));
                 checkBox.setTag(wordList.get(i).getString("id"));
-                checkBox.setTextSize(1, 35);
+                checkBox.setTextSize(1, 30);
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams();
                 param.height = GridLayout.LayoutParams.WRAP_CONTENT;
                 param.width = GridLayout.LayoutParams.WRAP_CONTENT;
