@@ -62,8 +62,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     Button nextItem;
     @BindView(R.id.prevItem)
     Button prevItem;
-    @BindView(R.id.mistakes)
-    EditText mistakes;
+   /* @BindView(R.id.mistakes)
+    EditText mistakes;*/
     @BindView(R.id.refreshIV)
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
@@ -101,18 +101,18 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     private void getData(String type) {
         setVisibilityForPrevNext();
         if (type.equalsIgnoreCase("Capital")) {
-            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getCapitalLetter_mistake());
+            //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getCapitalLetter_mistake());
             previous.setVisibility(View.GONE);
             setNavigation("", getString(R.string.Smallletter));
             currentLevel = getString(R.string.Capitalletter);
         } else if (type.equalsIgnoreCase("Small")) {
-            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getSmallLetter_mistake());
+            //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getSmallLetter_mistake());
             if (!previous.isShown())
                 previous.setVisibility(View.VISIBLE);
             setNavigation(getString(R.string.Capitalletter), getString(R.string.word));
             currentLevel = getString(R.string.Smallletter);
         } else {
-            mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getWords_mistake());
+            //    mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getWords_mistake());
             if (!next.isShown())
                 next.setVisibility(View.VISIBLE);
             setNavigation(getString(R.string.Smallletter), getString(R.string.Sentence));
@@ -142,7 +142,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         next.setVisibility(View.GONE);
         setNavigation(getString(R.string.word), "");
         currentLevel = getString(R.string.Sentence);
-        mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getSentence_mistake());
+        // mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getSentence_mistake());
         initiateJsonProperties();
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
 
@@ -186,7 +186,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     public void next() {
         currentClick = "NEXT";
         initiateRecording();
-        assignMistakeCount(currentLevel, mistakes.getText().toString());
+       /* assignMistakeCount(currentLevel, mistakes.getText().toString());*/
         if (isQueAttemp) {
             showMistakeCountDialog();
         } else {
@@ -209,7 +209,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     public void previous() {
         currentClick = "PREVIOUS";
         initiateRecording();
-        assignMistakeCount(currentLevel, mistakes.getText().toString());
+//        assignMistakeCount(currentLevel, mistakes.getText().toString());
         if (isQueAttemp)
             showMistakeCountDialog();
         else {
@@ -341,6 +341,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         SingleQustion singleQustion = new SingleQustion();
         singleQustion.setQue_seq_cnt(tempSingleQue.size());
         singleQustion.setQue_id(tv_question.getTag().toString());
+        singleQustion.setQue_text(tv_question.getText().toString());
         recordingFileName = queLevel.getLevel_seq_cnt() + "_" + singleQustion.getQue_seq_cnt() + "_" + tv_question.getTag().toString() + ".mp3";
         singleQustion.setRecordingName(recordingFileName);
         tempSingleQue.add(singleQustion);
@@ -359,7 +360,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void getProficiency(String proficiency) {
-        AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setEnglishProficiency(proficiency);
+        //  AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setEnglishProficiency(proficiency);
+        AserSample_Constant.getAserSample_Constant().getStudent().setEnglishProficiency(proficiency);
         mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -394,7 +396,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         builder.show();
     }
 
-    private void assignMistakeCount(String level, String cnt) {
+/*    private void assignMistakeCount(String level, String cnt) {
         switch (level) {
             case "Capital letter":
                 AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setCapitalLetter_mistake(cnt);
@@ -409,7 +411,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setSentence_mistake(cnt);
                 break;
         }
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -445,6 +447,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             }
 
             queLevel = new QueLevel();
+            queLevel.setSubject("English");
             queLevel.setLevel(currentLevel);
             queLevel.setLevel_seq_cnt(parentDataList.size());
             tempSingleQue = queLevel.getQuestions();
@@ -454,7 +457,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     }
 
     public void showMistakeCountDialog() {
-        MistakCountDialog mistakCountDialog = new MistakCountDialog(this,currentLevel);
+        MistakCountDialog mistakCountDialog = new MistakCountDialog(this, currentLevel);
         mistakCountDialog.show();
     }
 
@@ -489,6 +492,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                     break;
             }
         } else if (currentClick.equals("PROFICIENCY")) {
+            initiateJsonProperties();
             List optionList = new ArrayList();
             optionList.add(getString(R.string.Capitalletter));
             optionList.add(getString(R.string.Smallletter));

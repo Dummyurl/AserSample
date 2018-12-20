@@ -98,12 +98,14 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         if (!answerSub1.getText().toString().isEmpty() || !answerSub2.getText().toString().isEmpty()) {
             queLevel = new QueLevel();
             queLevel.setLevel(currentLevel);
+            queLevel.setSubject("Mathematics");
             queLevel.setLevel_seq_cnt(parentDataList.size());
             tempSingleQue = queLevel.getQuestions();
             if (!answerSub1.getText().toString().isEmpty()) {
                 SingleQustion singleQustion = new SingleQustion();
                 singleQustion.setQue_seq_cnt(tempSingleQue.size());
                 singleQustion.setQue_id(questionSub1.getTag().toString());
+                singleQustion.setQue_text(questionSub1.getText().toString());
                 singleQustion.setAnswer(answerSub1.getText().toString());
                 tempSingleQue.add(singleQustion);
             }
@@ -111,6 +113,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 SingleQustion singleQustion = new SingleQustion();
                 singleQustion.setQue_seq_cnt(tempSingleQue.size());
                 singleQustion.setQue_id(questionSub2.getTag().toString());
+                singleQustion.setQue_text(questionSub2.getText().toString());
                 singleQustion.setAnswer(answerSub2.getText().toString());
                 tempSingleQue.add(singleQustion);
             }
@@ -129,12 +132,14 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         if (!answerDiv.getText().toString().isEmpty()) {
             queLevel = new QueLevel();
             queLevel.setLevel(currentLevel);
+            queLevel.setSubject("Mathematics");
             queLevel.setLevel_seq_cnt(parentDataList.size());
             tempSingleQue = queLevel.getQuestions();
 
             SingleQustion singleQustion = new SingleQustion();
             singleQustion.setQue_seq_cnt(tempSingleQue.size());
             singleQustion.setQue_id(questionDiv.getTag().toString());
+            singleQustion.setQue_text(questionDiv.getText().toString());
             singleQustion.setAnswer(answerDiv.getText().toString());
             tempSingleQue.add(singleQustion);
             parentDataList.add(queLevel);
@@ -232,7 +237,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     public void showMistakeCountDialog() {
-        mistakCountDialog = new MistakCountDialog(getActivity(),currentLevel);
+        mistakCountDialog = new MistakCountDialog(getActivity(), currentLevel);
         mistakCountDialog.show();
     }
 

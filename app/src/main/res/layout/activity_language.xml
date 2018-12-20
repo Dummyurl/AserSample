@@ -38,7 +38,7 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <EditText
+     <!--   <EditText
             android:id="@+id/mistakes"
             android:layout_width="150dp"
             android:layout_height="70dp"
@@ -52,7 +52,7 @@
             android:inputType="number"
             android:maxLines="1"
             android:paddingLeft="@dimen/_2sdp"
-            android:singleLine="true" />
+            android:singleLine="true" />-->
 
         <Button
             android:id="@+id/markProficiency"

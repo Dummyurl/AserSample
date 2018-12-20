@@ -6,9 +6,10 @@ import java.io.Serializable;
  * Created by PEF on 15/12/2018.
  */
 
-public class SingleQustion  implements Serializable {
+public class SingleQustion implements Serializable {
     private int que_seq_cnt;
     private String que_id;
+    private String que_text;
     private String recordingName;
     private String answer;
 
@@ -42,5 +43,13 @@ public class SingleQustion  implements Serializable {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public String getQue_text() {
+        return que_text;
+    }
+
+    public void setQue_text(String que_text) {
+        this.que_text = que_text;
     }
 }

@@ -1,8 +1,8 @@
 package info.pratham.asersample.database.modalClasses;
 
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +19,12 @@ public class Student {
     private String ageGroup;
     private String date;
     private String deviceID;
+
     private String nativeProficiency;
     private String mathematicsProficiency;
     private String englishProficiency;
 
-
+    @SerializedName("sequenceList")
     private List<QueLevel> testQuestionList = new ArrayList();
 
 
@@ -60,9 +61,9 @@ public class Student {
     }
 
     // todo remove
-    private NativeLanguageProficiency nativeLanguage = new NativeLanguageProficiency();
+  /*  private NativeLanguageProficiency nativeLanguage = new NativeLanguageProficiency();
     private MathProficiency mathematics = new MathProficiency();
-    private EnglishProficiency english = new EnglishProficiency();
+    private EnglishProficiency english = new EnglishProficiency();*/
 
 
     public Student() {
@@ -127,30 +128,30 @@ public class Student {
         this.ageGroup = ageGroup;
     }
 
-    public NativeLanguageProficiency getNativeLanguage() {
-        return nativeLanguage;
-    }
+    /* public NativeLanguageProficiency getNativeLanguage() {
+         return nativeLanguage;
+     }
 
-    public void setNativeLanguage(NativeLanguageProficiency nativeLanguage) {
-        this.nativeLanguage = nativeLanguage;
-    }
+     public void setNativeLanguage(NativeLanguageProficiency nativeLanguage) {
+         this.nativeLanguage = nativeLanguage;
+     }
 
-    public MathProficiency getMathematics() {
-        return mathematics;
-    }
+     public MathProficiency getMathematics() {
+         return mathematics;
+     }
 
-    public void setMathematics(MathProficiency mathematics) {
-        this.mathematics = mathematics;
-    }
+     public void setMathematics(MathProficiency mathematics) {
+         this.mathematics = mathematics;
+     }
 
-    public EnglishProficiency getEnglish() {
-        return english;
-    }
+     public EnglishProficiency getEnglish() {
+         return english;
+     }
 
-    public void setEnglish(EnglishProficiency english) {
-        this.english = english;
-    }
-
+     public void setEnglish(EnglishProficiency english) {
+         this.english = english;
+     }
+ */
     public String getDate() {
         return date;
     }

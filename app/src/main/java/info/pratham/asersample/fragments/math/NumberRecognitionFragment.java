@@ -111,17 +111,21 @@ public class NumberRecognitionFragment extends BaseFragment {
         return question.getTag().toString();
     }
 
+    public String getQuestionTextByView() {
+        return question.getText().toString();
+    }
+
 //    public int getWordsCount() {
 //        return wordCOunt;
 //    }
 
     public View getRefreshIconView() {
-     return refreshIcon;
+        return refreshIcon;
     }
 
     @OnClick(R.id.fragmengtRefreshIV)
     public void refreshRecording() {
-        ((MathActivity)getActivity()).initiateRecording();
+        ((MathActivity) getActivity()).initiateRecording();
     }
 
     private void showQue(JSONObject msg) {
