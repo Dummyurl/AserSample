@@ -6,8 +6,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.GridLayout;
@@ -64,6 +64,13 @@ public class SelectWordsDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_words_dialog);
         ButterKnife.bind(this);
+      //  getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+    /*    WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;*/
+
         setTitle("Selection dialog");
         txt_message_village.setText("Select " + selectCount + " item(s) among the following");
         setCanceledOnTouchOutside(false);
