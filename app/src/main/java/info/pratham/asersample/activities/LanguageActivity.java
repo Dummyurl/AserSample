@@ -440,7 +440,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     public void showMistakeCountDialog() {
-        mistakCountDialog = new MistakCountDialog(this);
+        mistakCountDialog = new MistakCountDialog(this,currentLevel);
         mistakCountDialog.show();
     }
 

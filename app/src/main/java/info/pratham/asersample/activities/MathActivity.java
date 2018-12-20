@@ -529,7 +529,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     public void showMistakeCountDialog() {
-        MistakCountDialog mistakCountDialog = new MistakCountDialog(this);
+        MistakCountDialog mistakCountDialog = new MistakCountDialog(this,currentLevel);
         mistakCountDialog.show();
     }
 }

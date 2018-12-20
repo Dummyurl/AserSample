@@ -26,10 +26,11 @@ public class MistakCountDialog extends Dialog {
     MistakeCountListener mistakeCountListener;
     Context context;
 
-    public MistakCountDialog(@NonNull Context context) {
+    public MistakCountDialog(@NonNull Context context,String level) {
         super(context);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mistake_count_dialog);
+        setTitle(level);
         mistakeCountListener = (MistakeCountListener) context;
         this.context = context;
     }
