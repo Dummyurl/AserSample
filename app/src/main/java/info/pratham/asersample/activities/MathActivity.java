@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,11 +27,13 @@ import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
+import info.pratham.asersample.dialog.EndOfLevelDialog;
 import info.pratham.asersample.dialog.MistakCountDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.math.CalculationFragment;
 import info.pratham.asersample.fragments.math.NumberRecognitionFragment;
+import info.pratham.asersample.interfaces.LevelFinishListner;
 import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
@@ -41,7 +42,7 @@ import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 import nl.dionsegijn.konfetti.KonfettiView;
 
-public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener {
+public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
 
     @BindView(R.id.question)
     TextView question;
@@ -331,19 +332,14 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                 initiateJsonProperties();
                 break;
         }
-        openNextActivity();
+
+        EndOfLevelDialog endOfLevelDialog = new EndOfLevelDialog(this, "End of Mathematics Test");
+        endOfLevelDialog.show();
     }
 
     private void openNextActivity() {
-        AserSampleUtility.startCelebration(celebrationView);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
-                startActivity(intent);
-            }
-        }, 2500);
+        Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
+        startActivity(intent);
 
     }
 
@@ -542,5 +538,10 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     public void showMistakeCountDialog() {
         MistakCountDialog mistakCountDialog = new MistakCountDialog(this, currentLevel);
         mistakCountDialog.show();
+    }
+
+    @Override
+    public void onLevelFinish() {
+        openNextActivity();
     }
 }

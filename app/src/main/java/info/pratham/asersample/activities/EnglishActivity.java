@@ -4,13 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,10 +34,12 @@ import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
+import info.pratham.asersample.dialog.EndOfLevelDialog;
 import info.pratham.asersample.dialog.MistakCountDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.SelectLanguageFragment;
+import info.pratham.asersample.interfaces.LevelFinishListner;
 import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
@@ -48,7 +48,7 @@ import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 import nl.dionsegijn.konfetti.KonfettiView;
 
-public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener {
+public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
 
     @BindView(R.id.previous)
     Button previous;
@@ -380,29 +380,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 });
 
         AserSampleUtility.writeStudentInJson(this);
-        AserSampleUtility.startCelebration(celebrationView);
+        //AserSampleUtility.startCelebration(celebrationView);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                AlertDialog builder = new AlertDialog.Builder(EnglishActivity.this).create();
-                builder.setMessage("Test successfully submitted");
-                builder.setCancelable(false);
-                builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
-                        startActivity(intent);
-                        finishAffinity();
-                    }
-                });
-                builder.show();
-
-            }
-        }, 2500);
+        EndOfLevelDialog endOfLevelDialog = new EndOfLevelDialog(this, "End of English Test");
+        endOfLevelDialog.show();
     }
 
 /*    private void assignMistakeCount(String level, String cnt) {
@@ -512,5 +493,23 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
             proficiencyDialog.show();
         }
+    }
+
+    @Override
+    public void onLevelFinish() {
+        AlertDialog builder = new AlertDialog.Builder(EnglishActivity.this).create();
+        builder.setMessage("Test successfully submitted");
+        builder.setCancelable(false);
+        builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
+                startActivity(intent);
+                finishAffinity();
+            }
+        });
+        builder.show();
     }
 }

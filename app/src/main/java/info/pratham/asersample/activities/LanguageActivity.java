@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,9 +28,11 @@ import info.pratham.asersample.BaseActivity;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
+import info.pratham.asersample.dialog.EndOfLevelDialog;
 import info.pratham.asersample.dialog.MistakCountDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
+import info.pratham.asersample.interfaces.LevelFinishListner;
 import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
@@ -40,7 +41,7 @@ import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 import nl.dionsegijn.konfetti.KonfettiView;
 
-public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener {
+public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
 
     @BindView(R.id.question)
     TextView tv_question;
@@ -216,15 +217,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void openNextActivity() {
-        AserSampleUtility.startCelebration(celebrationView);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(LanguageActivity.this, MathActivity.class);
-                startActivity(intent);
-            }
-        }, 2500);
+        Intent intent = new Intent(LanguageActivity.this, MathActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -402,7 +396,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     public void getProficiency(String proficiency) {
         setVisibilityForPrevNext();
         AserSample_Constant.getAserSample_Constant().getStudent().setNativeProficiency(proficiency);
-        openNextActivity();
+        EndOfLevelDialog endOfLevelDialog = new EndOfLevelDialog(this, "End of Hindi Test");
+        endOfLevelDialog.show();
     }
 
    /* private void assignMistakeCount(String level, String cnt) {
@@ -498,5 +493,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             ProficiencyDialog proficiencyDialog = new ProficiencyDialog(this, optionList);
             proficiencyDialog.show();
         }
+    }
+
+    @Override
+    public void onLevelFinish() {
+        openNextActivity();
     }
 }

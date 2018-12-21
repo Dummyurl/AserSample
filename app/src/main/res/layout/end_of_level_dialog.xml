@@ -7,11 +7,63 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="1">
 
+        <ImageView
+            android:id="@+id/endOfSurveyBackButton"
+            android:layout_width="38dp"
+            android:layout_height="31dp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:src="@drawable/left_arrow" />
+
         <TextView
+            android:id="@+id/surveyTV"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hindi Test Completed" />
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:text="Survey"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:src="@drawable/endoftest" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="2"
+            android:alpha=".5"
+            android:text="Thank you!\n\n Please submit this survey, by clicking on the submit button.\n And thank you for your time to complete this Test!"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/endOfSurveyButton"
+            android:layout_width="220dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/roundedcorner"
+            android:text="Submit"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+    </LinearLayout>
+
 </LinearLayout>
