@@ -55,7 +55,6 @@
             android:layout_weight="1"
             android:background="@drawable/black_buttom"
             android:gravity="center"
-            android:padding="5dp"
             android:text="Clear changes"
             android:textColor="#ffff"
             android:textSize="18sp" />
@@ -68,7 +67,6 @@
             android:layout_weight="1"
             android:background="@drawable/black_buttom"
             android:gravity="center"
-            android:padding="5dp"
             android:text="Ok"
             android:textColor="#ffff"
             android:textSize="18sp" />
