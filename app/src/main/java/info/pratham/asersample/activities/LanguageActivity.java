@@ -3,14 +3,12 @@ package info.pratham.asersample.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,8 +39,6 @@ import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 import nl.dionsegijn.konfetti.KonfettiView;
-import nl.dionsegijn.konfetti.models.Shape;
-import nl.dionsegijn.konfetti.models.Size;
 
 public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener {
 
@@ -50,6 +46,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     TextView tv_question;
     @BindView(R.id.testType)
     TextView testType;
+    @BindView(R.id.level)
+    TextView tv_level;
     @BindView(R.id.previous)
     Button previous;
     @BindView(R.id.next)
@@ -79,7 +77,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     MistakCountDialog mistakCountDialog;
 
     String currentClick;
-    boolean isQueAttemp = false;
+    boolean isQueAttempt = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,7 +112,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @OnClick(R.id.markProficiency)
     public void markProficiency() {
         currentClick = "PROFICIENCY";
-        if (isQueAttemp)
+        if (isQueAttempt)
             showMistakeCountDialog();
 
         else {
@@ -271,10 +269,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @OnClick(R.id.next)
     public void next() {
         currentClick = "NEXT";
-        if (isQueAttemp) {
+        if (isQueAttempt) {
             showMistakeCountDialog();
         } else {
-            isQueAttemp = false;
+            isQueAttempt = false;
             switch (currentLevel) {
                 case "Paragraph":
                     showStory();
@@ -294,10 +292,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @OnClick(R.id.previous)
     public void previous() {
         currentClick = "PREVIOUS";
-        if (isQueAttemp)
+        if (isQueAttempt)
             showMistakeCountDialog();
         else {
-            isQueAttemp = false;
+            isQueAttempt = false;
             switch (currentLevel) {
                 case "Story":
                     showParagraph();
@@ -362,7 +360,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         } else {
             AudioUtil.startRecording(fileStorePath);
             recording = true;
-            isQueAttemp = true;
+            isQueAttempt = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.recording));
         }
     }
@@ -460,7 +458,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @Override
     public void getMistakeCount(int mistakeCnt) {
         queLevel.setMistakes(mistakeCnt);
-        isQueAttemp = false;
+        isQueAttempt = false;
         if (currentClick.equals("NEXT")) {
           /*  assignMistakeCount(currentLevel, mistakes.getText().toString());*/
             initiateRecording();
