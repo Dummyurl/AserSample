@@ -43,24 +43,26 @@ public class AudioUtil {
 
     public static void playRecording(String filePath, final Activity activity) {
         try {
-            if (mPlayer != null && !mPlayer.isPlaying()) {
-                mPlayer = new MediaPlayer();
-                mPlayer.setDataSource(filePath);
-                mPlayer.prepare();
-                mPlayer.start();
-                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        stopPlayingAudio();
-                        if (activity instanceof LanguageActivity)
-                            ((LanguageActivity) activity).audioStopped();
-                        if (activity instanceof EnglishActivity)
-                            ((EnglishActivity) activity).audioStopped();
-                        if (activity instanceof MathActivity)
-                            ((MathActivity) activity).audioStopped();
-                    }
-                });
-            }
+            if (mPlayer != null && mPlayer.isPlaying())
+                mPlayer.stop();
+
+            mPlayer = new MediaPlayer();
+            mPlayer.setDataSource(filePath);
+            mPlayer.prepare();
+            mPlayer.start();
+            mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    stopPlayingAudio();
+                    if (activity instanceof LanguageActivity)
+                        ((LanguageActivity) activity).audioStopped();
+                    if (activity instanceof EnglishActivity)
+                        ((EnglishActivity) activity).audioStopped();
+                    if (activity instanceof MathActivity)
+                        ((MathActivity) activity).audioStopped();
+                }
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }

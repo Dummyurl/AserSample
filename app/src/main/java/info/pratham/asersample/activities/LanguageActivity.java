@@ -54,10 +54,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     Button previous;
     @BindView(R.id.next)
     Button next;
-/*    @BindView(R.id.nextItem)
-    Button nextItem;
-    @BindView(R.id.prevItem)
-    Button prevItem;*/
     @BindView(R.id.nextItem)
     ImageView nextItem;
     @BindView(R.id.prevItem)
