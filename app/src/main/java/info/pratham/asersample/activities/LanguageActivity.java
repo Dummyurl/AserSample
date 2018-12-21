@@ -353,7 +353,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         } else if (recording && playing) {
             AudioUtil.playRecording(fileStorePath, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
-        } else if (recording && !playing) {
+        } else if (recording) {
             AudioUtil.stopRecording();
             refreshIcon.setVisibility(View.VISIBLE);
             tv_question.setAlpha(0.5f);

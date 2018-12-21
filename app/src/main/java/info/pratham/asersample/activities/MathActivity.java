@@ -420,7 +420,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 //            recording = false;
             AudioUtil.playRecording(fileStorePath, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
-        } else if (recording && !playing) {
+        } else if (recording) {
             AudioUtil.stopRecording();
             childFragment.getRefreshIconView().setVisibility(View.VISIBLE);
             question.setAlpha(0.5f);
