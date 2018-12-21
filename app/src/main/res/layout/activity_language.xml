@@ -42,14 +42,14 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <Button
+            <ImageView
                 android:id="@+id/markProficiency"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/proficiency" />
+                android:src="@drawable/proficiency"/>
         </RelativeLayout>
 
         <View
