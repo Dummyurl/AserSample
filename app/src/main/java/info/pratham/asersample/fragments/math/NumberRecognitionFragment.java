@@ -32,9 +32,9 @@ public class NumberRecognitionFragment extends BaseFragment {
     TextView question;
 
     @BindView(R.id.nextItem)
-    Button nextItem;
+    ImageView nextItem;
     @BindView(R.id.prevItem)
-    Button prevItem;
+    ImageView prevItem;
     @BindView(R.id.fragmengtRefreshIV)
     ImageView refreshIcon;
 
