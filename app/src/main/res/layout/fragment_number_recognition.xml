@@ -8,11 +8,14 @@
 
     <ImageView
         android:id="@+id/prevItem"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/previous"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:padding="15dp"
+        android:scaleType="fitCenter"
+        android:background="@drawable/ripple_round"
         android:visibility="invisible" />
 
     <TextView
@@ -26,12 +29,15 @@
 
     <ImageView
         android:id="@+id/nextItem"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/next"
+        android:src="@drawable/ic_arrow_forward_black_24dp"
+        android:padding="15dp"
+        android:scaleType="fitCenter"
+        android:background="@drawable/ripple_round"
         android:visibility="invisible" />
 
     <ImageView

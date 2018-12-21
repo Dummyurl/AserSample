@@ -157,7 +157,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 2);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 2, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -175,7 +175,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 1);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 1,currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -340,7 +340,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     private void openNextActivity() {
         Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
         startActivity(intent);
-
+        finish();
     }
 
     /*private void assignMistakeCount(String level, String cnt) {

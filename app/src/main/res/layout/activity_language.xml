@@ -142,8 +142,8 @@
 
             <Button
                 android:id="@+id/recordButtonSP"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/mic_blue_round" />
 
@@ -162,6 +162,7 @@
                 android:id="@+id/previous"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/roundedcorner"
                 android:layout_alignParentLeft="true"
                 android:padding="2dp"
                 android:text="@string/Word" />
@@ -170,6 +171,7 @@
                 android:id="@+id/next"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/roundedcorner"
                 android:layout_alignParentRight="true"
                 android:text="@string/Story" />
 

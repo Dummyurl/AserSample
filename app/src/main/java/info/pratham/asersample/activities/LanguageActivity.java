@@ -133,6 +133,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         next.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Word), getString(R.string.Story));
         currentLevel = getString(R.string.Paragraph);
+        tv_level.setText("Basic Reading - " + currentLevel);
         setVisibilityForPrevNext();
         //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getParagragh_mistake());
         JSONObject msg = AserSample_Constant.getPara(AserSample_Constant.sample, currentLevel);
@@ -148,6 +149,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         next.setVisibility(View.GONE);
         setNavigation(getString(R.string.Paragraph), "");
         currentLevel = getString(R.string.Story);
+        tv_level.setText("Basic Reading - " + currentLevel);
         setVisibilityForPrevNext();
         //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getStory_mistake());
         JSONObject msg = AserSample_Constant.getStory(AserSample_Constant.sample, currentLevel);
@@ -163,6 +165,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         previous.setVisibility(View.GONE);
         setNavigation("", getString(R.string.Word));
         currentLevel = getString(R.string.Letter);
+        tv_level.setText("Basic Reading - " + currentLevel);
         setVisibilityForPrevNext();
 
         JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
@@ -187,6 +190,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         previous.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Letter), getString(R.string.Paragraph));
         currentLevel = getString(R.string.Word);
+        tv_level.setText("Basic Reading - " + currentLevel);
         setVisibilityForPrevNext();
         JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
@@ -396,7 +400,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     public void getProficiency(String proficiency) {
         setVisibilityForPrevNext();
         AserSample_Constant.getAserSample_Constant().getStudent().setNativeProficiency(proficiency);
-        EndOfLevelDialog endOfLevelDialog = new EndOfLevelDialog(this, "End of Hindi Test");
+        EndOfLevelDialog endOfLevelDialog = new EndOfLevelDialog(this, "End of "+AserSample_Constant.selectedLanguage+" Test");
         endOfLevelDialog.show();
     }
 

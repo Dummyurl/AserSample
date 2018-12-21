@@ -42,7 +42,7 @@ public class SelectWordsDialog extends Dialog {
     List<CheckBox> checkBoxes = new ArrayList<>();
     WordsListListener wordsListListener;
 
-    public SelectWordsDialog(@NonNull Context context, List tempList, int selectCount) {
+    public SelectWordsDialog(@NonNull Context context, List tempList, int selectCount, String currentLevel) {
         super(context);
         this.wordList = tempList;
         this.context = context;
@@ -50,7 +50,7 @@ public class SelectWordsDialog extends Dialog {
         this.selectCount = selectCount;
     }
 
-    public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList, int selectCount) {
+    public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList, int selectCount,String currentLevel) {
         super(context);
         this.wordList = tempList;
         this.context = context;

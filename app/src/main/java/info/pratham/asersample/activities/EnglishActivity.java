@@ -56,6 +56,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     Button next;
     @BindView(R.id.question)
     TextView tv_question;
+    @BindView(R.id.level)
+    TextView tv_level;
     @BindView(R.id.testType)
     TextView testType;
     @BindView(R.id.recordButtonSP)
@@ -120,7 +122,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             setNavigation(getString(R.string.Smallletter), getString(R.string.Sentence));
             currentLevel = getString(R.string.word);
         }
-
+        tv_level.setText("Basic Reading - " + currentLevel);
         initiateJsonProperties();
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
         if (dataArray != null) {
@@ -144,6 +146,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         next.setVisibility(View.GONE);
         setNavigation(getString(R.string.word), "");
         currentLevel = getString(R.string.Sentence);
+        tv_level.setText("Basic Reading - " + currentLevel);
         // mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().getSentence_mistake());
         initiateJsonProperties();
         JSONArray dataArray = AserSample_Constant.getEnglishDataByLevel(AserSample_Constant.sample, currentLevel);
