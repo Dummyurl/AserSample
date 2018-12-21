@@ -6,12 +6,16 @@
     android:layout_height="match_parent"
     tools:context="info.pratham.asersample.networkManager.UploadRec">
 
-    <!--<ImageView
+    <TextView
+        android:id="@+id/pushStatus"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:padding="@dimen/_50sdp"
-        android:src="@drawable/cloud_computing"/>-->
+        android:visibility="invisible"
+        android:text="Nothing to push"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
+        android:textSize="@dimen/_50sdp"
+        android:padding="@dimen/_50sdp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,8 +65,8 @@
 
     <ImageButton
         android:id="@+id/sync"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:background="@drawable/sync_button"

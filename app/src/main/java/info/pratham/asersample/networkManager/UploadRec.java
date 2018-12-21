@@ -8,8 +8,10 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,6 +45,8 @@ public class UploadRec extends AppCompatActivity {
     ListView listView;
     @BindView(R.id.sync)
     ImageButton syncBtn;
+    @BindView(R.id.pushStatus)
+    TextView pushStatus;
 
     List<String> fileList;
     private StorageReference mStorageRef;
@@ -58,6 +62,7 @@ public class UploadRec extends AppCompatActivity {
         ButterKnife.bind(this);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
+        pushStatus.setVisibility(View.INVISIBLE);
         getLocalData();
     }
 
@@ -80,6 +85,8 @@ public class UploadRec extends AppCompatActivity {
     }
 
     private void updateUI(List fileList) {
+        if (fileList.isEmpty())
+            pushStatus.setVisibility(View.VISIBLE);
         arrayAdapter = new ListViewAdapter(this, fileList);
         listView.setAdapter(arrayAdapter);
     }
@@ -196,7 +203,7 @@ public class UploadRec extends AppCompatActivity {
                         // Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         //  Log.v("success", downloadUrl.toString());
                         //  removeData(name, fatherName, isLast);
-                        Toast.makeText(UploadRec.this, "Uploaded" + path, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(UploadRec.this, "Uploaded" + path, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

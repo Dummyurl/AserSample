@@ -61,9 +61,9 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     @BindView(R.id.recordButtonSP)
     Button recordButton;
     @BindView(R.id.nextItem)
-    Button nextItem;
+    ImageView nextItem;
     @BindView(R.id.prevItem)
-    Button prevItem;
+    ImageView prevItem;
     @BindView(R.id.refreshIV)
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
