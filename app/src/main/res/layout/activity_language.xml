@@ -179,9 +179,9 @@
 
     </LinearLayout>
 
-    <nl.dionsegijn.konfetti.KonfettiView
+ <!--   <nl.dionsegijn.konfetti.KonfettiView
         android:id="@+id/celebrationView"
         android:visibility="gone"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"/>-->
 </RelativeLayout>

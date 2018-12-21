@@ -7,9 +7,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -23,9 +21,6 @@ import java.util.UUID;
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.math.CalculationFragment;
-import nl.dionsegijn.konfetti.KonfettiView;
-import nl.dionsegijn.konfetti.models.Shape;
-import nl.dionsegijn.konfetti.models.Size;
 
 /**
  * Created by PEF on 24/11/2018.
@@ -241,7 +236,7 @@ public class AserSampleUtility {
         }
     }
 
-    public static void startCelebration(KonfettiView celebrationView){
+   /* public static void startCelebration(KonfettiView celebrationView){
         celebrationView.setVisibility(View.VISIBLE);
 
         celebrationView.build()
@@ -254,6 +249,6 @@ public class AserSampleUtility {
                 .addSizes(new Size(12, 5f))
                 .setPosition(-50f,50f, -50f, -50f)
                 .stream(500, 1000L);
-    }
+    }*/
 
 }
