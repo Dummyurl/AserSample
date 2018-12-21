@@ -39,7 +39,6 @@ import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
-import nl.dionsegijn.konfetti.KonfettiView;
 
 public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
 
@@ -63,8 +62,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-    @BindView(R.id.celebrationView)
-    KonfettiView celebrationView;
+   /* @BindView(R.id.celebrationView)
+    KonfettiView celebrationView;*/
 
     public static String currentFilePath, currentFileName;
     String currentLevel;
@@ -217,8 +216,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void openNextActivity() {
+
         Intent intent = new Intent(LanguageActivity.this, MathActivity.class);
         startActivity(intent);
+
     }
 
     @Override

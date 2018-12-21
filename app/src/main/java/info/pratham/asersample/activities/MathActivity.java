@@ -40,7 +40,6 @@ import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
-import nl.dionsegijn.konfetti.KonfettiView;
 
 public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
 
@@ -58,9 +57,9 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     Button recordButton;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-    @BindView(R.id.celebrationView)
-    KonfettiView celebrationView;
-
+    /* @BindView(R.id.celebrationView)
+     KonfettiView celebrationView;
+ */
     public String currentLevel;
     String currentFilePath, currentFileName;
     boolean recording, playing;

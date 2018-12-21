@@ -46,7 +46,6 @@ import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
-import nl.dionsegijn.konfetti.KonfettiView;
 
 public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
 
@@ -68,8 +67,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-    @BindView(R.id.celebrationView)
-    KonfettiView celebrationView;
+    /*@BindView(R.id.celebrationView)
+    KonfettiView celebrationView;*/
 
     String currentLevel, currentFilePath, currentFileName;
     boolean recording, playing, isNewQuestion;
