@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:layout_marginRight="70dp"
+            android:layout_marginRight="50dp"
             android:layout_toLeftOf="@id/submit"
             android:background="@drawable/roundedcorner_blue_questions"
             android:text="Cancel"
