@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1">
 
         <TextView
@@ -16,6 +16,7 @@
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
             android:text="End of test"
+            android:typeface="serif"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
@@ -39,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:alpha=".5"
             android:text="Thank you!\n\n Please submit this survey, by clicking on the submit button.\n And thank you for your time to complete this Test!"
             android:textAlignment="center"
