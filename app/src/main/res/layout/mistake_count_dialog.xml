@@ -15,6 +15,7 @@
             android:layout_weight="5"
             android:background="@drawable/roundedcorner_blue_questions"
             android:hint="Enter Mistake Count"
+            android:maxLength="2"
             android:inputType="number"
             android:paddingLeft="@dimen/_2sdp" />
 

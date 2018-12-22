@@ -62,8 +62,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-   /* @BindView(R.id.celebrationView)
-    KonfettiView celebrationView;*/
 
     public static String currentFilePath, currentFileName;
     String currentLevel;
@@ -175,7 +173,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                     wordList.add(msg.getJSONObject(i));
                 }
                 //     mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getLetter_mistake());
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -199,7 +197,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                     wordList.add(msg.get(i));
                 }
                 //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getWord_mistake());
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -391,9 +389,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void setNavigation(String prevText, String nextText) {
-        if (previous.isShown())
             previous.setText("< " + prevText);
-        if (next.isShown())
             next.setText(nextText + " >");
     }
 

@@ -57,9 +57,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     Button recordButton;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-    /* @BindView(R.id.celebrationView)
-     KonfettiView celebrationView;
- */
+
     public String currentLevel;
     String currentFilePath, currentFileName;
     boolean recording, playing;
@@ -157,7 +155,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     wordList.add(msg.getJSONObject(i));
                 }
                 /*   mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getTenToNinetyNine_mistake());*/
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -183,7 +181,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     wordList.add(msg.getJSONObject(i));
                 }
                 /* mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getOneToNine_mistake());*/
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();

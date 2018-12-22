@@ -69,8 +69,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-    /*@BindView(R.id.celebrationView)
-    KonfettiView celebrationView;*/
 
     String currentLevel, currentFilePath, currentFileName;
     boolean recording, playing, isNewQuestion;
@@ -130,7 +128,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 for (int i = 0; i < dataArray.length(); i++) {
                     dataList.add(dataArray.getJSONObject(i));
                 }
-                final SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList, 5);
+                final SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList, 5,currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -38,6 +38,7 @@ public class SelectWordsDialog extends Dialog {
     Context context;
     List<JSONObject> wordList;
     int selectCount;
+    String level;
     int count = 0;
     List<CheckBox> checkBoxes = new ArrayList<>();
     WordsListListener wordsListListener;
@@ -48,6 +49,7 @@ public class SelectWordsDialog extends Dialog {
         this.context = context;
         this.wordsListListener = (WordsListListener) context;
         this.selectCount = selectCount;
+        this.level = currentLevel;
     }
 
     public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList, int selectCount,String currentLevel) {
@@ -56,6 +58,7 @@ public class SelectWordsDialog extends Dialog {
         this.context = context;
         this.wordsListListener = (WordsListListener) fragment;
         this.selectCount = selectCount;
+        this.level = currentLevel;
     }
 
     @Override
@@ -70,7 +73,7 @@ public class SelectWordsDialog extends Dialog {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;*/
 
-        setTitle("Selection dialog");
+        setTitle(level);
         txt_message_village.setText("Select " + selectCount + " item(s) among the following");
         setCanceledOnTouchOutside(false);
         try {
