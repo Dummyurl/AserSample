@@ -8,6 +8,9 @@
     <string name="Marathi">Marathi</string>
 
     <string name="Beginner">Beginner</string>
+    <string name="Ok">Ok</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Navigate">Do you want to conduct test for English</string>
     <string name="TestWasNotComplete">Test was not complete</string>
 
     <!--LANGUAGE-->

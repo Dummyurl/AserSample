@@ -5,12 +5,18 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +37,7 @@ import info.pratham.asersample.dialog.EndOfLevelDialog;
 import info.pratham.asersample.dialog.MistakCountDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
+import info.pratham.asersample.fragments.SelectLanguageFragment;
 import info.pratham.asersample.fragments.math.CalculationFragment;
 import info.pratham.asersample.fragments.math.NumberRecognitionFragment;
 import info.pratham.asersample.interfaces.LevelFinishListner;
@@ -64,6 +71,8 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     public static boolean isNewQuestion;
     NumberRecognitionFragment childFragment;
     CalculationFragment calculationFragment;
+    private DatabaseReference mDatabase;
+
 
     List parentDataList;
     QueLevel queLevel;
@@ -79,6 +88,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         currentFilePath = LanguageActivity.currentFilePath;
+        mDatabase = FirebaseDatabase.getInstance().getReference("students");
         parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList();
         testType.setText("Mathematics Test");
         showSubtraction();
@@ -335,9 +345,46 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     private void openNextActivity() {
-        Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
-        startActivity(intent);
-        finish();
+
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(MathActivity.this);
+            builder.setMessage(R.string.Navigate)
+                    .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                            mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Write was successful!
+                                            AserSampleUtility.showToast(MathActivity.this, "Done..");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Write failed
+                                            AserSampleUtility.showToast(MathActivity.this, "FAIL..");
+                                        }
+                                    });
+
+                            AserSampleUtility.writeStudentInJson(MathActivity.this);
+                            Intent intent = new Intent(MathActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
+                            startActivity(intent);
+                            finishAffinity();
+                        }
+                    });
+            builder.create();
+            builder.show();
     }
 
     /*private void assignMistakeCount(String level, String cnt) {
