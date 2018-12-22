@@ -1,12 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="50dp"
+        android:background="@color/light_green"
+        android:gravity="center"
+        android:text="Student Details"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20sdp" />
 
-    </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="2dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3">
+
+            <RelativeLayout
+                android:id="@+id/p_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/h_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name : "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/h_name"
+                    android:layout_toRightOf="@id/h_name"
+                    android:text="ANkita Lakhamadhe" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/p_stud_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p_name">
+
+                <TextView
+                    android:id="@+id/h_stud_class"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="class : "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/stud_class"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/h_stud_class"
+                    android:layout_toRightOf="@id/h_stud_class"
+                    android:text="5" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/p_age_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p_stud_class">
+
+                <TextView
+                    android:id="@+id/h_age_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="age group : "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/age_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/h_age_group"
+                    android:layout_toRightOf="@id/h_age_group"
+                    android:text="10-20" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/p_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p_age_group">
+
+                <TextView
+                    android:id="@+id/h_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="date : "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/h_date"
+                    android:layout_toRightOf="@id/h_date"
+                    android:text="01/20/2010" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/p_deviceId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p_date">
+
+                <TextView
+                    android:id="@+id/h_deviceId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="device Id : "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/deviceId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/h_deviceId"
+                    android:layout_toRightOf="@id/h_deviceId"
+                    android:text="hslkjfghljsflk" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/p_nativeLanguageProf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p_deviceId">
+
+                <TextView
+                    android:id="@+id/h_nativeLanguageProf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="native prof : "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/nativeLanguageProf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/h_nativeLanguageProf"
+                    android:layout_toRightOf="@id/h_nativeLanguageProf"
+                    android:text="hslkjfghljsflk" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/p_mathLanguageProf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p_nativeLanguageProf">
+
+                <TextView
+                    android:id="@+id/h_mathLanguageProf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Math prof : "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mathLanguageProf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/h_mathLanguageProf"
+                    android:layout_toRightOf="@id/h_mathLanguageProf"
+                    android:text="subtraction" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/p_engLanguageProf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p_mathLanguageProf">
+
+                <TextView
+                    android:id="@+id/h_engLanguageProf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eng prof : "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/engLanguageProf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/h_engLanguageProf"
+                    android:layout_toRightOf="@id/h_engLanguageProf"
+                    android:text="subtraction" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 </LinearLayout>

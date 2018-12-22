@@ -36,6 +36,7 @@ import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
 import info.pratham.asersample.dialog.EndOfLevelDialog;
 import info.pratham.asersample.dialog.MistakCountDialog;
+import info.pratham.asersample.dialog.PreviewDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.SelectLanguageFragment;
@@ -503,11 +504,13 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
+               /* Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
                 startActivity(intent);
-                finishAffinity();
+                finishAffinity();*/
+                PreviewDialog previewDialog = new PreviewDialog(EnglishActivity.this);
+                previewDialog.show();
             }
         });
         builder.show();
