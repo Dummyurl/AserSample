@@ -89,7 +89,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         nextItem.setVisibility(View.INVISIBLE);
         prevItem.setVisibility(View.INVISIBLE);
         testType.setText(AserSample_Constant.selectedLanguage + " Test");
-        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList();
+        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
         try {
             if (question != null) {

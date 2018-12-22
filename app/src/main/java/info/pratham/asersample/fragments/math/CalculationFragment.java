@@ -84,7 +84,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         currentLevel = getArguments().getString("currentLevel");
-        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList();
+        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
         if ("Subtraction".equals(currentLevel)) {
             showSubtraction();
         } else if ("Division".equals(currentLevel)) {
