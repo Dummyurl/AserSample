@@ -25,7 +25,7 @@ public class Student {
     private String englishProficiency;
 
     @SerializedName("sequenceList")
-    private List<QueLevel> testQuestionList = new ArrayList();
+    private List<QueLevel> sequenceList = new ArrayList();
 
 
     public String getNativeProficiency() {
@@ -52,12 +52,12 @@ public class Student {
         this.englishProficiency = englishProficiency;
     }
 
-    public List getTestQuestionList() {
-        return testQuestionList;
+    public List getSequenceList() {
+        return sequenceList;
     }
 
-    public void setTestQuestionList(List testQuestionList) {
-        this.testQuestionList = testQuestionList;
+    public void setSequenceList(List sequenceList) {
+        this.sequenceList = sequenceList;
     }
 
     // todo remove

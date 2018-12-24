@@ -44,7 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private String getJson() {
         Gson gson = new Gson();
-        String studentJson = gson.toJson(AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList());
+        String studentJson = gson.toJson(AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList());
         return studentJson;
     }
 

@@ -89,7 +89,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         ButterKnife.bind(this);
         currentFilePath = LanguageActivity.currentFilePath;
         mDatabase = FirebaseDatabase.getInstance().getReference("students");
-        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList();
+        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
         testType.setText("Mathematics Test");
         showSubtraction();
     }

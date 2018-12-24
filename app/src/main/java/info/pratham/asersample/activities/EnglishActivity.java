@@ -39,7 +39,6 @@ import info.pratham.asersample.dialog.MistakeCountDialog;
 import info.pratham.asersample.dialog.PreviewDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
-import info.pratham.asersample.fragments.SelectLanguageFragment;
 import info.pratham.asersample.interfaces.LevelFinishListner;
 import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.PreviewDialogListener;
@@ -93,7 +92,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         mDatabase = FirebaseDatabase.getInstance().getReference("students");
-        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getTestQuestionList();
+        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
         currentFilePath = LanguageActivity.currentFilePath;
         nextItem.setVisibility(View.INVISIBLE);
         prevItem.setVisibility(View.INVISIBLE);
