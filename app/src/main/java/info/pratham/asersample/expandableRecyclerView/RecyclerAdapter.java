@@ -103,7 +103,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if (person.isChildrenVisible()) {
                     person.setChildrenVisible(false);
                     List<SingleQustion_RV> singleQustion_rv = person.getQuestions();
-
                     for (int i = id + 1; i < (id + 1 + singleQustion_rv.size()); i++) {
                         general.remove(id + 1);
                     }
