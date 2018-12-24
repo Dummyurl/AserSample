@@ -35,20 +35,21 @@ import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
 import info.pratham.asersample.dialog.EndOfLevelDialog;
-import info.pratham.asersample.dialog.MistakCountDialog;
+import info.pratham.asersample.dialog.MistakeCountDialog;
 import info.pratham.asersample.dialog.PreviewDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.SelectLanguageFragment;
 import info.pratham.asersample.interfaces.LevelFinishListner;
 import info.pratham.asersample.interfaces.MistakeCountListener;
+import info.pratham.asersample.interfaces.PreviewDialogListener;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 
-public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
+public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner, PreviewDialogListener {
 
     @BindView(R.id.previous)
     Button previous;
@@ -448,7 +449,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     }
 
     public void showMistakeCountDialog() {
-        MistakCountDialog mistakCountDialog = new MistakCountDialog(this, currentLevel);
+        MistakeCountDialog mistakCountDialog = new MistakeCountDialog(this, currentLevel);
         mistakCountDialog.show();
     }
 
@@ -504,15 +505,19 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               /* Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
-                startActivity(intent);
-                finishAffinity();*/
                 PreviewDialog previewDialog = new PreviewDialog(EnglishActivity.this);
                 previewDialog.show();
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void onSubmit() {
+        Intent intent = new Intent(EnglishActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
+        startActivity(intent);
+        finishAffinity();
     }
 }

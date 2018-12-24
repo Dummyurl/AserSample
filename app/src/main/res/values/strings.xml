@@ -10,7 +10,7 @@
     <string name="Beginner">Beginner</string>
     <string name="Ok">Ok</string>
     <string name="Cancel">Cancel</string>
-    <string name="Navigate">Do you want to conduct test for English</string>
+    <string name="Navigate">Do you want to conduct test for English?\n\nPress OK to proceed\nPress CANCEL to end the test</string>
     <string name="TestWasNotComplete">Test was not complete</string>
 
     <!--LANGUAGE-->

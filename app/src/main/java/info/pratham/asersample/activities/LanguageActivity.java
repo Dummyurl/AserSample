@@ -29,7 +29,7 @@ import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
 import info.pratham.asersample.dialog.EndOfLevelDialog;
-import info.pratham.asersample.dialog.MistakCountDialog;
+import info.pratham.asersample.dialog.MistakeCountDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.interfaces.LevelFinishListner;
@@ -72,7 +72,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     List parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
-    MistakCountDialog mistakCountDialog;
+    MistakeCountDialog mistakCountDialog;
 
     String currentClick;
     boolean isQueAttempt = false;
@@ -447,7 +447,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     public void showMistakeCountDialog() {
-        mistakCountDialog = new MistakCountDialog(this, currentLevel);
+        mistakCountDialog = new MistakeCountDialog(this, currentLevel);
         mistakCountDialog.show();
     }
 

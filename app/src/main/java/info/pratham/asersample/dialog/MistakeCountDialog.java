@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -18,27 +19,31 @@ import info.pratham.asersample.interfaces.MistakeCountListener;
  * Created by PEF on 18/12/2018.
  */
 
-public class MistakCountDialog extends Dialog {
+public class MistakeCountDialog extends Dialog {
 
     @BindView(R.id.mistake_cnt)
     EditText et_mistake_cnt;
+    @BindView(R.id.level)
+    TextView level;
 
     MistakeCountListener mistakeCountListener;
     Context context;
+    String levelString;
 
-    public MistakCountDialog(@NonNull Context context,String level) {
+    public MistakeCountDialog(@NonNull Context context, String level) {
         super(context);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mistake_count_dialog);
-        setTitle(level);
         mistakeCountListener = (MistakeCountListener) context;
         this.context = context;
+        levelString = level;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        level.setText(levelString + " mistakes");
     }
 
     @OnClick(R.id.submit_mistake)

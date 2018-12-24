@@ -220,7 +220,7 @@ public class AserSampleUtility {
             outputStreamWriter.close();
 
 
-            android.app.AlertDialog builder = new android.app.AlertDialog.Builder(context).create();
+            /*android.app.AlertDialog builder = new android.app.AlertDialog.Builder(context).create();
             builder.setMessage(studentJson);
             builder.setCancelable(false);
             builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
@@ -230,7 +230,7 @@ public class AserSampleUtility {
 
                 }
             });
-            builder.show();
+            builder.show();*/
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -34,7 +34,7 @@ import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
 import info.pratham.asersample.dialog.EndOfLevelDialog;
-import info.pratham.asersample.dialog.MistakCountDialog;
+import info.pratham.asersample.dialog.MistakeCountDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.SelectLanguageFragment;
@@ -580,7 +580,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     }
 
     public void showMistakeCountDialog() {
-        MistakCountDialog mistakCountDialog = new MistakCountDialog(this, currentLevel);
+        MistakeCountDialog mistakCountDialog = new MistakeCountDialog(this, currentLevel);
         mistakCountDialog.show();
     }
 

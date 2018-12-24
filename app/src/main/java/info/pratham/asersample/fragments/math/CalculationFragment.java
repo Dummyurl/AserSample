@@ -24,7 +24,7 @@ import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
-import info.pratham.asersample.dialog.MistakCountDialog;
+import info.pratham.asersample.dialog.MistakeCountDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.WordsListListener;
@@ -66,7 +66,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     List parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
-    MistakCountDialog mistakCountDialog;
+    MistakeCountDialog mistakCountDialog;
 
     @Override
     public void onAttach(Context context) {
@@ -237,7 +237,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     public void showMistakeCountDialog() {
-        mistakCountDialog = new MistakCountDialog(getActivity(), currentLevel);
+        mistakCountDialog = new MistakeCountDialog(getActivity(), currentLevel);
         mistakCountDialog.show();
     }
 
