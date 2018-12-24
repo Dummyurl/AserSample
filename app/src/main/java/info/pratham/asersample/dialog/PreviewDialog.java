@@ -10,15 +10,11 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.expandableRecyclerView.RecyclerAdapter;
-<<<<<<< HEAD
 import info.pratham.asersample.interfaces.PreviewDialogListener;
-=======
 import info.pratham.asersample.utility.AserSample_Constant;
->>>>>>> 3a9716ad6144c6e25d478277a991e2103c5967a5
 
 /**
  * Created by PEF on 22/12/2018.
@@ -64,7 +60,6 @@ public class PreviewDialog extends Dialog {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
 
-<<<<<<< HEAD
 
     /*@OnClick(R.id.submit)
     public void cancel() {
@@ -76,7 +71,8 @@ public class PreviewDialog extends Dialog {
     public void onBackPressed() {
         super.onBackPressed();
         previewDialogListener.onSubmit();
-=======
+    }
+
     private void setInformation() {
         Student student = AserSample_Constant.getAserSample_Constant().getStudent();
         name.setText(student.getName() + " " + student.getFather());
@@ -87,6 +83,5 @@ public class PreviewDialog extends Dialog {
         nativeLanguageProf.setText(student.getNativeProficiency());
         mathLanguageProf.setText(student.getMathematicsProficiency());
         engLanguageProf.setText(student.getEnglishProficiency());
->>>>>>> 3a9716ad6144c6e25d478277a991e2103c5967a5
     }
 }
