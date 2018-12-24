@@ -142,16 +142,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public static class ChildViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView viewID;
-        public TextView parentID;
-        public TextView text;
+        public TextView queText;
+        public TextView qid;
+        public TextView q_cnt;
 
         public ChildViewHolder(View itemView) {
             super(itemView);
 
-            viewID = (TextView) itemView.findViewById(R.id.fid);
-            parentID = (TextView) itemView.findViewById(R.id.pid);
-            text = (TextView) itemView.findViewById(R.id.friend);
+            queText = (TextView) itemView.findViewById(R.id.queText);
+            qid = (TextView) itemView.findViewById(R.id.qid);
+            q_cnt = (TextView) itemView.findViewById(R.id.q_cnt);
 
             itemView.setOnClickListener(this);
         }
@@ -234,14 +234,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (holder.getItemViewType() == CHILD) {
-            TextView viewID = ((ChildViewHolder) holder).viewID;
+           /* TextView viewID = ((ChildViewHolder) holder).viewID;
             TextView parentID = ((ChildViewHolder) holder).parentID;
-            TextView text = ((ChildViewHolder) holder).text;
+            TextView text = ((ChildViewHolder) holder).text;*/
 
             SingleQustion_RV singleQustion_rv = (SingleQustion_RV) general.get(position);
-            viewID.setText("Q id" + singleQustion_rv.getQue_id());
-            parentID.setText(singleQustion_rv.getParentID());
-            text.setText("child" + singleQustion_rv.getQue_seq_cnt());
+
+            ((ChildViewHolder) holder).queText.setText(singleQustion_rv.getQue_text());
+            ((ChildViewHolder) holder).qid.setText(singleQustion_rv.getQue_id());
+            ((ChildViewHolder) holder).q_cnt.setText(""+singleQustion_rv.getQue_seq_cnt());
         } else {
             QueLevel_RV queLevel_rv = (QueLevel_RV) general.get(position);
             ((ParentViewHolder) holder).seq_cnt.setText("Seqeunce count : " + queLevel_rv.getLevel_seq_cnt());
