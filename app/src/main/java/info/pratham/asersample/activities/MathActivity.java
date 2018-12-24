@@ -35,6 +35,7 @@ import info.pratham.asersample.database.modalClasses.QueLevel;
 import info.pratham.asersample.database.modalClasses.SingleQustion;
 import info.pratham.asersample.dialog.EndOfLevelDialog;
 import info.pratham.asersample.dialog.MistakeCountDialog;
+import info.pratham.asersample.dialog.PreviewDialog;
 import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.dialog.SelectWordsDialog;
 import info.pratham.asersample.fragments.SelectLanguageFragment;
@@ -42,13 +43,14 @@ import info.pratham.asersample.fragments.math.CalculationFragment;
 import info.pratham.asersample.fragments.math.NumberRecognitionFragment;
 import info.pratham.asersample.interfaces.LevelFinishListner;
 import info.pratham.asersample.interfaces.MistakeCountListener;
+import info.pratham.asersample.interfaces.PreviewDialogListener;
 import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 
-public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
+public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner, PreviewDialogListener {
 
     @BindView(R.id.question)
     TextView question;
@@ -376,11 +378,9 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                                     });
 
                             AserSampleUtility.writeStudentInJson(MathActivity.this);
-                            Intent intent = new Intent(MathActivity.this, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
-                            startActivity(intent);
-                            finishAffinity();
+
+                            PreviewDialog previewDialog = new PreviewDialog(MathActivity.this);
+                            previewDialog.show();
                         }
                     });
             builder.create();
@@ -587,5 +587,14 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     @Override
     public void onLevelFinish() {
         openNextActivity();
+    }
+
+    @Override
+    public void onSubmit() {
+        Intent intent = new Intent(MathActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("fragment", SelectLanguageFragment.class.getSimpleName());
+        startActivity(intent);
+        finishAffinity();
     }
 }
