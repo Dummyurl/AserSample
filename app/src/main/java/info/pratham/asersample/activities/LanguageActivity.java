@@ -3,8 +3,10 @@ package info.pratham.asersample.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.TextViewCompat;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -39,6 +41,8 @@ import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
+
+import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
 
@@ -83,14 +87,22 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         setContentView(R.layout.activity_language);
         ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            tv_question.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        } else {
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(tv_question, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        }
+
         currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
                 AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/";
 
-        nextItem.setVisibility(View.INVISIBLE);
-        prevItem.setVisibility(View.INVISIBLE);
+        nextItem.setVisibility(View.GONE);
+        prevItem.setVisibility(View.GONE);
         testType.setText(AserSample_Constant.selectedLanguage + " Test");
         parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
         String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
+
         try {
             if (question != null) {
                 JSONObject questionJson = new JSONObject(question);
@@ -135,7 +147,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getParagragh_mistake());
         JSONObject msg = AserSample_Constant.getPara(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
-            tv_question.setTextSize(1, 30);
+            //     tv_question.setTextSize(1, 30);
             showQue(msg);
         } else {
             AserSampleUtility.showToast(this, "Something goes Wrong");
@@ -151,7 +163,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getStory_mistake());
         JSONObject msg = AserSample_Constant.getStory(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
-            tv_question.setTextSize(1, 25);
+            //    tv_question.setTextSize(1, 25);
             showQue(msg);
         } else {
             AserSampleUtility.showToast(this, "Something goes Wrong");
@@ -173,7 +185,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                     wordList.add(msg.getJSONObject(i));
                 }
                 //     mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getLetter_mistake());
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -197,7 +209,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                     wordList.add(msg.get(i));
                 }
                 //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getWord_mistake());
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -210,6 +222,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     private void showQue(JSONObject msg) {
         try {
             isNewQuestion = true;
+            tv_question.invalidate();
             tv_question.setText(msg.getString("data"));
             tv_question.setTag(msg.getString("id"));
         } catch (JSONException e) {
@@ -227,7 +240,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @Override
     public void getSelectedwords(List list) {
         if (!list.isEmpty()) {
-            tv_question.setTextSize(1, 60);
+            //    tv_question.setTextSize(1, 60);
             wordCOunt = -1;
             selectedWordsList = list;
             nextItem.setVisibility(View.VISIBLE);
@@ -244,7 +257,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             prevItem.setVisibility(View.VISIBLE);
         }
         if ((wordCOunt + 1) == selectedWordsList.size()) {
-            nextItem.setVisibility(View.INVISIBLE);
+            nextItem.setVisibility(View.GONE);
         }
     }
 
@@ -254,8 +267,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         wordCOunt--;
         showQue(selectedWordsList.get(wordCOunt));
         if (wordCOunt == 0) {
-            prevItem.setVisibility(View.INVISIBLE);
-            nextItem.setVisibility(View.VISIBLE);
+            prevItem.setVisibility(View.GONE);
+            nextItem.setVisibility(View.GONE);
         }
         if (wordCOunt > -1) {
             nextItem.setVisibility(View.VISIBLE);
@@ -375,8 +388,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void setVisibilityForPrevNext() {
-        nextItem.setVisibility(View.INVISIBLE);
-        prevItem.setVisibility(View.INVISIBLE);
+        nextItem.setVisibility(View.GONE);
+        prevItem.setVisibility(View.GONE);
         // Initiate question level
         if (queLevel != null && queLevel.getQuestions().size() > 0) {
             parentDataList.add(queLevel);
@@ -389,15 +402,15 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     }
 
     private void setNavigation(String prevText, String nextText) {
-            previous.setText("< " + prevText);
-            next.setText(nextText + " >");
+        previous.setText("< " + prevText);
+        next.setText(nextText + " >");
     }
 
     @Override
     public void getProficiency(String proficiency) {
         setVisibilityForPrevNext();
         AserSample_Constant.getAserSample_Constant().getStudent().setNativeProficiency(proficiency);
-        EndOfLevelDialog endOfLevelDialog = new EndOfLevelDialog(this, "End of "+AserSample_Constant.selectedLanguage+" Test");
+        EndOfLevelDialog endOfLevelDialog = new EndOfLevelDialog(this, "End of " + AserSample_Constant.selectedLanguage + " Test");
         endOfLevelDialog.show();
     }
 

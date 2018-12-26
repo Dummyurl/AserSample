@@ -3,9 +3,11 @@ package info.pratham.asersample.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.TextViewCompat;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -49,6 +51,8 @@ import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 
+import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
+
 public class EnglishActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner, PreviewDialogListener {
 
     @BindView(R.id.previous)
@@ -76,15 +80,12 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     boolean recording, playing, isNewQuestion;
     int wordCOunt;
     List<JSONObject> selectedWordsList;
-
-    private DatabaseReference mDatabase;
     List parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
-
-
     String currentClick;
     boolean isQueAttemp = false;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,11 +93,16 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         setContentView(R.layout.activity_language);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            tv_question.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        } else {
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(tv_question, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        }
         mDatabase = FirebaseDatabase.getInstance().getReference("students");
         parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
         currentFilePath = LanguageActivity.currentFilePath;
-        nextItem.setVisibility(View.INVISIBLE);
-        prevItem.setVisibility(View.INVISIBLE);
+        nextItem.setVisibility(View.GONE);
+        prevItem.setVisibility(View.GONE);
         testType.setText("English" + " Test");
         getData("Capital");
     }
@@ -130,7 +136,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 for (int i = 0; i < dataArray.length(); i++) {
                     dataList.add(dataArray.getJSONObject(i));
                 }
-                final SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList, 5,currentLevel);
+                final SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, dataList, 5, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -244,7 +250,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         }
         if ((wordCOunt + 1) == selectedWordsList.size()) {
             if (nextItem.isShown()) {
-                nextItem.setVisibility(View.INVISIBLE);
+                nextItem.setVisibility(View.GONE);
             }
         }
     }
@@ -255,7 +261,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         wordCOunt--;
         showQue(selectedWordsList.get(wordCOunt));
         if (wordCOunt == 0) {
-            prevItem.setVisibility(View.INVISIBLE);
+            prevItem.setVisibility(View.GONE);
             nextItem.setVisibility(View.VISIBLE);
         }
 
@@ -278,7 +284,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     @Override
     public void getSelectedwords(List list) {
         if (!list.isEmpty()) {
-            tv_question.setTextSize(1, 60);
+            //    tv_question.setTextSize(1, 60);
             wordCOunt = -1;
             selectedWordsList = list;
             nextItem.setVisibility(View.VISIBLE);
@@ -353,8 +359,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     }
 
     private void setVisibilityForPrevNext() {
-        nextItem.setVisibility(View.INVISIBLE);
-        prevItem.setVisibility(View.INVISIBLE);
+        nextItem.setVisibility(View.GONE);
+        prevItem.setVisibility(View.GONE);
     }
 
     private void setNavigation(String prevText, String nextText) {
