@@ -5,14 +5,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/rippleColorDark"
-        android:gravity="center"
-        android:text="Student Test Details"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_20sdp" />
+        android:layout_height="70dp"
+        android:background="@color/rippleColorDark">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Student Test Details"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_20sdp" />
+
+        <ImageButton
+            android:id="@+id/nextButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_round"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_forward_black_24dp" />
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +73,6 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/h_name"
                         android:layout_toRightOf="@id/h_name"
-                        android:text="ANkita Lakhamadhe"
                         android:textSize="20sp"
                         android:typeface="serif" />
                 </RelativeLayout>
@@ -78,8 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/h_stud_class"
-                        android:layout_toRightOf="@id/h_stud_class"
-                        android:text="5" />
+                        android:layout_toRightOf="@id/h_stud_class" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -101,8 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/h_age_group"
-                        android:layout_toRightOf="@id/h_age_group"
-                        android:text="10-20" />
+                        android:layout_toRightOf="@id/h_age_group" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -124,8 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/h_date"
-                        android:layout_toRightOf="@id/h_date"
-                        android:text="01/20/2010" />
+                        android:layout_toRightOf="@id/h_date" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -147,8 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/h_deviceId"
-                        android:layout_toRightOf="@id/h_deviceId"
-                        android:text="hslkjfghljsflk" />
+                        android:layout_toRightOf="@id/h_deviceId" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -170,8 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/h_nativeLanguageProf"
-                        android:layout_toRightOf="@id/h_nativeLanguageProf"
-                        android:text="hslkjfghljsflk" />
+                        android:layout_toRightOf="@id/h_nativeLanguageProf" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -193,8 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/h_mathLanguageProf"
-                        android:layout_toRightOf="@id/h_mathLanguageProf"
-                        android:text="subtraction" />
+                        android:layout_toRightOf="@id/h_mathLanguageProf" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -216,8 +228,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/h_engLanguageProf"
-                        android:layout_toRightOf="@id/h_engLanguageProf"
-                        android:text="subtraction" />
+                        android:layout_toRightOf="@id/h_engLanguageProf" />
                 </RelativeLayout>
 
             </RelativeLayout>

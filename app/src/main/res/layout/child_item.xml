@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="1dp"
-    android:clickable="true"
     android:layout_marginLeft="15dp"
+    android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#cde4f1">
+        android:background="#cde4f1"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/h_queText"
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:text="Question : "
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:layout_toRightOf="@+id/h_queText"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:text="QuestionID : "
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -55,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/h_qid"
-                    android:textSize="14sp" />
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -69,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:text="Question sequence cnt : "
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -77,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/h_q_cnt"
-                    android:textSize="14sp" />
+                    android:textSize="18sp" />
             </RelativeLayout>
 
         </LinearLayout>

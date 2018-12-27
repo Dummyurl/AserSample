@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.expandableRecyclerView.RecyclerAdapter;
@@ -40,6 +42,9 @@ public class PreviewDialog extends Dialog {
     TextView mathLanguageProf;
     @BindView(R.id.engLanguageProf)
     TextView engLanguageProf;
+
+    @BindView(R.id.nextButton)
+    ImageView nextButton;
 
     Context context;
     PreviewDialogListener previewDialogListener;
@@ -83,5 +88,11 @@ public class PreviewDialog extends Dialog {
         nativeLanguageProf.setText(student.getNativeProficiency());
         mathLanguageProf.setText(student.getMathematicsProficiency());
         engLanguageProf.setText(student.getEnglishProficiency());
+    }
+
+    @OnClick(R.id.nextButton)
+    public void setNextButton() {
+        previewDialogListener.onSubmit();
+        dismiss();
     }
 }

@@ -237,12 +237,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
            /* TextView viewID = ((ChildViewHolder) holder).viewID;
             TextView parentID = ((ChildViewHolder) holder).parentID;
             TextView text = ((ChildViewHolder) holder).text;*/
-
+            String text;
             SingleQustion_RV singleQustion_rv = (SingleQustion_RV) general.get(position);
 
-            ((ChildViewHolder) holder).queText.setText(singleQustion_rv.getQue_text());
+            if (singleQustion_rv.getAnswer() != null) {
+                text = singleQustion_rv.getQue_text() + " = " + singleQustion_rv.getAnswer();
+            } else {
+                text = singleQustion_rv.getQue_text();
+            }
+            ((ChildViewHolder) holder).queText.setText(text);
             ((ChildViewHolder) holder).qid.setText(singleQustion_rv.getQue_id());
-            ((ChildViewHolder) holder).q_cnt.setText(""+singleQustion_rv.getQue_seq_cnt());
+            ((ChildViewHolder) holder).q_cnt.setText("" + singleQustion_rv.getQue_seq_cnt());
         } else {
             QueLevel_RV queLevel_rv = (QueLevel_RV) general.get(position);
             ((ParentViewHolder) holder).seq_cnt.setText("Seqeunce count : " + queLevel_rv.getLevel_seq_cnt());
