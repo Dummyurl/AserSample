@@ -13,8 +13,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.google.firebase.database.DatabaseReference;
-
 import java.util.Calendar;
 
 import butterknife.BindView;

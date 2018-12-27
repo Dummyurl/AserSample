@@ -11,13 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedInputStream;
@@ -62,6 +63,7 @@ public class UploadRec extends AppCompatActivity {
         ButterKnife.bind(this);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
+
         pushStatus.setVisibility(View.INVISIBLE);
         getLocalData();
     }
@@ -167,7 +169,7 @@ public class UploadRec extends AppCompatActivity {
             AserSampleUtility.showToast(this, "Nothing to push");
         } else {
             cnt = 0;
-            AserSampleUtility.showProgressDialog(progressDialog);
+            //  AserSampleUtility.showProgressDialog(progressDialog);
             for (String path : fileList) {
                 if (zipFileAtPath(ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
                     uploadImageToStorage(path + ".zip");
@@ -184,7 +186,7 @@ public class UploadRec extends AppCompatActivity {
 
         StorageReference riversRef = mStorageRef.child("StudentRecordings/" + AserSample_Constant.crlID + "/" + fileUri);
 
-        riversRef.putFile(file)
+        StorageTask uploadTask = riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -238,4 +240,6 @@ public class UploadRec extends AppCompatActivity {
         fileOrDirectory.delete();
 
     }
+
+
 }

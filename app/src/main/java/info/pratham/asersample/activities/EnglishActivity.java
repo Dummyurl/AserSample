@@ -505,7 +505,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void onLevelFinish() {
-        AlertDialog builder = new AlertDialog.Builder(EnglishActivity.this).create();
+      /*  AlertDialog builder = new AlertDialog.Builder(EnglishActivity.this).create();
         builder.setMessage("Test successfully submitted");
         builder.setCancelable(false);
         builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
@@ -516,6 +516,9 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
             }
         });
         builder.show();
+*/
+        PreviewDialog previewDialog = new PreviewDialog(EnglishActivity.this);
+        previewDialog.show();
     }
 
     @Override
