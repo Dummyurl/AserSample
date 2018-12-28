@@ -107,9 +107,9 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             if (question != null) {
                 JSONObject questionJson = new JSONObject(question);
                 int randomNo = ASERApplication.getRandomNumber(0, questionJson.length());
-                // AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
+                 AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
                 //todo remove hardcoded sample
-                AserSample_Constant.sample = (JSONObject) questionJson.get("Sample1");
+//                AserSample_Constant.sample = (JSONObject) questionJson.get("Sample1");
                 showParagraph();
             } else {
                 AserSampleUtility.showToast(this, "No data available. Contact administrator!");
