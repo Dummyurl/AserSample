@@ -1,8 +1,10 @@
 package info.pratham.asersample.fragments.math;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,8 @@ import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
+
+import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 /**
  * Created by PEF on 24/11/2018.
@@ -83,6 +87,15 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            questionSub1.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            questionSub2.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            questionDiv.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        } else {
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(questionSub1, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(questionSub1, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(questionDiv, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        }
         currentLevel = getArguments().getString("currentLevel");
         parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
         if ("Subtraction".equals(currentLevel)) {
@@ -214,7 +227,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 showQue(questionDiv, js);
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Data not get", Toast.LENGTH_SHORT);
+            Toast.makeText(getActivity(), "Problem in getting data", Toast.LENGTH_SHORT);
             e.printStackTrace();
         }
 
@@ -225,12 +238,12 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             view.setText(jsonObject.getString("data"));
             view.setTag(jsonObject.getString("id"));
 
-            view.setOnClickListener(new View.OnClickListener() {
+            /*view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getActivity(), "" + view.getTag(), Toast.LENGTH_SHORT).show();
                 }
-            });
+            });*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -243,7 +256,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
 
     @Override
     public void getMistakeCount(int mistakeCnt) {
-
         queLevel.setMistakes(mistakeCnt);
     }
 }

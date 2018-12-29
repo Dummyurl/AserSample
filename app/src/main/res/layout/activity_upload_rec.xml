@@ -14,7 +14,7 @@
         android:text="Nothing to push"
         android:textColor="@color/colorPrimary"
         android:gravity="center"
-        android:textSize="@dimen/_50sdp"
+        android:textSize="@dimen/_30sdp"
         android:padding="@dimen/_50sdp"/>
 
     <LinearLayout

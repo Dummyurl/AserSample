@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -169,16 +168,16 @@ public class UploadRec extends AppCompatActivity {
             AserSampleUtility.showToast(this, "Nothing to push");
         } else {
             cnt = 0;
-            //  AserSampleUtility.showProgressDialog(progressDialog);
+              AserSampleUtility.showProgressDialog(progressDialog);
             for (String path : fileList) {
                 if (zipFileAtPath(ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
-                    uploadImageToStorage(path + ".zip");
+                    uploadDataToStorage(path + ".zip");
                 }
             }
         }
     }
 
-    public void uploadImageToStorage(String fileUri) {
+    public void uploadDataToStorage(String fileUri) {
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
 //        getPredictions("");
@@ -217,14 +216,6 @@ public class UploadRec extends AppCompatActivity {
                         if (cnt >= fileList.size()) {
                             AserSampleUtility.dismissProgressDialog(progressDialog);
                         }
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-
-                            }
-                        });
-
-//                        e.printStackTrace();
                         Log.v("Failure", "failed");
                     }
                 });

@@ -366,14 +366,14 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             // Write was successful!
-                                            AserSampleUtility.showToast(MathActivity.this, "Done..");
+                                            AserSampleUtility.showToast(MathActivity.this, "Successfully uploaded!");
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             // Write failed
-                                            AserSampleUtility.showToast(MathActivity.this, "FAIL..");
+                                            AserSampleUtility.showToast(MathActivity.this, "Uploading failed!");
                                         }
                                     });
 

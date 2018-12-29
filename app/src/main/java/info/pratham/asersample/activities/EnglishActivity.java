@@ -376,14 +376,14 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                     @Override
                     public void onSuccess(Void aVoid) {
                         // Write was successful!
-                        AserSampleUtility.showToast(EnglishActivity.this, "Done..");
+                        AserSampleUtility.showToast(EnglishActivity.this, "Successfully uploaded!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Write failed
-                        AserSampleUtility.showToast(EnglishActivity.this, "FAIL..");
+                        AserSampleUtility.showToast(EnglishActivity.this, "Uploading failed!");
                     }
                 });
 
@@ -433,10 +433,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         builder.show();
     }
 
-    @OnClick(R.id.question)
+    /*@OnClick(R.id.question)
     public void showID() {
         Toast.makeText(this, "" + tv_question.getTag(), Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     public void initiateJsonProperties() {
         try {

@@ -150,7 +150,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             //     tv_question.setTextSize(1, 30);
             showQue(msg);
         } else {
-            AserSampleUtility.showToast(this, "Something goes Wrong");
+            AserSampleUtility.showToast(this, "Problem in getting data!");
         }
     }
 
@@ -166,7 +166,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             //    tv_question.setTextSize(1, 25);
             showQue(msg);
         } else {
-            AserSampleUtility.showToast(this, "Something goes Wrong");
+            AserSampleUtility.showToast(this, "Problem in getting data!");
         }
     }
 
@@ -191,7 +191,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 e.printStackTrace();
             }
         } else {
-            AserSampleUtility.showToast(this, "Something goes Wrong");
+            AserSampleUtility.showToast(this, "Problem in getting data!");
         }
     }
 
@@ -215,7 +215,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 e.printStackTrace();
             }
         } else {
-            AserSampleUtility.showToast(this, "Something goes Wrong");
+            AserSampleUtility.showToast(this, "Problem in getting data!");
         }
     }
 
@@ -454,10 +454,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         builder.show();
     }
 
-    @OnClick(R.id.question)
+    /*@OnClick(R.id.question)
     public void show_tag() {
         AserSampleUtility.showToast(this, tv_question.getTag().toString());
-    }
+    }*/
 
     public void showMistakeCountDialog() {
         mistakCountDialog = new MistakeCountDialog(this, currentLevel);

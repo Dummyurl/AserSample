@@ -20,7 +20,7 @@
             android:layout_weight="3"
             android:gravity="center"
             android:text="780/8"
-            android:textSize="40sp"
+            android:autoSizeTextType="uniform"
             android:textStyle="bold" />
 
         <EditText
@@ -49,11 +49,11 @@
             <TextView
                 android:id="@+id/questionSub1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="questionSub1"
-                android:textSize="40sp"
+                android:autoSizeTextType="uniform"
                 android:textStyle="bold" />
 
             <EditText
@@ -74,11 +74,11 @@
             <TextView
                 android:id="@+id/questionSub2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="questionSub2"
-                android:textSize="40sp"
+                android:autoSizeTextType="uniform"
                 android:textStyle="bold" />
 
             <EditText
