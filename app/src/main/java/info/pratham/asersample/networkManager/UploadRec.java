@@ -167,7 +167,8 @@ public class UploadRec extends AppCompatActivity {
     @OnClick(R.id.sync)
     public void syncAll() {
         if (fileList.isEmpty()) {
-            AserSampleUtility.showToast(this, "Nothing to push");
+            AserSampleUtility.showProblemAlert("Data pushed successfully",UploadRec.this);
+            //AserSampleUtility.showToast(this, "Nothing to push");
         } else {
             cnt = 0;
               AserSampleUtility.showProgressDialog(progressDialog);
