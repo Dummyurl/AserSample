@@ -54,8 +54,10 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     @BindView(R.id.answerSub2)
     EditText answerSub2;
 
-    @BindView(R.id.answerDiv)
-    EditText answerDiv;
+    @BindView(R.id.quotient)
+    EditText quotient;
+    @BindView(R.id.remainder)
+    EditText remainder;
 
 
     @BindView(R.id.subtractionLayout)
@@ -87,15 +89,15 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            questionSub1.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
-            questionSub2.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
-            questionDiv.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+           // questionSub1.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+          //  questionSub2.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            //questionDiv.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
         } else {
-            TextViewCompat.setAutoSizeTextTypeWithDefaults(questionSub1, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-            TextViewCompat.setAutoSizeTextTypeWithDefaults(questionSub1, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-            TextViewCompat.setAutoSizeTextTypeWithDefaults(questionDiv, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-        }
+         //   TextViewCompat.setAutoSizeTextTypeWithDefaults(questionSub1, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        //    TextViewCompat.setAutoSizeTextTypeWithDefaults(questionSub1, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            //TextViewCompat.setAutoSizeTextTypeWithDefaults(questionDiv, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        }*/
         currentLevel = getArguments().getString("currentLevel");
         parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
         if ("Subtraction".equals(currentLevel)) {
@@ -142,7 +144,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     public boolean writeDivision() {
-        if (!answerDiv.getText().toString().isEmpty()) {
+        if (!quotient.getText().toString().isEmpty()  && !remainder.getText().toString().isEmpty()) {
             queLevel = new QueLevel();
             queLevel.setLevel(currentLevel);
             queLevel.setSubject("Mathematics");
@@ -153,7 +155,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             singleQustion.setQue_seq_cnt(tempSingleQue.size());
             singleQustion.setQue_id(questionDiv.getTag().toString());
             singleQustion.setQue_text(questionDiv.getText().toString());
-            singleQustion.setAnswer(answerDiv.getText().toString());
+            singleQustion.setAnswer("Quotient: "+quotient.getText().toString()+"   Remainder :"+remainder.getText().toString());
             tempSingleQue.add(singleQustion);
             parentDataList.add(queLevel);
             showMistakeCountDialog();
@@ -188,7 +190,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 1,currentLevel);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 1, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();

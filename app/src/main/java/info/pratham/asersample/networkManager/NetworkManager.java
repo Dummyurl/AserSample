@@ -60,7 +60,7 @@ public class NetworkManager {
         return instance;
     }*/
 
-    public void getQuestionData() {
+    public void getQuestionData(final ProgressDialog progressDialog) {
         db.collection("Question")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -80,7 +80,7 @@ public class NetworkManager {
                                 updateOrReplaceQuestionData(map);
                             }
                         } else {
-                            AserSampleUtility.dismissProgressDialog(progressDialog);
+                            AserSampleUtility.dismissProgressDialog(NetworkManager.this.progressDialog);
                             showProblemAlert("Problem in getting data for questions. Please contact the administrator!", mContext);
                         }
                     }
