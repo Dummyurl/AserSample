@@ -52,8 +52,8 @@ import info.pratham.asersample.utility.AudioUtil;
 
 public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner, PreviewDialogListener {
 
-    @BindView(R.id.question)
-    TextView question;
+    /*@BindView(R.id.question)
+    TextView question;*/
     @BindView(R.id.testType)
     TextView testType;
     @BindView(R.id.level)
@@ -422,8 +422,8 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         if (fragment instanceof NumberRecognitionFragment) {
             childFragment = (NumberRecognitionFragment) fragment;
             childFragment.getRefreshIconView().setVisibility(View.INVISIBLE);
+            childFragment.blurView(1f);
         }
-        question.setAlpha(1f);
         playing = false;
         recording = false;
     }
@@ -463,7 +463,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         } else if (recording) {
             AudioUtil.stopRecording();
             childFragment.getRefreshIconView().setVisibility(View.VISIBLE);
-            question.setAlpha(0.5f);
+            childFragment.blurView(0.5f);
             playing = true;
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
         } else {

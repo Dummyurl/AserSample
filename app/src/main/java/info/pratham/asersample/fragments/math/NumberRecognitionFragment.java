@@ -131,6 +131,10 @@ public class NumberRecognitionFragment extends BaseFragment {
         return refreshIcon;
     }
 
+    public void blurView(float ratio){
+        question.setAlpha(ratio);
+    }
+
     @OnClick(R.id.fragmengtRefreshIV)
     public void refreshRecording() {
         ((MathActivity) getActivity()).initiateRecording();

@@ -167,8 +167,7 @@ public class UploadRec extends AppCompatActivity {
     @OnClick(R.id.sync)
     public void syncAll() {
         if (fileList.isEmpty()) {
-            AserSampleUtility.showProblemAlert("Data pushed successfully",UploadRec.this);
-            //AserSampleUtility.showToast(this, "Nothing to push");
+            AserSampleUtility.showToast(this, "Nothing to push");
         } else {
             cnt = 0;
               AserSampleUtility.showProgressDialog(progressDialog);
@@ -200,8 +199,9 @@ public class UploadRec extends AppCompatActivity {
                             deleteRecursive(fdelete);
                         }
                         getLocalData();
-                        if (cnt >= fileList.size()) {
+                        if (cnt > fileList.size()) {
                             AserSampleUtility.dismissProgressDialog(progressDialog);
+                            AserSampleUtility.showSuccessAlert("Data pushed successfully",UploadRec.this);
                         }
                         // Get a URL to the uploaded content
                         // Uri downloadUrl = taskSnapshot.getDownloadUrl();
