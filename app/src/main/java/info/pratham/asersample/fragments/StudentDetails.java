@@ -68,7 +68,6 @@ public class StudentDetails extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         childName.setFilters(new InputFilter[]{filter});
-        childName.setFilters(new InputFilter[]{filter});
         loadSpinner();
     }
 

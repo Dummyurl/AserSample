@@ -5,9 +5,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.TextViewCompat;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
@@ -89,6 +92,9 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        editorListener(answerSub1);
+        editorListener(answerSub2);
+
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
            // questionSub1.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
           //  questionSub2.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
@@ -105,9 +111,37 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         } else if ("Division".equals(currentLevel)) {
             showDivision();
         }
-
-
     }
+
+    public void editorListener(final EditText view){
+        view.setOnEditorActionListener(
+                new EditText.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_NEXT ||
+                            actionId == EditorInfo.IME_ACTION_SEARCH ||
+                            actionId == EditorInfo.IME_ACTION_DONE ||
+                                event != null &&
+                                        event.getAction() == KeyEvent.ACTION_DOWN &&
+                                        event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                            view.clearFocus();
+                            return true;
+                        }
+                        return false; // pass on to other listeners.
+                    }
+                }
+        );
+    }
+
+    /*@OnClick(R.id.answerSub1)
+    public void answerOneClicked(){
+        answerSub1.setFocusable(true);
+    }
+
+    @OnClick(R.id.answerSub2)
+    public void answerTwoClicked(){
+        answerSub2.setFocusable(true);
+    }*/
 
     public boolean writeSubtraction() {
         if (!answerSub1.getText().toString().isEmpty() || !answerSub2.getText().toString().isEmpty()) {
