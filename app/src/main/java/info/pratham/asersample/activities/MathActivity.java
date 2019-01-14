@@ -167,7 +167,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     wordList.add(msg.getJSONObject(i));
                 }
                 /*   mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getTenToNinetyNine_mistake());*/
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -193,7 +193,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     wordList.add(msg.getJSONObject(i));
                 }
                 /* mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getOneToNine_mistake());*/
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -348,43 +348,43 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     private void openNextActivity() {
 
-            // Use the Builder class for convenient dialog construction
-            AlertDialog.Builder builder = new AlertDialog.Builder(MathActivity.this);
-            builder.setMessage(R.string.Navigate)
-                    .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    })
-                    .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                            mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // Write was successful!
-                                            AserSampleUtility.showToast(MathActivity.this, "Done..");
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            // Write failed
-                                            AserSampleUtility.showToast(MathActivity.this, "FAIL..");
-                                        }
-                                    });
+        // Use the Builder class for convenient dialog construction
+        AlertDialog.Builder builder = new AlertDialog.Builder(MathActivity.this);
+        builder.setMessage(R.string.Navigate)
+                .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                        mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        // Write was successful!
+                                        AserSampleUtility.showToast(MathActivity.this, "Done..");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Write failed
+                                        AserSampleUtility.showToast(MathActivity.this, "FAIL..");
+                                    }
+                                });
 
-                            AserSampleUtility.writeStudentInJson(MathActivity.this);
+                        AserSampleUtility.writeStudentInJson(MathActivity.this);
 
-                            PreviewDialog previewDialog = new PreviewDialog(MathActivity.this);
-                            previewDialog.show();
-                        }
-                    });
-            builder.create();
-            builder.show();
+                        PreviewDialog previewDialog = new PreviewDialog(MathActivity.this);
+                        previewDialog.show();
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 
     /*private void assignMistakeCount(String level, String cnt) {

@@ -11,14 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedInputStream;
@@ -55,6 +53,7 @@ public class UploadRec extends AppCompatActivity {
 
     ProgressDialog progressDialog;
     int cnt = 0;
+    UploadTask uploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +185,7 @@ public class UploadRec extends AppCompatActivity {
 
         StorageReference riversRef = mStorageRef.child("StudentRecordings/" + AserSample_Constant.crlID + "/" + fileUri);
 
-        StorageTask uploadTask = riversRef.putFile(file)
+        uploadTask = (UploadTask) riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -224,11 +223,10 @@ public class UploadRec extends AppCompatActivity {
                             }
                         });
 
-//                        e.printStackTrace();
+                        //e.printStackTrace();
                         Log.v("Failure", "failed");
                     }
                 });
-
     }
 
     void deleteRecursive(File fileOrDirectory) {
