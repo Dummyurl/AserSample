@@ -53,8 +53,8 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         statesCodes = getResources().getStringArray(R.array.india_states_shortcode);
-        loadSpinner();
         progressDialog = new ProgressDialog(getActivity());
+        loadSpinner();
     }
 
     private void loadSpinner() {
@@ -69,7 +69,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
         if (stateSpinner.getSelectedItemPosition() > 0) {
             final NetworkManager networkManager = new NetworkManager(getActivity(),this);
             AserSampleUtility.showProgressDialog(progressDialog);
-            networkManager.getQuestionData();
+            networkManager.getQuestionData(progressDialog);
         } else {
             showToast("Please select a state");
         }
@@ -100,7 +100,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
 
     }
 
-    @Override
+   /* @Override
     public void onPause() {
         super.onPause();
         AserSampleUtility.dismissProgressDialog(progressDialog);
@@ -110,7 +110,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
     public void onDestroy() {
         super.onDestroy();
         AserSampleUtility.dismissProgressDialog(progressDialog);
-    }
+    }*/
 
     @Override
     public void startPushingCrl() {

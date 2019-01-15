@@ -1,8 +1,10 @@
 package info.pratham.asersample.fragments.math;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.activities.MathActivity;
+
+import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 /**
  * Created by PEF on 24/11/2018.
@@ -60,7 +64,11 @@ public class NumberRecognitionFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         nextItem.setVisibility(View.INVISIBLE);
         prevItem.setVisibility(View.INVISIBLE);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            question.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        } else {
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(question, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        }
         wordCOunt = -1;
         selectedWordsList = (List) getArguments().getSerializable("data");
 
@@ -123,6 +131,10 @@ public class NumberRecognitionFragment extends BaseFragment {
         return refreshIcon;
     }
 
+    public void blurView(float ratio){
+        question.setAlpha(ratio);
+    }
+
     @OnClick(R.id.fragmengtRefreshIV)
     public void refreshRecording() {
         ((MathActivity) getActivity()).initiateRecording();
@@ -138,8 +150,8 @@ public class NumberRecognitionFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.question)
+    /*@OnClick(R.id.question)
     public void showId() {
         Toast.makeText(getActivity(), "" + question.getTag(), Toast.LENGTH_SHORT).show();
-    }
+    }*/
 }

@@ -65,6 +65,22 @@ public class AserSampleUtility {
         alert11.show();
     }
 
+    public static void showSuccessAlert(String msg, Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Successful !!");
+        builder.setMessage(msg);
+        builder.setCancelable(true);
+        builder.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder.create();
+        alert11.show();
+    }
+
     public static void showProgressDialog(ProgressDialog progressDialog) {
         if (progressDialog != null) {
             progressDialog.setMessage("loading");

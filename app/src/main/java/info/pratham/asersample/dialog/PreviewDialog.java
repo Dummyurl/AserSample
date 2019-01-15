@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,6 +61,7 @@ public class PreviewDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preview_dialog);
         ButterKnife.bind(this);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setInformation();
         recyclerView.setAdapter(new RecyclerAdapter(recyclerView));
         recyclerView.setLayoutManager(new LinearLayoutManager(context));

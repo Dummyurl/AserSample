@@ -40,6 +40,11 @@ public class ServeyOrEvaluation extends BaseFragment {
         ButterKnife.bind(this, view);
     }
 
+    @OnClick(R.id.startSurveyButton)
+    public void startSurvey() {
+        AserSampleUtility.showToast(getActivity(), "This facility is not available yet ");
+    }
+
     @OnClick(R.id.startEvaluationButton)
     public void startEvalution() {
         AserSampleUtility.showFragment(getActivity(), new StudentDetails(), StudentDetails.class.getSimpleName());

@@ -1,11 +1,15 @@
 package info.pratham.asersample.fragments.math;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.TextViewCompat;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
@@ -30,6 +35,8 @@ import info.pratham.asersample.interfaces.MistakeCountListener;
 import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
+
+import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 /**
  * Created by PEF on 24/11/2018.
@@ -50,8 +57,10 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     @BindView(R.id.answerSub2)
     EditText answerSub2;
 
-    @BindView(R.id.answerDiv)
-    EditText answerDiv;
+    @BindView(R.id.quotient)
+    EditText quotient;
+    @BindView(R.id.remainder)
+    EditText remainder;
 
 
     @BindView(R.id.subtractionLayout)
@@ -83,6 +92,18 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        editorListener(answerSub1);
+        editorListener(answerSub2);
+
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+           // questionSub1.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+          //  questionSub2.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            //questionDiv.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        } else {
+         //   TextViewCompat.setAutoSizeTextTypeWithDefaults(questionSub1, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        //    TextViewCompat.setAutoSizeTextTypeWithDefaults(questionSub1, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            //TextViewCompat.setAutoSizeTextTypeWithDefaults(questionDiv, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        }*/
         currentLevel = getArguments().getString("currentLevel");
         parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
         if ("Subtraction".equals(currentLevel)) {
@@ -90,9 +111,37 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         } else if ("Division".equals(currentLevel)) {
             showDivision();
         }
-
-
     }
+
+    public void editorListener(final EditText view){
+        view.setOnEditorActionListener(
+                new EditText.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_NEXT ||
+                            actionId == EditorInfo.IME_ACTION_SEARCH ||
+                            actionId == EditorInfo.IME_ACTION_DONE ||
+                                event != null &&
+                                        event.getAction() == KeyEvent.ACTION_DOWN &&
+                                        event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                            view.clearFocus();
+                            return true;
+                        }
+                        return false; // pass on to other listeners.
+                    }
+                }
+        );
+    }
+
+    /*@OnClick(R.id.answerSub1)
+    public void answerOneClicked(){
+        answerSub1.setFocusable(true);
+    }
+
+    @OnClick(R.id.answerSub2)
+    public void answerTwoClicked(){
+        answerSub2.setFocusable(true);
+    }*/
 
     public boolean writeSubtraction() {
         if (!answerSub1.getText().toString().isEmpty() || !answerSub2.getText().toString().isEmpty()) {
@@ -129,7 +178,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     public boolean writeDivision() {
-        if (!answerDiv.getText().toString().isEmpty()) {
+        if (!quotient.getText().toString().isEmpty()  && !remainder.getText().toString().isEmpty()) {
             queLevel = new QueLevel();
             queLevel.setLevel(currentLevel);
             queLevel.setSubject("Mathematics");
@@ -140,7 +189,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             singleQustion.setQue_seq_cnt(tempSingleQue.size());
             singleQustion.setQue_id(questionDiv.getTag().toString());
             singleQustion.setQue_text(questionDiv.getText().toString());
-            singleQustion.setAnswer(answerDiv.getText().toString());
+            singleQustion.setAnswer("Quotient: "+quotient.getText().toString()+"   Remainder :"+remainder.getText().toString());
             tempSingleQue.add(singleQustion);
             parentDataList.add(queLevel);
             showMistakeCountDialog();
@@ -175,7 +224,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 1,currentLevel);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(getActivity(), this, wordList, 1, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -214,7 +263,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 showQue(questionDiv, js);
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Data not get", Toast.LENGTH_SHORT);
+            Toast.makeText(getActivity(), "Problem in getting data", Toast.LENGTH_SHORT);
             e.printStackTrace();
         }
 
@@ -225,12 +274,12 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             view.setText(jsonObject.getString("data"));
             view.setTag(jsonObject.getString("id"));
 
-            view.setOnClickListener(new View.OnClickListener() {
+            /*view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getActivity(), "" + view.getTag(), Toast.LENGTH_SHORT).show();
                 }
-            });
+            });*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -243,7 +292,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
 
     @Override
     public void getMistakeCount(int mistakeCnt) {
-
         queLevel.setMistakes(mistakeCnt);
     }
 }

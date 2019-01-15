@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedInputStream;
@@ -53,11 +55,11 @@ public class UploadRec extends AppCompatActivity {
 
     ProgressDialog progressDialog;
     int cnt = 0;
-    UploadTask uploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_upload_rec);
         ButterKnife.bind(this);
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -168,16 +170,16 @@ public class UploadRec extends AppCompatActivity {
             AserSampleUtility.showToast(this, "Nothing to push");
         } else {
             cnt = 0;
-            //  AserSampleUtility.showProgressDialog(progressDialog);
+              AserSampleUtility.showProgressDialog(progressDialog);
             for (String path : fileList) {
                 if (zipFileAtPath(ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
-                    uploadImageToStorage(path + ".zip");
+                    uploadDataToStorage(path + ".zip");
                 }
             }
         }
     }
 
-    public void uploadImageToStorage(String fileUri) {
+    public void uploadDataToStorage(String fileUri) {
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
 //        getPredictions("");
@@ -185,7 +187,7 @@ public class UploadRec extends AppCompatActivity {
 
         StorageReference riversRef = mStorageRef.child("StudentRecordings/" + AserSample_Constant.crlID + "/" + fileUri);
 
-        uploadTask = (UploadTask) riversRef.putFile(file)
+        StorageTask uploadTask = riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -197,8 +199,9 @@ public class UploadRec extends AppCompatActivity {
                             deleteRecursive(fdelete);
                         }
                         getLocalData();
-                        if (cnt >= fileList.size()) {
+                        if (cnt > fileList.size()) {
                             AserSampleUtility.dismissProgressDialog(progressDialog);
+                            AserSampleUtility.showSuccessAlert("Data pushed successfully",UploadRec.this);
                         }
                         // Get a URL to the uploaded content
                         // Uri downloadUrl = taskSnapshot.getDownloadUrl();
@@ -216,17 +219,10 @@ public class UploadRec extends AppCompatActivity {
                         if (cnt >= fileList.size()) {
                             AserSampleUtility.dismissProgressDialog(progressDialog);
                         }
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-
-                            }
-                        });
-
-                        //e.printStackTrace();
                         Log.v("Failure", "failed");
                     }
                 });
+
     }
 
     void deleteRecursive(File fileOrDirectory) {

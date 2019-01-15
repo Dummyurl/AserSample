@@ -157,31 +157,37 @@
                         android:id="@+id/LTFiveYear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="less than 5 year" />
+                        android:text="less than 5 years" />
 
                     <RadioButton
                         android:id="@+id/fiveToSevenYear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5-7 year" />
+                        android:text="5-7 years" />
 
                     <RadioButton
                         android:id="@+id/sevenToTenYear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="7-10 year" />
+                        android:text="7-10 years" />
+
+                    <RadioButton
+                        android:id="@+id/tenToTwelveYear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10-12 years" />
 
                     <RadioButton
                         android:id="@+id/twelweToFifteen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12-15 year" />
+                        android:text="12-15 years" />
 
                     <RadioButton
                         android:id="@+id/fifteen_eighteen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15-18year" />
+                        android:text="15-18years" />
                 </RadioGroup>
             </ScrollView>
         </LinearLayout>
