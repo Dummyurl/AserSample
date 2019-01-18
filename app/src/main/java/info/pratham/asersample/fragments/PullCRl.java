@@ -1,7 +1,6 @@
 package info.pratham.asersample.fragments;
 
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -23,7 +22,6 @@ import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.CRL;
-import info.pratham.asersample.interfaces.ProficiencyListener;
 import info.pratham.asersample.interfaces.QuestionDataCompleteListener;
 import info.pratham.asersample.networkManager.NetworkManager;
 import info.pratham.asersample.utility.AserSampleUtility;
@@ -35,9 +33,9 @@ import static info.pratham.asersample.utility.AserSampleUtility.showProblemAlert
  */
 
 public class PullCRl extends BaseFragment implements QuestionDataCompleteListener {
+    private static final String TAG = "pullCRL";
     @BindView(R.id.stateSpinner)
     Spinner stateSpinner;
-    private static final String TAG = "pullCRL";
     String[] statesCodes;
 
     ProgressDialog progressDialog;
@@ -67,7 +65,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
     @OnClick(R.id.btn_pull)
     public void pullData() {
         if (stateSpinner.getSelectedItemPosition() > 0) {
-            final NetworkManager networkManager = new NetworkManager(getActivity(),this);
+            final NetworkManager networkManager = new NetworkManager(getActivity(), this);
             AserSampleUtility.showProgressDialog(progressDialog);
             networkManager.getQuestionData(progressDialog);
         } else {
@@ -93,7 +91,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
                     public void onError(ANError anError) {
                         // handle error
                         AserSampleUtility.dismissProgressDialog(progressDialog);
-                        showProblemAlert("Problem in getting CRL data!",getActivity());
+                        showProblemAlert("Problem in getting CRL data!", getActivity());
 //                        AserSampleUtility.showToast(getActivity(), "NO Intenet connection");
                     }
                 });

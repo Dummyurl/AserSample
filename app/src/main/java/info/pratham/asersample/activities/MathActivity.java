@@ -52,6 +52,8 @@ import info.pratham.asersample.utility.AudioUtil;
 
 public class MathActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner, PreviewDialogListener {
 
+    public static boolean isNewQuestion;
+    public String currentLevel;
     /*@BindView(R.id.question)
     TextView question;*/
     @BindView(R.id.testType)
@@ -66,22 +68,16 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
     Button recordButton;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-
-    public String currentLevel;
     String currentFilePath, currentFileName;
     boolean recording, playing;
-    public static boolean isNewQuestion;
     NumberRecognitionFragment childFragment;
     CalculationFragment calculationFragment;
-    private DatabaseReference mDatabase;
-
-
     List parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
-
     String currentClick;
     boolean isAttempt = false;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -167,7 +163,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     wordList.add(msg.getJSONObject(i));
                 }
                 /*   mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getTenToNinetyNine_mistake());*/
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -193,7 +189,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     wordList.add(msg.getJSONObject(i));
                 }
                 /* mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getMathematics().getOneToNine_mistake());*/
-                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5,currentLevel);
+                SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -236,7 +232,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
         calculationFragment.setArguments(bundle);
         AserSampleUtility.showFragment(this, calculationFragment, CalculationFragment.class.getSimpleName());
     }
-
 
     @Override
     public void getSelectedwords(List list) {
@@ -348,43 +343,43 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
 
     private void openNextActivity() {
 
-            // Use the Builder class for convenient dialog construction
-            AlertDialog.Builder builder = new AlertDialog.Builder(MathActivity.this);
-            builder.setMessage(R.string.Navigate)
-                    .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    })
-                    .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                            mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // Write was successful!
-                                            AserSampleUtility.showToast(MathActivity.this, "Successfully uploaded!");
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            // Write failed
-                                            AserSampleUtility.showToast(MathActivity.this, "Uploading failed!");
-                                        }
-                                    });
+        // Use the Builder class for convenient dialog construction
+        AlertDialog.Builder builder = new AlertDialog.Builder(MathActivity.this);
+        builder.setMessage(R.string.Navigate)
+                .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(MathActivity.this, EnglishActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                        mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        // Write was successful!
+                                        AserSampleUtility.showToast(MathActivity.this, "Successfully uploaded!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Write failed
+                                        AserSampleUtility.showToast(MathActivity.this, "Uploading failed!");
+                                    }
+                                });
 
-                            AserSampleUtility.writeStudentInJson(MathActivity.this);
+                        AserSampleUtility.writeStudentInJson(MathActivity.this);
 
-                            PreviewDialog previewDialog = new PreviewDialog(MathActivity.this);
-                            previewDialog.show();
-                        }
-                    });
-            builder.create();
-            builder.show();
+                        PreviewDialog previewDialog = new PreviewDialog(MathActivity.this);
+                        previewDialog.show();
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 
     /*private void assignMistakeCount(String level, String cnt) {
@@ -572,7 +567,6 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
                     initiateJsonProperties();
                     showProficiencyDialog();
                     break;
-
             }
 
         }

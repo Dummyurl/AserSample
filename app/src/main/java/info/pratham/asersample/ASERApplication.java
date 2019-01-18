@@ -22,14 +22,6 @@ public class ASERApplication extends Application {
         aserApplication = this;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        AndroidNetworking.initialize(getApplicationContext());
-    }
-
-
     public static String getVersion() {
         Context context = ASERApplication.aserApplication;
         String packageName = context.getPackageName();
@@ -47,6 +39,13 @@ public class ASERApplication extends Application {
 
     public static int getRandomNumber(int min, int max) {
         return min + (new Random().nextInt(max));
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        AndroidNetworking.initialize(getApplicationContext());
     }
 
     public String getRootPath() {

@@ -16,6 +16,7 @@ import info.pratham.asersample.database.AS_Database;
 
 public class BaseFragment extends Fragment {
     public AS_Database databaseInstance;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        databaseInstance=AS_Database.getDatabaseInstance(getActivity());
+        databaseInstance = AS_Database.getDatabaseInstance(getActivity());
     }
 
     public void showToast(String msg) {

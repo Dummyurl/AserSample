@@ -12,7 +12,6 @@ public class SingleQustion_RV extends Entity {
     private String answer;
 
 
-
     private String parentID;
 
     public String getParentID() {

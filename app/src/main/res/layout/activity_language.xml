@@ -57,8 +57,8 @@
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
         android:layout_marginTop="3dp"
-        android:alpha=".3"
         android:layout_weight=".1"
+        android:alpha=".3"
         android:background="#000000" />
 
     <RelativeLayout
@@ -71,14 +71,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_buttons"
+            android:layout_marginBottom="10dp"
             android:layout_marginHorizontal="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:elevation="3dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_weight="7.4"
-            android:background="@drawable/roundedcorner_blue_questions">
+            android:background="@drawable/roundedcorner_blue_questions"
+            android:elevation="3dp">
 
             <RelativeLayout
                 android:id="@+id/displayLayout"
@@ -131,6 +131,8 @@
 
             </RelativeLayout>
 
+
+
             <ImageView
                 android:id="@+id/refreshIV"
                 android:layout_width="80dp"
@@ -142,14 +144,24 @@
 
         </FrameLayout>
 
+        <ImageView
+            android:id="@+id/attemped"
+            android:layout_width="57dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="#16de16"
+            android:elevation="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/verification"
+            android:visibility="gone" />
         <RelativeLayout
             android:id="@+id/bottom_buttons"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
             <Button
@@ -157,10 +169,10 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:background="@drawable/roundedcorner"
-                android:padding="2dp"
-                android:elevation="3dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/roundedcorner"
+                android:elevation="3dp"
+                android:padding="2dp"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
 
@@ -168,19 +180,19 @@
                 android:id="@+id/recordButtonSP"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:elevation="3dp"
-                android:layout_marginBottom="10dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/mic_blue_round" />
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/mic_blue_round"
+                android:elevation="3dp" />
 
             <Button
                 android:id="@+id/next"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/roundedcorner"
                 android:elevation="3dp"
-                android:layout_marginBottom="10dp"
                 android:padding="2dp"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
@@ -191,3 +203,211 @@
     </RelativeLayout>
 
 </LinearLayout>
+
+
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/testType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha=".4"
+                    android:text="Basic Reading - Paragraph"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/markProficiency"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+
+                android:src="@drawable/proficiency" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/greyLineView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight=".1"
+            android:alpha=".3"
+            android:background="#000000" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7.9">
+
+            <FrameLayout
+                android:id="@+id/framelayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottom_buttons"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="7.4"
+                android:background="@drawable/roundedcorner_blue_questions"
+                android:elevation="3dp">
+
+                <RelativeLayout
+                    android:id="@+id/displayLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_10sdp">
+
+                    <ImageView
+                        android:id="@+id/prevItem"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/ripple_round"
+                        android:padding="15dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_arrow_back_black_24dp"
+                        android:visibility="gone" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_toLeftOf="@+id/nextItem"
+                        android:layout_toRightOf="@+id/prevItem">
+
+                        <TextView
+                            android:id="@+id/question"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="31dp"
+                            android:autoSizeTextType="uniform"
+                            android:gravity="center" />
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/nextItem"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/ripple_round"
+                        android:padding="15dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_arrow_forward_black_24dp"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/refreshIV"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/refresh_group"
+                    android:visibility="invisible" />
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/attemped"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@color/loginSubmitColor"
+                android:elevation="15dp"
+                android:src="@drawable/verification"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/bottom_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/previous"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/roundedcorner"
+                    android:elevation="3dp"
+                    android:padding="2dp"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/recordButtonSP"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/mic_blue_round"
+                    android:elevation="3dp" />
+
+                <Button
+                    android:id="@+id/next"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/roundedcorner"
+                    android:elevation="3dp"
+                    android:padding="2dp"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    -->

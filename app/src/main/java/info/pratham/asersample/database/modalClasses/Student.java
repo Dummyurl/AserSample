@@ -28,6 +28,20 @@ public class Student {
     private List<QueLevel> sequenceList = new ArrayList();
 
 
+    public Student() {
+    }
+
+    public Student(String id, String name, String father, String village, String studClass, String ageGroup, String date, String deviceID) {
+        this.id = id;
+        this.name = name;
+        this.father = father;
+        this.village = village;
+        this.studClass = studClass;
+        this.ageGroup = ageGroup;
+        this.date = date;
+        this.deviceID = deviceID;
+    }
+
     public String getNativeProficiency() {
         return nativeProficiency;
     }
@@ -52,32 +66,17 @@ public class Student {
         this.englishProficiency = englishProficiency;
     }
 
+    // todo remove
+  /*  private NativeLanguageProficiency nativeLanguage = new NativeLanguageProficiency();
+    private MathProficiency mathematics = new MathProficiency();
+    private EnglishProficiency english = new EnglishProficiency();*/
+
     public List getSequenceList() {
         return sequenceList;
     }
 
     public void setSequenceList(List sequenceList) {
         this.sequenceList = sequenceList;
-    }
-
-    // todo remove
-  /*  private NativeLanguageProficiency nativeLanguage = new NativeLanguageProficiency();
-    private MathProficiency mathematics = new MathProficiency();
-    private EnglishProficiency english = new EnglishProficiency();*/
-
-
-    public Student() {
-    }
-
-    public Student(String id, String name, String father, String village, String studClass, String ageGroup, String date, String deviceID) {
-        this.id = id;
-        this.name = name;
-        this.father = father;
-        this.village = village;
-        this.studClass = studClass;
-        this.ageGroup = ageGroup;
-        this.date = date;
-        this.deviceID = deviceID;
     }
 
     public String getId() {

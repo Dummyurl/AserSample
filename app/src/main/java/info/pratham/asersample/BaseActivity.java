@@ -22,14 +22,14 @@ import info.pratham.asersample.utility.PermissionResult;
 
 public class BaseActivity extends AppCompatActivity {
 
-    private PermissionResult permissionResult;
     private final int KEY_PERMISSION = 200;
     public AS_Database databaseInstance;
+    private PermissionResult permissionResult;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        databaseInstance=AS_Database.getDatabaseInstance(this);
+        databaseInstance = AS_Database.getDatabaseInstance(this);
     }
 
     public AS_Database getDatabaseInstance() {

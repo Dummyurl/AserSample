@@ -76,11 +76,14 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
 
+    @BindView(R.id.attemped)
+    ImageView attemped;
+
     String currentLevel, currentFilePath, currentFileName;
     boolean recording, playing, isNewQuestion;
     int wordCOunt;
     List<JSONObject> selectedWordsList;
-    List parentDataList;
+    List<QueLevel> parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
     String currentClick;
@@ -274,6 +277,35 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     private void showQue(JSONObject msg) {
         try {
             isNewQuestion = true;
+            boolean isAttemped = false;
+            for (QueLevel queLevel : parentDataList) {
+                if (queLevel.getLevel().equals(currentLevel)) {
+                    for (SingleQustion singleQustion : queLevel.getQuestions()) {
+                        if (singleQustion.getQue_id().equals(msg.getString("id"))) {
+                            isAttemped = true;
+                            break;
+                        }
+                    }
+                    if (isAttemped) {
+                        break;
+                    }
+                }
+            }
+            if (!isAttemped) {
+                for (SingleQustion singleQustion : queLevel.getQuestions()) {
+                    if (singleQustion.getQue_id().equals(msg.getString("id"))) {
+                        isAttemped = true;
+                        break;
+                    }
+                }
+            }
+
+            if (isAttemped) {
+                attemped.setVisibility(View.VISIBLE);
+            } else {
+                attemped.setVisibility(View.GONE);
+            }
+
             tv_question.setText(msg.getString("data"));
             tv_question.setTag(msg.getString("id"));
         } catch (JSONException e) {

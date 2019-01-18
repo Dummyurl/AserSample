@@ -104,7 +104,7 @@ public class StudentDetails extends BaseFragment {
         char[] chars = name.toCharArray();
 
         for (char c : chars) {
-            if(!Character.isLetter(c)) {
+            if (!Character.isLetter(c)) {
                 return false;
             }
         }

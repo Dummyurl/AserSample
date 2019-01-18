@@ -15,10 +15,6 @@ import info.pratham.asersample.database.modalClasses.Question;
 public abstract class AS_Database extends RoomDatabase {
     private static AS_Database DATABASEINSTANCE;
 
-    public abstract CRLDao getCRLdao();
-
-    public abstract QuestionDao getQuestiondao();
-
     public static AS_Database getDatabaseInstance(Context context) {
         if (DATABASEINSTANCE == null)
             DATABASEINSTANCE = Room.databaseBuilder(context.getApplicationContext(), AS_Database.class, "AS_database").fallbackToDestructiveMigration().allowMainThreadQueries().build();
@@ -28,4 +24,8 @@ public abstract class AS_Database extends RoomDatabase {
     public static void destroyInstance() {
         DATABASEINSTANCE = null;
     }
+
+    public abstract CRLDao getCRLdao();
+
+    public abstract QuestionDao getQuestiondao();
 }

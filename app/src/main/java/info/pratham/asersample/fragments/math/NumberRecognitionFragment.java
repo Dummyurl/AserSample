@@ -8,10 +8,8 @@ import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -131,7 +129,7 @@ public class NumberRecognitionFragment extends BaseFragment {
         return refreshIcon;
     }
 
-    public void blurView(float ratio){
+    public void blurView(float ratio) {
         question.setAlpha(ratio);
     }
 

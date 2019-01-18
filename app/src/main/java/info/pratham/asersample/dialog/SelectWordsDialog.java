@@ -52,7 +52,7 @@ public class SelectWordsDialog extends Dialog {
         this.level = currentLevel;
     }
 
-    public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList, int selectCount,String currentLevel) {
+    public SelectWordsDialog(@NonNull Context context, Fragment fragment, List tempList, int selectCount, String currentLevel) {
         super(context);
         this.wordList = tempList;
         this.context = context;

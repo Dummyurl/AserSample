@@ -3,8 +3,6 @@ package info.pratham.asersample.networkManager;
 import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -50,11 +48,10 @@ public class UploadRec extends AppCompatActivity {
     TextView pushStatus;
 
     List<String> fileList;
-    private StorageReference mStorageRef;
     ListViewAdapter arrayAdapter;
-
     ProgressDialog progressDialog;
     int cnt = 0;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,7 +167,7 @@ public class UploadRec extends AppCompatActivity {
             AserSampleUtility.showToast(this, "Nothing to push");
         } else {
             cnt = 0;
-              AserSampleUtility.showProgressDialog(progressDialog);
+            AserSampleUtility.showProgressDialog(progressDialog);
             for (String path : fileList) {
                 if (zipFileAtPath(ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
                     uploadDataToStorage(path + ".zip");
@@ -201,7 +198,7 @@ public class UploadRec extends AppCompatActivity {
                         getLocalData();
                         if (cnt > fileList.size()) {
                             AserSampleUtility.dismissProgressDialog(progressDialog);
-                            AserSampleUtility.showSuccessAlert("Data pushed successfully",UploadRec.this);
+                            AserSampleUtility.showSuccessAlert("Data pushed successfully", UploadRec.this);
                         }
                         // Get a URL to the uploaded content
                         // Uri downloadUrl = taskSnapshot.getDownloadUrl();

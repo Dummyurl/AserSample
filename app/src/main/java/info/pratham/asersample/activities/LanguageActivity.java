@@ -46,6 +46,7 @@ import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
 
+    public static String currentFilePath, currentFileName;
     @BindView(R.id.question)
     TextView tv_question;
     @BindView(R.id.testType)
@@ -66,14 +67,14 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-
-    public static String currentFilePath, currentFileName;
+    @BindView(R.id.attemped)
+    ImageView attemped;
     String currentLevel;
     boolean recording, playing, isNewQuestion;
     int wordCOunt;
     List<JSONObject> selectedWordsList;
 
-    List parentDataList;
+    List<QueLevel> parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
     MistakeCountDialog mistakCountDialog;
@@ -107,7 +108,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
             if (question != null) {
                 JSONObject questionJson = new JSONObject(question);
                 int randomNo = ASERApplication.getRandomNumber(0, questionJson.length());
-                 AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
+                AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
                 //todo remove hardcoded sample
 //                AserSample_Constant.sample = (JSONObject) questionJson.get("Sample1");
                 showParagraph();
@@ -222,6 +223,35 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     private void showQue(JSONObject msg) {
         try {
             isNewQuestion = true;
+            boolean isAttemped = false;
+            for (QueLevel queLevel : parentDataList) {
+                if (queLevel.getLevel().equals(currentLevel)) {
+                    for (SingleQustion singleQustion : queLevel.getQuestions()) {
+                        if (singleQustion.getQue_id().equals(msg.getString("id"))) {
+                            isAttemped = true;
+                            break;
+                        }
+                    }
+                    if (isAttemped) {
+                        break;
+                    }
+                }
+            }
+            if (!isAttemped && (currentLevel.equals(getString(R.string.Word)) || currentLevel.equals(getString(R.string.Letter)))) {
+                for (SingleQustion singleQustion : queLevel.getQuestions()) {
+                    if (singleQustion.getQue_id().equals(msg.getString("id"))) {
+                        isAttemped = true;
+                        break;
+                    }
+                }
+            }
+
+            if (isAttemped) {
+                attemped.setVisibility(View.VISIBLE);
+            } else {
+                attemped.setVisibility(View.GONE);
+            }
+
             tv_question.invalidate();
             tv_question.setText(msg.getString("data"));
             tv_question.setTag(msg.getString("id"));
@@ -295,8 +325,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                     break;
             }
         }
-
-
     }
 
     @OnClick(R.id.previous)

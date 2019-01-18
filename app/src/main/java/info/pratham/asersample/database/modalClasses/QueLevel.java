@@ -8,7 +8,7 @@ import java.util.List;
  * Created by PEF on 15/12/2018.
  */
 
-public class QueLevel implements Serializable{
+public class QueLevel implements Serializable {
     private String level;
     private String subject;
     private int level_seq_cnt;
@@ -39,7 +39,7 @@ public class QueLevel implements Serializable{
         this.level_seq_cnt = level_seq_cnt;
     }
 
-    public List getQuestions() {
+    public List<SingleQustion> getQuestions() {
         return questions;
     }
 

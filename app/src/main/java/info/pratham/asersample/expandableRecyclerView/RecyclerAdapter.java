@@ -29,8 +29,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     static List<QueLevel_RV> datas = new ArrayList<>();
     static List<Integer> children = new ArrayList<>();
     static RecyclerAdapter recyclerAdapter;
-    public RecyclerView recyclerView;
     static List<Entity> general;
+    public RecyclerView recyclerView;
 
     public RecyclerAdapter(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
@@ -68,6 +68,95 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Type listType = new TypeToken<List<QueLevel_RV>>() {
         }.getType();
         return gson.fromJson(dataAsJSON, listType);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        //int parentSize = datas.size();
+//        int size = datas.size();
+//        int upperBound = 0;
+//        int lowerBound = 0;
+//        for (int x = 0; x < size; x++) {
+//            Person p = datas.get(x);
+//            upperBound += p.getFriends().length + 1;
+//
+//            if (position == lowerBound) {
+//                return PARENT;
+//            }
+//
+//            if (position < upperBound) {
+//                return CHILD;
+//            }
+//
+//            lowerBound = upperBound;
+//        }
+//        return 0;
+
+        if (general.get(position).isParent()) {
+            Log.d("viewtype = ", "parent at " + position);
+            return PARENT;
+        } else {
+            Log.d("viewtype = ", "child at " + position);
+            return CHILD;
+        }
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        if (viewType == CHILD) {
+            // Inflate the custom layout
+            View itemView = inflater.inflate(R.layout.child_item, parent, false);
+
+            // Return a new holder instance
+            return new ChildViewHolder(itemView);
+        } else {
+            // Inflate the custom layout
+            View itemView = inflater.inflate(R.layout.list_item, parent, false);
+
+            // Return a new holder instance
+            return new ParentViewHolder(itemView);
+        }
+
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if (holder.getItemViewType() == CHILD) {
+           /* TextView viewID = ((ChildViewHolder) holder).viewID;
+            TextView parentID = ((ChildViewHolder) holder).parentID;
+            TextView text = ((ChildViewHolder) holder).text;*/
+            String text;
+            SingleQustion_RV singleQustion_rv = (SingleQustion_RV) general.get(position);
+
+            if (singleQustion_rv.getAnswer() != null) {
+                text = singleQustion_rv.getQue_text() + " = " + singleQustion_rv.getAnswer();
+            } else {
+                text = singleQustion_rv.getQue_text();
+            }
+            ((ChildViewHolder) holder).queText.setText(text);
+            ((ChildViewHolder) holder).qid.setText(singleQustion_rv.getQue_id());
+            ((ChildViewHolder) holder).q_cnt.setText("" + singleQustion_rv.getQue_seq_cnt());
+        } else {
+            QueLevel_RV queLevel_rv = (QueLevel_RV) general.get(position);
+            ((ParentViewHolder) holder).seq_cnt.setText("Seqeunce count : " + queLevel_rv.getLevel_seq_cnt());
+            ((ParentViewHolder) holder).mistake_cnt.setText("Mistakes : " + queLevel_rv.getMistakes());
+            ((ParentViewHolder) holder).level.setText("Level : " + queLevel_rv.getLevel());
+            ((ParentViewHolder) holder).subject.setText("Subject : " + queLevel_rv.getSubject());
+        }
+
+        //Person person = datas.get(position);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        Log.d("general size = ", general.size() + "");
+        return general.size();
     }
 
     public static class ParentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -175,95 +264,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             Toast.makeText(view.getContext(), "" + getLayoutPosition(), Toast.LENGTH_SHORT).show();*/
         }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-
-        //int parentSize = datas.size();
-//        int size = datas.size();
-//        int upperBound = 0;
-//        int lowerBound = 0;
-//        for (int x = 0; x < size; x++) {
-//            Person p = datas.get(x);
-//            upperBound += p.getFriends().length + 1;
-//
-//            if (position == lowerBound) {
-//                return PARENT;
-//            }
-//
-//            if (position < upperBound) {
-//                return CHILD;
-//            }
-//
-//            lowerBound = upperBound;
-//        }
-//        return 0;
-
-        if (general.get(position).isParent()) {
-            Log.d("viewtype = ", "parent at " + position);
-            return PARENT;
-        } else {
-            Log.d("viewtype = ", "child at " + position);
-            return CHILD;
-        }
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        if (viewType == CHILD) {
-            // Inflate the custom layout
-            View itemView = inflater.inflate(R.layout.child_item, parent, false);
-
-            // Return a new holder instance
-            return new ChildViewHolder(itemView);
-        } else {
-            // Inflate the custom layout
-            View itemView = inflater.inflate(R.layout.list_item, parent, false);
-
-            // Return a new holder instance
-            return new ParentViewHolder(itemView);
-        }
-
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-        if (holder.getItemViewType() == CHILD) {
-           /* TextView viewID = ((ChildViewHolder) holder).viewID;
-            TextView parentID = ((ChildViewHolder) holder).parentID;
-            TextView text = ((ChildViewHolder) holder).text;*/
-            String text;
-            SingleQustion_RV singleQustion_rv = (SingleQustion_RV) general.get(position);
-
-            if (singleQustion_rv.getAnswer() != null) {
-                text = singleQustion_rv.getQue_text() + " = " + singleQustion_rv.getAnswer();
-            } else {
-                text = singleQustion_rv.getQue_text();
-            }
-            ((ChildViewHolder) holder).queText.setText(text);
-            ((ChildViewHolder) holder).qid.setText(singleQustion_rv.getQue_id());
-            ((ChildViewHolder) holder).q_cnt.setText("" + singleQustion_rv.getQue_seq_cnt());
-        } else {
-            QueLevel_RV queLevel_rv = (QueLevel_RV) general.get(position);
-            ((ParentViewHolder) holder).seq_cnt.setText("Seqeunce count : " + queLevel_rv.getLevel_seq_cnt());
-            ((ParentViewHolder) holder).mistake_cnt.setText("Mistakes : " + queLevel_rv.getMistakes());
-            ((ParentViewHolder) holder).level.setText("Level : " + queLevel_rv.getLevel());
-            ((ParentViewHolder) holder).subject.setText("Subject : " + queLevel_rv.getSubject());
-        }
-
-        //Person person = datas.get(position);
-
-    }
-
-    @Override
-    public int getItemCount() {
-        Log.d("general size = ", general.size() + "");
-        return general.size();
     }
 
 

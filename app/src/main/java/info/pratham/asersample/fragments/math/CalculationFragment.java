@@ -1,10 +1,8 @@
 package info.pratham.asersample.fragments.math;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.TextViewCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QueLevel;
@@ -36,17 +33,20 @@ import info.pratham.asersample.interfaces.WordsListListener;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
 
-import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
-
 /**
  * Created by PEF on 24/11/2018.
  */
 
 public class CalculationFragment extends BaseFragment implements WordsListListener, MistakeCountListener {
+
+    @BindView(R.id.message)
+    TextView message;
     @BindView(R.id.questionSub1)
     TextView questionSub1;
     @BindView(R.id.questionSub2)
     TextView questionSub2;
+
+
     @BindView(R.id.questionDiv)
     TextView questionDiv;
 
@@ -113,14 +113,14 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         }
     }
 
-    public void editorListener(final EditText view){
+    public void editorListener(final EditText view) {
         view.setOnEditorActionListener(
                 new EditText.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_NEXT ||
-                            actionId == EditorInfo.IME_ACTION_SEARCH ||
-                            actionId == EditorInfo.IME_ACTION_DONE ||
+                                actionId == EditorInfo.IME_ACTION_SEARCH ||
+                                actionId == EditorInfo.IME_ACTION_DONE ||
                                 event != null &&
                                         event.getAction() == KeyEvent.ACTION_DOWN &&
                                         event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
@@ -178,7 +178,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     public boolean writeDivision() {
-        if (!quotient.getText().toString().isEmpty()  && !remainder.getText().toString().isEmpty()) {
+        if (!quotient.getText().toString().isEmpty() && !remainder.getText().toString().isEmpty()) {
             queLevel = new QueLevel();
             queLevel.setLevel(currentLevel);
             queLevel.setSubject("Mathematics");
@@ -189,7 +189,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
             singleQustion.setQue_seq_cnt(tempSingleQue.size());
             singleQustion.setQue_id(questionDiv.getTag().toString());
             singleQustion.setQue_text(questionDiv.getText().toString());
-            singleQustion.setAnswer("Quotient: "+quotient.getText().toString()+"   Remainder :"+remainder.getText().toString());
+            singleQustion.setAnswer("Quotient: " + quotient.getText().toString() + "   Remainder :" + remainder.getText().toString());
             tempSingleQue.add(singleQustion);
             parentDataList.add(queLevel);
             showMistakeCountDialog();
@@ -199,6 +199,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     private void showSubtraction() {
+        message.setText("Solve the subtraction");
         JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Subtraction");
         if (msg != null) {
             List<JSONObject> wordList = new ArrayList();
@@ -217,6 +218,7 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     }
 
     private void showDivision() {
+        message.setText("Solve the division");
         JSONArray msg = AserSample_Constant.getMathOperation(AserSample_Constant.sample, "Division");
         if (msg != null) {
             List<JSONObject> wordList = new ArrayList();

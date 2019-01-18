@@ -78,6 +78,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Volunteer Id"
                     android:inputType="text"
+                    android:text="amolmoghe"
                     android:maxLines="1"
                     android:singleLine="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -96,6 +97,7 @@
                     android:hint="Password"
                     android:inputType="textWebPassword"
                     android:maxLines="1"
+                    android:text="pratham@123"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 

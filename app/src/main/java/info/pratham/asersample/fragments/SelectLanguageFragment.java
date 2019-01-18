@@ -30,13 +30,13 @@ public class SelectLanguageFragment extends BaseFragment {
         ButterKnife.bind(this, view);
     }
 
-    @OnClick({R.id.hindiButton,R.id.hindi})
+    @OnClick({R.id.hindiButton, R.id.hindi})
     public void onHindiLLClick() {
         AserSample_Constant.selectedLanguage = getString(R.string.Hindi);
         AserSampleUtility.showFragment(getActivity(), new ServeyOrEvaluation(), ServeyOrEvaluation.class.getSimpleName());
     }
 
-    @OnClick({R.id.marathiButton,R.id.marathi})
+    @OnClick({R.id.marathiButton, R.id.marathi})
     public void marathiClick() {
         AserSample_Constant.selectedLanguage = getString(R.string.Marathi);
         AserSampleUtility.showFragment(getActivity(), new ServeyOrEvaluation(), ServeyOrEvaluation.class.getSimpleName());
