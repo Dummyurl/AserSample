@@ -9,11 +9,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import net.alhazmy13.catcho.library.Catcho;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import info.pratham.asersample.database.AS_Database;
+import info.pratham.asersample.utility.CatchoTransparentActivity;
 import info.pratham.asersample.utility.PermissionResult;
 
 /**
@@ -30,6 +33,10 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseInstance = AS_Database.getDatabaseInstance(this);
+        Catcho.Builder(this)
+                .activity(CatchoTransparentActivity.class)
+                .recipients("pravin.kate@pratham.org")
+                .build();
     }
 
     public AS_Database getDatabaseInstance() {

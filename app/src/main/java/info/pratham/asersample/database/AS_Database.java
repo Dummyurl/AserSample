@@ -6,12 +6,14 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import info.pratham.asersample.database.dao.CRLDao;
+import info.pratham.asersample.database.dao.LogDao;
 import info.pratham.asersample.database.dao.QuestionDao;
 import info.pratham.asersample.database.modalClasses.CRL;
+import info.pratham.asersample.database.modalClasses.Modal_Log;
 import info.pratham.asersample.database.modalClasses.Question;
 
 
-@Database(entities = {CRL.class, Question.class}, version = 1, exportSchema = false)
+@Database(entities = {CRL.class, Question.class, Modal_Log.class}, version = 1, exportSchema = false)
 public abstract class AS_Database extends RoomDatabase {
     private static AS_Database DATABASEINSTANCE;
 
@@ -28,4 +30,6 @@ public abstract class AS_Database extends RoomDatabase {
     public abstract CRLDao getCRLdao();
 
     public abstract QuestionDao getQuestiondao();
+
+    public abstract LogDao getLogsdao();
 }

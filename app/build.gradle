@@ -46,6 +46,8 @@ dependencies {
     // responsive
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.android.support:multidex:1.0.3'
+    // catcho
+    implementation 'net.alhazmy13.catcho:library:1.1.0'
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
     testImplementation 'junit:junit:4.12'

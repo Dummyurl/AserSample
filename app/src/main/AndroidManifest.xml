@@ -38,6 +38,9 @@
             android:name=".activities.MathActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".utility.CatchoTransparentActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".networkManager.UploadRec"
             android:screenOrientation="landscape"></activity>
     </application>
