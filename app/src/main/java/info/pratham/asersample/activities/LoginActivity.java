@@ -47,7 +47,6 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
         // Application is ready to go with permission acceptance
         //Hide notification bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        int a = 5/0;
         if (!createFolderStructureForStoringDataLocally())
             Toast.makeText(this, "Cannot create folder locally", Toast.LENGTH_SHORT).show();
         if (fragment == null) {
