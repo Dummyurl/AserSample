@@ -22,6 +22,9 @@ import butterknife.OnClick;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.activities.MathActivity;
+import info.pratham.asersample.database.modalClasses.QueLevel;
+import info.pratham.asersample.database.modalClasses.SingleQustion;
+import info.pratham.asersample.utility.AserSample_Constant;
 
 import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
@@ -40,10 +43,11 @@ public class NumberRecognitionFragment extends BaseFragment {
     @BindView(R.id.fragmengtRefreshIV)
     ImageView refreshIcon;
 
-
     List<JSONObject> selectedWordsList;
     int wordCOunt;
-
+    List<QueLevel> parentDataList;
+    public String attemptedQuePathCache;
+    public boolean prevAttempted = false;
 
     @Override
     public void onAttach(Context context) {
@@ -69,6 +73,7 @@ public class NumberRecognitionFragment extends BaseFragment {
         }
         wordCOunt = -1;
         selectedWordsList = (List) getArguments().getSerializable("data");
+        parentDataList = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
 
         if (!nextItem.isShown()) {
             nextItem.setVisibility(View.VISIBLE);
@@ -121,10 +126,6 @@ public class NumberRecognitionFragment extends BaseFragment {
         return question.getText().toString();
     }
 
-//    public int getWordsCount() {
-//        return wordCOunt;
-//    }
-
     public View getRefreshIconView() {
         return refreshIcon;
     }
@@ -140,6 +141,36 @@ public class NumberRecognitionFragment extends BaseFragment {
 
     private void showQue(JSONObject msg) {
         try {
+            prevAttempted = false;
+            for (QueLevel queLevel : parentDataList) {
+                if (queLevel.getLevel().equals(getString(R.string.tenToNinetyNine)) || queLevel.getLevel().equals(getString(R.string.oneToNine))) {
+                    for (SingleQustion singleQustion : queLevel.getQuestions()) {
+                        if (singleQustion.getQue_id().equals(msg.getString("id"))) {
+                            prevAttempted = true;
+                            attemptedQuePathCache = singleQustion.getRecordingName();
+                        }
+                    }
+                    if (prevAttempted) {
+                        break;
+                    }
+                }
+            }
+            if (!prevAttempted) {
+                for (SingleQustion singleQustion : ((MathActivity) getActivity()).queLevel.getQuestions()) {
+                    if (singleQustion.getQue_id().equals(msg.getString("id"))) {
+                        prevAttempted = true;
+                        attemptedQuePathCache = singleQustion.getRecordingName();
+                    }
+                }
+            }
+
+            if (prevAttempted) {
+                refreshIcon.setVisibility(View.VISIBLE);
+                question.setAlpha(0.5f);
+            }
+
+            ((MathActivity) getActivity()).updateUI(prevAttempted);
+
             MathActivity.isNewQuestion = true;
             question.setText(msg.getString("data"));
             question.setTag(msg.getString("id"));
@@ -147,9 +178,4 @@ public class NumberRecognitionFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
-
-    /*@OnClick(R.id.question)
-    public void showId() {
-        Toast.makeText(getActivity(), "" + question.getTag(), Toast.LENGTH_SHORT).show();
-    }*/
 }

@@ -46,7 +46,6 @@ import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 public class LanguageActivity extends BaseActivity implements WordsListListener, ProficiencyListener, MistakeCountListener, LevelFinishListner {
 
-    public static String currentFilePath, currentFileName;
     @BindView(R.id.question)
     TextView tv_question;
     @BindView(R.id.testType)
@@ -69,8 +68,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     RelativeLayout displayLayout;
     @BindView(R.id.attemped)
     ImageView attemped;
+
     String currentLevel;
     boolean recording, playing, isNewQuestion;
+    public static String currentFilePath, currentFileName;
     int wordCOunt;
     List<JSONObject> selectedWordsList;
 
@@ -79,8 +80,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     List tempSingleQue;
     MistakeCountDialog mistakCountDialog;
 
-    String currentClick;
-    boolean isQueAttempt = false;
+    String currentClick, attemptedQuePathCache;
+    boolean isQueAttempt = false, prevAttempted = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,8 +110,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 JSONObject questionJson = new JSONObject(question);
                 int randomNo = ASERApplication.getRandomNumber(0, questionJson.length());
                 AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (randomNo + 1));
-                //todo remove hardcoded sample
-//                AserSample_Constant.sample = (JSONObject) questionJson.get("Sample1");
                 showParagraph();
             } else {
                 AserSampleUtility.showToast(this, "No data available. Contact administrator!");
@@ -145,10 +144,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         currentLevel = getString(R.string.Paragraph);
         tv_level.setText("Basic Reading - " + currentLevel);
         setVisibilityForPrevNext();
-        //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getParagragh_mistake());
         JSONObject msg = AserSample_Constant.getPara(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
-            //     tv_question.setTextSize(1, 30);
             showQue(msg);
         } else {
             AserSampleUtility.showToast(this, "Problem in getting data!");
@@ -161,10 +158,8 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         currentLevel = getString(R.string.Story);
         tv_level.setText("Basic Reading - " + currentLevel);
         setVisibilityForPrevNext();
-        //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getStory_mistake());
         JSONObject msg = AserSample_Constant.getStory(AserSample_Constant.sample, currentLevel);
         if (msg != null) {
-            //    tv_question.setTextSize(1, 25);
             showQue(msg);
         } else {
             AserSampleUtility.showToast(this, "Problem in getting data!");
@@ -185,7 +180,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.getJSONObject(i));
                 }
-                //     mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getLetter_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -209,7 +203,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 for (int i = 0; i < msg.length(); i++) {
                     wordList.add(msg.get(i));
                 }
-                //  mistakes.setText(AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().getWord_mistake());
                 SelectWordsDialog selectWordsDialog = new SelectWordsDialog(this, wordList, 5, currentLevel);
                 selectWordsDialog.show();
             } catch (JSONException e) {
@@ -223,30 +216,33 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     private void showQue(JSONObject msg) {
         try {
             isNewQuestion = true;
-            boolean isAttemped = false;
+            prevAttempted = false;
             for (QueLevel queLevel : parentDataList) {
                 if (queLevel.getLevel().equals(currentLevel)) {
                     for (SingleQustion singleQustion : queLevel.getQuestions()) {
                         if (singleQustion.getQue_id().equals(msg.getString("id"))) {
-                            isAttemped = true;
-                            break;
+                            prevAttempted = true;
+                            attemptedQuePathCache = singleQustion.getRecordingName();
                         }
                     }
-                    if (isAttemped) {
+                    if (prevAttempted) {
                         break;
                     }
                 }
             }
-            if (!isAttemped && (currentLevel.equals(getString(R.string.Word)) || currentLevel.equals(getString(R.string.Letter)))) {
+            if (!prevAttempted && (currentLevel.equals(getString(R.string.Word)) || currentLevel.equals(getString(R.string.Letter)))) {
                 for (SingleQustion singleQustion : queLevel.getQuestions()) {
                     if (singleQustion.getQue_id().equals(msg.getString("id"))) {
-                        isAttemped = true;
-                        break;
+                        prevAttempted = true;
+                        attemptedQuePathCache = singleQustion.getRecordingName();
                     }
                 }
             }
-
-            if (isAttemped) {
+            if (prevAttempted) {
+                refreshIcon.setVisibility(View.VISIBLE);
+                tv_question.setAlpha(0.5f);
+                recording = playing = true;
+                recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
                 attemped.setVisibility(View.VISIBLE);
             } else {
                 attemped.setVisibility(View.GONE);
@@ -270,7 +266,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     @Override
     public void getSelectedwords(List list) {
         if (!list.isEmpty()) {
-            //    tv_question.setTextSize(1, 60);
             wordCOunt = -1;
             selectedWordsList = list;
             nextItem.setVisibility(View.VISIBLE);
@@ -360,6 +355,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
         refreshIcon.setVisibility(View.INVISIBLE);
         tv_question.setAlpha(1f);
+        prevAttempted = false;
         playing = false;
         recording = false;
     }
@@ -371,7 +367,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
-        if (isNewQuestion) {
+        if (isNewQuestion && !recording && !playing) {
             isNewQuestion = false;
             currentFileName = updateJsonDetails();
         }
@@ -387,7 +383,10 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         if (!recording && playing) {
             //initiateRecording();
         } else if (recording && playing) {
-            AudioUtil.playRecording(fileStorePath, this);
+            if (prevAttempted)
+                AudioUtil.playRecording(currentFilePath + attemptedQuePathCache, this);
+            else
+                AudioUtil.playRecording(fileStorePath, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording) {
             AudioUtil.stopRecording();
@@ -442,26 +441,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         endOfLevelDialog.show();
     }
 
-   /* private void assignMistakeCount(String level, String cnt) {
-//        queLevel.setMistakes(Integer.parseInt(cnt));
-
-        switch (level) {
-            case "Story":
-                //  queLevel.setMistakes(Integer.parseInt(cnt));
-                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setStory_mistake(cnt);
-                break;
-            case "Paragraph":
-                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setParagragh_mistake(cnt);
-                break;
-            case "Word":
-                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setWord_mistake(cnt);
-                break;
-            case "Letter":
-                AserSample_Constant.getAserSample_Constant().getStudent().getNativeLanguage().setLetter_mistake(cnt);
-                break;
-        }
-    }*/
-
     @Override
     public void onBackPressed() {
         AlertDialog builder = new AlertDialog.Builder(this).create();
@@ -482,11 +461,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         builder.show();
     }
 
-    /*@OnClick(R.id.question)
-    public void show_tag() {
-        AserSampleUtility.showToast(this, tv_question.getTag().toString());
-    }*/
-
     public void showMistakeCountDialog() {
         mistakCountDialog = new MistakeCountDialog(this, currentLevel);
         mistakCountDialog.show();
@@ -497,7 +471,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         queLevel.setMistakes(mistakeCnt);
         isQueAttempt = false;
         if (currentClick.equals("NEXT")) {
-          /*  assignMistakeCount(currentLevel, mistakes.getText().toString());*/
             initiateRecording();
             switch (currentLevel) {
                 case "Paragraph":
@@ -511,7 +484,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                     break;
             }
         } else if (currentClick.equals("PREVIOUS")) {
-           /* assignMistakeCount(currentLevel, mistakes.getText().toString());*/
             initiateRecording();
             switch (currentLevel) {
                 case "Story":

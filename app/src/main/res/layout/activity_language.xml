@@ -146,18 +146,17 @@
 
         <ImageView
             android:id="@+id/attemped"
-            android:layout_width="57dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:background="#16de16"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
             android:elevation="15dp"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:src="@drawable/verification"
             android:visibility="gone" />
         <RelativeLayout
             android:id="@+id/bottom_buttons"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"

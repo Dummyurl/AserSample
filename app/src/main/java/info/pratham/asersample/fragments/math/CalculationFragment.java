@@ -133,16 +133,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         );
     }
 
-    /*@OnClick(R.id.answerSub1)
-    public void answerOneClicked(){
-        answerSub1.setFocusable(true);
-    }
-
-    @OnClick(R.id.answerSub2)
-    public void answerTwoClicked(){
-        answerSub2.setFocusable(true);
-    }*/
-
     public boolean writeSubtraction() {
         if (!answerSub1.getText().toString().isEmpty() || !answerSub2.getText().toString().isEmpty()) {
             queLevel = new QueLevel();
@@ -246,9 +236,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 if (!subtractionLayout.isShown()) {
                     subtractionLayout.setVisibility(View.VISIBLE);
                 }
-              /*  questionSub1.setText(list.get(0).toString());
-                questionSub2.setText(list.get(1).toString());*/
-
                 JSONObject js = (JSONObject) list.get(0);
                 showQue(questionSub1, js);
                 JSONObject js1 = (JSONObject) list.get(1);
@@ -260,7 +247,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                 if (subtractionLayout.isShown()) {
                     subtractionLayout.setVisibility(View.GONE);
                 }
-                //questionDiv.setText(list.get(0).toString());
                 JSONObject js = (JSONObject) list.get(0);
                 showQue(questionDiv, js);
             }
@@ -275,13 +261,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
         try {
             view.setText(jsonObject.getString("data"));
             view.setTag(jsonObject.getString("id"));
-
-            /*view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getActivity(), "" + view.getTag(), Toast.LENGTH_SHORT).show();
-                }
-            });*/
         } catch (JSONException e) {
             e.printStackTrace();
         }

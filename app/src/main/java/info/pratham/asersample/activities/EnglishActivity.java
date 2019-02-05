@@ -75,7 +75,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     ImageView refreshIcon;
     @BindView(R.id.displayLayout)
     RelativeLayout displayLayout;
-
     @BindView(R.id.attemped)
     ImageView attemped;
 
@@ -86,8 +85,8 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     List<QueLevel> parentDataList;
     QueLevel queLevel;
     List tempSingleQue;
-    String currentClick;
-    boolean isQueAttemp = false;
+    String currentClick, attemptedQuePathCache;
+    boolean isQueAttemp = false, prevAttempted = false;
     private DatabaseReference mDatabase;
 
     @Override
@@ -199,7 +198,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     public void next() {
         currentClick = "NEXT";
         initiateRecording();
-       /* assignMistakeCount(currentLevel, mistakes.getText().toString());*/
+        /* assignMistakeCount(currentLevel, mistakes.getText().toString());*/
         if (isQueAttemp) {
             showMistakeCountDialog();
         } else {
@@ -277,30 +276,33 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     private void showQue(JSONObject msg) {
         try {
             isNewQuestion = true;
-            boolean isAttemped = false;
             for (QueLevel queLevel : parentDataList) {
                 if (queLevel.getLevel().equals(currentLevel)) {
                     for (SingleQustion singleQustion : queLevel.getQuestions()) {
                         if (singleQustion.getQue_id().equals(msg.getString("id"))) {
-                            isAttemped = true;
-                            break;
+                            prevAttempted = true;
+                            attemptedQuePathCache = singleQustion.getRecordingName();
                         }
                     }
-                    if (isAttemped) {
+                    if (prevAttempted) {
                         break;
                     }
                 }
             }
-            if (!isAttemped) {
+            if (!prevAttempted) {
                 for (SingleQustion singleQustion : queLevel.getQuestions()) {
                     if (singleQustion.getQue_id().equals(msg.getString("id"))) {
-                        isAttemped = true;
-                        break;
+                        prevAttempted = true;
+                        attemptedQuePathCache = singleQustion.getRecordingName();
                     }
                 }
             }
 
-            if (isAttemped) {
+            if (prevAttempted) {
+                refreshIcon.setVisibility(View.VISIBLE);
+                tv_question.setAlpha(0.5f);
+                recording = playing = true;
+                recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
                 attemped.setVisibility(View.VISIBLE);
             } else {
                 attemped.setVisibility(View.GONE);
@@ -316,7 +318,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     @Override
     public void getSelectedwords(List list) {
         if (!list.isEmpty()) {
-            //    tv_question.setTextSize(1, 60);
             wordCOunt = -1;
             selectedWordsList = list;
             nextItem.setVisibility(View.VISIBLE);
@@ -336,6 +337,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_blue_round));
         refreshIcon.setVisibility(View.INVISIBLE);
         tv_question.setAlpha(1f);
+        prevAttempted = false;
         playing = false;
         recording = false;
     }
@@ -347,7 +349,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @OnClick(R.id.recordButtonSP)
     public void startOrStopRecording() {
-        if (isNewQuestion) {
+        if (isNewQuestion && !recording && !playing) {
             isNewQuestion = false;
             currentFileName = updateJsonDetails();
         }
@@ -362,7 +364,10 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         if (playing && !recording) {
             //initiateRecording();
         } else if (recording && playing) {
-            AudioUtil.playRecording(fileStorePath, this);
+            if (prevAttempted)
+                AudioUtil.playRecording(currentFilePath + attemptedQuePathCache, this);
+            else
+                AudioUtil.playRecording(fileStorePath, this);
             recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.playing_icon));
         } else if (recording) {
             AudioUtil.stopRecording();
@@ -426,23 +431,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         endOfLevelDialog.show();
     }
 
-/*    private void assignMistakeCount(String level, String cnt) {
-        switch (level) {
-            case "Capital letter":
-                AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setCapitalLetter_mistake(cnt);
-                break;
-            case "Small letter":
-                AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setSmallLetter_mistake(cnt);
-                break;
-            case "word":
-                AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setWords_mistake(cnt);
-                break;
-            case "Sentence":
-                AserSample_Constant.getAserSample_Constant().getStudent().getEnglish().setSentence_mistake(cnt);
-                break;
-        }
-    }*/
-
     @Override
     public void onBackPressed() {
         AlertDialog builder = new AlertDialog.Builder(this).create();
@@ -464,11 +452,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
         });
         builder.show();
     }
-
-    /*@OnClick(R.id.question)
-    public void showID() {
-        Toast.makeText(this, "" + tv_question.getTag(), Toast.LENGTH_SHORT).show();
-    }*/
 
     public void initiateJsonProperties() {
         try {
@@ -537,18 +520,6 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     @Override
     public void onLevelFinish() {
-      /*  AlertDialog builder = new AlertDialog.Builder(EnglishActivity.this).create();
-        builder.setMessage("Test successfully submitted");
-        builder.setCancelable(false);
-        builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                PreviewDialog previewDialog = new PreviewDialog(EnglishActivity.this);
-                previewDialog.show();
-            }
-        });
-        builder.show();
-*/
         PreviewDialog previewDialog = new PreviewDialog(EnglishActivity.this);
         previewDialog.show();
     }
