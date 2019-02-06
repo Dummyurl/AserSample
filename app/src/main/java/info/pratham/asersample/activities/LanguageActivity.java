@@ -225,9 +225,9 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                             attemptedQuePathCache = singleQustion.getRecordingName();
                         }
                     }
-                    if (prevAttempted) {
+                    /*if (prevAttempted) {
                         break;
-                    }
+                    }*/
                 }
             }
             if (!prevAttempted && (currentLevel.equals(getString(R.string.Word)) || currentLevel.equals(getString(R.string.Letter)))) {
@@ -236,6 +236,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                         prevAttempted = true;
                         attemptedQuePathCache = singleQustion.getRecordingName();
                     }
+
                 }
             }
             if (prevAttempted) {
@@ -245,6 +246,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                 recordButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
                 attemped.setVisibility(View.VISIBLE);
             } else {
+                initiateRecording();
                 attemped.setVisibility(View.GONE);
             }
 

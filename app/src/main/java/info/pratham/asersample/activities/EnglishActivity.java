@@ -275,6 +275,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
 
     private void showQue(JSONObject msg) {
         try {
+            prevAttempted = false;
             isNewQuestion = true;
             for (QueLevel queLevel : parentDataList) {
                 if (queLevel.getLevel().equals(currentLevel)) {
@@ -284,9 +285,9 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                             attemptedQuePathCache = singleQustion.getRecordingName();
                         }
                     }
-                    if (prevAttempted) {
+                    /*if (prevAttempted) {
                         break;
-                    }
+                    }*/
                 }
             }
             if (!prevAttempted) {
@@ -306,6 +307,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
                 attemped.setVisibility(View.VISIBLE);
             } else {
                 attemped.setVisibility(View.GONE);
+                initiateRecording();
             }
 
             tv_question.setText(msg.getString("data"));

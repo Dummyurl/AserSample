@@ -150,9 +150,9 @@ public class NumberRecognitionFragment extends BaseFragment {
                             attemptedQuePathCache = singleQustion.getRecordingName();
                         }
                     }
-                    if (prevAttempted) {
+                    /*if (prevAttempted) {
                         break;
-                    }
+                    }*/
                 }
             }
             if (!prevAttempted) {

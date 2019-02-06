@@ -549,6 +549,7 @@ public class MathActivity extends BaseActivity implements WordsListListener, Pro
             attemped.setVisibility(View.VISIBLE);
         } else {
             attemped.setVisibility(View.GONE);
+            initiateRecording();
         }
     }
 }
