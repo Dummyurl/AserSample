@@ -46,8 +46,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     TextView questionSub1;
     @BindView(R.id.questionSub2)
     TextView questionSub2;
-
-
     @BindView(R.id.questionDiv)
     TextView questionDiv;
 
