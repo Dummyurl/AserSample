@@ -21,7 +21,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.LoginActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,19 +30,18 @@
         </activity>
         <activity
             android:name=".activities.LanguageActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.EnglishActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.MathActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".utility.CatchoTransparentActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".networkManager.UploadRec"
-            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape"></activity>
     </application>
 
