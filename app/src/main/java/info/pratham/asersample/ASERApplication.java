@@ -7,12 +7,8 @@ import android.content.pm.PackageManager;
 import com.androidnetworking.AndroidNetworking;
 import com.google.firebase.database.FirebaseDatabase;
 
-import net.alhazmy13.catcho.library.Catcho;
-
 import java.io.File;
 import java.util.Random;
-
-import info.pratham.asersample.utility.CatchoTransparentActivity;
 
 /**
  * Created by Pravin on 2 Feb 2018.
