@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +45,8 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
     TextView questionSub1;
     @BindView(R.id.questionSub2)
     TextView questionSub2;
+
+
     @BindView(R.id.questionDiv)
     TextView questionDiv;
 
@@ -124,10 +125,6 @@ public class CalculationFragment extends BaseFragment implements WordsListListen
                                         event.getAction() == KeyEvent.ACTION_DOWN &&
                                         event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                             view.clearFocus();
-                            if (view != null) {
-                                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                            }
                             return true;
                         }
                         return false; // pass on to other listeners.

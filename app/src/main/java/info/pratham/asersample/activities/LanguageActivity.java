@@ -228,7 +228,6 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
                     /*if (prevAttempted) {
                         break;
                     }*/
-
                 }
             }
             if (!prevAttempted && (currentLevel.equals(getString(R.string.Word)) || currentLevel.equals(getString(R.string.Letter)))) {
