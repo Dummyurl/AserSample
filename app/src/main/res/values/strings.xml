@@ -6,6 +6,7 @@
     <string name="Hindi">Hindi</string>
     <string name="English">English</string>
     <string name="Marathi">Marathi</string>
+    <string name="Math">Math</string>
 
     <string name="Beginner">Beginner</string>
     <string name="Ok">Ok</string>
@@ -14,7 +15,7 @@
     <string name="TestWasNotComplete">Test was not complete</string>
 
     <!--LANGUAGE-->
-    <string name="Word">Word</string>
+    <string name="WordNative">Word</string>
     <string name="Story">Story</string>
     <string name="Paragraph">Paragraph</string>
     <string name="Letter">Letter</string>

@@ -89,6 +89,7 @@ public class EnglishActivity extends BaseActivity implements WordsListListener, 
     boolean isQueAttemp = false, prevAttempted = false;
     private DatabaseReference mDatabase;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

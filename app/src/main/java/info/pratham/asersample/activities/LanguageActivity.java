@@ -128,7 +128,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         else {
             List optionList = new ArrayList();
             optionList.add(getString(R.string.Letter));
-            optionList.add(getString(R.string.Word));
+            optionList.add(getString(R.string.WordNative));
             optionList.add(getString(R.string.Paragraph));
             optionList.add(getString(R.string.Story));
             optionList.add(getString(R.string.Beginner));
@@ -140,7 +140,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     private void showParagraph() {
         next.setVisibility(View.VISIBLE);
-        setNavigation(getString(R.string.Word), getString(R.string.Story));
+        setNavigation(getString(R.string.WordNative), getString(R.string.Story));
         currentLevel = getString(R.string.Paragraph);
         tv_level.setText("Basic Reading - " + currentLevel);
         setVisibilityForPrevNext();
@@ -168,7 +168,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
     private void showLetters() {
         previous.setVisibility(View.GONE);
-        setNavigation("", getString(R.string.Word));
+        setNavigation("", getString(R.string.WordNative));
         currentLevel = getString(R.string.Letter);
         tv_level.setText("Basic Reading - " + currentLevel);
         setVisibilityForPrevNext();
@@ -193,7 +193,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
     private void showWords() {
         previous.setVisibility(View.VISIBLE);
         setNavigation(getString(R.string.Letter), getString(R.string.Paragraph));
-        currentLevel = getString(R.string.Word);
+        currentLevel = getString(R.string.WordNative);
         tv_level.setText("Basic Reading - " + currentLevel);
         setVisibilityForPrevNext();
         JSONArray msg = AserSample_Constant.getWords(AserSample_Constant.sample, currentLevel);
@@ -231,7 +231,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
 
                 }
             }
-            if (!prevAttempted && (currentLevel.equals(getString(R.string.Word)) || currentLevel.equals(getString(R.string.Letter)))) {
+            if (!prevAttempted && (currentLevel.equals(getString(R.string.WordNative)) || currentLevel.equals(getString(R.string.Letter)))) {
                 for (SingleQustion singleQustion : queLevel.getQuestions()) {
                     if (singleQustion.getQue_id().equals(msg.getString("id"))) {
                         prevAttempted = true;
@@ -502,7 +502,7 @@ public class LanguageActivity extends BaseActivity implements WordsListListener,
         } else if (currentClick.equals("PROFICIENCY")) {
             List optionList = new ArrayList();
             optionList.add(getString(R.string.Letter));
-            optionList.add(getString(R.string.Word));
+            optionList.add(getString(R.string.WordNative));
             optionList.add(getString(R.string.Paragraph));
             optionList.add(getString(R.string.Story));
             optionList.add(getString(R.string.Beginner));

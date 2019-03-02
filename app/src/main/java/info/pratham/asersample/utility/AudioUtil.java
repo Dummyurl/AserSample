@@ -3,6 +3,8 @@ package info.pratham.asersample.utility;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.os.SystemClock;
+import android.widget.Chronometer;
 
 import java.io.IOException;
 
@@ -14,6 +16,47 @@ public class AudioUtil {
 
     private static MediaRecorder mRecorder;
     private static MediaPlayer mPlayer;
+
+
+
+    /*public static void startRecordingnew(String filePath, Chronometer chronometer) {
+        try {
+            mRecorder = new MediaRecorder();
+            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            mRecorder.setOutputFile(filePath);
+            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mRecorder.prepare();
+            mRecorder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void stopRecordingnew(Chronometer chronometer) {
+        try {
+            if (mRecorder != null) {
+                mRecorder.stop();
+                mRecorder.release();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mRecorder = null;
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static void startRecording(String filePath) {
         try {

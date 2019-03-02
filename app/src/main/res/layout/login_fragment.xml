@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_weight="2"
         android:orientation="horizontal">
 
@@ -39,8 +41,8 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:layout_weight="8"
         app:cardCornerRadius="7dp"
@@ -78,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Volunteer Id"
                     android:inputType="text"
-                    android:text=""
+                    android:text="amolmoghe"
                     android:maxLines="1"
                     android:singleLine="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -97,7 +99,7 @@
                     android:hint="Password"
                     android:inputType="textWebPassword"
                     android:maxLines="1"
-                    android:text=""
+                    android:text="pratham@123"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -107,7 +109,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
-                android:layout_weight="0.7"
+                android:layout_weight="0.5"
                 android:background="@drawable/roundedcorner"
                 android:paddingLeft="70dp"
                 android:paddingRight="70dp"

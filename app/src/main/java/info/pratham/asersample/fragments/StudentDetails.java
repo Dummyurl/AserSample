@@ -1,11 +1,14 @@
 package info.pratham.asersample.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +18,19 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.google.common.collect.Iterators;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.Iterator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.pratham.asersample.ASERApplication;
+import info.pratham.asersample.Assessment;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
 import info.pratham.asersample.activities.LanguageActivity;
@@ -80,20 +91,62 @@ public class StudentDetails extends BaseFragment {
 
     @OnClick(R.id.nextButton)
     public void next() {
-        String childFirstName = childName.getText().toString().trim();
-        String childFatherName = fatherName.getText().toString().trim();
-        String childVillageName = villageName.getText().toString().trim();
+        final String childFirstName = childName.getText().toString().trim();
+        final String childFatherName = fatherName.getText().toString().trim();
+        final String childVillageName = villageName.getText().toString().trim();
         int selectedclass = classChild.getSelectedItemPosition();
-        int agegroup = radioGroup.getCheckedRadioButtonId();
+        final int agegroup = radioGroup.getCheckedRadioButtonId();
         if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty() && selectedclass > 0 && agegroup != -1) {
             if (!isAlpha(childFirstName))
                 AserSampleUtility.showToast(getActivity(), "Student name should not contain special characters!!");
             else {
-                String id = childFirstName + "__" + AserSampleUtility.getUUID();
-                Student student = new Student(id, childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString(), Calendar.getInstance().getTime().toString(), AserSample_Constant.getDeviceID());
-                AserSample_Constant.getAserSample_Constant().setStudent(student);
-                Intent intent = new Intent(getActivity(), LanguageActivity.class);
-                getActivity().startActivity(intent);
+                String question = databaseInstance.getQuestiondao().getLanguageQuestions(AserSample_Constant.selectedLanguage);
+                String SampleArray[] = null;
+                try {
+                    if (question != null) {
+                        int i = 0;
+                        final JSONObject questionJson = new JSONObject(question);
+                        Iterator<String> iter = questionJson.keys();
+                        int sampleCnt = Iterators.size(iter);
+                        SampleArray = new String[sampleCnt];
+                        while (sampleCnt > i) {
+                            SampleArray[i++] = "Sample" + i;
+                        }
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("Select Sample of " + AserSample_Constant.selectedLanguage)
+                                .setSingleChoiceItems(SampleArray, -1, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int selectedItem) {
+                                        try {
+                                            AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (selectedItem + 1));
+                                            String id = childFirstName + "__" + AserSampleUtility.getUUID();
+                                            Student student = new Student(id, childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString(), Calendar.getInstance().getTime().toString(), AserSample_Constant.getDeviceID());
+                                            AserSample_Constant.getAserSample_Constant().setStudent(student);
+                                            Intent intent = new Intent(getActivity(), Assessment.class);
+                                            intent.putExtra("Sample", selectedItem);
+                                            getActivity().startActivity(intent);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        dialogInterface.dismiss();
+
+                                    }
+                                })
+                                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
+                    } else {
+                        AserSampleUtility.showToast(getActivity(), "No data available. Contact administrator!");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         } else {
             AserSampleUtility.showToast(getActivity(), "All fields are mandatory");

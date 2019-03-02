@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -29,8 +30,8 @@
             android:layout_height="3dp"
             android:layout_below="@+id/studentdetails"
             android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
             android:layout_marginTop="3dp"
+            android:layout_marginRight="100dp"
             android:alpha=".3"
             android:background="#000000" />
 
@@ -40,28 +41,28 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/ripple_round"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_arrow_forward_black_24dp" />
+            app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
     </RelativeLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="50dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="10dp"
         android:layout_weight="9"
         android:background="@drawable/level_choose_bg"
         android:elevation="5dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="20dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="40dp"
             android:layout_weight="1"
@@ -71,8 +72,8 @@
                 android:id="@+id/childNameWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="2">
 
                 <EditText
@@ -89,8 +90,8 @@
                 android:id="@+id/fatherNameWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="2">
 
                 <EditText
@@ -107,8 +108,8 @@
                 android:id="@+id/villageNameWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="2">
 
                 <EditText
@@ -123,9 +124,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="40dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 

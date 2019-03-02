@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_native"
+        android:checked="true"
+        android:icon="@drawable/ic_native"
+        android:title="Native" />
+
+    <item
+        android:id="@+id/navigation_maths"
+        android:icon="@drawable/ic_mathematicalsymbols"
+        android:title="Mathematics" />
+
+    <item
+        android:id="@+id/navigation_english"
+        android:icon="@drawable/ic_english"
+        android:title="English" />
+
+</menu>
