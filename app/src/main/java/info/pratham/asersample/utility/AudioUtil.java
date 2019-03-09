@@ -3,6 +3,7 @@ package info.pratham.asersample.utility;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.SystemClock;
 import android.widget.Chronometer;
 
@@ -46,18 +47,6 @@ public class AudioUtil {
     }*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     public static void startRecording(String filePath) {
         try {
             mRecorder = new MediaRecorder();
@@ -82,6 +71,30 @@ public class AudioUtil {
             e.printStackTrace();
         }
         mRecorder = null;
+    }
+
+    public static void pauseRecording() {
+        try {
+            if (mRecorder != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    mRecorder.pause();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void playRecording() {
+        try {
+            if (mRecorder != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    mRecorder.resume();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void playRecording(String filePath, final Activity activity) {

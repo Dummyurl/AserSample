@@ -37,6 +37,7 @@ import info.pratham.asersample.activities.LanguageActivity;
 import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
+import info.pratham.asersample.utility.ListConstant;
 
 public class StudentDetails extends BaseFragment {
     @BindView(R.id.childName)
@@ -122,6 +123,7 @@ public class StudentDetails extends BaseFragment {
                                             String id = childFirstName + "__" + AserSampleUtility.getUUID();
                                             Student student = new Student(id, childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString(), Calendar.getInstance().getTime().toString(), AserSample_Constant.getDeviceID());
                                             AserSample_Constant.getAserSample_Constant().setStudent(student);
+                                            ListConstant.clearFields();
                                             Intent intent = new Intent(getActivity(), Assessment.class);
                                             intent.putExtra("Sample", selectedItem);
                                             getActivity().startActivity(intent);

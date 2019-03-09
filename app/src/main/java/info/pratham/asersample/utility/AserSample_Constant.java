@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.database.modalClasses.Student;
+import info.pratham.asersample.database.modalClasses.StudentNew;
 
 /**
  * Created by PEF on 30/11/2018.
@@ -18,6 +19,16 @@ public class AserSample_Constant {
     private static AserSample_Constant aserSample_constant = null;
     private static String deviceID;
     Student student;
+    StudentNew studentNew;
+
+
+    public StudentNew getStudentNew() {
+        return studentNew;
+    }
+
+    public void setStudentNew(StudentNew studentNew) {
+        this.studentNew = studentNew;
+    }
 
     private AserSample_Constant() {
     }

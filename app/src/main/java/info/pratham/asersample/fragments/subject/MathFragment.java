@@ -44,6 +44,9 @@ public class MathFragment extends Fragment {
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        //set double digit as a default
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        tab.select();
     }
 
     private void setupViewPager(ViewPager viewPager) {

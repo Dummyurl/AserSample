@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +29,7 @@ import info.pratham.asersample.R;
 import info.pratham.asersample.adapters.RecyclerViewAdapter;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.utility.AserSample_Constant;
+import info.pratham.asersample.utility.ListConstant;
 
 public class Words extends Fragment {
     @BindView(R.id.recycler)
@@ -36,6 +38,9 @@ public class Words extends Fragment {
     JSONArray question_jsonArray;
 
     List<QuestionStructure> questionList;
+
+    // String quelevel;
+    String level;
 
     @Nullable
     @Override
@@ -49,56 +54,102 @@ public class Words extends Fragment {
         ButterKnife.bind(this, view);
         try {
             Bundle args = getArguments();
-            String level = args.getString("level");
+            level = args.getString("level");
             questionList = new ArrayList();
             JSONObject englishJSOn;
             JSONObject mathematicsJSOn;
-
+            // quelevel = "";
+            question_jsonArray = null;
             switch (level) {
                 //NATIVE LANGUAGE
                 case "Words":
-                    question_jsonArray = AserSample_Constant.sample.getJSONArray(getString(R.string.WordNative));
+                    if (ListConstant.Words != null) {
+                        questionList = ListConstant.Words;
+                    } else {
+                        question_jsonArray = AserSample_Constant.sample.getJSONArray(getString(R.string.WordNative));
+                    }
                     break;
                 case "Letters":
-                    question_jsonArray = AserSample_Constant.sample.getJSONArray(getString(R.string.Letter));
+                    if (ListConstant.Letters != null) {
+                        questionList = ListConstant.Letters;
+                    } else {
+                        question_jsonArray = AserSample_Constant.sample.getJSONArray(getString(R.string.Letter));
+                    }
                     break;
                 //ENGLISH LANGUAGE
                 case "Capital":
-                    englishJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.English));
-                    question_jsonArray = englishJSOn.getJSONArray(getString(R.string.Capitalletter));
+                    if (ListConstant.Capital != null) {
+                        questionList = ListConstant.Capital;
+                    } else {
+                        englishJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.English));
+                        question_jsonArray = englishJSOn.getJSONArray(getString(R.string.Capitalletter));
+                    }
                     break;
                 case "Small":
-                    englishJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.English));
-                    question_jsonArray = englishJSOn.getJSONArray(getString(R.string.Smallletter));
+                    if (ListConstant.Small != null) {
+                        questionList = ListConstant.Small;
+                    } else {
+                        englishJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.English));
+                        question_jsonArray = englishJSOn.getJSONArray(getString(R.string.Smallletter));
+                    }
                     break;
                 case "word":
-                    englishJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.English));
-                    question_jsonArray = englishJSOn.getJSONArray(getString(R.string.word));
+                    if (ListConstant.engWord != null) {
+                        questionList = ListConstant.engWord;
+                    } else {
+                        englishJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.English));
+                        question_jsonArray = englishJSOn.getJSONArray(getString(R.string.word));
+                    }
                     break;
                 //MATHEMATICS
                 case "Single":
-                    mathematicsJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.Math)).getJSONObject("Number Recognition");
-                    question_jsonArray = mathematicsJSOn.getJSONArray(getString(R.string.oneToNine));
+                    if (ListConstant.Single != null) {
+                        questionList = ListConstant.Single;
+                    } else {
+                        mathematicsJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.Math)).getJSONObject("Number Recognition");
+                        question_jsonArray = mathematicsJSOn.getJSONArray(getString(R.string.oneToNine));
+                    }
                     break;
                 case "Double":
-                    mathematicsJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.Math)).getJSONObject("Number Recognition");
-                    question_jsonArray = mathematicsJSOn.getJSONArray(getString(R.string.tenToNinetyNine));
+                    if (ListConstant.Double != null) {
+                        questionList = ListConstant.Double;
+                    } else {
+                        mathematicsJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.Math)).getJSONObject("Number Recognition");
+                        question_jsonArray = mathematicsJSOn.getJSONArray(getString(R.string.tenToNinetyNine));
+                    }
                     break;
                 case "Subtraction":
-                    mathematicsJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.Math));
-                    question_jsonArray = mathematicsJSOn.getJSONArray(getString(R.string.Subtraction));
+                    if (ListConstant.Subtraction != null) {
+                        questionList = ListConstant.Subtraction;
+                    } else {
+                        mathematicsJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.Math));
+                        question_jsonArray = mathematicsJSOn.getJSONArray(getString(R.string.Subtraction));
+                        // quelevel = getString(R.string.Subtraction);
+                    }
                     break;
                 case "Division":
-                    mathematicsJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.Math));
-                    question_jsonArray = mathematicsJSOn.getJSONArray(getString(R.string.Division));
+                    if (ListConstant.Division != null) {
+                        questionList = ListConstant.Division;
+                    } else {
+                        mathematicsJSOn = AserSample_Constant.sample.getJSONObject(getString(R.string.Math));
+                        question_jsonArray = mathematicsJSOn.getJSONArray(getString(R.string.Division));
+                        // quelevel = getString(R.string.Division);
+                    }
                     break;
             }
+            if (question_jsonArray != null) {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<QuestionStructure>>() {
+                }.getType();
+                questionList = gson.fromJson(question_jsonArray.toString(), listType);
+            }
 
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<QuestionStructure>>() {
-            }.getType();
-            questionList = gson.fromJson(question_jsonArray.toString(), listType);
-            initRecycler();
+            if (questionList.isEmpty()) {
+                Toast.makeText(getActivity(), "Please pull data again", Toast.LENGTH_SHORT).show();
+
+            } else {
+                initRecycler();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -116,12 +167,48 @@ public class Words extends Fragment {
             final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
             recyclerView.setLayoutManager(gridLayoutManager);
         }
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), questionList);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), questionList, level);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
     private int getScreenWidthDp() {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         return (int) (displayMetrics.widthPixels / displayMetrics.density);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        switch (level) {
+            //NATIVE LANGUAGE
+            case "Words":
+                ListConstant.Words = questionList;
+                break;
+            case "Letters":
+                ListConstant.Letters = questionList;
+                break;
+            case "Capital":
+                ListConstant.Capital = questionList;
+                break;
+            case "Small":
+                ListConstant.Small = questionList;
+                break;
+            case "word":
+                ListConstant.engWord = questionList;
+                break;
+            //MATHEMATICS
+            case "Single":
+                ListConstant.Single = questionList;
+                break;
+            case "Double":
+                ListConstant.Double = questionList;
+                break;
+            case "Subtraction":
+                ListConstant.Subtraction = questionList;
+                break;
+            case "Division":
+                ListConstant.Division = questionList;
+                break;
+        }
     }
 }

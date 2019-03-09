@@ -1,39 +1,302 @@
 package info.pratham.asersample.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 import info.pratham.asersample.R;
+import info.pratham.asersample.animation.EnlaegeView;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
+import info.pratham.asersample.database.modalClasses.SingleQustioNew;
+import info.pratham.asersample.interfaces.RefreshRecycler;
+import info.pratham.asersample.utility.AserSample_Constant;
+import info.pratham.asersample.utility.ListConstant;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> implements RefreshRecycler {
     Context context;
     List<QuestionStructure> questioList;
+    String level;
+    EnlaegeView enlaegeView;
 
-    public RecyclerViewAdapter(Context context, List questioList) {
+    public RecyclerViewAdapter(Context context, List questioList, String level) {
         this.context = context;
         this.questioList = questioList;
+        this.level = level;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(context).inflate(R.layout.recycler_item, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textView.setText(questioList.get(position).toString());
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler);
+        holder.itemView.startAnimation(animation);
 
+
+        AlphaAnimation aa = new AlphaAnimation(0.1f, 1.0f);
+        aa.setDuration(400);
+        holder.textView.setText(questioList.get(position).toString());
+        if (questioList.get(position).isSelected()) {
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.blueLight));
+            holder.delete.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
+            holder.delete.setVisibility(View.GONE);
+        }
+        holder.textView.setTextColor(context.getResources().getColor(R.color.black));
+//delete item
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            QuestionStructure questionStructure = questioList.get(holder.getAdapterPosition());
+
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(context)
+                        .setMessage("do you want delete it ?")
+                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                switch (level) {
+                                    //NATIVE LANGUAGE
+                                    case "Words":
+                                        ListConstant.Words_cnt--;
+                                        break;
+                                    case "Letters":
+                                        ListConstant.Letters_cnt--;
+                                        break;
+                                    case "Capital":
+                                        ListConstant.Capital_cnt--;
+                                        break;
+                                    case "Small":
+                                        ListConstant.Small_cnt--;
+                                        break;
+                                    case "word":
+                                        ListConstant.engWord_cnt--;
+                                        break;
+                                    //MATHEMATICS
+                                    case "Single":
+                                        ListConstant.Single_cnt--;
+                                        break;
+                                    case "Double":
+                                        ListConstant.Double_cnt--;
+                                        break;
+                                    case "Subtraction":
+                                        ListConstant.Subtraction_cnt--;
+                                        break;
+                                    case "Division":
+                                        ListConstant.Division_cnt--;
+                                        break;
+                                }
+                                questionStructure.setSelected(false);
+                                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
+                                holder.delete.setVisibility(View.GONE);
+                                List<SingleQustioNew> temp = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
+                                for (int i = 0; i < temp.size(); i++) {
+                                    if (temp.get(i).getQue_id().equals(questionStructure.getId())) {
+                                        temp.remove(i);
+                                        break;
+                                    }
+                                }
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+            }
+        });
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            QuestionStructure questionStructure = questioList.get(holder.getAdapterPosition());
+
+            @Override
+            public void onClick(View v) {
+                final boolean isAttempted = questionStructure.isSelected();
+                if (isAttempted) {
+                    new AlertDialog.Builder(context)
+                            .setMessage("Do you want to replace it?")
+                            .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    switch (level) {
+                                        //NATIVE LANGUAGE
+                                        case "Words":
+                                            if (isAttempted || ListConstant.Words_cnt < ListConstant.FIVE) {
+                                                openEnlaegeView(holder, questionStructure);
+                                            } else {
+                                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        case "Letters":
+                                            if (isAttempted || ListConstant.Letters_cnt < ListConstant.FIVE) {
+                                                openEnlaegeView(holder, questionStructure);
+                                            } else {
+                                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        case "Capital":
+                                            if (isAttempted || ListConstant.Capital_cnt < ListConstant.FIVE) {
+                                                openEnlaegeView(holder, questionStructure);
+                                            } else {
+                                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        case "Small":
+                                            if (isAttempted || ListConstant.Small_cnt < ListConstant.FIVE) {
+                                                openEnlaegeView(holder, questionStructure);
+                                            } else {
+                                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        case "word":
+                                            if (isAttempted || ListConstant.engWord_cnt < ListConstant.FIVE) {
+                                                openEnlaegeView(holder, questionStructure);
+                                            } else {
+                                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        //MATHEMATICS
+                                        case "Single":
+                                            if (isAttempted || ListConstant.Single_cnt < ListConstant.FIVE) {
+                                                openEnlaegeView(holder, questionStructure);
+                                            } else {
+                                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        case "Double":
+                                            if (isAttempted || ListConstant.Double_cnt < ListConstant.FIVE) {
+                                                openEnlaegeView(holder, questionStructure);
+                                            } else {
+                                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        case "Subtraction":
+                                            if (isAttempted || ListConstant.Subtraction_cnt < ListConstant.TWO) {
+                                                openEnlaegeView(holder, questionStructure);
+                                            } else {
+                                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        case "Division":
+                                            if (isAttempted || ListConstant.Division_cnt < ListConstant.ONE) {
+                                                openEnlaegeView(holder, questionStructure);
+                                            } else {
+                                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                    }
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+                } else {
+                    switch (level) {
+                        //NATIVE LANGUAGE
+                        case "Words":
+                            if (isAttempted || ListConstant.Words_cnt < ListConstant.FIVE) {
+                                openEnlaegeView(holder, questionStructure);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        case "Letters":
+                            if (isAttempted || ListConstant.Letters_cnt < ListConstant.FIVE) {
+                                openEnlaegeView(holder, questionStructure);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        case "Capital":
+                            if (isAttempted || ListConstant.Capital_cnt < ListConstant.FIVE) {
+                                openEnlaegeView(holder, questionStructure);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        case "Small":
+                            if (isAttempted || ListConstant.Small_cnt < ListConstant.FIVE) {
+                                openEnlaegeView(holder, questionStructure);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        case "word":
+                            if (isAttempted || ListConstant.engWord_cnt < ListConstant.FIVE) {
+                                openEnlaegeView(holder, questionStructure);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        //MATHEMATICS
+                        case "Single":
+                            if (isAttempted || ListConstant.Single_cnt < ListConstant.FIVE) {
+                                openEnlaegeView(holder, questionStructure);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        case "Double":
+                            if (isAttempted || ListConstant.Double_cnt < ListConstant.FIVE) {
+                                openEnlaegeView(holder, questionStructure);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        case "Subtraction":
+                            if (isAttempted || ListConstant.Subtraction_cnt < ListConstant.TWO) {
+                                openEnlaegeView(holder, questionStructure);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        case "Division":
+                            if (isAttempted || ListConstant.Division_cnt < ListConstant.ONE) {
+                                openEnlaegeView(holder, questionStructure);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
+    public void openEnlaegeView(MyViewHolder holder, QuestionStructure questionStructure) {
+        boolean isAttemptedQue = false;
+        if (questionStructure.isSelected()) {
+            isAttemptedQue = true;
+        }
+        questionStructure.setSelected(true);
+        holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.blueLight));
+        holder.delete.setVisibility(View.VISIBLE);
+        enlaegeView = new EnlaegeView(context, questionStructure, level, isAttemptedQue, this);
+        enlaegeView.show();
     }
 
     @Override
@@ -41,12 +304,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return questioList.size();
     }
 
+    @Override
+    public void refreshRecycler() {
+        this.notifyDataSetChanged();
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
+        ImageView delete;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.textView);
+            delete = itemView.findViewById(R.id.delete);
         }
     }
 }

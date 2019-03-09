@@ -45,7 +45,10 @@ public class English extends Fragment {
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-    }
+        //set small letter as a default
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        tab.select();
+}
 
     private void setupViewPager(ViewPager viewPager) {
         English.ViewPagerAdapter adapter = new English.ViewPagerAdapter(getChildFragmentManager());

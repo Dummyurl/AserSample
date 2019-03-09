@@ -40,10 +40,13 @@ public class NativeLang extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewPager.setCurrentItem(1);
         setupViewPager(viewPager);
-
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        //set words as a default
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        tab.select();
     }
 
     private void setupViewPager(ViewPager viewPager) {

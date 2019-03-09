@@ -7,6 +7,10 @@ package info.pratham.asersample.database.modalClasses;
 public class QuestionStructure {
     String id;
     String data;
+    //in case of subtraction and in division
+    String answer;
+    String remainder;
+    boolean isSelected = false;
 
     public QuestionStructure(String id, String data) {
         this.id = id;
@@ -27,6 +31,30 @@ public class QuestionStructure {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getRemainder() {
+        return remainder;
+    }
+
+    public void setRemainder(String remainder) {
+        this.remainder = remainder;
     }
 
     @Override

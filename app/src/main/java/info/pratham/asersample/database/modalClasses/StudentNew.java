@@ -10,7 +10,7 @@ import java.util.List;
  * Created by PEF on 28/11/2018.
  */
 @IgnoreExtraProperties
-public class Student {
+public class StudentNew {
     private String id;
     private String name;
     private String father;
@@ -25,13 +25,13 @@ public class Student {
     private String englishProficiency;
 
     @SerializedName("sequenceList")
-    private List<SingleQustioNew> sequenceList = new ArrayList();
+    private List<SingleQustioNew> asserTestquestionList = new ArrayList();
 
 
-    public Student() {
+    public StudentNew() {
     }
 
-    public Student(String id, String name, String father, String village, String studClass, String ageGroup, String date, String deviceID) {
+    public StudentNew(String id, String name, String father, String village, String studClass, String ageGroup, String date, String deviceID) {
         this.id = id;
         this.name = name;
         this.father = father;
@@ -40,6 +40,14 @@ public class Student {
         this.ageGroup = ageGroup;
         this.date = date;
         this.deviceID = deviceID;
+    }
+
+    public List<SingleQustioNew> getAsserTestquestionList() {
+        return asserTestquestionList;
+    }
+
+    public void setAsserTestquestionList(List<SingleQustioNew> asserTestquestionList) {
+        this.asserTestquestionList = asserTestquestionList;
     }
 
     public String getNativeProficiency() {
@@ -71,13 +79,7 @@ public class Student {
     private MathProficiency mathematics = new MathProficiency();
     private EnglishProficiency english = new EnglishProficiency();*/
 
-    public List getSequenceList() {
-        return sequenceList;
-    }
 
-    public void setSequenceList(List sequenceList) {
-        this.sequenceList = sequenceList;
-    }
 
     public String getId() {
         return id;
