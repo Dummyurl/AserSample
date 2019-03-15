@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -41,10 +42,18 @@ public class ProficiencyDialog extends Dialog {
         proficiencyListener = (ProficiencyListener) context;
     }
 
+    public ProficiencyDialog(Fragment fragment,@NonNull Context context, List optionList) {
+        super(context);
+        this.optionList = optionList;
+        this.context = context;
+        proficiencyListener = (ProficiencyListener) fragment;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.proficiency_dialog);
+        setCancelable(false);
         setTitle("SELECT PROFICIENCY");
         ButterKnife.bind(this);
         showOption();

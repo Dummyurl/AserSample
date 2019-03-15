@@ -19,7 +19,7 @@ public class AserSample_Constant {
     private static AserSample_Constant aserSample_constant = null;
     private static String deviceID;
     Student student;
-    StudentNew studentNew;
+    /*StudentNew studentNew;
 
 
     public StudentNew getStudentNew() {
@@ -29,7 +29,7 @@ public class AserSample_Constant {
     public void setStudentNew(StudentNew studentNew) {
         this.studentNew = studentNew;
     }
-
+*/
     private AserSample_Constant() {
     }
 

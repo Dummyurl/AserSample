@@ -179,6 +179,10 @@ public class Words extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+        backupList();
+    }
+
+    public void backupList() {
         switch (level) {
             //NATIVE LANGUAGE
             case "Words":
@@ -187,6 +191,7 @@ public class Words extends Fragment {
             case "Letters":
                 ListConstant.Letters = questionList;
                 break;
+            //ENGLISH
             case "Capital":
                 ListConstant.Capital = questionList;
                 break;

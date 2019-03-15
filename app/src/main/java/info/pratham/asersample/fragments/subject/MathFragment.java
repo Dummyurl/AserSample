@@ -19,15 +19,21 @@ import java.util.List;
 import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.nativeFragments.Paragraph;
 import info.pratham.asersample.fragments.nativeFragments.Words;
+import info.pratham.asersample.interfaces.CheckQuestionListener;
 
 public class MathFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
 
+    CheckQuestionListener checkQuestionListener;
+    MathFragment.ViewPagerAdapter adapter;
+    TabLayout.Tab mTab;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        checkQuestionListener = (CheckQuestionListener) context;
     }
 
     @Nullable
@@ -47,10 +53,48 @@ public class MathFragment extends Fragment {
         //set double digit as a default
         TabLayout.Tab tab = tabLayout.getTabAt(1);
         tab.select();
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //do stuff here
+                //  mTab = tab;
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                mTab = tab;
+                showCheckAnswerDialog("inFragment");
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    public void showCheckAnswerDialog(String flag) {
+        Fragment fragment;
+        if (flag.equals("inFragment")) {
+            fragment = adapter.getItem(mTab.getPosition());
+        } else {
+            mTab = tabLayout.getTabAt(tabLayout.getSelectedTabPosition());
+            fragment = adapter.getItem(mTab.getPosition());
+        }
+
+        if (fragment instanceof Words) {
+            Words words = (Words) fragment;
+            words.backupList();
+        } else if (fragment instanceof Paragraph) {
+            Paragraph paragraph = (Paragraph) fragment;
+            paragraph.backupList();
+        }
+        checkQuestionListener.showChekingDialog("Mathematics", mTab.getText().toString(), flag);
+        // Toast.makeText(getActivity(), "done" + mTab.getText(), Toast.LENGTH_SHORT).show();
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        MathFragment.ViewPagerAdapter adapter = new MathFragment.ViewPagerAdapter(getChildFragmentManager());
+        adapter = new MathFragment.ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new Words(), "Single");
         adapter.addFragment(new Words(), "Double");
         adapter.addFragment(new Words(), "Subtraction");
@@ -89,4 +133,6 @@ public class MathFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
+
+
 }

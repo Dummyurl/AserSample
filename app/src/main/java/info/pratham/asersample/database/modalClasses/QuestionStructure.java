@@ -11,6 +11,7 @@ public class QuestionStructure {
     String answer;
     String remainder;
     boolean isSelected = false;
+    boolean isCorrect = false;
 
     public QuestionStructure(String id, String data) {
         this.id = id;
@@ -55,6 +56,14 @@ public class QuestionStructure {
 
     public void setRemainder(String remainder) {
         this.remainder = remainder;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
     }
 
     @Override

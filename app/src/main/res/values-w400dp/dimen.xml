@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="recyclerItemheight">200dp</dimen>
+    <dimen name="recyclerItemfont">@dimen/_20sdp</dimen>
+    <dimen name="textSise">30dp</dimen>
 </resources>

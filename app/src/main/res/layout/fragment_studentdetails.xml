@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:gravity="center">
 
         <TextView
             android:id="@+id/studentdetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:fontFamily="serif"
             android:text="Student details"
@@ -34,19 +34,6 @@
             android:layout_marginRight="100dp"
             android:alpha=".3"
             android:background="#000000" />
-
-
-        <ImageButton
-            android:id="@+id/nextButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/ripple_round"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
     </RelativeLayout>
 
 
@@ -193,4 +180,25 @@
             </ScrollView>
         </LinearLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/roundedcorner"
+            android:scaleType="fitCenter"
+            android:text="SUBMIT"
+            android:textColor="@color/colorWhite" />
+    </RelativeLayout>
 </LinearLayout>

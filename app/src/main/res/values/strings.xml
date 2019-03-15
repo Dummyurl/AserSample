@@ -32,6 +32,24 @@
 
     <string name="Upper_Limit_reached">Upper Limit reached</string>
 
+    <!--
+
+        &lt;!&ndash;Tab heading Tittle&ndash;&gt;
+        <string name="n_wordsTittle">Words</string>
+        <string name="n_storyTittle">Story</string>
+        <string name="n_paraTittle">Paragraph</string>
+        <string name="n_letterTittle">Letters</string>
+        &lt;!&ndash;MATH&ndash;&gt;
+        <string name="m_subtractionTittle">Subtraction</string>
+        <string name="m_divisionTittle">Division</string>
+        <string name="m_doubleTittle">Double digit</string>
+        <string name="m_singleTittle">Single digit</string>
+        &lt;!&ndash;ENGLISH&ndash;&gt;
+        <string name="e_capitalTittle">Capital</string>
+        <string name="e_smallTittle">Small</string>
+        <string name="e_wordTittle">word</string>
+        <string name="e_sentenceTittle">Sentence</string>
+    -->
 
     `
 
@@ -56,7 +74,7 @@
         <item>Meghalaya(ML)</item>
         <item>Mizoram(MZ)</item>
         <item>Nagaland(NL)</item>
-        <item>Orissa(OR)</item>
+        <item>Orissa(OD)</item>
         <item>Punjab(PB)</item>
         <item>Rajasthan(RJ)</item>
         <item>Sikkim(SK)</item>
@@ -96,7 +114,7 @@
         <item>ML</item>
         <item>MZ</item>
         <item>NL</item>
-        <item>OR</item>
+        <item>OD</item>
         <item>PB</item>
         <item>RJ</item>
         <item>SK</item>

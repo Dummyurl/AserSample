@@ -34,6 +34,7 @@ public class MistakeCountDialog extends Dialog {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mistake_count_dialog);
+        setCancelable(false);
         mistakeCountListener = (MistakeCountListener) context;
         this.context = context;
         levelString = level;

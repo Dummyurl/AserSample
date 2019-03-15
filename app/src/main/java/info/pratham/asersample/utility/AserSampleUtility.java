@@ -248,6 +248,18 @@ public class AserSampleUtility {
             });
             builder.show();*/
         } catch (IOException e) {
+            android.app.AlertDialog builder = new android.app.AlertDialog.Builder(context).create();
+            builder.setTitle("Error");
+            builder.setMessage("failed to store Test data please contact admin");
+            builder.setCancelable(false);
+            builder.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                }
+            });
+            builder.show();
             e.printStackTrace();
         }
     }

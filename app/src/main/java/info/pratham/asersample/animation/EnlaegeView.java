@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -83,7 +84,7 @@ public class EnlaegeView extends Dialog {
     RefreshRecycler refreshRecycler;
     QuestionStructure questionStructure;
 
-    public EnlaegeView(@NonNull Context context, QuestionStructure questionStructure, String level, boolean isAttemptedQue, RecyclerViewAdapter recyclerViewAdapter) {
+    public EnlaegeView(@NonNull Context context, QuestionStructure questionStructure, String level, boolean isAttemptedQue, RecyclerView.Adapter recyclerViewAdapter) {
         super(context, R.style.Transparent);
         this.que_text = questionStructure.getData();
         this.level = level;
@@ -92,7 +93,7 @@ public class EnlaegeView extends Dialog {
         this.mContext = context;
         this.isAttemptedQue = isAttemptedQue;
         getTimeListener = (GetTimeListener) context;
-        refreshRecycler = recyclerViewAdapter;
+        refreshRecycler = (RefreshRecycler) recyclerViewAdapter;
     }
 
     @Override
@@ -158,9 +159,14 @@ public class EnlaegeView extends Dialog {
             mathematics_operation.setVisibility(View.GONE);
             mathematics_division.setVisibility(View.GONE);
             textView.setText(que_text);
+            if (level.equals("Para") || level.equals("Sentence")) {
+                textView.setTextSize(1, 50);
+            } else if (level.equals("Story")) {
+                textView.setTextSize(1, 30);
+            }
         }
     }
-    
+
 
     @OnClick(R.id.close)
     public void closeBtb() {
@@ -247,6 +253,7 @@ public class EnlaegeView extends Dialog {
                 }).show();
             }
         } else {
+            addQuestionToAnswerList(studentNew, singleQustioNew);
             dialogParent.dismiss();
         }
     }
@@ -265,6 +272,13 @@ public class EnlaegeView extends Dialog {
                 case "Letters":
                     ListConstant.Letters_cnt++;
                     break;
+                case "Para":
+                    ListConstant.Para_cnt++;
+                    break;
+                case "Story":
+                    ListConstant.Story_cnt++;
+                    break;
+
                 case "Capital":
                     ListConstant.Capital_cnt++;
                     break;
@@ -273,6 +287,9 @@ public class EnlaegeView extends Dialog {
                     break;
                 case "word":
                     ListConstant.engWord_cnt++;
+                    break;
+                case "Sentence":
+                    ListConstant.Sentence_cnt++;
                     break;
                 //MATHEMATICS
                 case "Single":

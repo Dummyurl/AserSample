@@ -3,32 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:weightSum="10"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
+        android:layout_weight="2"
         android:gravity="center"
-        android:weightSum="10"
-        android:layout_weight="2">
+        android:orientation="horizontal"
+        android:weightSum="10">
 
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"/>
+            android:layout_weight="2" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:textStyle="bold"
-            android:fontFamily="serif"
-            android:textSize="25sp"
             android:layout_weight="6"
-            android:text="Please select type!"/>
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="Please select type!"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/selectionActivitySettings"
@@ -36,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:padding="20dp"
-            android:src="@drawable/settings_icon"/>
+            android:src="@drawable/settings_icon" />
 
     </LinearLayout>
 
@@ -44,85 +43,100 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:weightSum="2">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/startSurvey"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/roundedcorner_blue_questions"
             android:orientation="vertical"
             android:weightSum="5">
+
             <ImageView
                 android:id="@+id/surveyLink"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
                 android:src="@drawable/surveylink" />
+
             <TextView
                 android:id="@+id/surveyLinkTV"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:textSize="18sp"
                 android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Survey Link"
                 android:textColor="@color/loginSubmitColor"
-                android:text="Survey Link"/>
+                android:textSize="18sp" />
+
             <Button
                 android:id="@+id/startSurveyButton"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/roundedcorner"
                 android:text="Start Survey"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
 
-        <View
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:alpha=".3"
-            ></View>
+        <!-- <View
+             android:layout_width="2dp"
+             android:layout_height="match_parent"
+             android:alpha=".3"
+             android:background="@color/black"></View>-->
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/startEvaluation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/roundedcorner_blue_questions"
             android:orientation="vertical"
             android:weightSum="5">
+
             <ImageView
                 android:id="@+id/EvaluationLink"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
                 android:src="@drawable/evaluationlink" />
+
             <TextView
                 android:id="@+id/EvaluationLinkTV"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:textSize="18sp"
                 android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Evaluation Link"
                 android:textColor="@color/loginSubmitColor"
-                android:text="Evaluation Link"/>
+                android:textSize="18sp" />
+
             <Button
                 android:id="@+id/startEvaluationButton"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_weight="1"
                 android:background="@drawable/roundedcorner"
                 android:text="Start Evaluation"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
 
 
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>

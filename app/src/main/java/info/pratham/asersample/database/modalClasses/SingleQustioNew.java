@@ -14,6 +14,7 @@ public class SingleQustioNew implements Serializable {
     private String remainder;
     private String startTime;
     private String endTime;
+    private boolean isCorrect;
 
     public int getQue_seq_cnt() {
         return que_seq_cnt;
@@ -69,5 +70,13 @@ public class SingleQustioNew implements Serializable {
 
     public void setRemainder(String remainder) {
         this.remainder = remainder;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
     }
 }

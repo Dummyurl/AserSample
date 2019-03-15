@@ -3,4 +3,6 @@
     <dimen name="design_bottom_navigation_text_size" tools:override="true">15sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">18sp</dimen>
     <dimen name="recyclerItemheight">150dp</dimen>
+    <dimen name="recyclerItemfont">@dimen/_35sdp</dimen>
+    <dimen name="textSise">25dp</dimen>
 </resources>
