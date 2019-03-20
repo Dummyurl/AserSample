@@ -53,6 +53,7 @@ public class Paragraph extends Fragment {
             Bundle args = getArguments();
             level = args.getString("level");
             questionList = new ArrayList();
+            question_jsonArray = null;
             switch (level) {
                 //NATIVE LANGUAGE
                 case "Para":

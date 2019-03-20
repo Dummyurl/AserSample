@@ -46,35 +46,44 @@
                     android:layout_height="match_parent">
 
                     <ScrollView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="10dp">
+                        android:layout_centerInParent="true">
 
-                        <TextView
-                            android:id="@+id/text"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:textSize="@dimen/_100sdp" />
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/_10sdp"
+                                android:text="ddd"
+                                android:textSize="@dimen/_100sdp" />
+                        </LinearLayout>
                     </ScrollView>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
             <TextView
+                android:id="@+id/instruction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardview"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_18sdp"
-                android:text="Read above word loudly and press back"
+                android:text="Read above text loudly and press back"
                 android:textColor="@color/white" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/mathematics_operation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardviewmath"
@@ -158,10 +167,9 @@
                 android:layout_below="@+id/cardviewmath"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_18sdp"
-                android:text="Solve Mathematics"
+                android:text="Solve Mathematics problem"
                 android:textColor="@color/white" />
         </RelativeLayout>
-
 
         <RelativeLayout
             android:id="@+id/mathematics_division"
@@ -271,10 +279,9 @@
                 android:layout_below="@+id/cardviewdivision"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_18sdp"
-                android:text="Solve Mathematics"
+                android:text="Solve Mathematics problem"
                 android:textColor="@color/white" />
         </RelativeLayout>
-
 
     </FrameLayout>
 </RelativeLayout>

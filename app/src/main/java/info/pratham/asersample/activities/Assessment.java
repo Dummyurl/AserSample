@@ -1,8 +1,9 @@
-package info.pratham.asersample;
+package info.pratham.asersample.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,7 +25,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import info.pratham.asersample.activities.Submit;
+import info.pratham.asersample.ASERApplication;
+import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.dialog.ChekingDialog;
 import info.pratham.asersample.fragments.subject.English;
@@ -73,6 +74,7 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
         //digital font to Timer
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "font/digital.ttf");
         chronometer.setTypeface(custom_font);
+
     }
 
     @Override
@@ -84,12 +86,15 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
         if (!file.exists()) {
             file.mkdirs();
         }
-        AudioUtil.startRecording(currentFilePath + recordingIndex + AserSample_Constant.getAserSample_Constant().getStudent().getId() + "1.mp3");
-      /*  chronometer.setBase(SystemClock.elapsedRealtime());
-        chronometer.start();*/
+
+        AudioUtil.startRecording(this, currentFilePath + recordingIndex + "_" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + ".mp3");
         chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
         chronometer.start();
-        Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show();
+
+      /*  chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();*/
+
+        //Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -212,8 +217,25 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
                 if (wantToCloseDialog) {
                     dialog.dismiss();
                     if (calledFrom.equals("finish")) {
-                        Intent intent = new Intent(Assessment.this, Submit.class);
-                        startActivity(intent);
+                        new AlertDialog.Builder(Assessment.this)
+                                .setMessage("do you want Submit test?")
+                                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        AudioUtil.stopRecording(Assessment.this);
+                                        chronometer.stop();
+                                        dialog.dismiss();
+                                        Intent intent = new Intent(Assessment.this, Submit.class);
+                                        startActivity(intent);
+                                    }
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+
+
                     }
                 }
                 //else dialog stays open. Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
@@ -232,7 +254,7 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
     @Override
     protected void onStop() {
         super.onStop();
-        AudioUtil.stopRecording();
+        AudioUtil.stopRecording(Assessment.this);
         timeWhenStopped = chronometer.getBase() - SystemClock.elapsedRealtime();
         chronometer.stop();
         recordingIndex++;
@@ -251,6 +273,8 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
         builder.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                AudioUtil.stopRecording(Assessment.this);
+                chronometer.stop();
                 finish();
                 dialog.dismiss();
                 ListConstant.clearFields();
@@ -262,31 +286,19 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AudioUtil.stopRecording(Assessment.this);
+        chronometer.stop();
     }
 
     @OnClick(R.id.submit)
     public void submit() {
-
-        new AlertDialog.Builder(this)
-                .setMessage("do you want Submit test?")
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        if (fragment instanceof NativeLang) {
-                            ((NativeLang) fragment).showCheckAnswerDialog("finish");
-                        } else if (fragment instanceof MathFragment) {
-                            ((MathFragment) fragment).showCheckAnswerDialog("finish");
-                        } else if (fragment instanceof English) {
-                            ((English) fragment).showCheckAnswerDialog("finish");
-                        }
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).show();
+        if (fragment instanceof NativeLang) {
+            ((NativeLang) fragment).showCheckAnswerDialog("finish");
+        } else if (fragment instanceof MathFragment) {
+            ((MathFragment) fragment).showCheckAnswerDialog("finish");
+        } else if (fragment instanceof English) {
+            ((English) fragment).showCheckAnswerDialog("finish");
+        }
     }
 
     @Override

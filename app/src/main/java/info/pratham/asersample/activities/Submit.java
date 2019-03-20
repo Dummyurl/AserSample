@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import info.pratham.asersample.R;
 import info.pratham.asersample.adapters.RecyclerPreviewAdapter;
 import info.pratham.asersample.adapters.RecyclerViewCheckAnswerAdapter;
@@ -72,6 +73,14 @@ public class Submit extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finishAffinity();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("fragment", "SelectLanguageFragment");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ok)
+    public void ok() {
         finishAffinity();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra("fragment", "SelectLanguageFragment");

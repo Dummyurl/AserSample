@@ -1,15 +1,11 @@
 package info.pratham.asersample.animation;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
@@ -23,11 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.R;
-import info.pratham.asersample.adapters.RecyclerViewAdapter;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.database.modalClasses.SingleQustioNew;
 import info.pratham.asersample.database.modalClasses.Student;
-import info.pratham.asersample.database.modalClasses.StudentNew;
 import info.pratham.asersample.interfaces.GetTimeListener;
 import info.pratham.asersample.interfaces.RefreshRecycler;
 import info.pratham.asersample.utility.AserSample_Constant;
@@ -42,6 +36,10 @@ public class EnlaegeView extends Dialog {
 
     @BindView(R.id.number2)
     TextView number2;
+
+    @BindView(R.id.instruction)
+    TextView instruction;
+
 
     @BindView(R.id.sun_ans)
     EditText sun_ans;
@@ -155,6 +153,12 @@ public class EnlaegeView extends Dialog {
                 Toast.makeText(mContext, "Some thing went wrong..", Toast.LENGTH_SHORT).show();
             }
         } else {
+            if (level.equals("Double") || level.equals("Single")) {
+                instruction.setText("Read above number loudly and press back");
+            } else {
+                instruction.setText("Read above text loudly and press back");
+            }
+
             reading_task.setVisibility(View.VISIBLE);
             mathematics_operation.setVisibility(View.GONE);
             mathematics_division.setVisibility(View.GONE);
@@ -194,7 +198,6 @@ public class EnlaegeView extends Dialog {
                 }
             }
         }
-
 
         endTime = getTimeListener.getTime();
         SingleQustioNew singleQustioNew = new SingleQustioNew();

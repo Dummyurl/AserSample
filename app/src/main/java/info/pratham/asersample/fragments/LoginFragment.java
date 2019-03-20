@@ -3,6 +3,7 @@ package info.pratham.asersample.fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -44,10 +45,19 @@ public class LoginFragment extends BaseFragment {
         return inflater.inflate(R.layout.login_fragment, container, false);
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        userName.setText("");
+        password.setText("");
     }
 
     @OnClick(R.id.loginSubmitButton)

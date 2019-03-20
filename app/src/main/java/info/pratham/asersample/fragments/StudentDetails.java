@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +28,9 @@ import java.util.Iterator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import info.pratham.asersample.ASERApplication;
-import info.pratham.asersample.Assessment;
 import info.pratham.asersample.BaseFragment;
 import info.pratham.asersample.R;
-import info.pratham.asersample.activities.LanguageActivity;
+import info.pratham.asersample.activities.Assessment;
 import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
@@ -81,6 +78,23 @@ public class StudentDetails extends BaseFragment {
         ButterKnife.bind(this, view);
         childName.setFilters(new InputFilter[]{filter});
         loadSpinner();
+
+    }
+
+    private void refreshFields() {
+        childName.setText("");
+        fatherName.setText("");
+        villageName.setText("");
+        radioGroup.clearCheck();
+        classChild.setSelection(0);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        refreshFields();
+
     }
 
     private void loadSpinner() {

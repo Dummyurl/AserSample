@@ -1,7 +1,6 @@
 package info.pratham.asersample.fragments.subject;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -9,27 +8,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import info.pratham.asersample.R;
-import info.pratham.asersample.dialog.ProficiencyDialog;
 import info.pratham.asersample.fragments.nativeFragments.Paragraph;
 import info.pratham.asersample.fragments.nativeFragments.Words;
 import info.pratham.asersample.interfaces.CheckQuestionListener;
-import info.pratham.asersample.interfaces.ProficiencyListener;
-import info.pratham.asersample.utility.AserSample_Constant;
-import info.pratham.asersample.utility.ListConstant;
 
 public class NativeLang extends Fragment {
     private TabLayout tabLayout;
@@ -43,7 +33,6 @@ public class NativeLang extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         checkQuestionListener = (CheckQuestionListener) context;
-
     }
 
     @Nullable
@@ -61,7 +50,7 @@ public class NativeLang extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         //set words as a default
-        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        TabLayout.Tab tab = tabLayout.getTabAt(2);
         tab.select();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -103,7 +92,6 @@ public class NativeLang extends Fragment {
         // Toast.makeText(getActivity(), "done" + mTab.getText(), Toast.LENGTH_SHORT).show();
     }
 
-
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new Words(), "Letters");
@@ -113,7 +101,6 @@ public class NativeLang extends Fragment {
         viewPager.setAdapter(adapter);
 
     }
-
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

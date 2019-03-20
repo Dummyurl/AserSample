@@ -30,6 +30,7 @@ public class Modal_Log {
     public int sentFlag;
     @SerializedName("sessionId")
     public String sessionId;
+
     @Override
     public String toString() {
         return "Modal_Log{" +

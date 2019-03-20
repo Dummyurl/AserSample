@@ -106,6 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                         break;
                                 }
                                 questionStructure.setSelected(false);
+                                questionStructure.setCorrect(false);
                                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
                                 holder.delete.setVisibility(View.GONE);
                                 List<SingleQustioNew> temp = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();

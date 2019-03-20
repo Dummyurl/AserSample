@@ -30,7 +30,7 @@
             android:theme="@style/Theme.Transparent" />
         -->
         <activity
-            android:name=".Assessment"
+            android:name=".activities.Assessment"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme">
@@ -53,7 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+        <!--<activity
             android:name=".activities.LanguageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
@@ -64,7 +64,7 @@
         <activity
             android:name=".activities.MathActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
         <activity
             android:name=".networkManager.UploadRec"
             android:configChanges="orientation|screenSize|keyboardHidden"

@@ -1,24 +1,15 @@
 package info.pratham.asersample.utility;
 
-import android.app.Activity;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
-import android.os.SystemClock;
-import android.widget.Chronometer;
-
-import java.io.IOException;
-
-import info.pratham.asersample.activities.EnglishActivity;
-import info.pratham.asersample.activities.LanguageActivity;
-import info.pratham.asersample.activities.MathActivity;
+import android.widget.Toast;
 
 public class AudioUtil {
 
     private static MediaRecorder mRecorder;
     private static MediaPlayer mPlayer;
-
-
 
     /*public static void startRecordingnew(String filePath, Chronometer chronometer) {
         try {
@@ -47,7 +38,7 @@ public class AudioUtil {
     }*/
 
 
-    public static void startRecording(String filePath) {
+    public static void startRecording(Context context, String filePath) {
         try {
             mRecorder = new MediaRecorder();
             mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -56,16 +47,18 @@ public class AudioUtil {
             mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mRecorder.prepare();
             mRecorder.start();
+            Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void stopRecording() {
+    public static void stopRecording(Context context) {
         try {
             if (mRecorder != null) {
                 mRecorder.stop();
                 mRecorder.release();
+                Toast.makeText(context, "Recording stopped", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,7 +66,7 @@ public class AudioUtil {
         mRecorder = null;
     }
 
-    public static void pauseRecording() {
+   /* public static void pauseRecording() {
         try {
             if (mRecorder != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -85,19 +78,20 @@ public class AudioUtil {
         }
     }
 
-    public static void playRecording() {
+    public static void resumeRecording(Context context) {
         try {
             if (mRecorder != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Toast.makeText(context, "recording resumed", Toast.LENGTH_SHORT).show();
                     mRecorder.resume();
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public static void playRecording(String filePath, final Activity activity) {
+   /* public static void playRecording(String filePath, final Activity activity) {
         try {
             if (mPlayer != null && mPlayer.isPlaying())
                 mPlayer.stop();
@@ -122,7 +116,7 @@ public class AudioUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static void stopPlayingAudio() {
         try {

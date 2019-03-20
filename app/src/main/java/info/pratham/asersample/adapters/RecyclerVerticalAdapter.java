@@ -95,6 +95,7 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
 
                                 }
                                 questionStructure.setSelected(false);
+                                questionStructure.setCorrect(false);
                                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
                                 holder.delete.setVisibility(View.GONE);
                                 List<SingleQustioNew> temp = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
@@ -147,7 +148,7 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
                                             break;
                                         //English
                                         case "Sentence":
-                                            if (isAttempted || ListConstant.Sentence_cnt < ListConstant.ONE) {
+                                            if (isAttempted || ListConstant.Sentence_cnt < ListConstant.FIVE) {
                                                 openEnlaegeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
@@ -165,14 +166,14 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
                     switch (level) {
                         //NATIVE LANGUAGE
                         case "Para":
-                            if (isAttempted || ListConstant.Para_cnt < ListConstant.FIVE) {
+                            if (isAttempted || ListConstant.Para_cnt < ListConstant.ONE) {
                                 openEnlaegeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "Story":
-                            if (isAttempted || ListConstant.Story_cnt < ListConstant.FIVE) {
+                            if (isAttempted || ListConstant.Story_cnt < ListConstant.ONE) {
                                 openEnlaegeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();

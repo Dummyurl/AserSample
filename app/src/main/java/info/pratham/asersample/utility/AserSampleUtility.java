@@ -20,7 +20,6 @@ import java.util.UUID;
 
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
-import info.pratham.asersample.fragments.math.CalculationFragment;
 
 /**
  * Created by PEF on 24/11/2018.
@@ -34,8 +33,7 @@ public class AserSampleUtility {
         FragmentManager fragmentManager = activity.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout, fragment);
-        if (!TAG.equals(CalculationFragment.class.getSimpleName()))
-            fragmentTransaction.addToBackStack(TAG);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
