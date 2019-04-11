@@ -92,7 +92,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
                         // handle error
                         AserSampleUtility.dismissProgressDialog(progressDialog);
                         showProblemAlert("Problem in getting CRL data!", getActivity());
-//                        AserSampleUtility.showToast(getActivity(), "NO Intenet connection");
+//                        AserSampleUtility.showToast(getActivity(), "NO Internet connection");
                     }
                 });
 
