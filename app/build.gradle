@@ -1,13 +1,23 @@
 apply plugin: 'com.android.application'
 
+/*Major Version : API Changes , Adding new feature , Redesign the App ,
+ Increment the MAJOR after the MINOR version achieved the number 9*/
+ext.versionMajor = 1
+/*Minor Version : While adding a functionality , minor changes like color change or icon changes*/
+ext.versionMinor = 2
+/*Patch : Bug fixing*/
+ext.versionPatch = 3
+
+ext.minSdkVersion = 16
+
 android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "info.pratham.asersample"
-        minSdkVersion 16
+        minSdkVersion project.ext.minSdkVersion
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.2"
+        versionCode generateVersionCode()
+        versionName "1.3" // seperate recording
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -17,6 +27,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+private Integer generateVersionCode() {
+    return ext.minSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
 }
 
 dependencies {
