@@ -2,12 +2,14 @@ package info.pratham.asersample.database.modalClasses;
 
 import java.io.Serializable;
 
+import info.pratham.asersample.utility.AserSample_Constant;
+
 /**
  * Created by PEF on 15/12/2018.
  */
 
 public class SingleQustioNew implements Serializable {
-    private int que_seq_cnt;
+    /* private int que_seq_cnt;*/
     private String que_id;
     private String que_text;
     private String answer;
@@ -15,14 +17,15 @@ public class SingleQustioNew implements Serializable {
     private String startTime;
     private String endTime;
     private boolean isCorrect;
-
-    public int getQue_seq_cnt() {
+    private String noOfMistakes;
+    private String recordingName;
+  /*  public int getQue_seq_cnt() {
         return que_seq_cnt;
     }
 
     public void setQue_seq_cnt(int que_seq_cnt) {
         this.que_seq_cnt = que_seq_cnt;
-    }
+    }*/
 
     public String getQue_id() {
         return que_id;
@@ -78,5 +81,21 @@ public class SingleQustioNew implements Serializable {
 
     public void setCorrect(boolean correct) {
         isCorrect = correct;
+    }
+
+    public String getNoOfMistakes() {
+        return noOfMistakes;
+    }
+
+    public void setNoOfMistakes(String noOfMistakes) {
+        this.noOfMistakes = noOfMistakes;
+    }
+
+    public String getRecordingName() {
+        return recordingName;
+    }
+
+    public void setRecordingName(String recordingName) {
+        this.recordingName = recordingName;
     }
 }

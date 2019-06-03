@@ -25,6 +25,7 @@ import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.interfaces.GetTimeListener;
 import info.pratham.asersample.interfaces.RefreshRecycler;
 import info.pratham.asersample.utility.AserSample_Constant;
+import info.pratham.asersample.utility.AudioUtil;
 import info.pratham.asersample.utility.ListConstant;
 
 public class EnlaegeView extends Dialog {
@@ -186,6 +187,7 @@ public class EnlaegeView extends Dialog {
     }
 
     private void addEntry() {
+        AudioUtil.stopRecording(mContext);
         Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
         List<SingleQustioNew> temp = studentNew.getSequenceList();
 
@@ -194,17 +196,20 @@ public class EnlaegeView extends Dialog {
             for (int i = 0; i < temp.size(); i++) {
                 if (temp.get(i).getQue_id().equals(que_id)) {
                     temp.remove(i);
+                    questionStructure.setIsCorrect(AserSample_Constant.NOTATTEMPED);
+                    questionStructure.setNoOfMistakes(null);
                     break;
                 }
             }
         }
 
-        endTime = getTimeListener.getTime();
+        // endTime = getTimeListener.getTime();
         SingleQustioNew singleQustioNew = new SingleQustioNew();
-        singleQustioNew.setQue_id("" + que_id);
+        singleQustioNew.setQue_id(que_id);
         singleQustioNew.setQue_text(que_text);
-        singleQustioNew.setStartTime(startTime);
-        singleQustioNew.setEndTime(endTime);
+        //Disable start and end time
+        // singleQustioNew.setStartTime(startTime);
+        //singleQustioNew.setEndTime(endTime);
         if (level.equals(mContext.getString(R.string.Subtraction))) {
             String subtraction = sun_ans.getText().toString();
             if (subtraction.isEmpty()) {
@@ -256,6 +261,7 @@ public class EnlaegeView extends Dialog {
                 }).show();
             }
         } else {
+            singleQustioNew.setRecordingName(que_id + ".mp3");
             addQuestionToAnswerList(studentNew, singleQustioNew);
             dialogParent.dismiss();
         }
@@ -264,7 +270,6 @@ public class EnlaegeView extends Dialog {
     private void addQuestionToAnswerList(Student studentNew, SingleQustioNew singleQustioNew) {
 
         studentNew.getSequenceList().add(singleQustioNew);
-
         //if quetion is new then only increment counter
         if (!isAttemptedQue) {
             switch (level) {

@@ -38,6 +38,7 @@ public class Words extends Fragment {
     JSONArray question_jsonArray;
 
     List<QuestionStructure> questionList;
+    RecyclerViewAdapter recyclerViewAdapter;
 
     // String quelevel;
     String level;
@@ -167,7 +168,7 @@ public class Words extends Fragment {
             final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
             recyclerView.setLayoutManager(gridLayoutManager);
         }
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), questionList, level);
+        recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), questionList, level);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
@@ -180,6 +181,7 @@ public class Words extends Fragment {
     public void onStop() {
         super.onStop();
         backupList();
+        recyclerViewAdapter.closeEnlargeView();
     }
 
     public void backupList() {

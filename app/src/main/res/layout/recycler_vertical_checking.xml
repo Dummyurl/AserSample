@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@color/white"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="10dp">
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="0dp">
+
+        <!--   <RelativeLayout
+               android:id="@+id/topItem"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               &lt;!&ndash;  <ImageView
+                     android:id="@+id/delete"
+                     android:layout_width="30dp"
+                     android:layout_height="30dp"
+                     android:layout_alignParentEnd="true"
+                     android:layout_alignParentRight="true"
+                     android:visibility="gone"
+                     app:srcCompat="@drawable/ic_delete_forever_black_24dp" />&ndash;&gt;
+
+               <ImageView
+                   android:id="@+id/isSelected"
+                   android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:layout_alignParentStart="true"
+                   android:layout_alignParentLeft="true"
+                   android:visibility="gone"
+                   app:srcCompat="@drawable/ic_double_tick_indicator" />
+           </RelativeLayout>-->
+
+        <RelativeLayout
+            android:id="@+id/textData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/_25sdp" />
+
+            <TextView
+                android:id="@+id/answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView"
+                android:layout_centerHorizontal="true"
+                android:textSize="20dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <!--<View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/textData"
+            android:layout_marginTop="10dp"
+            android:background="@color/green" />-->
+
+        <EditText
+            android:id="@+id/numberOfMistakes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textData"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
+            android:background="@drawable/roundedcorner_blue_questions"
+            android:gravity="center"
+            android:hint="Mistake count"
+            android:inputType="number"
+            android:textSize="@dimen/_20sdp" />
+
+        <LinearLayout
+            android:id="@+id/checkingButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/numberOfMistakes"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:elevation="@dimen/_20sdp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/correct"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="1"
+                android:src="@drawable/check_green" />
+
+            <ImageView
+                android:id="@+id/wrong"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="1"
+                android:src="@drawable/close_red" />
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

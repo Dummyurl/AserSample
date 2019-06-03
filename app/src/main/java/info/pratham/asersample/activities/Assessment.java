@@ -3,7 +3,6 @@ package info.pratham.asersample.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -80,20 +79,19 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
     @Override
     protected void onStart() {
         super.onStart();
-        String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
+       /* String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
                 AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/";
         File file = new File(currentFilePath);
         if (!file.exists()) {
             file.mkdirs();
-        }
+        }*/
 
-        AudioUtil.startRecording(this, currentFilePath + recordingIndex + "_" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + ".mp3");
+       // AudioUtil.startRecording(this, currentFilePath + recordingIndex + "_" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + ".mp3");
         chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
         chronometer.start();
-
+        // new  CameraStateManager( currentFilePath + recordingIndex + "_" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + ".mp3",this);
       /*  chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();*/
-
         //Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show();
     }
 

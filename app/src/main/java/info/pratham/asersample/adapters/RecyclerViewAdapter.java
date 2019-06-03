@@ -2,6 +2,7 @@ package info.pratham.asersample.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -15,17 +16,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.List;
 
+import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
 import info.pratham.asersample.animation.EnlaegeView;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.database.modalClasses.SingleQustioNew;
+import info.pratham.asersample.interfaces.RecordPrepairListner;
 import info.pratham.asersample.interfaces.RefreshRecycler;
 import info.pratham.asersample.utility.AserSample_Constant;
+import info.pratham.asersample.utility.AudioUtil;
 import info.pratham.asersample.utility.ListConstant;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> implements RefreshRecycler {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> implements RefreshRecycler, RecordPrepairListner {
     Context context;
     List<QuestionStructure> questioList;
     String level;
@@ -57,12 +62,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if (questioList.get(position).isSelected()) {
             holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.blueLight));
             holder.delete.setVisibility(View.VISIBLE);
+            if (level.equals("Subtraction") || level.equals("Division")) {
+                holder.audioControll.setVisibility(View.GONE);
+            } else {
+                holder.audioControll.setVisibility(View.VISIBLE);
+            }
         } else {
             holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
             holder.delete.setVisibility(View.GONE);
+            holder.audioControll.setVisibility(View.GONE);
         }
         holder.textView.setTextColor(context.getResources().getColor(R.color.black));
-//delete item
+        //delete item
         holder.delete.setOnClickListener(new View.OnClickListener() {
             QuestionStructure questionStructure = questioList.get(holder.getAdapterPosition());
 
@@ -106,9 +117,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                         break;
                                 }
                                 questionStructure.setSelected(false);
-                                questionStructure.setCorrect(false);
+                                questionStructure.setIsCorrect(AserSample_Constant.NOTATTEMPED);
                                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
                                 holder.delete.setVisibility(View.GONE);
+                                holder.audioControll.setVisibility(View.GONE);
+
+                                //delete recording file
+                                String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
+                                        AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" + questionStructure.getId() + ".mp3";
+                                File file = new File(currentFilePath);
+                                if (file.exists()) {
+                                    file.delete();
+                                }
                                 List<SingleQustioNew> temp = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
                                 for (int i = 0; i < temp.size(); i++) {
                                     if (temp.get(i).getQue_id().equals(questionStructure.getId())) {
@@ -126,7 +146,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             }
         });
+        holder.audioControll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QuestionStructure questionStructure = questioList.get(holder.getAdapterPosition());
+                String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
+                        AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" + questionStructure.getId() + ".mp3";
+                AudioUtil.playRecording(currentFilePath, holder.audioControll, context);
 
+                if (!questionStructure.isPlaying()) {
+                    questionStructure.setPlaying(true);
+                    AudioUtil.playRecording(currentFilePath, holder.audioControll, context);
+                } else {
+                    questionStructure.setPlaying(false);
+                    AudioUtil.stopPlayingAudio();
+                }
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             QuestionStructure questionStructure = questioList.get(holder.getAdapterPosition());
@@ -293,11 +329,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if (questionStructure.isSelected()) {
             isAttemptedQue = true;
         }
+        String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
+                AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/";
+        File file = new File(currentFilePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        if (level.equals("Subtraction") || level.equals("Division")) {
+            enlaegeView = new EnlaegeView(context, questionStructure, level, isAttemptedQue, RecyclerViewAdapter.this);
+            enlaegeView.show();
+        } else {
+            AudioUtil.startRecording(this, currentFilePath +/* recordingIndex + "_" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + "_" +*/ questionStructure.getId() + ".mp3", context, questionStructure, level, isAttemptedQue, this);
+        }
         questionStructure.setSelected(true);
         holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.blueLight));
         holder.delete.setVisibility(View.VISIBLE);
-        enlaegeView = new EnlaegeView(context, questionStructure, level, isAttemptedQue, this);
-        enlaegeView.show();
+        if (level.equals("Subtraction") || level.equals("Division")) {
+            holder.audioControll.setVisibility(View.GONE);
+        } else {
+            holder.audioControll.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -310,14 +362,37 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.notifyDataSetChanged();
     }
 
+    @Override
+    public void onRecordingStarted(@NonNull final Context context, final QuestionStructure questionStructure, final String level, final boolean isAttemptedQue, RecyclerView.Adapter recyclerViewAdapter) {
+       /* enlaegeView = new EnlaegeView(context, questionStructure, level, isAttemptedQue, this);
+        enlaegeView.show();*/
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                enlaegeView = new EnlaegeView(context, questionStructure, level, isAttemptedQue, RecyclerViewAdapter.this);
+                enlaegeView.show();
+            }
+        }, 100);
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView delete;
+        ImageView audioControll;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.textView);
             delete = itemView.findViewById(R.id.delete);
+            audioControll = itemView.findViewById(R.id.audioControll);
+        }
+    }
+
+    public void closeEnlargeView() {
+        if (enlaegeView != null) {
+            if (enlaegeView.isShowing()) {
+                enlaegeView.closeBtb();
+            }
         }
     }
 }

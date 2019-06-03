@@ -47,10 +47,14 @@ public class RecyclerPreviewAdapter extends RecyclerView.Adapter<RecyclerPreview
         holder.question.setText("QUE : " + questioList.get(position).getQue_text());
         holder.questionid.setText("ID : " + questioList.get(position).getQue_id());
         if (questioList.get(position).getAnswer() != null && !questioList.get(position).getAnswer().isEmpty()) {
+            holder.answer.setVisibility(View.VISIBLE);
             holder.answer.setText("ANS : " + questioList.get(position).getAnswer());
+        } else {
+            holder.answer.setText("ANS : ");
+            holder.answer.setVisibility(View.INVISIBLE);
         }
-        holder.start_time.setText("START : " + questioList.get(position).getStartTime());
-        holder.end_time.setText("END : " + questioList.get(position).getEndTime());
+       /* holder.start_time.setText("START : " + questioList.get(position).getStartTime());
+        holder.end_time.setText("END : " + questioList.get(position).getEndTime());*/
 
     }
 
@@ -65,16 +69,16 @@ public class RecyclerPreviewAdapter extends RecyclerView.Adapter<RecyclerPreview
         TextView question;
         TextView questionid;
         TextView answer;
-        TextView start_time;
-        TextView end_time;
+       /* TextView start_time;
+        TextView end_time;*/
 
         public MyViewHolder(View itemView) {
             super(itemView);
             question = itemView.findViewById(R.id.question);
             questionid = itemView.findViewById(R.id.questionid);
             answer = itemView.findViewById(R.id.answer);
-            start_time = itemView.findViewById(R.id.start_time);
-            end_time = itemView.findViewById(R.id.end_time);
+           /* start_time = itemView.findViewById(R.id.start_time);
+            end_time = itemView.findViewById(R.id.end_time);*/
         }
     }
 }

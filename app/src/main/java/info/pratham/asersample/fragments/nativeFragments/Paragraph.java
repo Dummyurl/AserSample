@@ -38,6 +38,7 @@ public class Paragraph extends Fragment {
     String level;
 
     List<QuestionStructure> questionList;
+    RecyclerVerticalAdapter recyclerViewAdapter;
 
     @Nullable
     @Override
@@ -102,7 +103,7 @@ public class Paragraph extends Fragment {
         final LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        RecyclerVerticalAdapter recyclerViewAdapter = new RecyclerVerticalAdapter(getActivity(), questionList, level);
+        recyclerViewAdapter = new RecyclerVerticalAdapter(getActivity(), questionList, level);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
@@ -110,6 +111,7 @@ public class Paragraph extends Fragment {
     public void onStop() {
         super.onStop();
         backupList();
+        recyclerViewAdapter.closeEnlargeView();
     }
 
     public void backupList() {

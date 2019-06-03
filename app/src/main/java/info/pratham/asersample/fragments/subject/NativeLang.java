@@ -2,6 +2,7 @@ package info.pratham.asersample.fragments.subject;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +23,9 @@ import info.pratham.asersample.R;
 import info.pratham.asersample.fragments.nativeFragments.Paragraph;
 import info.pratham.asersample.fragments.nativeFragments.Words;
 import info.pratham.asersample.interfaces.CheckQuestionListener;
+import info.pratham.asersample.interfaces.RecordPrepairListner;
 
-public class NativeLang extends Fragment {
+public class NativeLang extends Fragment{
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
@@ -102,6 +106,7 @@ public class NativeLang extends Fragment {
 
     }
 
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -112,7 +117,6 @@ public class NativeLang extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-
             return mFragmentList.get(position);
         }
 

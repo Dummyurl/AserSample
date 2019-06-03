@@ -18,6 +18,10 @@ public class AserSample_Constant {
     private static AserSample_Constant aserSample_constant = null;
     private static String deviceID;
     Student student;
+    public static String CORRECT = "right";
+    public static String WRONG = "wrong";
+    public static String NOTATTEMPED = "notChecked";
+
 
     /*StudentNew studentNew;
 

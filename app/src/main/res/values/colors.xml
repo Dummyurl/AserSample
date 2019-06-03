@@ -20,6 +20,10 @@
 
     <color name="red_dark">#F06423</color>
     <color name="light_green">#D0F8DB</color>
+    <color name="light_blue">#B3E5FC</color>
+    <color name="light_red">#FFCDD2</color>
+    <color name="green">#07992F</color>
+    <color name="red">#D32F2F</color>
     <color name="blue_black_light">#516179</color>
     <color name="transperentbg">#CC000000</color>
     <color name="blueLight">#BBDEFB</color>

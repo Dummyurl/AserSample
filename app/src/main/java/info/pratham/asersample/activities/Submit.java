@@ -1,24 +1,23 @@
 package info.pratham.asersample.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.R;
 import info.pratham.asersample.adapters.RecyclerPreviewAdapter;
-import info.pratham.asersample.adapters.RecyclerViewCheckAnswerAdapter;
-import info.pratham.asersample.database.modalClasses.SingleQustioNew;
 import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.utility.AserSampleUtility;
 import info.pratham.asersample.utility.AserSample_Constant;
@@ -42,6 +41,7 @@ public class Submit extends AppCompatActivity {
 
 
     Student student;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,25 @@ public class Submit extends AppCompatActivity {
         setContentView(R.layout.activity_submit);
         ButterKnife.bind(this);
         AserSampleUtility.writeStudentInJson(this);
+        mDatabase = FirebaseDatabase.getInstance().getReference("students");
+
+        mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Write was successful!
+                        AserSampleUtility.showToast(Submit.this, "Successfully uploaded!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        AserSampleUtility.showToast(Submit.this, "Uploading failed!");
+                    }
+                });
+
+
         ListConstant.clearFields();
         student = AserSample_Constant.getAserSample_Constant().getStudent();
         setStudentInfo();

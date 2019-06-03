@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/recyclerItemheight"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    android:background="@color/white"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:transitionName="shareView"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--  <RelativeLayout
+              android:id="@+id/topItem"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              &lt;!&ndash;  <ImageView
+                    android:id="@+id/delete"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_delete_forever_black_24dp" />&ndash;&gt;
+
+              <ImageView
+                  android:id="@+id/isSelected"
+                  android:layout_width="30dp"
+                  android:layout_height="30dp"
+                  android:layout_alignParentStart="true"
+                  android:layout_alignParentLeft="true"
+                  android:visibility="gone"
+                  app:srcCompat="@drawable/ic_double_tick_indicator" />
+          </RelativeLayout>-->
+
+        <RelativeLayout
+            android:id="@+id/textData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/checkingButtons">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/recyclerItemfont" />
+
+            <TextView
+                android:id="@+id/answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView"
+                android:layout_centerHorizontal="true"
+                android:textSize="20dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <!-- <View
+             android:layout_width="match_parent"
+             android:layout_height="2dp"
+             android:layout_above="@id/checkingButtons"
+             android:background="@color/green" />
+ -->
+        <LinearLayout
+            android:id="@+id/checkingButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            app:elevation="@dimen/_10sdp">
+
+            <ImageButton
+                android:id="@+id/correct"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:src="@drawable/check_green" />
+
+            <ImageButton
+                android:id="@+id/wrong"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:src="@drawable/close_red" />
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
