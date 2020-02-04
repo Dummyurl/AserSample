@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,14 +18,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.R;
-import info.pratham.asersample.adapters.RecyclerViewAdapter;
 import info.pratham.asersample.adapters.RecyclerViewCheckAnswerAdapter;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
-import info.pratham.asersample.database.modalClasses.SingleQustioNew;
+import info.pratham.asersample.database.modalClasses.SingleQuestionNew;
 import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.interfaces.CheckQuestionListener;
 import info.pratham.asersample.utility.AserSample_Constant;
-import info.pratham.asersample.utility.ListConstant;
 
 public class ChekingDialog extends Dialog {
     @BindView(R.id.recycler)
@@ -116,7 +113,7 @@ public class ChekingDialog extends Dialog {
 
             if (!level.equals("Para") && !level.equals("Story") && !level.equals("Sentence")) {
                 Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
-                List<SingleQustioNew> temp = studentNew.getSequenceList();
+                List<SingleQuestionNew> temp = studentNew.getSequenceList();
                 for (QuestionStructure questionStructure : qustionList) {
                     if (questionStructure.isSelected()) {
                         for (int i = 0; i < temp.size(); i++) {

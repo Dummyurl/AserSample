@@ -30,6 +30,7 @@ public class PermissionUtils {
     public static final String Manifest_READ_SMS = Manifest.permission.READ_SMS;
     public static final String Manifest_RECEIVE_WAP_PUSH = Manifest.permission.RECEIVE_WAP_PUSH;
     public static final String Manifest_RECEIVE_MMS = Manifest.permission.RECEIVE_MMS;
+    public static final String Manifest_WRITE_SECURE_SETTINGS = Manifest.permission.WRITE_SECURE_SETTINGS;
 
     public static final String Manifest_GROUP_CALENDAR = Manifest.permission_group.CALENDAR;
     public static final String Manifest_GROUP_CAMERA = Manifest.permission_group.CAMERA;

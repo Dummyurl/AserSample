@@ -14,11 +14,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import info.pratham.asersample.R;
-import info.pratham.asersample.database.modalClasses.SingleQustioNew;
+import info.pratham.asersample.database.modalClasses.SingleQuestionNew;
 
 public class RecyclerPreviewAdapter extends RecyclerView.Adapter<RecyclerPreviewAdapter.MyViewHolder> {
     Context context;
-    List<SingleQustioNew> questioList;
+    List<SingleQuestionNew> questioList;
 
     public RecyclerPreviewAdapter(Context context, List questioList) {
         this.context = context;

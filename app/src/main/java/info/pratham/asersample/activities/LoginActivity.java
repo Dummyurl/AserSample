@@ -1,6 +1,7 @@
 package info.pratham.asersample.activities;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -47,13 +48,17 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
         // Application is ready to go with permission acceptance
         //Hide notification bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        if (!createFolderStructureForStoringDataLocally())
-            Toast.makeText(this, "Cannot create folder locally", Toast.LENGTH_SHORT).show();
-        if (fragment == null) {
-            AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
-        } else if (fragment.equals(SelectLanguageFragment.class.getSimpleName())) {
-            AserSampleUtility.showFragment(LoginActivity.this, new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
-        }
+//        if (getIntent().getStringExtra("authentication") == null)
+//            startActivity(new Intent(this, PhoneAuthActivity.class));
+//        else {
+            if (!createFolderStructureForStoringDataLocally())
+                Toast.makeText(this, "Cannot create folder locally", Toast.LENGTH_SHORT).show();
+            if (fragment == null) {
+                AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
+            } else if (fragment.equals(SelectLanguageFragment.class.getSimpleName())) {
+                AserSampleUtility.setTestOrValidationDialog(LoginActivity.this);
+            }
+//        }
     }
 
     private boolean createFolderStructureForStoringDataLocally() {

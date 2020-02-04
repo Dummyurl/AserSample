@@ -16,11 +16,12 @@ android {
         minSdkVersion project.ext.minSdkVersion
         targetSdkVersion 27
         versionCode generateVersionCode()
-        versionName "1.32"
+        versionName "1.33"//validation changes
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,6 +29,7 @@ android {
         }
     }
 }
+
 
 private Integer generateVersionCode() {
     return ext.minSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
@@ -46,10 +48,14 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //firebase services
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    //firestore
     implementation 'com.google.firebase:firebase-firestore:17.1.0'
+    //firebase storage
     implementation 'com.google.firebase:firebase-storage:16.0.1'
     //real time DB
     implementation 'com.google.firebase:firebase-database:16.0.1'
+    // firebase authentication
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
     //fast networking
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     //room
@@ -60,8 +66,13 @@ dependencies {
     // responsive
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.android.support:multidex:1.0.3'
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.2'
     // catcho
     // implementation 'net.alhazmy13.catcho:library:1.1.0'
+    implementation 'com.google.cloud:google-cloud-speech:1.22.0'
+
+
 
 
     testImplementation 'junit:junit:4.12'

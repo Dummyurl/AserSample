@@ -3,6 +3,7 @@ package info.pratham.asersample.database.modalClasses;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,36 +11,39 @@ import java.util.List;
  * Created by PEF on 28/11/2018.
  */
 @IgnoreExtraProperties
-public class Student {
+public class Student implements Serializable {
     private String id;
     private String name;
     private String father;
     private String village;
     private String studClass;
     private String ageGroup;
+    private String gender;
     private String date;
     private String deviceID;
+    private String validatedDate;
 
     private String nativeProficiency;
     private String mathematicsProficiency;
     private String englishProficiency;
 
     @SerializedName("sequenceList")
-    private List<SingleQustioNew> sequenceList = new ArrayList();
-
+    private List<SingleQuestionNew> sequenceList = new ArrayList();
 
     public Student() {
     }
 
-    public Student(String id, String name, String father, String village, String studClass, String ageGroup, String date, String deviceID) {
+    public Student(String id, String name, String father, String village, String studClass, String ageGroup, String gender, String date, String deviceID, String validatedDate) {
         this.id = id;
         this.name = name;
         this.father = father;
         this.village = village;
         this.studClass = studClass;
         this.ageGroup = ageGroup;
+        this.gender = gender;
         this.date = date;
         this.deviceID = deviceID;
+        this.validatedDate = validatedDate;
     }
 
     public String getNativeProficiency() {
@@ -151,6 +155,15 @@ public class Student {
          this.english = english;
      }
  */
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getDate() {
         return date;
     }
@@ -165,5 +178,13 @@ public class Student {
 
     public void setDeviceID(String deviceID) {
         this.deviceID = deviceID;
+    }
+
+    public String getValidatedDate() {
+        return validatedDate;
+    }
+
+    public void setValidatedDate(String validatedDate) {
+        this.validatedDate = validatedDate;
     }
 }

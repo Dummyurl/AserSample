@@ -124,8 +124,7 @@ public class UploadRec extends AppCompatActivity {
         return true;
     }
 
-    private void zipSubFolder(ZipOutputStream out, File folder,
-                              int basePathLength) throws IOException {
+    private void zipSubFolder(ZipOutputStream out, File folder, int basePathLength) throws IOException {
 
         final int BUFFER = 2048;
 
@@ -167,7 +166,7 @@ public class UploadRec extends AppCompatActivity {
             AserSampleUtility.showToast(this, "Nothing to push");
         } else {
             cnt = 0;
-            AserSampleUtility.showProgressDialog(progressDialog);
+            AserSampleUtility.showProgressDialog(progressDialog,"Uploading data..");
             for (String path : fileList) {
                 if (zipFileAtPath(ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path, ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + path + ".zip")) {
                     uploadDataToStorage(path + ".zip");

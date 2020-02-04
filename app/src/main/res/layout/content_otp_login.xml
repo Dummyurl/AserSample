@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.OtpLoginActivity">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="@string/otp_login"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="@color/textColor" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/phone_number"
+        android:textColor="@color/textColor" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:clickable="false"
+        android:hint="@string/enter_otp"
+        android:textColor="@color/textColor" />
+
+    <Button
+        android:id="@+id/btn_generate_otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@color/colorAccent"
+        android:textColorHint="@color/white"
+        android:hint="@string/generate_otp"/>
+
+    <Button
+        android:id="@+id/btn_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@color/colorAccent"
+        android:textColorHint="@color/white"
+        android:hint="@string/verify_sign_in"/>
+
+</LinearLayout>

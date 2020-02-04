@@ -45,6 +45,8 @@ public class StudentDetails extends BaseFragment {
     EditText villageName;
     @BindView(R.id.radiogroup)
     RadioGroup radioGroup;
+    @BindView(R.id.genderRG)
+    RadioGroup genderRadioGroup;
 
     @BindView(R.id.classChild)
     Spinner classChild;
@@ -86,6 +88,7 @@ public class StudentDetails extends BaseFragment {
         fatherName.setText("");
         villageName.setText("");
         radioGroup.clearCheck();
+        genderRadioGroup.clearCheck();
         classChild.setSelection(0);
     }
 
@@ -111,7 +114,8 @@ public class StudentDetails extends BaseFragment {
         final String childVillageName = villageName.getText().toString().trim();
         int selectedclass = classChild.getSelectedItemPosition();
         final int agegroup = radioGroup.getCheckedRadioButtonId();
-        if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty() && selectedclass > 0 && agegroup != -1) {
+        final int gendergroup = genderRadioGroup.getCheckedRadioButtonId();
+        if (!childFirstName.isEmpty() && !childFatherName.isEmpty() && !childVillageName.isEmpty() && selectedclass > 0 && agegroup != -1 && gendergroup != -1) {
             if (!isAlpha(childFirstName))
                 AserSampleUtility.showToast(getActivity(), "Student name should not contain special characters!!");
             else {
@@ -135,7 +139,7 @@ public class StudentDetails extends BaseFragment {
                                         try {
                                             AserSample_Constant.sample = (JSONObject) questionJson.get("Sample" + (selectedItem + 1));
                                             String id = childFirstName + "__" + AserSampleUtility.getUUID();
-                                            Student student = new Student(id, childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString(), Calendar.getInstance().getTime().toString(), AserSample_Constant.getDeviceID());
+                                            Student student = new Student(id, childFirstName, childFatherName, childVillageName, classChild.getSelectedItem().toString(), ((RadioButton) radioGroup.findViewById(agegroup)).getText().toString(), ((RadioButton) genderRadioGroup.findViewById(gendergroup)).getText().toString(), Calendar.getInstance().getTime().toString(), AserSample_Constant.getDeviceID(), "");
                                             AserSample_Constant.getAserSample_Constant().setStudent(student);
                                             ListConstant.clearFields();
                                             Intent intent = new Intent(getActivity(), Assessment.class);

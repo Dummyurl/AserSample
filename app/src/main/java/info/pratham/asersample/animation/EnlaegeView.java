@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
-import info.pratham.asersample.database.modalClasses.SingleQustioNew;
+import info.pratham.asersample.database.modalClasses.SingleQuestionNew;
 import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.interfaces.GetTimeListener;
 import info.pratham.asersample.interfaces.RefreshRecycler;
@@ -113,7 +113,7 @@ public class EnlaegeView extends Dialog {
                 number2.setText(numbers[1].trim());
                 if (isAttemptedQue) {
                     Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
-                    List<SingleQustioNew> temp = studentNew.getSequenceList();
+                    List<SingleQuestionNew> temp = studentNew.getSequenceList();
                     //if question is old then remove old entry
                     if (isAttemptedQue) {
                         for (int i = 0; i < temp.size(); i++) {
@@ -138,7 +138,7 @@ public class EnlaegeView extends Dialog {
                 divisor.setText(numbers[1].trim());
                 if (isAttemptedQue) {
                     Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
-                    List<SingleQustioNew> temp = studentNew.getSequenceList();
+                    List<SingleQuestionNew> temp = studentNew.getSequenceList();
                     //if question is old then remove old entry
                     if (isAttemptedQue) {
                         for (int i = 0; i < temp.size(); i++) {
@@ -189,7 +189,7 @@ public class EnlaegeView extends Dialog {
     private void addEntry() {
         AudioUtil.stopRecording(mContext);
         Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
-        List<SingleQustioNew> temp = studentNew.getSequenceList();
+        List<SingleQuestionNew> temp = studentNew.getSequenceList();
 
         //if question is old then remove old entry
         if (isAttemptedQue) {
@@ -204,12 +204,12 @@ public class EnlaegeView extends Dialog {
         }
 
         // endTime = getTimeListener.getTime();
-        SingleQustioNew singleQustioNew = new SingleQustioNew();
-        singleQustioNew.setQue_id(que_id);
-        singleQustioNew.setQue_text(que_text);
+        SingleQuestionNew singleQuestionNew = new SingleQuestionNew();
+        singleQuestionNew.setQue_id(que_id);
+        singleQuestionNew.setQue_text(que_text);
         //Disable start and end time
-        // singleQustioNew.setStartTime(startTime);
-        //singleQustioNew.setEndTime(endTime);
+        // singleQuestionNew.setStartTime(startTime);
+        //singleQuestionNew.setEndTime(endTime);
         if (level.equals(mContext.getString(R.string.Subtraction))) {
             String subtraction = sun_ans.getText().toString();
             if (subtraction.isEmpty()) {
@@ -230,17 +230,17 @@ public class EnlaegeView extends Dialog {
                     }
                 }).show();
             } else {
-                singleQustioNew.setAnswer(subtraction);
-                addQuestionToAnswerList(studentNew, singleQustioNew);
+                singleQuestionNew.setAnswer(subtraction);
+                addQuestionToAnswerList(studentNew, singleQuestionNew);
                 dialogParent.dismiss();
             }
         } else if (level.equals(mContext.getString(R.string.Division))) {
             String quotient_ans = quotient.getText().toString();
             String remainder_ans = remainder.getText().toString();
             if (!quotient_ans.isEmpty() || !remainder_ans.isEmpty()) {
-                singleQustioNew.setAnswer(quotient_ans);
-                singleQustioNew.setRemainder(remainder_ans);
-                addQuestionToAnswerList(studentNew, singleQustioNew);
+                singleQuestionNew.setAnswer(quotient_ans);
+                singleQuestionNew.setRemainder(remainder_ans);
+                addQuestionToAnswerList(studentNew, singleQuestionNew);
                 dialogParent.dismiss();
             } else {
                 new AlertDialog.Builder(getContext())
@@ -261,15 +261,15 @@ public class EnlaegeView extends Dialog {
                 }).show();
             }
         } else {
-            singleQustioNew.setRecordingName(que_id + ".mp3");
-            addQuestionToAnswerList(studentNew, singleQustioNew);
+            singleQuestionNew.setRecordingName(que_id + ".mp3");
+            addQuestionToAnswerList(studentNew, singleQuestionNew);
             dialogParent.dismiss();
         }
     }
 
-    private void addQuestionToAnswerList(Student studentNew, SingleQustioNew singleQustioNew) {
+    private void addQuestionToAnswerList(Student studentNew, SingleQuestionNew singleQuestionNew) {
 
-        studentNew.getSequenceList().add(singleQustioNew);
+        studentNew.getSequenceList().add(singleQuestionNew);
         //if quetion is new then only increment counter
         if (!isAttemptedQue) {
             switch (level) {

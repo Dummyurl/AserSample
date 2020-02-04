@@ -66,7 +66,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
     public void pullData() {
         if (stateSpinner.getSelectedItemPosition() > 0) {
             final NetworkManager networkManager = new NetworkManager(getActivity(), this);
-            AserSampleUtility.showProgressDialog(progressDialog);
+            AserSampleUtility.showProgressDialog(progressDialog,"Getting Questions..");
             networkManager.getQuestionData(progressDialog);
         } else {
             showToast("Please select a state");
@@ -74,7 +74,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
     }
 
     public void pullCRL() {
-        AserSampleUtility.showProgressDialog(progressDialog);
+        AserSampleUtility.showProgressDialog(progressDialog,"Getting CRL data..");
         String URL = "http://www.swap.prathamcms.org/api/UserList?programId=1&statecode=" + statesCodes[stateSpinner.getSelectedItemPosition()];
         AndroidNetworking.get(URL)
                 .build()

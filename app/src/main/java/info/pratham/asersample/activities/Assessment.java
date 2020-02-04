@@ -216,7 +216,7 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
                     dialog.dismiss();
                     if (calledFrom.equals("finish")) {
                         new AlertDialog.Builder(Assessment.this)
-                                .setMessage("do you want Submit test?")
+                                .setMessage("do you want to Submit test?")
                                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {

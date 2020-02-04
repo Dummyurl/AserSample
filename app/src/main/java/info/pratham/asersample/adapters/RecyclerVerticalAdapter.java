@@ -25,7 +25,7 @@ import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
 import info.pratham.asersample.animation.EnlaegeView;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
-import info.pratham.asersample.database.modalClasses.SingleQustioNew;
+import info.pratham.asersample.database.modalClasses.SingleQuestionNew;
 import info.pratham.asersample.interfaces.RecordPrepairListner;
 import info.pratham.asersample.interfaces.RefreshRecycler;
 import info.pratham.asersample.utility.AserSample_Constant;
@@ -115,7 +115,7 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
                                     file.delete();
                                 }
 
-                                List<SingleQustioNew> temp = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
+                                List<SingleQuestionNew> temp = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
                                 for (int i = 0; i < temp.size(); i++) {
                                     if (temp.get(i).getQue_id().equals(questionStructure.getId())) {
                                         temp.remove(i);

@@ -18,7 +18,7 @@ import java.util.List;
 
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
-import info.pratham.asersample.database.modalClasses.SingleQustioNew;
+import info.pratham.asersample.database.modalClasses.SingleQuestionNew;
 import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.interfaces.RefreshRecycler;
 import info.pratham.asersample.utility.AserSample_Constant;
@@ -69,7 +69,7 @@ public class RecyclerViewCheckAnswerAdapter extends RecyclerView.Adapter<Recycle
             //    holder.isSelected_img.setVisibility(View.VISIBLE);
             holder.checkingButtons.setVisibility(View.VISIBLE);
             Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
-            List<SingleQustioNew> temp = studentNew.getSequenceList();
+            List<SingleQuestionNew> temp = studentNew.getSequenceList();
             //if question is old then remove old entry
             boolean flag = false;
             String answer = null;
@@ -173,7 +173,7 @@ public class RecyclerViewCheckAnswerAdapter extends RecyclerView.Adapter<Recycle
         QuestionStructure questionStructure = qustionList.get(position);
         questionStructure.setNoOfMistakes(ans);
         Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
-        List<SingleQustioNew> temp = studentNew.getSequenceList();
+        List<SingleQuestionNew> temp = studentNew.getSequenceList();
         for (int i = 0; i < temp.size(); i++) {
             if (temp.get(i).getQue_id().equals(questionStructure.getId())) {
                 temp.get(i).setNoOfMistakes(ans);
@@ -191,7 +191,7 @@ public class RecyclerViewCheckAnswerAdapter extends RecyclerView.Adapter<Recycle
             QuestionStructure questionStructure = qustionList.get(position);
             questionStructure.setIsCorrect(AserSample_Constant.WRONG);
             Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
-            List<SingleQustioNew> temp = studentNew.getSequenceList();
+            List<SingleQuestionNew> temp = studentNew.getSequenceList();
             for (int i = 0; i < temp.size(); i++) {
                 if (temp.get(i).getQue_id().equals(questionStructure.getId())) {
                     temp.get(i).setCorrect(false);
@@ -207,7 +207,7 @@ public class RecyclerViewCheckAnswerAdapter extends RecyclerView.Adapter<Recycle
 
             //set correct to final list
             Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
-            List<SingleQustioNew> temp = studentNew.getSequenceList();
+            List<SingleQuestionNew> temp = studentNew.getSequenceList();
             for (int i = 0; i < temp.size(); i++) {
                 if (temp.get(i).getQue_id().equals(questionStructure.getId())) {
                     temp.get(i).setCorrect(true);
