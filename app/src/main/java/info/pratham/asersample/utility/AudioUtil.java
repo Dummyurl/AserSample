@@ -8,20 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.cloud.speech.v1.RecognitionAudio;
-import com.google.cloud.speech.v1.RecognitionConfig;
-import com.google.cloud.speech.v1.RecognizeResponse;
-import com.google.cloud.speech.v1.SpeechClient;
-import com.google.cloud.speech.v1.SpeechRecognitionAlternative;
-import com.google.cloud.speech.v1.SpeechRecognitionResult;
-import com.google.protobuf.ByteString;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
@@ -87,8 +74,8 @@ public class AudioUtil {
                 mRecorder.stop();
                 mRecorder.release();
                 Toast.makeText(context, "Recording stopped", Toast.LENGTH_SHORT).show();
-                if (currentRecordingFile != null && !currentRecordingFile.isEmpty())
-                    getTranscriptionAndCheckIfCorrectlySpokenOrNot(currentRecordingFile);
+//                if (currentRecordingFile != null && !currentRecordingFile.isEmpty())
+//                    getTranscriptionAndCheckIfCorrectlySpokenOrNot(currentRecordingFile);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,52 +83,52 @@ public class AudioUtil {
         mRecorder = null;
     }
 
-    private static void getTranscriptionAndCheckIfCorrectlySpokenOrNot(String currentRecordingFile) {
-        try {
-            // Instantiates a client
-            SpeechClient speech = SpeechClient.create();
-
-            // The path to the audio file to transcribe
-//        String fileName = "./resources/audio.raw";
-
-            File file = new File(currentRecordingFile);
-            int size = (int) file.length();
-            byte[] bytes = new byte[size];
-            try {
-                BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
-                buf.read(bytes, 0, bytes.length);
-                buf.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            ByteString audioBytes = ByteString.copyFrom(bytes);
-
-            // Builds the sync recognize request
-            RecognitionConfig config = RecognitionConfig.newBuilder()
-                    .setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
-                    .setSampleRateHertz(16000)
-                    .setLanguageCode("en-US")
-                    .build();
-            RecognitionAudio audio = RecognitionAudio.newBuilder()
-                    .setContent(audioBytes)
-                    .build();
-
-            // Performs speech recognition on the audio file
-            RecognizeResponse response = speech.recognize(config, audio);
-            List<SpeechRecognitionResult> results = response.getResultsList();
-
-            for (SpeechRecognitionResult result: results) {
-                // There can be several alternative transcripts for a given chunk of speech. Just use the
-                // first (most likely) one here.
-                SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
-                System.out.printf("Transcription: %s%n", alternative.getTranscript());
-            }
-            speech.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private static void getTranscriptionAndCheckIfCorrectlySpokenOrNot(String currentRecordingFile) {
+//        try {
+//            // Instantiates a client
+//            SpeechClient speech = SpeechClient.create();
+//
+//            // The path to the audio file to transcribe
+////        String fileName = "./resources/audio.raw";
+//
+//            File file = new File(currentRecordingFile);
+//            int size = (int) file.length();
+//            byte[] bytes = new byte[size];
+//            try {
+//                BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+//                buf.read(bytes, 0, bytes.length);
+//                buf.close();
+//            } catch (IOException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//            ByteString audioBytes = ByteString.copyFrom(bytes);
+//
+//            // Builds the sync recognize request
+//            RecognitionConfig config = RecognitionConfig.newBuilder()
+//                    .setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
+//                    .setSampleRateHertz(16000)
+//                    .setLanguageCode("en-US")
+//                    .build();
+//            RecognitionAudio audio = RecognitionAudio.newBuilder()
+//                    .setContent(audioBytes)
+//                    .build();
+//
+//            // Performs speech recognition on the audio file
+//            RecognizeResponse response = speech.recognize(config, audio);
+//            List<SpeechRecognitionResult> results = response.getResultsList();
+//
+//            for (SpeechRecognitionResult result: results) {
+//                // There can be several alternative transcripts for a given chunk of speech. Just use the
+//                // first (most likely) one here.
+//                SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
+//                System.out.printf("Transcription: %s%n", alternative.getTranscript());
+//            }
+//            speech.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
    /* public static void pauseRecording() {
         try {
