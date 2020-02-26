@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 import info.pratham.asersample.ASERApplication;
@@ -116,9 +117,18 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
                                 }
 
                                 List<SingleQuestionNew> temp = AserSample_Constant.getAserSample_Constant().getStudent().getSequenceList();
-                                for (int i = 0; i < temp.size(); i++) {
+                                /*for (int i = 0; i < temp.size(); i++) {
                                     if (temp.get(i).getQue_id().equals(questionStructure.getId())) {
                                         temp.remove(i);
+                                        break;
+                                    }
+                                }*/
+                                // Iterator to traverse the list
+                                Iterator iterator = temp.iterator();
+                                while (iterator.hasNext()) {
+                                    SingleQuestionNew singleQuestionNew = (SingleQuestionNew) iterator.next();
+                                    if (singleQuestionNew.getQue_id().equals(questionStructure.getId())) {
+                                        iterator.remove();
                                         break;
                                     }
                                 }

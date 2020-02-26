@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -193,9 +194,20 @@ public class EnlaegeView extends Dialog {
 
         //if question is old then remove old entry
         if (isAttemptedQue) {
-            for (int i = 0; i < temp.size(); i++) {
+          /*  for (int i = 0; i < temp.size(); i++) {
                 if (temp.get(i).getQue_id().equals(que_id)) {
                     temp.remove(i);
+                    questionStructure.setIsCorrect(AserSample_Constant.NOTATTEMPED);
+                    questionStructure.setNoOfMistakes(null);
+                    break;
+                }
+            }*/
+            // Iterator to traverse the list
+            Iterator iterator = temp.iterator();
+            while (iterator.hasNext()) {
+                SingleQuestionNew singleQuestionNew = (SingleQuestionNew) iterator.next();
+                if (singleQuestionNew.getQue_id().equals(que_id)) {
+                    iterator.remove();
                     questionStructure.setIsCorrect(AserSample_Constant.NOTATTEMPED);
                     questionStructure.setNoOfMistakes(null);
                     break;
