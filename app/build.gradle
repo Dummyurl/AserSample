@@ -6,7 +6,7 @@ ext.versionMajor = 1
 /*Minor Version : While adding a functionality , minor changes like color change or icon changes*/
 ext.versionMinor = 2
 /*Patch : Bug fixing*/
-ext.versionPatch = 5
+ext.versionPatch = 6
 ext.minSdkVersion = 21
 
 android {
@@ -16,7 +16,7 @@ android {
         minSdkVersion project.ext.minSdkVersion
         targetSdkVersion 27
         versionCode generateVersionCode()
-        versionName "1.33"//validation changes
+        versionName "1.34"//code refactoring
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
