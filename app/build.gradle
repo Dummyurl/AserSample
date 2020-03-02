@@ -10,11 +10,11 @@ ext.versionPatch = 6
 ext.minSdkVersion = 21
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "info.pratham.asersample"
         minSdkVersion project.ext.minSdkVersion
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode generateVersionCode()
         versionName "1.34"//code refactoring
         multiDexEnabled true
@@ -29,7 +29,6 @@ android {
         }
     }
 }
-
 
 private Integer generateVersionCode() {
     return ext.minSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
@@ -71,9 +70,6 @@ dependencies {
     // catcho
     // implementation 'net.alhazmy13.catcho:library:1.1.0'
     //implementation 'com.google.cloud:google-cloud-speech:1.22.0'
-
-
-
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
