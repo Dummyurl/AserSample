@@ -29,7 +29,7 @@ import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 import info.pratham.asersample.utility.ListConstant;
 
-public class EnlaegeView extends Dialog {
+public class EnlargeView extends Dialog {
     @BindView(R.id.text)
     TextView textView;
 
@@ -84,7 +84,7 @@ public class EnlaegeView extends Dialog {
     RefreshRecycler refreshRecycler;
     QuestionStructure questionStructure;
 
-    public EnlaegeView(@NonNull Context context, QuestionStructure questionStructure, String level, boolean isAttemptedQue, RecyclerView.Adapter recyclerViewAdapter) {
+    public EnlargeView(@NonNull Context context, QuestionStructure questionStructure, String level, boolean isAttemptedQue, RecyclerView.Adapter recyclerViewAdapter) {
         super(context, R.style.Transparent);
         this.que_text = questionStructure.getData();
         this.level = level;

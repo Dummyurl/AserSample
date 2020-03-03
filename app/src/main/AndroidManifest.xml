@@ -33,7 +33,7 @@
             android:screenOrientation="portrait" />
         <!--
   <activity
-            android:name=".animation.EnlaegeView"
+            android:name=".animation.EnlargeView"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />

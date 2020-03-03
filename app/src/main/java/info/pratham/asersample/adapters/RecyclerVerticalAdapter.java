@@ -24,7 +24,7 @@ import java.util.List;
 
 import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
-import info.pratham.asersample.animation.EnlaegeView;
+import info.pratham.asersample.animation.EnlargeView;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.database.modalClasses.SingleQuestionNew;
 import info.pratham.asersample.interfaces.RecordPrepairListner;
@@ -37,7 +37,7 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
     Context context;
     List<QuestionStructure> questioList;
     String level;
-    EnlaegeView enlaegeView;
+    EnlargeView enlargeView;
 
     public RecyclerVerticalAdapter(Context context, List questioList, String level) {
         this.context = context;
@@ -266,13 +266,13 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
 
     @Override
     public void onRecordingStarted(@NonNull final Context context, final QuestionStructure questionStructure, final String level, final boolean isAttemptedQue, RecyclerView.Adapter recyclerViewAdapter) {
-       /* enlaegeView = new EnlaegeView(context, questionStructure, level, isAttemptedQue, this);
-        enlaegeView.show();*/
+       /* enlargeView = new EnlargeView(context, questionStructure, level, isAttemptedQue, this);
+        enlargeView.show();*/
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                enlaegeView = new EnlaegeView(context, questionStructure, level, isAttemptedQue, RecyclerVerticalAdapter.this);
-                enlaegeView.show();
+                enlargeView = new EnlargeView(context, questionStructure, level, isAttemptedQue, RecyclerVerticalAdapter.this);
+                enlargeView.show();
             }
         }, 100);
     }
@@ -290,9 +290,9 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
         }
     }
     public void closeEnlargeView() {
-        if (enlaegeView != null) {
-            if(enlaegeView.isShowing()){
-                enlaegeView.closeBtb();
+        if (enlargeView != null) {
+            if(enlargeView.isShowing()){
+                enlargeView.closeBtb();
             }
         }
     }
