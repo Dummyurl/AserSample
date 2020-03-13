@@ -104,6 +104,7 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
                                 }
                                 questionStructure.setSelected(false);
                                 questionStructure.setIsCorrect(AserSample_Constant.NOTATTEMPED);
+                                questionStructure.setAzure_Scored_Labels(AserSample_Constant.NOTATTEMPED);
                                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
                                 holder.delete.setVisibility(View.GONE);
                                 holder.audioControll.setVisibility(View.GONE);
@@ -175,14 +176,14 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
                                         //NATIVE LANGUAGE
                                         case "Para":
                                             if (isAttempted || ListConstant.Para_cnt < ListConstant.ONE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
                                             break;
                                         case "Story":
                                             if (isAttempted || ListConstant.Story_cnt < ListConstant.ONE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
@@ -190,7 +191,7 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
                                         //English
                                         case "Sentence":
                                             if (isAttempted || ListConstant.Sentence_cnt < ListConstant.FIVE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
@@ -208,21 +209,21 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
                         //NATIVE LANGUAGE
                         case "Para":
                             if (isAttempted || ListConstant.Para_cnt < ListConstant.ONE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "Story":
                             if (isAttempted || ListConstant.Story_cnt < ListConstant.ONE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "Sentence":
                             if (isAttempted || ListConstant.Sentence_cnt < ListConstant.FIVE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
@@ -233,7 +234,7 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
         });
     }
 
-    public void openEnlaegeView(RecyclerVerticalAdapter.MyViewHolder holder, QuestionStructure questionStructure) {
+    public void openEnlargeView(RecyclerVerticalAdapter.MyViewHolder holder, QuestionStructure questionStructure) {
         boolean isAttemptedQue = false;
         if (questionStructure.isSelected()) {
             isAttemptedQue = true;
@@ -244,7 +245,6 @@ public class RecyclerVerticalAdapter extends RecyclerView.Adapter<RecyclerVertic
         if (!file.exists()) {
             file.mkdirs();
         }
-
         AudioUtil.startRecording(this, currentFilePath +/* recordingIndex +"_" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + "_" +*/  questionStructure.getId() + ".mp3", context, questionStructure, level, isAttemptedQue, this);
 
         questionStructure.setSelected(true);

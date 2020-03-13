@@ -56,7 +56,7 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
     }
 
     private void loadSpinner() {
-        String states[] = getResources().getStringArray(R.array.india_states);
+        String[] states = getResources().getStringArray(R.array.india_states);
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, states);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         stateSpinner.setAdapter(arrayAdapter);
@@ -95,7 +95,6 @@ public class PullCRl extends BaseFragment implements QuestionDataCompleteListene
 //                        AserSampleUtility.showToast(getActivity(), "NO Intenet connection");
                     }
                 });
-
     }
 
    /* @Override

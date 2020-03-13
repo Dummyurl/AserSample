@@ -51,7 +51,7 @@ public class ASERApplication extends Application {
 
     public String getRootPath() {
         File root = android.os.Environment.getExternalStorageDirectory();
-        return root.getAbsolutePath() + "/StudentRecordings/";
+        return root.getAbsolutePath() + "/StudentRecordings/azure_model/";
     }
 
     public String getRootPathForDeletion() {

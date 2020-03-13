@@ -21,6 +21,9 @@ public class AserSample_Constant {
     public static String CORRECT = "right";
     public static String WRONG = "wrong";
     public static String NOTATTEMPED = "notChecked";
+    //used to avoid spelling mistake in server side response (quetion is wrong write)
+    public static String TRUE="true";
+    public static String FALSE="false";
 
 
     /*StudentNew studentNew;

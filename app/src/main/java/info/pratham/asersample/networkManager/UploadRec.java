@@ -181,7 +181,7 @@ public class UploadRec extends AppCompatActivity {
 //        getPredictions("");
         Uri file = Uri.fromFile(new File(ASERApplication.getInstance().getRootPath() + AserSample_Constant.crlID + "/" + fileUri));
 
-        StorageReference riversRef = mStorageRef.child("StudentRecordings/" + AserSample_Constant.crlID + "/" + fileUri);
+        StorageReference riversRef = mStorageRef.child("StudentRecordings/azure_model/" + AserSample_Constant.crlID + "/" + fileUri);
 
         StorageTask uploadTask = riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

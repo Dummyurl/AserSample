@@ -17,14 +17,12 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.dialog.ChekingDialog;
@@ -59,7 +57,7 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
         setContentView(R.layout.activity_assessment);
         ButterKnife.bind(this);
         // header = findViewById(R.id.header);
-        int selecteditem = getIntent().getIntExtra("Sample", -1);
+        //  int selecteditem = getIntent().getIntExtra("Sample", -1);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
         fragment = new NativeLang();
@@ -131,7 +129,7 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
         };
     }
 
-    private boolean showDialog() {
+    private void showDialog() {
         if (fragment instanceof NativeLang) {
             ((NativeLang) fragment).showCheckAnswerDialog("outSide");
         } else if (fragment instanceof MathFragment) {
@@ -139,7 +137,6 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
         } else if (fragment instanceof English) {
             ((English) fragment).showCheckAnswerDialog("outSide");
         }
-        return false;
     }
 
 

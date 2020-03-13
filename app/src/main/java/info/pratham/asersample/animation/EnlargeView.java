@@ -1,18 +1,28 @@
 package info.pratham.asersample.animation;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.StringRequestListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,11 +33,18 @@ import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.database.modalClasses.SingleQuestionNew;
 import info.pratham.asersample.database.modalClasses.Student;
+import info.pratham.asersample.interfaces.ApiInterface;
 import info.pratham.asersample.interfaces.GetTimeListener;
 import info.pratham.asersample.interfaces.RefreshRecycler;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 import info.pratham.asersample.utility.ListConstant;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EnlargeView extends Dialog {
     @BindView(R.id.text)
@@ -73,16 +90,16 @@ public class EnlargeView extends Dialog {
 
     @BindView(R.id.mathematics_division)
     RelativeLayout mathematics_division;
-    String que_text;
-    String level;
-    String que_id;
-    Context mContext;
-    String startTime, endTime;
-    String answer, remainder_ans;
-    boolean isAttemptedQue = false;
-    GetTimeListener getTimeListener;
-    RefreshRecycler refreshRecycler;
-    QuestionStructure questionStructure;
+    private String que_text;
+    private String level;
+    private String que_id;
+    private Context mContext;
+    private String startTime, endTime;
+    //private String answer, remainder_ans;
+    private boolean isAttemptedQue = false;
+    private GetTimeListener getTimeListener;
+    private RefreshRecycler refreshRecycler;
+    private QuestionStructure questionStructure;
 
     public EnlargeView(@NonNull Context context, QuestionStructure questionStructure, String level, boolean isAttemptedQue, RecyclerView.Adapter recyclerViewAdapter) {
         super(context, R.style.Transparent);
@@ -179,16 +196,113 @@ public class EnlargeView extends Dialog {
         /*Intent intent = new Intent();
         setResult(2, intent);
         finish();*/
-        addEntry();
+        autoCheck();
+    }
+
+    private void autoCheck() {
+        AudioUtil.stopRecording(mContext);
+        if (level.equals("Subtraction") || level.equals("Division")) {
+            addEntry(null);
+        } else {
+            try {
+                //    "{\"Ground Truth\":\"I like to sing.\",\"Confidence\":\"0.12\", \"Transcript\":\"house\"}"
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("Ground Truth", que_text);
+                jsonObject.put("Confidence", "0.12");
+                jsonObject.put("Transcript", "house");
+
+                azure_model(jsonObject);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+
+    /*private String getBodyParameter(String Student, String Proficiency, String Ground_Truth, String IsCorrect, String Transcript, String Confidence) {
+        Body body = new Body();
+        body.inputs.new parameters(Student, Proficiency, Ground_Truth, IsCorrect, Transcript, Confidence);
+        Gson gson = new Gson();
+        return gson.toJson(body);
+
+        *//*return "{\n" +
+                "    \"Inputs\": {\n" +
+                "    \"input1\": [{\n" +
+                "    \"Student\": \"value1\",\n" +
+                "    \"Proficiency\": \"S\",\n" +
+                "    \"Ground Truth\": \"What is the time\",\n" +
+                "    \"IsCorrect\": \"false\",\n" +
+                "    \"Transcript\": \"may be\",\n" +
+                "    \"Confidence\": \"1\"\n" +
+                "    }]\n" +
+                "    },\n" +
+                "    \"GlobalParameters\": {}\n" +
+                "    }";*//*
+    }
+
+*/
+    private void azure_model(JSONObject jsonObject) {
+   /*     Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://englishsentence.us-east-1.elasticbeanstalk.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+        Call<ResponseBody> registerAuthorCall = apiInterface.editUser("text/plain",jsonObject);
+
+        registerAuthorCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String s = response.body().string();
+                    Log.d("DD", s);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("t",t.getMessage());
+            }
+        });*/
+
+
+        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setTitle("loading...");
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        String url = "http://englishsentence.us-east-1.elasticbeanstalk.com/api";
+
+        AndroidNetworking.post(url)
+                .addHeaders("Content-Type", "text/plain")
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getAsString(new StringRequestListener() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        addEntry(response.toString());
+                        Log.d("data", response.toString());
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        progressDialog.dismiss();
+                        addEntry(anError.toString());
+                        Log.d("data", anError.toString());
+                    }
+                });
     }
 
     @Override
     public void onBackPressed() {
-        addEntry();
+        autoCheck();
     }
 
-    private void addEntry() {
-        AudioUtil.stopRecording(mContext);
+    private void addEntry(String response) {
+        boolean istrue = true;
         Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
         List<SingleQuestionNew> temp = studentNew.getSequenceList();
 
@@ -210,6 +324,7 @@ public class EnlargeView extends Dialog {
                     iterator.remove();
                     questionStructure.setIsCorrect(AserSample_Constant.NOTATTEMPED);
                     questionStructure.setNoOfMistakes(null);
+                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.NOTATTEMPED);
                     break;
                 }
             }
@@ -242,6 +357,24 @@ public class EnlargeView extends Dialog {
                     }
                 }).show();
             } else {
+
+                String[] numbers = que_text.split("-");
+                int number1 = Integer.parseInt(numbers[0].trim());
+                int number2 = Integer.parseInt(numbers[1].trim());
+                int ans = number1 - number2;
+                int subAnsByUser = Integer.parseInt(subtraction);
+                if (ans == subAnsByUser) {
+                    questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
+                    singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                    singleQuestionNew.setCorrect(true);
+                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+
+                } else {
+                    questionStructure.setIsCorrect(AserSample_Constant.WRONG);
+                    singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    singleQuestionNew.setCorrect(false);
+                }
                 singleQuestionNew.setAnswer(subtraction);
                 addQuestionToAnswerList(studentNew, singleQuestionNew);
                 dialogParent.dismiss();
@@ -250,6 +383,28 @@ public class EnlargeView extends Dialog {
             String quotient_ans = quotient.getText().toString();
             String remainder_ans = remainder.getText().toString();
             if (!quotient_ans.isEmpty() || !remainder_ans.isEmpty()) {
+
+                String[] numbers = que_text.split("/");
+                int number1 = Integer.parseInt(numbers[0].trim());
+                int number2 = Integer.parseInt(numbers[1].trim());
+                int quo_ans = number1 / number2;
+                int quotientAnsByUser = Integer.parseInt(quotient_ans);
+                int remain_ans = number1 % number2;
+                int remainderAnsByUser = Integer.parseInt(remainder_ans);
+
+                if ((quo_ans == quotientAnsByUser) && (remain_ans == remainderAnsByUser)) {
+                    questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
+                    singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                    singleQuestionNew.setCorrect(true);
+                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+
+                } else {
+                    questionStructure.setIsCorrect(AserSample_Constant.WRONG);
+                    singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    singleQuestionNew.setCorrect(false);
+                }
+
                 singleQuestionNew.setAnswer(quotient_ans);
                 singleQuestionNew.setRemainder(remainder_ans);
                 addQuestionToAnswerList(studentNew, singleQuestionNew);
@@ -273,7 +428,49 @@ public class EnlargeView extends Dialog {
                 }).show();
             }
         } else {
+            if (response != null) {
+                try {
+                    JSONObject result = new JSONObject(response);
+                    //set value of azure response if get on ERROR
+                    // singleQuestionNew.setAzure_Ground_Truth(result.getString("Ground Truth"));
+                    //  singleQuestionNew.setAzure_Confidence(result.getString("Confidence"));
+                    singleQuestionNew.setAzure_Distance(result.getString("Distance"));
+                    singleQuestionNew.setAzure_Scored_Labels(result.getString("Scored Labels"));
+                    singleQuestionNew.setAzure_Scored_Probabilities(result.getString("Scored Probabilities"));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // set value of azure response if get on ERROR
+                    singleQuestionNew.setAzure_Ground_Truth("ERROR");
+                    singleQuestionNew.setAzure_Confidence("ERROR");
+                    singleQuestionNew.setAzure_Distance("ERROR");
+                    singleQuestionNew.setAzure_Scored_Labels("ERROR");
+                    singleQuestionNew.setAzure_Scored_Probabilities("ERROR");
+
+                }
+            } else {
+                //set value of azure response if question is mathematics(division/subtraction)
+                singleQuestionNew.setAzure_Ground_Truth("MATHEMATICS_OPERATION");
+                singleQuestionNew.setAzure_Confidence("MATHEMATICS_OPERATION");
+                singleQuestionNew.setAzure_Distance("MATHEMATICS_OPERATION");
+                singleQuestionNew.setAzure_Scored_Labels("MATHEMATICS_OPERATION");
+                singleQuestionNew.setAzure_Scored_Probabilities("MATHEMATICS_OPERATION");
+            }
+
             singleQuestionNew.setRecordingName(que_id + ".mp3");
+            //set server side answer
+            if (istrue) {
+                questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
+                singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                singleQuestionNew.setCorrect(true);
+                questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+
+            } else {
+                questionStructure.setIsCorrect(AserSample_Constant.WRONG);
+                singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                singleQuestionNew.setCorrect(false);
+            }
             addQuestionToAnswerList(studentNew, singleQuestionNew);
             dialogParent.dismiss();
         }
@@ -327,4 +524,5 @@ public class EnlargeView extends Dialog {
             }
         }
     }
+
 }
