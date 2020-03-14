@@ -25,6 +25,11 @@ public class SingleQuestionNew implements Serializable {
     private String noiseDescription;
     private String remarks;
     private String groundTruthDescription;
+    private String azure_Ground_Truth;
+    private String azure_Confidence;
+    private String azure_Distance;
+    private String azure_Scored_Labels;
+    private String azure_Scored_Probabilities;
 
     public String getQue_id() {
         return que_id;
@@ -122,7 +127,47 @@ public class SingleQuestionNew implements Serializable {
         this.groundTruthDescription = groundTruthDescription;
     }
 
-    /*  public int getQue_seq_cnt() {
+    public String getAzure_Ground_Truth() {
+        return azure_Ground_Truth;
+    }
+
+    public void setAzure_Ground_Truth(String azure_Ground_Truth) {
+        this.azure_Ground_Truth = azure_Ground_Truth;
+    }
+
+    public String getAzure_Confidence() {
+        return azure_Confidence;
+    }
+
+    public void setAzure_Confidence(String azure_Confidence) {
+        this.azure_Confidence = azure_Confidence;
+    }
+
+    public String getAzure_Distance() {
+        return azure_Distance;
+    }
+
+    public void setAzure_Distance(String azure_Distance) {
+        this.azure_Distance = azure_Distance;
+    }
+
+    public String getAzure_Scored_Labels() {
+        return azure_Scored_Labels;
+    }
+
+    public void setAzure_Scored_Labels(String azure_Scored_Labels) {
+        this.azure_Scored_Labels = azure_Scored_Labels;
+    }
+
+    public String getAzure_Scored_Probabilities() {
+        return azure_Scored_Probabilities;
+    }
+
+    public void setAzure_Scored_Probabilities(String azure_Scored_Probabilities) {
+        this.azure_Scored_Probabilities = azure_Scored_Probabilities;
+    }
+
+   /*  public int getQue_seq_cnt() {
         return que_seq_cnt;
     }
 

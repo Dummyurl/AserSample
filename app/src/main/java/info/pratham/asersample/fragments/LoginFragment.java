@@ -13,11 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.StringRequestListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,12 +72,14 @@ public class LoginFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        userName.setText("");
-        password.setText("");
+        userName.setText("amolmoghe");
+        password.setText("pratham@123");
     }
 
     @OnClick(R.id.loginSubmitButton)
     public void onSubmit() {
+
+
         String user = userName.getText().toString().trim();
         String pass = password.getText().toString().trim();
         if (user.equals("admin") && pass.equals("admin")) {

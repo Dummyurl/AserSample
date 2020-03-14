@@ -28,6 +28,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 private Integer generateVersionCode() {
@@ -69,8 +73,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     // catcho
     // implementation 'net.alhazmy13.catcho:library:1.1.0'
-    //implementation 'com.google.cloud:google-cloud-speech:1.22.0'
-
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

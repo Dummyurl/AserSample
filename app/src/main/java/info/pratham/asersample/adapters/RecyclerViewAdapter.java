@@ -119,6 +119,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                 }
                                 questionStructure.setSelected(false);
                                 questionStructure.setIsCorrect(AserSample_Constant.NOTATTEMPED);
+                                questionStructure.setAzure_Scored_Labels(AserSample_Constant.NOTATTEMPED);
                                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
                                 holder.delete.setVisibility(View.GONE);
                                 holder.audioControll.setVisibility(View.GONE);
@@ -192,35 +193,35 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                         //NATIVE LANGUAGE
                                         case "Words":
                                             if (isAttempted || ListConstant.Words_cnt < ListConstant.FIVE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
                                             break;
                                         case "Letters":
                                             if (isAttempted || ListConstant.Letters_cnt < ListConstant.FIVE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
                                             break;
                                         case "Capital":
                                             if (isAttempted || ListConstant.Capital_cnt < ListConstant.FIVE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
                                             break;
                                         case "Small":
                                             if (isAttempted || ListConstant.Small_cnt < ListConstant.FIVE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
                                             break;
                                         case "word":
                                             if (isAttempted || ListConstant.engWord_cnt < ListConstant.FIVE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
@@ -228,28 +229,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                         //MATHEMATICS
                                         case "Single":
                                             if (isAttempted || ListConstant.Single_cnt < ListConstant.FIVE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
                                             break;
                                         case "Double":
                                             if (isAttempted || ListConstant.Double_cnt < ListConstant.FIVE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
                                             break;
                                         case "Subtraction":
                                             if (isAttempted || ListConstant.Subtraction_cnt < ListConstant.TWO) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
                                             break;
                                         case "Division":
                                             if (isAttempted || ListConstant.Division_cnt < ListConstant.ONE) {
-                                                openEnlaegeView(holder, questionStructure);
+                                                openEnlargeView(holder, questionStructure);
+                                                System.err.println("");
                                             } else {
                                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                                             }
@@ -267,35 +269,35 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         //NATIVE LANGUAGE
                         case "Words":
                             if (isAttempted || ListConstant.Words_cnt < ListConstant.FIVE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "Letters":
                             if (isAttempted || ListConstant.Letters_cnt < ListConstant.FIVE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "Capital":
                             if (isAttempted || ListConstant.Capital_cnt < ListConstant.FIVE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "Small":
                             if (isAttempted || ListConstant.Small_cnt < ListConstant.FIVE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "word":
                             if (isAttempted || ListConstant.engWord_cnt < ListConstant.FIVE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
@@ -303,28 +305,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         //MATHEMATICS
                         case "Single":
                             if (isAttempted || ListConstant.Single_cnt < ListConstant.FIVE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "Double":
                             if (isAttempted || ListConstant.Double_cnt < ListConstant.FIVE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "Subtraction":
                             if (isAttempted || ListConstant.Subtraction_cnt < ListConstant.TWO) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case "Division":
                             if (isAttempted || ListConstant.Division_cnt < ListConstant.ONE) {
-                                openEnlaegeView(holder, questionStructure);
+                                openEnlargeView(holder, questionStructure);
                             } else {
                                 Toast.makeText(context, context.getResources().getString(R.string.Upper_Limit_reached), Toast.LENGTH_SHORT).show();
                             }
@@ -335,7 +337,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         });
     }
 
-    public void openEnlaegeView(MyViewHolder holder, QuestionStructure questionStructure) {
+    public void openEnlargeView(MyViewHolder holder, QuestionStructure questionStructure) {
         boolean isAttemptedQue = false;
         if (questionStructure.isSelected()) {
             isAttemptedQue = true;

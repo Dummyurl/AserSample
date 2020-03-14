@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.pratham.asersample.BuildConfig;
+
 /**
  * Created by PEF on 28/11/2018.
  */
@@ -26,6 +28,7 @@ public class Student implements Serializable {
     private String nativeProficiency;
     private String mathematicsProficiency;
     private String englishProficiency;
+    private String apk_version;
 
     @SerializedName("sequenceList")
     private List<SingleQuestionNew> sequenceList = new ArrayList();
@@ -44,6 +47,7 @@ public class Student implements Serializable {
         this.date = date;
         this.deviceID = deviceID;
         this.validatedDate = validatedDate;
+        this.apk_version = BuildConfig.VERSION_NAME;
     }
 
     public String getNativeProficiency() {

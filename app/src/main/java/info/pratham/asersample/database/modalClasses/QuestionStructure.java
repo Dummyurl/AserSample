@@ -16,7 +16,7 @@ public class QuestionStructure {
     private boolean isSelected = false;
     private String isCorrect = AserSample_Constant.NOTATTEMPED;
     private transient boolean isPlaying = false;
-
+    private String azure_Scored_Labels;
    /* public QuestionStructure(String id, String data) {
         this.id = id;
         this.data = data;
@@ -93,5 +93,13 @@ public class QuestionStructure {
 
     public void setPlaying(boolean playing) {
         isPlaying = playing;
+    }
+
+    public String getAzure_Scored_Labels() {
+        return azure_Scored_Labels;
+    }
+
+    public void setAzure_Scored_Labels(String azure_Scored_Labels) {
+        this.azure_Scored_Labels = azure_Scored_Labels;
     }
 }
