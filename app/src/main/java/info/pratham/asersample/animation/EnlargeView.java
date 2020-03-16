@@ -18,33 +18,28 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.pratham.asersample.ASERApplication;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.database.modalClasses.SingleQuestionNew;
 import info.pratham.asersample.database.modalClasses.Student;
-import info.pratham.asersample.interfaces.ApiInterface;
 import info.pratham.asersample.interfaces.GetTimeListener;
 import info.pratham.asersample.interfaces.RefreshRecycler;
 import info.pratham.asersample.utility.AserSample_Constant;
 import info.pratham.asersample.utility.AudioUtil;
 import info.pratham.asersample.utility.ListConstant;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EnlargeView extends Dialog {
     @BindView(R.id.text)
@@ -211,6 +206,7 @@ public class EnlargeView extends Dialog {
                 jsonObject.put("Confidence", "0.12");
                 jsonObject.put("Transcript", "house");
 
+
                 azure_model(jsonObject);
 
             } catch (JSONException e) {
@@ -244,38 +240,57 @@ public class EnlargeView extends Dialog {
 
 */
     private void azure_model(JSONObject jsonObject) {
-   /*     Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://englishsentence.us-east-1.elasticbeanstalk.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<ResponseBody> registerAuthorCall = apiInterface.editUser("text/plain",jsonObject);
-
-        registerAuthorCall.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String s = response.body().string();
-                    Log.d("DD", s);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("t",t.getMessage());
-            }
-        });*/
-
-
+        String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" + "HI_S4_S_1.wav";
+        /*AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" + questionStructure.getId() + ".mp3";*/
+        File file = new File(currentFilePath);
+        if(file.exists()){
+            boolean f=true;
+        }
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         progressDialog.setTitle("loading...");
         progressDialog.show();
         progressDialog.setCancelable(false);
         String url = "http://englishsentence.us-east-1.elasticbeanstalk.com/api";
 
-        AndroidNetworking.post(url)
+
+        AndroidNetworking.upload(url)
+                .addMultipartParameter("Ground Truth", "I like to read.")
+                .addMultipartFile("file", file)
+                .build()
+                .setUploadProgressListener(new UploadProgressListener() {
+                    @Override
+                    public void onProgress(long bytesUploaded, long totalBytes) {
+                        // do anything with progress
+                    }
+                })
+                .getAsString(new StringRequestListener() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        addEntry(response.toString());
+                        Log.d("data", response.toString());
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        progressDialog.dismiss();
+                        addEntry(anError.toString());
+                        Log.d("data", anError.toString());
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+    /*    AndroidNetworking.post(url)
                 .addHeaders("Content-Type", "text/plain")
                 .addJSONObjectBody(jsonObject)
                 .build()
@@ -293,7 +308,7 @@ public class EnlargeView extends Dialog {
                         addEntry(anError.toString());
                         Log.d("data", anError.toString());
                     }
-                });
+                });*/
     }
 
     @Override
