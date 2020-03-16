@@ -240,6 +240,7 @@ public class EnlargeView extends Dialog {
 
 */
     private void azure_model(JSONObject jsonObject) {
+        //todo "HI_S4_S_1.wav" remove and uncoment below line
         String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" + "HI_S4_S_1.wav";
         /*AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" + questionStructure.getId() + ".mp3";*/
         File file = new File(currentFilePath);
