@@ -434,8 +434,8 @@ public class EnlargeView extends Dialog {
                 } catch (Exception e) {
                     e.printStackTrace();
                     // set value of azure response if get on ERROR
-                    singleQuestionNew.setAzure_Ground_Truth("ERROR");
-                    singleQuestionNew.setAzure_Confidence("ERROR");
+                    //singleQuestionNew.setAzure_Ground_Truth("ERROR");
+                    //singleQuestionNew.setAzure_Confidence("ERROR");
                     singleQuestionNew.setAzure_Distance("ERROR");
                     singleQuestionNew.setAzure_Scored_Labels("ERROR");
                     singleQuestionNew.setAzure_Scored_Probabilities("ERROR");
@@ -443,8 +443,8 @@ public class EnlargeView extends Dialog {
                 }
             } else {
                 //set value of azure response if question is mathematics(division/subtraction)
-                singleQuestionNew.setAzure_Ground_Truth("MATHEMATICS_OPERATION");
-                singleQuestionNew.setAzure_Confidence("MATHEMATICS_OPERATION");
+               // singleQuestionNew.setAzure_Ground_Truth("MATHEMATICS_OPERATION");
+               // singleQuestionNew.setAzure_Confidence("MATHEMATICS_OPERATION");
                 singleQuestionNew.setAzure_Distance("MATHEMATICS_OPERATION");
                 singleQuestionNew.setAzure_Scored_Labels("MATHEMATICS_OPERATION");
                 singleQuestionNew.setAzure_Scored_Probabilities("MATHEMATICS_OPERATION");
