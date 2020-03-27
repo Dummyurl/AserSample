@@ -199,21 +199,7 @@ public class EnlargeView extends Dialog {
         if (level.equals("Subtraction") || level.equals("Division")) {
             addEntry(null);
         } else {
-            try {
-                //    "{\"Ground Truth\":\"I like to sing.\",\"Confidence\":\"0.12\", \"Transcript\":\"house\"}"
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("Ground Truth", que_text);
-                jsonObject.put("Confidence", "0.12");
-                jsonObject.put("Transcript", "house");
-
-
-                azure_model(jsonObject);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
+            azure_model();
         }
     }
 
@@ -239,13 +225,13 @@ public class EnlargeView extends Dialog {
     }
 
 */
-    private void azure_model(JSONObject jsonObject) {
+    private void azure_model() {
         //todo "HI_S4_S_1.wav" remove and uncoment below line
         String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
-        AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" + questionStructure.getId() + ".mp3";
+                AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" + questionStructure.getId() + ".mp3";
         File file = new File(currentFilePath);
-        if(file.exists()){
-            boolean f=true;
+        if (file.exists()) {
+            boolean f = true;
         }
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         progressDialog.setTitle("loading...");
@@ -255,7 +241,7 @@ public class EnlargeView extends Dialog {
 
 
         AndroidNetworking.upload(url)
-                .addMultipartParameter("Ground Truth",que_text)
+                .addMultipartParameter("Ground Truth", que_text)
                 .addMultipartFile("file", file)
                 .build()
                 .setUploadProgressListener(new UploadProgressListener() {
@@ -279,15 +265,6 @@ public class EnlargeView extends Dialog {
                         Log.d("data", anError.toString());
                     }
                 });
-
-
-
-
-
-
-
-
-
 
 
 
@@ -318,7 +295,7 @@ public class EnlargeView extends Dialog {
     }
 
     private void addEntry(String response) {
-        boolean istrue = true;
+        // boolean istrue = true;
         Student studentNew = AserSample_Constant.getAserSample_Constant().getStudent();
         List<SingleQuestionNew> temp = studentNew.getSequenceList();
 
@@ -475,7 +452,7 @@ public class EnlargeView extends Dialog {
 
             singleQuestionNew.setRecordingName(que_id + ".mp3");
             //set server side answer
-            if (istrue) {
+            if (singleQuestionNew.getAzure_Scored_Labels().equalsIgnoreCase("1")) {
                 questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
                 singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
                 singleQuestionNew.setCorrect(true);
