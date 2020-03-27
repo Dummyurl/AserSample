@@ -241,8 +241,8 @@ public class EnlargeView extends Dialog {
 */
     private void azure_model(JSONObject jsonObject) {
         //todo "HI_S4_S_1.wav" remove and uncoment below line
-        String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" + "HI_S4_S_1.wav";
-        /*AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" + questionStructure.getId() + ".mp3";*/
+        String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
+        AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" + questionStructure.getId() + ".mp3";
         File file = new File(currentFilePath);
         if(file.exists()){
             boolean f=true;
@@ -251,11 +251,11 @@ public class EnlargeView extends Dialog {
         progressDialog.setTitle("loading...");
         progressDialog.show();
         progressDialog.setCancelable(false);
-        String url = "http://englishsentence.us-east-1.elasticbeanstalk.com/api";
+        String url = "http://ec2-54-224-187-187.compute-1.amazonaws.com/api";
 
 
         AndroidNetworking.upload(url)
-                .addMultipartParameter("Ground Truth", "I like to read.")
+                .addMultipartParameter("Ground Truth",que_text)
                 .addMultipartFile("file", file)
                 .build()
                 .setUploadProgressListener(new UploadProgressListener() {
