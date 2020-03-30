@@ -25,7 +25,7 @@ public class SingleQuestionNew implements Serializable {
     private String noiseDescription;
     private String remarks;
     private String groundTruthDescription;
-    private String azure_Ground_Truth;
+    private String azure_Transcript;
     private String azure_Confidence;
     private String azure_Distance;
     private String azure_Scored_Labels;
@@ -127,12 +127,12 @@ public class SingleQuestionNew implements Serializable {
         this.groundTruthDescription = groundTruthDescription;
     }
 
-    public String getAzure_Ground_Truth() {
-        return azure_Ground_Truth;
+    public String getAzure_Transcript() {
+        return azure_Transcript;
     }
 
-    public void setAzure_Ground_Truth(String azure_Ground_Truth) {
-        this.azure_Ground_Truth = azure_Ground_Truth;
+    public void setAzure_Transcript(String azure_Transcript) {
+        this.azure_Transcript = azure_Transcript;
     }
 
     public String getAzure_Confidence() {

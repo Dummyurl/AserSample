@@ -13,6 +13,7 @@ import info.pratham.asersample.database.modalClasses.Student;
 
 public class AserSample_Constant {
     public static String selectedLanguage;
+    public static String subject;
     public static JSONObject sample;
     public static String crlID;
     private static AserSample_Constant aserSample_constant = null;

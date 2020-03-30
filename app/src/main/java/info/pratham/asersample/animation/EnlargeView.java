@@ -237,12 +237,16 @@ public class EnlargeView extends Dialog {
         progressDialog.setTitle("loading...");
         progressDialog.show();
         progressDialog.setCancelable(false);
-        String url = "http://ec2-54-224-187-187.compute-1.amazonaws.com/api";
+        //String url = "http://ec2-54-224-187-187.compute-1.amazonaws.com/api";
+        String url = "http://ec2-3-87-243-123.compute-1.amazonaws.com/api";
 
-
+        String[] ids = questionStructure.getId().split("_");
+        String proficiency = ids[2];
         AndroidNetworking.upload(url)
-                .addMultipartParameter("Ground Truth", que_text)
                 .addMultipartFile("file", file)
+                .addMultipartParameter("Language", AserSample_Constant.subject.toUpperCase())
+                .addMultipartParameter("Proficiency", proficiency)
+                .addMultipartParameter("Ground Truth", que_text)
                 .build()
                 .setUploadProgressListener(new UploadProgressListener() {
                     @Override
@@ -425,8 +429,18 @@ public class EnlargeView extends Dialog {
                 try {
                     JSONObject result = new JSONObject(response);
                     //set value of azure response if get on ERROR
-                    // singleQuestionNew.setAzure_Ground_Truth(result.getString("Ground Truth"));
-                    //  singleQuestionNew.setAzure_Confidence(result.getString("Confidence"));
+
+                    try {
+                        JSONObject stt = result.getJSONObject("STT");
+                        singleQuestionNew.setAzure_Transcript(result.getString("Transcript"));
+                        singleQuestionNew.setAzure_Confidence(stt.getString("Confidence"));
+                    } catch (JSONException e) {
+                        singleQuestionNew.setAzure_Transcript("0");
+                        singleQuestionNew.setAzure_Confidence("0");
+                        e.printStackTrace();
+                    }
+
+
                     singleQuestionNew.setAzure_Distance(result.getString("Distance"));
                     singleQuestionNew.setAzure_Scored_Labels(result.getString("Scored Labels"));
                     singleQuestionNew.setAzure_Scored_Probabilities(result.getString("Scored Probabilities"));
@@ -434,8 +448,8 @@ public class EnlargeView extends Dialog {
                 } catch (Exception e) {
                     e.printStackTrace();
                     // set value of azure response if get on ERROR
-                    //singleQuestionNew.setAzure_Ground_Truth("ERROR");
-                    //singleQuestionNew.setAzure_Confidence("ERROR");
+                    singleQuestionNew.setAzure_Transcript("ERROR");
+                    singleQuestionNew.setAzure_Confidence("ERROR");
                     singleQuestionNew.setAzure_Distance("ERROR");
                     singleQuestionNew.setAzure_Scored_Labels("ERROR");
                     singleQuestionNew.setAzure_Scored_Probabilities("ERROR");
@@ -443,8 +457,8 @@ public class EnlargeView extends Dialog {
                 }
             } else {
                 //set value of azure response if question is mathematics(division/subtraction)
-               // singleQuestionNew.setAzure_Ground_Truth("MATHEMATICS_OPERATION");
-               // singleQuestionNew.setAzure_Confidence("MATHEMATICS_OPERATION");
+                singleQuestionNew.setAzure_Transcript("MATHEMATICS_OPERATION");
+                singleQuestionNew.setAzure_Confidence("MATHEMATICS_OPERATION");
                 singleQuestionNew.setAzure_Distance("MATHEMATICS_OPERATION");
                 singleQuestionNew.setAzure_Scored_Labels("MATHEMATICS_OPERATION");
                 singleQuestionNew.setAzure_Scored_Probabilities("MATHEMATICS_OPERATION");

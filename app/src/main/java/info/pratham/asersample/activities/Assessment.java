@@ -109,18 +109,21 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
                         showDialog();
                         header.setText("Native");
                         fragment = new NativeLang();
+                        AserSample_Constant.subject=AserSample_Constant.selectedLanguage;
                         loadFragment(fragment);
                         return true;
                     case R.id.navigation_maths:
                         showDialog();
                         header.setText("Mathematics");
                         fragment = new MathFragment();
+                        AserSample_Constant.subject=AserSample_Constant.selectedLanguage;
                         loadFragment(fragment);
                         return true;
                     case R.id.navigation_english:
                         showDialog();
                         header.setText("English");
                         fragment = new English();
+                        AserSample_Constant.subject=getString(R.string.English);
                         loadFragment(fragment);
                         return true;
                 }
