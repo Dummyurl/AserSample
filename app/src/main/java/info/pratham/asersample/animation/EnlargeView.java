@@ -371,15 +371,25 @@ public class EnlargeView extends Dialog {
                 int subAnsByUser = Integer.parseInt(subtraction);
                 if (ans == subAnsByUser) {
                     questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
-                    singleQuestionNew.setAzure_Scored_Labels("1");
+                    singleQuestionNew.setModel_Scored_Labels("1");
                     singleQuestionNew.setCorrect(true);
                     questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
 
+                    singleQuestionNew.setStt_Transcript("");
+                    singleQuestionNew.setStt_Confidence("");
+                    singleQuestionNew.setEdit_Distance("");
+                    singleQuestionNew.setModel_Scored_Probabilities("");
+
                 } else {
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
-                    singleQuestionNew.setAzure_Scored_Labels("0");
+                    singleQuestionNew.setModel_Scored_Labels("0");
                     questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
                     singleQuestionNew.setCorrect(false);
+
+                    singleQuestionNew.setStt_Transcript("");
+                    singleQuestionNew.setStt_Confidence("");
+                    singleQuestionNew.setEdit_Distance("");
+                    singleQuestionNew.setModel_Scored_Probabilities("");
                 }
                 singleQuestionNew.setAnswer(subtraction);
                 addQuestionToAnswerList(studentNew, singleQuestionNew);
@@ -390,25 +400,51 @@ public class EnlargeView extends Dialog {
             String remainder_ans = remainder.getText().toString();
             if (!quotient_ans.isEmpty() || !remainder_ans.isEmpty()) {
 
-                String[] numbers = que_text.split("/");
-                int number1 = Integer.parseInt(numbers[0].trim());
-                int number2 = Integer.parseInt(numbers[1].trim());
-                int quo_ans = number1 / number2;
-                int quotientAnsByUser = Integer.parseInt(quotient_ans);
-                int remain_ans = number1 % number2;
-                int remainderAnsByUser = Integer.parseInt(remainder_ans);
+                try {
 
-                if ((quo_ans == quotientAnsByUser) && (remain_ans == remainderAnsByUser)) {
-                    questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
-                    singleQuestionNew.setAzure_Scored_Labels("1");
-                    singleQuestionNew.setCorrect(true);
-                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                    String[] numbers = que_text.split("/");
+                    int number1 = Integer.parseInt(numbers[0].trim());
+                    int number2 = Integer.parseInt(numbers[1].trim());
+                    int quo_ans = number1 / number2;
+                    int quotientAnsByUser = Integer.parseInt(quotient_ans);
+                    int remain_ans = number1 % number2;
+                    int remainderAnsByUser = Integer.parseInt(remainder_ans);
 
-                } else {
+                    if ((quo_ans == quotientAnsByUser) && (remain_ans == remainderAnsByUser)) {
+                        questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
+                        singleQuestionNew.setModel_Scored_Labels("1");
+                        singleQuestionNew.setCorrect(true);
+                        questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+
+                        singleQuestionNew.setStt_Transcript("");
+                        singleQuestionNew.setStt_Confidence("");
+                        singleQuestionNew.setEdit_Distance("");
+                        singleQuestionNew.setModel_Scored_Probabilities("");
+
+                    } else {
+                        questionStructure.setIsCorrect(AserSample_Constant.WRONG);
+                        singleQuestionNew.setModel_Scored_Labels("0");
+                        questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                        singleQuestionNew.setCorrect(false);
+
+                        singleQuestionNew.setStt_Transcript("");
+                        singleQuestionNew.setStt_Confidence("");
+                        singleQuestionNew.setEdit_Distance("");
+                        singleQuestionNew.setModel_Scored_Probabilities("");
+                    }
+
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    //set the wrong answer in any one is blank
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
-                    singleQuestionNew.setAzure_Scored_Labels("0");
+                    singleQuestionNew.setModel_Scored_Labels("0");
                     questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
                     singleQuestionNew.setCorrect(false);
+
+                    singleQuestionNew.setStt_Transcript("");
+                    singleQuestionNew.setStt_Confidence("");
+                    singleQuestionNew.setEdit_Distance("");
+                    singleQuestionNew.setModel_Scored_Probabilities("");
                 }
 
                 singleQuestionNew.setAnswer(quotient_ans);
@@ -441,42 +477,42 @@ public class EnlargeView extends Dialog {
 
                     try {
                         JSONObject stt = result.getJSONObject("STT");
-                        singleQuestionNew.setAzure_Transcript(stt.getString("Transcript"));
-                        singleQuestionNew.setAzure_Confidence(stt.getString("Confidence"));
+                        singleQuestionNew.setStt_Transcript(stt.getString("Transcript"));
+                        singleQuestionNew.setStt_Confidence(stt.getString("Confidence"));
                     } catch (JSONException e) {
-                        singleQuestionNew.setAzure_Transcript("0");
-                        singleQuestionNew.setAzure_Confidence("0");
+                        singleQuestionNew.setStt_Transcript("0");
+                        singleQuestionNew.setStt_Confidence("0");
                         e.printStackTrace();
                     }
 
 
-                    singleQuestionNew.setAzure_Distance(result.getString("Distance"));
-                    singleQuestionNew.setAzure_Scored_Labels(result.getString("Scored Labels"));
-                    singleQuestionNew.setAzure_Scored_Probabilities(result.getString("Scored Probabilities"));
+                    singleQuestionNew.setEdit_Distance(result.getString("Distance"));
+                    singleQuestionNew.setModel_Scored_Labels(result.getString("Scored Labels"));
+                    singleQuestionNew.setModel_Scored_Probabilities(result.getString("Scored Probabilities"));
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     // set value of azure response if get on ERROR
-                    singleQuestionNew.setAzure_Transcript("ERROR");
-                    singleQuestionNew.setAzure_Confidence("ERROR");
-                    singleQuestionNew.setAzure_Distance("ERROR");
-                    singleQuestionNew.setAzure_Scored_Labels("ERROR");
-                    singleQuestionNew.setAzure_Scored_Probabilities("ERROR");
+                    singleQuestionNew.setStt_Transcript("ERROR");
+                    singleQuestionNew.setStt_Confidence("ERROR");
+                    singleQuestionNew.setEdit_Distance("ERROR");
+                    singleQuestionNew.setModel_Scored_Labels("ERROR");
+                    singleQuestionNew.setModel_Scored_Probabilities("ERROR");
 
                 }
             } else {
                 //set value of azure response if question is mathematics(division/subtraction)
-                singleQuestionNew.setAzure_Transcript("MATHEMATICS_OPERATION");
-                singleQuestionNew.setAzure_Confidence("MATHEMATICS_OPERATION");
-                singleQuestionNew.setAzure_Distance("MATHEMATICS_OPERATION");
-                singleQuestionNew.setAzure_Scored_Labels("MATHEMATICS_OPERATION");
-                singleQuestionNew.setAzure_Scored_Probabilities("MATHEMATICS_OPERATION");
+                singleQuestionNew.setStt_Transcript("");
+                singleQuestionNew.setStt_Confidence("");
+                singleQuestionNew.setEdit_Distance("");
+                singleQuestionNew.setModel_Scored_Labels("");
+                singleQuestionNew.setModel_Scored_Probabilities("");
             }
 
             singleQuestionNew.setRecordingName(que_id + ".mp3");
             //set server side answer
             if (!level.equals("Single") && !level.equals("Double")) {
-                if (singleQuestionNew.getAzure_Scored_Labels().equalsIgnoreCase("1")) {
+                if (singleQuestionNew.getModel_Scored_Labels().equalsIgnoreCase("1")) {
                     questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
                     //singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
                     singleQuestionNew.setCorrect(true);

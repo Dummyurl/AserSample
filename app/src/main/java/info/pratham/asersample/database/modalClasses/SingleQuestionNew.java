@@ -25,11 +25,17 @@ public class SingleQuestionNew implements Serializable {
     private String noiseDescription;
     private String remarks;
     private String groundTruthDescription;
-    private String azure_Transcript;
-    private String azure_Confidence;
-    private String azure_Distance;
-    private String azure_Scored_Labels;
-    private String azure_Scored_Probabilities;
+
+    @SerializedName("stt_Transcript")
+    private String stt_Transcript;
+    @SerializedName("stt_Confidence")
+    private String stt_Confidence;
+    @SerializedName("edit_Distance")
+    private String edit_Distance;
+    @SerializedName("model_Scored_Labels")
+    private String model_Scored_Labels;
+    @SerializedName("model_Scored_Probabilities")
+    private String model_Scored_Probabilities;
 
     public String getQue_id() {
         return que_id;
@@ -127,47 +133,47 @@ public class SingleQuestionNew implements Serializable {
         this.groundTruthDescription = groundTruthDescription;
     }
 
-    public String getAzure_Transcript() {
-        return azure_Transcript;
+    public String getStt_Transcript() {
+        return stt_Transcript;
     }
 
-    public void setAzure_Transcript(String azure_Transcript) {
-        this.azure_Transcript = azure_Transcript;
+    public void setStt_Transcript(String stt_Transcript) {
+        this.stt_Transcript = stt_Transcript;
     }
 
-    public String getAzure_Confidence() {
-        return azure_Confidence;
+    public String getStt_Confidence() {
+        return stt_Confidence;
     }
 
-    public void setAzure_Confidence(String azure_Confidence) {
-        this.azure_Confidence = azure_Confidence;
+    public void setStt_Confidence(String stt_Confidence) {
+        this.stt_Confidence = stt_Confidence;
     }
 
-    public String getAzure_Distance() {
-        return azure_Distance;
+    public String getEdit_Distance() {
+        return edit_Distance;
     }
 
-    public void setAzure_Distance(String azure_Distance) {
-        this.azure_Distance = azure_Distance;
+    public void setEdit_Distance(String edit_Distance) {
+        this.edit_Distance = edit_Distance;
     }
 
-    public String getAzure_Scored_Labels() {
-        return azure_Scored_Labels;
+    public String getModel_Scored_Labels() {
+        return model_Scored_Labels;
     }
 
-    public void setAzure_Scored_Labels(String azure_Scored_Labels) {
-        this.azure_Scored_Labels = azure_Scored_Labels;
+    public void setModel_Scored_Labels(String model_Scored_Labels) {
+        this.model_Scored_Labels = model_Scored_Labels;
     }
 
-    public String getAzure_Scored_Probabilities() {
-        return azure_Scored_Probabilities;
+    public String getModel_Scored_Probabilities() {
+        return model_Scored_Probabilities;
     }
 
-    public void setAzure_Scored_Probabilities(String azure_Scored_Probabilities) {
-        this.azure_Scored_Probabilities = azure_Scored_Probabilities;
+    public void setModel_Scored_Probabilities(String model_Scored_Probabilities) {
+        this.model_Scored_Probabilities = model_Scored_Probabilities;
     }
 
-   /*  public int getQue_seq_cnt() {
+/*  public int getQue_seq_cnt() {
         return que_seq_cnt;
     }
 

@@ -51,13 +51,14 @@ public class LoginActivity extends BaseActivity implements PermissionResult {
 //        if (getIntent().getStringExtra("authentication") == null)
 //            startActivity(new Intent(this, PhoneAuthActivity.class));
 //        else {
-            if (!createFolderStructureForStoringDataLocally())
-                Toast.makeText(this, "Cannot create folder locally", Toast.LENGTH_SHORT).show();
-            if (fragment == null) {
-                AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
-            } else if (fragment.equals(SelectLanguageFragment.class.getSimpleName())) {
-                AserSampleUtility.setTestOrValidationDialog(LoginActivity.this);
-            }
+        if (!createFolderStructureForStoringDataLocally())
+            Toast.makeText(this, "Cannot create folder locally", Toast.LENGTH_SHORT).show();
+        if (fragment == null) {
+            AserSampleUtility.showFragment(LoginActivity.this, new LoginFragment(), LoginFragment.class.getSimpleName());
+        } else if (fragment.equals(SelectLanguageFragment.class.getSimpleName())) {
+            //AserSampleUtility.setTestOrValidationDialog(LoginActivity.this);
+            AserSampleUtility.showFragment(this, new SelectLanguageFragment(), SelectLanguageFragment.class.getSimpleName());
+        }
 //        }
     }
 

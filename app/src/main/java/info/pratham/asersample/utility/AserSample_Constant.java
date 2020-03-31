@@ -25,7 +25,7 @@ public class AserSample_Constant {
     //used to avoid spelling mistake in server side response (quetion is wrong write)
     public static String TRUE="true";
     public static String FALSE="false";
-
+    public static String nodeName="API model";
 
     /*StudentNew studentNew;
 

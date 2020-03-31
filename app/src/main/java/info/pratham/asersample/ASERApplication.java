@@ -10,6 +10,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.File;
 import java.util.Random;
 
+import info.pratham.asersample.utility.AserSample_Constant;
+
 /**
  * Created by Pravin on 2 Feb 2018.
  */
@@ -51,7 +53,7 @@ public class ASERApplication extends Application {
 
     public String getRootPath() {
         File root = android.os.Environment.getExternalStorageDirectory();
-        return root.getAbsolutePath() + "/StudentRecordings/azure_model/";
+        return root.getAbsolutePath() + "/StudentRecordings/"+ AserSample_Constant.nodeName +"/";
     }
 
     public String getRootPathForDeletion() {

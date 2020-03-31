@@ -49,7 +49,7 @@ public class Submit extends AppCompatActivity {
         setContentView(R.layout.activity_submit);
         ButterKnife.bind(this);
         AserSampleUtility.writeStudentInJson(this);
-        mDatabase = FirebaseDatabase.getInstance().getReference("azure_model");
+        mDatabase = FirebaseDatabase.getInstance().getReference(AserSample_Constant.nodeName);
 
         mDatabase.child(AserSample_Constant.getCrlID()).child(AserSample_Constant.getAserSample_Constant().getStudent().getId()).setValue(AserSample_Constant.getAserSample_Constant().getStudent())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
