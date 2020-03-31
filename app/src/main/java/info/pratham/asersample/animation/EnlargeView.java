@@ -196,7 +196,7 @@ public class EnlargeView extends Dialog {
 
     private void autoCheck() {
         AudioUtil.stopRecording(mContext);
-        if (level.equals("Subtraction") || level.equals("Division")) {
+        if (level.equals("Subtraction") || level.equals("Division") || level.equals("Subtraction") || level.equals("Division")) {
             addEntry(null);
         } else {
             azure_model();
@@ -265,6 +265,15 @@ public class EnlargeView extends Dialog {
                     @Override
                     public void onError(ANError anError) {
                         progressDialog.dismiss();
+                        new AlertDialog.Builder(getContext())
+                                .setMessage("Check network connection")
+                                .setPositiveButton("yes", new OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).show();
+
                         addEntry(anError.toString());
                         Log.d("data", anError.toString());
                     }
@@ -432,7 +441,7 @@ public class EnlargeView extends Dialog {
 
                     try {
                         JSONObject stt = result.getJSONObject("STT");
-                        singleQuestionNew.setAzure_Transcript(result.getString("Transcript"));
+                        singleQuestionNew.setAzure_Transcript(stt.getString("Transcript"));
                         singleQuestionNew.setAzure_Confidence(stt.getString("Confidence"));
                     } catch (JSONException e) {
                         singleQuestionNew.setAzure_Transcript("0");
