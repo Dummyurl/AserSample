@@ -230,9 +230,9 @@ public class EnlargeView extends Dialog {
         String currentFilePath = ASERApplication.getInstance().getRootPath() + AserSample_Constant.getCrlID() + "/" +
                 AserSample_Constant.getAserSample_Constant().getStudent().getId() + "/" + questionStructure.getId() + ".mp3";
         File file = new File(currentFilePath);
-        if (file.exists()) {
+      /*  if (file.exists()) {
             boolean f = true;
-        }
+        }*/
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         progressDialog.setTitle("loading...");
         progressDialog.show();
@@ -371,13 +371,13 @@ public class EnlargeView extends Dialog {
                 int subAnsByUser = Integer.parseInt(subtraction);
                 if (ans == subAnsByUser) {
                     questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
-                    singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                    singleQuestionNew.setAzure_Scored_Labels("1");
                     singleQuestionNew.setCorrect(true);
                     questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
 
                 } else {
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
-                    singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    singleQuestionNew.setAzure_Scored_Labels("0");
                     questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
                     singleQuestionNew.setCorrect(false);
                 }
@@ -400,13 +400,13 @@ public class EnlargeView extends Dialog {
 
                 if ((quo_ans == quotientAnsByUser) && (remain_ans == remainderAnsByUser)) {
                     questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
-                    singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                    singleQuestionNew.setAzure_Scored_Labels("1");
                     singleQuestionNew.setCorrect(true);
                     questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
 
                 } else {
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
-                    singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    singleQuestionNew.setAzure_Scored_Labels("0");
                     questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
                     singleQuestionNew.setCorrect(false);
                 }
