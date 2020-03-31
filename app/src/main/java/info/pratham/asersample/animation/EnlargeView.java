@@ -196,7 +196,7 @@ public class EnlargeView extends Dialog {
 
     private void autoCheck() {
         AudioUtil.stopRecording(mContext);
-        if (level.equals("Subtraction") || level.equals("Division") || level.equals("Subtraction") || level.equals("Division")) {
+        if (level.equals("Subtraction") || level.equals("Division") || level.equals("Single") || level.equals("Double")) {
             addEntry(null);
         } else {
             azure_model();
@@ -267,7 +267,7 @@ public class EnlargeView extends Dialog {
                         progressDialog.dismiss();
                         new AlertDialog.Builder(getContext())
                                 .setMessage("Check network connection")
-                                .setPositiveButton("yes", new OnClickListener() {
+                                .setPositiveButton("OK", new OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
@@ -477,13 +477,13 @@ public class EnlargeView extends Dialog {
             //set server side answer
             if (singleQuestionNew.getAzure_Scored_Labels().equalsIgnoreCase("1")) {
                 questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
-                singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                //singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
                 singleQuestionNew.setCorrect(true);
                 questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
 
             } else {
                 questionStructure.setIsCorrect(AserSample_Constant.WRONG);
-                singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+               // singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
                 questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
                 singleQuestionNew.setCorrect(false);
             }
