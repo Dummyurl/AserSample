@@ -475,17 +475,19 @@ public class EnlargeView extends Dialog {
 
             singleQuestionNew.setRecordingName(que_id + ".mp3");
             //set server side answer
-            if (singleQuestionNew.getAzure_Scored_Labels().equalsIgnoreCase("1")) {
-                questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
-                //singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
-                singleQuestionNew.setCorrect(true);
-                questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+            if (!level.equals("Single") && !level.equals("Double")) {
+                if (singleQuestionNew.getAzure_Scored_Labels().equalsIgnoreCase("1")) {
+                    questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
+                    //singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                    singleQuestionNew.setCorrect(true);
+                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
 
-            } else {
-                questionStructure.setIsCorrect(AserSample_Constant.WRONG);
-               // singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
-                questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
-                singleQuestionNew.setCorrect(false);
+                } else {
+                    questionStructure.setIsCorrect(AserSample_Constant.WRONG);
+                    // singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    singleQuestionNew.setCorrect(false);
+                }
             }
             addQuestionToAnswerList(studentNew, singleQuestionNew);
             dialogParent.dismiss();
