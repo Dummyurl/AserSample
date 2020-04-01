@@ -361,31 +361,8 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
             }
         }
         if (flag) {
-            // decision dialog check manually or set default server response
-            final Dialog testOrValidationDialog = new Dialog(Assessment.this);
-            testOrValidationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            testOrValidationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            testOrValidationDialog.setContentView(R.layout.custom_dilog_theme);
-            testOrValidationDialog.setCanceledOnTouchOutside(false);
-            Button testDialogButton = testOrValidationDialog.findViewById(R.id.button_green);
-            testDialogButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    testOrValidationDialog.dismiss();
-                    onSubmitListener(subject, false, calledFrom);
-                }
-            });
-            Button validationDialogButton = testOrValidationDialog.findViewById(R.id.button_yellow);
-            List<QuestionStructure> finalQustionList = qustionList;
-            validationDialogButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    testOrValidationDialog.dismiss();
-                    ChekingDialog chekingDialog = new ChekingDialog(Assessment.this, finalQustionList, subject, level, calledFrom);
-                    chekingDialog.show();
-                }
-            });
-            testOrValidationDialog.show();
+            ChekingDialog chekingDialog = new ChekingDialog(Assessment.this, qustionList, subject, level, calledFrom);
+            chekingDialog.show();
         } else {
             //call a show proficincy
             if (calledFrom.equals("inFragment")) {
@@ -395,7 +372,6 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
             }
         }
     }
-
 
     /* after checking correct wrong answer by crl then on submit callback*/
     @Override

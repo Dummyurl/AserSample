@@ -373,7 +373,7 @@ public class EnlargeView extends Dialog {
                     questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
                     singleQuestionNew.setModel_Scored_Labels("1");
                     singleQuestionNew.setCorrect(true);
-                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                    questionStructure.setAzure_Scored_Labels("1");
 
                     singleQuestionNew.setStt_Transcript("");
                     singleQuestionNew.setStt_Confidence("");
@@ -383,7 +383,7 @@ public class EnlargeView extends Dialog {
                 } else {
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
                     singleQuestionNew.setModel_Scored_Labels("0");
-                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    questionStructure.setAzure_Scored_Labels("0");
                     singleQuestionNew.setCorrect(false);
 
                     singleQuestionNew.setStt_Transcript("");
@@ -414,7 +414,7 @@ public class EnlargeView extends Dialog {
                         questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
                         singleQuestionNew.setModel_Scored_Labels("1");
                         singleQuestionNew.setCorrect(true);
-                        questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                        questionStructure.setAzure_Scored_Labels("1");
 
                         singleQuestionNew.setStt_Transcript("");
                         singleQuestionNew.setStt_Confidence("");
@@ -424,7 +424,7 @@ public class EnlargeView extends Dialog {
                     } else {
                         questionStructure.setIsCorrect(AserSample_Constant.WRONG);
                         singleQuestionNew.setModel_Scored_Labels("0");
-                        questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                        questionStructure.setAzure_Scored_Labels("0");
                         singleQuestionNew.setCorrect(false);
 
                         singleQuestionNew.setStt_Transcript("");
@@ -438,7 +438,7 @@ public class EnlargeView extends Dialog {
                     //set the wrong answer in any one is blank
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
                     singleQuestionNew.setModel_Scored_Labels("0");
-                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    questionStructure.setAzure_Scored_Labels("0");
                     singleQuestionNew.setCorrect(false);
 
                     singleQuestionNew.setStt_Transcript("");
@@ -516,12 +516,12 @@ public class EnlargeView extends Dialog {
                     questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
                     //singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
                     singleQuestionNew.setCorrect(true);
-                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
+                    questionStructure.setAzure_Scored_Labels("1");
 
                 } else {
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
                     // singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
-                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.WRONG);
+                    questionStructure.setAzure_Scored_Labels("0");
                     singleQuestionNew.setCorrect(false);
                 }
             }

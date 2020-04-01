@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ import info.pratham.asersample.utility.AserSample_Constant;
 public class ChekingDialog extends Dialog {
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
+    @BindView(R.id.correct_count)
+    TextView correct_count;
 
     List<QuestionStructure> qustionList;
     List<QuestionStructure> tempList;
@@ -57,6 +60,7 @@ public class ChekingDialog extends Dialog {
                 tempList.add(questionStructure);
             }
         }
+        checkDecisionDialogShowOrNot(level, tempList);
         initRecycler();
     }
 
@@ -140,4 +144,75 @@ public class ChekingDialog extends Dialog {
             alertDialog.create().show();
         }
     }
+
+    private void checkDecisionDialogShowOrNot(String level, List<QuestionStructure> questionList) {
+        int correctCnt = checkRightCount(questionList);
+        switch (level) {
+            /*---------------- correct 4/5-----------------*/
+            //NATIVE LANGUAGE
+            case "Words":
+            case "Letters":
+                //ENGLISH Language
+            case "Capital":
+            case "Small":
+            case "word":
+                //MATHEMATICS
+            case "Single":
+            case "Double":
+                correct_count.setText("Result:" + correctCnt + "/5");
+                if (correctCnt >= 4) {
+                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
+                } else {
+                    correct_count.setTextColor(context.getResources().getColor(R.color.red));
+                }
+                break;
+            /*---------------- correct  no of mistake <=3 -----------------*/
+            case "Para":
+            case "Story":
+                correct_count.setText("Result:" + correctCnt + "/1");
+                if (correctCnt >= 1) {
+                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
+                } else {
+
+                }
+                break;
+            case "Sentence":
+                //   2/4
+                correct_count.setText("Result:" + correctCnt + "/4");
+                if (correctCnt >= 2) {
+                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
+                } else {
+                    correct_count.setTextColor(context.getResources().getColor(R.color.red));
+                }
+                break;
+            case "Subtraction":
+                //   2/2
+                correct_count.setText("Result:" + correctCnt + "/2");
+                if (correctCnt >= 2) {
+                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
+                } else {
+                    correct_count.setTextColor(context.getResources().getColor(R.color.red));
+                }
+                break;
+            case "Division":
+                correct_count.setText("Result:" + correctCnt + "/1");
+                if (correctCnt >= 1) {
+                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
+                } else {
+                    correct_count.setTextColor(context.getResources().getColor(R.color.red));
+                }
+                break;
+        }
+    }
+
+    private int checkRightCount(List<QuestionStructure> questionList) {
+        int correctCnt = 0;
+        for (QuestionStructure questionStructure : questionList) {
+            if (questionStructure.getAzure_Scored_Labels().trim().equals("1")) {
+                correctCnt++;
+            }
+        }
+        return correctCnt;
+    }
+
 }

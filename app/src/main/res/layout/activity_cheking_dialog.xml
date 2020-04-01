@@ -16,12 +16,21 @@
         android:textColor="@color/black"
         android:textSize="@dimen/_25sdp" />
 
+    <TextView
+        android:id="@+id/correct_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message"
+        android:text="Correct count"
+        android:textAlignment="center"
+        android:layout_marginBottom="@dimen/_10sdp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/submitLayout"
-        android:layout_below="@id/message"
+        android:layout_below="@id/correct_count"
         android:layout_marginTop="@dimen/_10sdp" />
 
     <RelativeLayout
