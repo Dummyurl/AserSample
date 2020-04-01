@@ -31,6 +31,8 @@
     <string name="red">Validate</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="Edit">Edit</string>
+    <string name="Continue">Continue</string>
     <string name="native_proficiency">Native</string>
     <string name="math_proficiency">Math</string>
     <string name="english_proficiency">English</string>

@@ -28,7 +28,7 @@ import info.pratham.asersample.interfaces.RecordPrepairListner;
 public class NativeLang extends Fragment{
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private Toolbar toolbar;
+   // private Toolbar toolbar;
     CheckQuestionListener checkQuestionListener;
     ViewPagerAdapter adapter;
     TabLayout.Tab mTab;

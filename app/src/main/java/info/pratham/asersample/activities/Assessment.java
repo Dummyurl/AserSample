@@ -1,8 +1,11 @@
 package info.pratham.asersample.activities;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -13,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
@@ -26,6 +30,7 @@ import butterknife.OnClick;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.dialog.ChekingDialog;
+import info.pratham.asersample.fragments.SelectLanguageFragment;
 import info.pratham.asersample.fragments.subject.English;
 import info.pratham.asersample.fragments.subject.MathFragment;
 import info.pratham.asersample.fragments.subject.NativeLang;
@@ -84,7 +89,7 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
             file.mkdirs();
         }*/
 
-       // AudioUtil.startRecording(this, currentFilePath + recordingIndex + "_" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + ".mp3");
+        // AudioUtil.startRecording(this, currentFilePath + recordingIndex + "_" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + ".mp3");
         chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
         chronometer.start();
         // new  CameraStateManager( currentFilePath + recordingIndex + "_" + AserSample_Constant.getAserSample_Constant().getStudent().getId() + ".mp3",this);
@@ -109,21 +114,21 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
                         showDialog();
                         header.setText("Native");
                         fragment = new NativeLang();
-                        AserSample_Constant.subject=AserSample_Constant.selectedLanguage;
+                        AserSample_Constant.subject = AserSample_Constant.selectedLanguage;
                         loadFragment(fragment);
                         return true;
                     case R.id.navigation_maths:
                         showDialog();
                         header.setText("Mathematics");
                         fragment = new MathFragment();
-                        AserSample_Constant.subject=AserSample_Constant.selectedLanguage;
+                        AserSample_Constant.subject = AserSample_Constant.selectedLanguage;
                         loadFragment(fragment);
                         return true;
                     case R.id.navigation_english:
                         showDialog();
                         header.setText("English");
                         fragment = new English();
-                        AserSample_Constant.subject=getString(R.string.English);
+                        AserSample_Constant.subject = getString(R.string.English);
                         loadFragment(fragment);
                         return true;
                 }
@@ -356,8 +361,31 @@ public class Assessment extends AppCompatActivity implements GetTimeListener, Ch
             }
         }
         if (flag) {
-            ChekingDialog chekingDialog = new ChekingDialog(this, qustionList, subject, level, calledFrom);
-            chekingDialog.show();
+            // decision dialog check manually or set default server response
+            final Dialog testOrValidationDialog = new Dialog(Assessment.this);
+            testOrValidationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            testOrValidationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            testOrValidationDialog.setContentView(R.layout.custom_dilog_theme);
+            testOrValidationDialog.setCanceledOnTouchOutside(false);
+            Button testDialogButton = testOrValidationDialog.findViewById(R.id.button_green);
+            testDialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    testOrValidationDialog.dismiss();
+                    onSubmitListener(subject, false, calledFrom);
+                }
+            });
+            Button validationDialogButton = testOrValidationDialog.findViewById(R.id.button_yellow);
+            List<QuestionStructure> finalQustionList = qustionList;
+            validationDialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    testOrValidationDialog.dismiss();
+                    ChekingDialog chekingDialog = new ChekingDialog(Assessment.this, finalQustionList, subject, level, calledFrom);
+                    chekingDialog.show();
+                }
+            });
+            testOrValidationDialog.show();
         } else {
             //call a show proficincy
             if (calledFrom.equals("inFragment")) {
