@@ -1,11 +1,8 @@
 package info.pratham.asersample.activities;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -16,7 +13,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
@@ -30,7 +26,6 @@ import butterknife.OnClick;
 import info.pratham.asersample.R;
 import info.pratham.asersample.database.modalClasses.QuestionStructure;
 import info.pratham.asersample.dialog.ChekingDialog;
-import info.pratham.asersample.fragments.SelectLanguageFragment;
 import info.pratham.asersample.fragments.subject.English;
 import info.pratham.asersample.fragments.subject.MathFragment;
 import info.pratham.asersample.fragments.subject.NativeLang;

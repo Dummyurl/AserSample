@@ -72,8 +72,8 @@ public class LoginFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        userName.setText("amolmoghe");
-//        password.setText("pratham@123");
+        userName.setText("amolmoghe");
+        password.setText("pratham@123");
     }
 
     @OnClick(R.id.loginSubmitButton)

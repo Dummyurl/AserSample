@@ -330,7 +330,7 @@ public class EnlargeView extends Dialog {
                     iterator.remove();
                     questionStructure.setIsCorrect(AserSample_Constant.NOTATTEMPED);
                     questionStructure.setNoOfMistakes(null);
-                    questionStructure.setAzure_Scored_Labels(AserSample_Constant.NOTATTEMPED);
+                    questionStructure.setModel_Scored_Labels(AserSample_Constant.NOTATTEMPED);
                     break;
                 }
             }
@@ -373,7 +373,7 @@ public class EnlargeView extends Dialog {
                     questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
                     singleQuestionNew.setModel_Scored_Labels("1");
                     singleQuestionNew.setCorrect(true);
-                    questionStructure.setAzure_Scored_Labels("1");
+                    questionStructure.setModel_Scored_Labels("1");
 
                     singleQuestionNew.setStt_Transcript("");
                     singleQuestionNew.setStt_Confidence("");
@@ -383,7 +383,7 @@ public class EnlargeView extends Dialog {
                 } else {
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
                     singleQuestionNew.setModel_Scored_Labels("0");
-                    questionStructure.setAzure_Scored_Labels("0");
+                    questionStructure.setModel_Scored_Labels("0");
                     singleQuestionNew.setCorrect(false);
 
                     singleQuestionNew.setStt_Transcript("");
@@ -414,7 +414,8 @@ public class EnlargeView extends Dialog {
                         questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
                         singleQuestionNew.setModel_Scored_Labels("1");
                         singleQuestionNew.setCorrect(true);
-                        questionStructure.setAzure_Scored_Labels("1");
+                        questionStructure.setModel_Scored_Labels("1");
+                        questionStructure.setModel_Scored_Probabilities("");
 
                         singleQuestionNew.setStt_Transcript("");
                         singleQuestionNew.setStt_Confidence("");
@@ -424,8 +425,9 @@ public class EnlargeView extends Dialog {
                     } else {
                         questionStructure.setIsCorrect(AserSample_Constant.WRONG);
                         singleQuestionNew.setModel_Scored_Labels("0");
-                        questionStructure.setAzure_Scored_Labels("0");
+                        questionStructure.setModel_Scored_Labels("0");
                         singleQuestionNew.setCorrect(false);
+                        questionStructure.setModel_Scored_Probabilities("");
 
                         singleQuestionNew.setStt_Transcript("");
                         singleQuestionNew.setStt_Confidence("");
@@ -438,8 +440,9 @@ public class EnlargeView extends Dialog {
                     //set the wrong answer in any one is blank
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
                     singleQuestionNew.setModel_Scored_Labels("0");
-                    questionStructure.setAzure_Scored_Labels("0");
+                    questionStructure.setModel_Scored_Labels("0");
                     singleQuestionNew.setCorrect(false);
+                    questionStructure.setModel_Scored_Probabilities("");
 
                     singleQuestionNew.setStt_Transcript("");
                     singleQuestionNew.setStt_Confidence("");
@@ -488,6 +491,7 @@ public class EnlargeView extends Dialog {
 
                     singleQuestionNew.setEdit_Distance(result.getString("Distance"));
                     singleQuestionNew.setModel_Scored_Labels(result.getString("Scored Labels"));
+                    questionStructure.setModel_Scored_Probabilities(result.getString("Scored Probabilities"));
                     singleQuestionNew.setModel_Scored_Probabilities(result.getString("Scored Probabilities"));
 
                 } catch (Exception e) {
@@ -498,7 +502,8 @@ public class EnlargeView extends Dialog {
                     singleQuestionNew.setEdit_Distance("ERROR");
                     singleQuestionNew.setModel_Scored_Labels("ERROR");
                     singleQuestionNew.setModel_Scored_Probabilities("ERROR");
-
+                    questionStructure.setModel_Scored_Probabilities("ERROR");
+                    questionStructure.setModel_Scored_Probabilities("ERROR");
                 }
             } else {
                 //set value of azure response if question is mathematics(division/subtraction)
@@ -507,6 +512,8 @@ public class EnlargeView extends Dialog {
                 singleQuestionNew.setEdit_Distance("");
                 singleQuestionNew.setModel_Scored_Labels("");
                 singleQuestionNew.setModel_Scored_Probabilities("");
+                questionStructure.setModel_Scored_Probabilities("");
+                questionStructure.setModel_Scored_Probabilities("");
             }
 
             singleQuestionNew.setRecordingName(que_id + ".mp3");
@@ -516,12 +523,12 @@ public class EnlargeView extends Dialog {
                     questionStructure.setIsCorrect(AserSample_Constant.CORRECT);
                     //singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.CORRECT);
                     singleQuestionNew.setCorrect(true);
-                    questionStructure.setAzure_Scored_Labels("1");
+                    questionStructure.setModel_Scored_Labels("1");
 
-                } else {
+                } else if(singleQuestionNew.getModel_Scored_Labels().equalsIgnoreCase("0")){
                     questionStructure.setIsCorrect(AserSample_Constant.WRONG);
                     // singleQuestionNew.setAzure_Scored_Labels(AserSample_Constant.WRONG);
-                    questionStructure.setAzure_Scored_Labels("0");
+                    questionStructure.setModel_Scored_Labels("0");
                     singleQuestionNew.setCorrect(false);
                 }
             }

@@ -119,7 +119,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                 }
                                 questionStructure.setSelected(false);
                                 questionStructure.setIsCorrect(AserSample_Constant.NOTATTEMPED);
-                                questionStructure.setAzure_Scored_Labels(AserSample_Constant.NOTATTEMPED);
+                                questionStructure.setModel_Scored_Labels(AserSample_Constant.NOTATTEMPED);
                                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.white));
                                 holder.delete.setVisibility(View.GONE);
                                 holder.audioControll.setVisibility(View.GONE);

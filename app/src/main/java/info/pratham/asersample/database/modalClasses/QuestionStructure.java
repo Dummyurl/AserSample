@@ -16,7 +16,8 @@ public class QuestionStructure {
     private boolean isSelected = false;
     private String isCorrect = AserSample_Constant.NOTATTEMPED;
     private transient boolean isPlaying = false;
-    private String azure_Scored_Labels;
+    private String model_Scored_Labels;
+    private String model_Scored_Probabilities;
    /* public QuestionStructure(String id, String data) {
         this.id = id;
         this.data = data;
@@ -95,11 +96,19 @@ public class QuestionStructure {
         isPlaying = playing;
     }
 
-    public String getAzure_Scored_Labels() {
-        return azure_Scored_Labels;
+    public String getModel_Scored_Labels() {
+        return model_Scored_Labels;
     }
 
-    public void setAzure_Scored_Labels(String azure_Scored_Labels) {
-        this.azure_Scored_Labels = azure_Scored_Labels;
+    public void setModel_Scored_Labels(String model_Scored_Labels) {
+        this.model_Scored_Labels = model_Scored_Labels;
+    }
+
+    public String getModel_Scored_Probabilities() {
+        return model_Scored_Probabilities;
+    }
+
+    public void setModel_Scored_Probabilities(String model_Scored_Probabilities) {
+        this.model_Scored_Probabilities = model_Scored_Probabilities;
     }
 }

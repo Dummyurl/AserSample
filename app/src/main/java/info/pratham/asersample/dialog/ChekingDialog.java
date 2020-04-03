@@ -10,6 +10,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,11 +28,20 @@ import info.pratham.asersample.database.modalClasses.Student;
 import info.pratham.asersample.interfaces.CheckQuestionListener;
 import info.pratham.asersample.utility.AserSample_Constant;
 
+import static java.lang.Float.NaN;
+import static java.lang.Float.isNaN;
+
 public class ChekingDialog extends Dialog {
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
     @BindView(R.id.correct_count)
     TextView correct_count;
+    @BindView(R.id.level_status)
+    TextView level_status;
+    @BindView(R.id.score_probability)
+    TextView score_probability;
+    @BindView(R.id.score_status)
+    LinearLayout score_status;
 
     List<QuestionStructure> qustionList;
     List<QuestionStructure> tempList;
@@ -147,68 +158,101 @@ public class ChekingDialog extends Dialog {
 
     private void checkDecisionDialogShowOrNot(String level, List<QuestionStructure> questionList) {
         int correctCnt = checkRightCount(questionList);
-        switch (level) {
-            /*---------------- correct 4/5-----------------*/
-            //NATIVE LANGUAGE
-            case "Words":
-            case "Letters":
-                //ENGLISH Language
-            case "Capital":
-            case "Small":
-            case "word":
-                //MATHEMATICS
-            case "Single":
-            case "Double":
-                correct_count.setText("Result:" + correctCnt + "/5");
-                if (correctCnt >= 4) {
-                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
-                } else {
-                    correct_count.setTextColor(context.getResources().getColor(R.color.red));
-                }
-                break;
-            /*---------------- correct  no of mistake <=3 -----------------*/
-            case "Para":
-            case "Story":
-                correct_count.setText("Result:" + correctCnt + "/1");
-                if (correctCnt >= 1) {
-                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
-                } else {
+        float scoredProbabilities = checkScoredProbabilities(questionList);
+        if (!isNaN(scoredProbabilities)) {
+            switch (level) {
+                /*---------------- correct 4/5-----------------*/
+                //NATIVE LANGUAGE
+                case "Words":
+                case "Letters":
+                    //ENGLISH Language
+                case "Capital":
+                case "Small":
+                case "word":
+                    //MATHEMATICS
+                case "Single":
+                case "Double":
 
-                }
-                break;
-            case "Sentence":
-                //   2/4
-                correct_count.setText("Result:" + correctCnt + "/4");
-                if (correctCnt >= 2) {
-                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
-                } else {
-                    correct_count.setTextColor(context.getResources().getColor(R.color.red));
-                }
-                break;
-            case "Subtraction":
-                //   2/2
-                correct_count.setText("Result:" + correctCnt + "/2");
-                if (correctCnt >= 2) {
-                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
-                } else {
-                    correct_count.setTextColor(context.getResources().getColor(R.color.red));
-                }
-                break;
-            case "Division":
-                correct_count.setText("Result:" + correctCnt + "/1");
+                    if (correctCnt >= 4) {
+                        setSCore(correctCnt, 5, true, scoredProbabilities);
+                    } else {
+                        setSCore(correctCnt, 5, false, scoredProbabilities);
+                    }
+                    break;
+                /*---------------- correct  no of mistake <=3 -----------------*/
+                case "Para":
+                case "Story":
+                case "Division":
+                    if (correctCnt >= 1) {
+                        setSCore(correctCnt, 1, true, scoredProbabilities);
+                    } else {
+                        setSCore(correctCnt, 1, false, scoredProbabilities);
+                    }
+                    break;
+                case "Sentence":
+                    //   2/4
+                    if (correctCnt >= 2) {
+                        setSCore(correctCnt, 4, true, scoredProbabilities);
+                    } else {
+                        setSCore(correctCnt, 4, false, scoredProbabilities);
+                    }
+                    break;
+                case "Subtraction":
+                    //   2/2
+                    if (correctCnt >= 2) {
+                        setSCore(correctCnt, 2, true, scoredProbabilities);
+                    } else {
+                        setSCore(correctCnt, 2, false, scoredProbabilities);
+                    }
+                    break;
+          /*  case "Division":
                 if (correctCnt >= 1) {
-                    correct_count.setTextColor(context.getResources().getColor(R.color.green));
+                    setSCore(correctCnt, 1, true,scoredProbabilities);
                 } else {
-                    correct_count.setTextColor(context.getResources().getColor(R.color.red));
+                    setSCore(correctCnt, 1, false,scoredProbabilities);
                 }
-                break;
+                break;*/
+            }
+        } else {
+            score_status.setVisibility(View.GONE);
+        }
+    }
+
+    private float checkScoredProbabilities(List<QuestionStructure> questionList) {
+        float sumOfScoredProbabilities = 0;
+        float totalCnt = 0;
+        for (QuestionStructure questionStructure : questionList) {
+            try {
+                sumOfScoredProbabilities += Float.parseFloat(questionStructure.getModel_Scored_Probabilities());
+                totalCnt++;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            float a = sumOfScoredProbabilities / totalCnt;
+            return a;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    private void setSCore(int correctCnt, int outof, boolean result, float scoredProbabilities) {
+        correct_count.setText(": " + correctCnt + "/" + outof);
+        score_probability.setText(": " + scoredProbabilities + "%");
+        if (result) {
+            level_status.setText(": " + context.getString(R.string.Pass));
+            level_status.setTextColor(context.getResources().getColor(R.color.green));
+        } else {
+            level_status.setText(": " + context.getString(R.string.Fail));
+            level_status.setTextColor(context.getResources().getColor(R.color.red));
         }
     }
 
     private int checkRightCount(List<QuestionStructure> questionList) {
         int correctCnt = 0;
         for (QuestionStructure questionStructure : questionList) {
-            if (questionStructure.getAzure_Scored_Labels().trim().equals("1")) {
+            if (questionStructure.getModel_Scored_Labels() != null && questionStructure.getModel_Scored_Labels().trim().equals("1")) {
                 correctCnt++;
             }
         }
