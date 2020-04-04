@@ -239,7 +239,7 @@ public class ChekingDialog extends Dialog {
 
     private void setSCore(int correctCnt, int outof, boolean result, float scoredProbabilities) {
         correct_count.setText(": " + correctCnt + "/" + outof);
-        score_probability.setText(": " + scoredProbabilities + "%");
+        score_probability.setText(": " + scoredProbabilities*100 + "%");
         if (result) {
             level_status.setText(": " + context.getString(R.string.Pass));
             level_status.setTextColor(context.getResources().getColor(R.color.green));
