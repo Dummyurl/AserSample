@@ -238,8 +238,8 @@ public class EnlargeView extends Dialog {
         progressDialog.show();
         progressDialog.setCancelable(false);
         //String url = "http://ec2-54-224-187-187.compute-1.amazonaws.com/api";
-        String url = "http://ec2-3-87-243-123.compute-1.amazonaws.com/api";
-
+//        String url = "http://ec2-3-87-243-123.compute-1.amazonaws.com/api";
+        String url = "http://ec2-34-201-65-47.compute-1.amazonaws.com/api";
         String[] ids = questionStructure.getId().split("_");
         String proficiency = ids[2];
         AndroidNetworking.upload(url)
